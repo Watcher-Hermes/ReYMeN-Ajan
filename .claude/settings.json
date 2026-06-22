@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ReYMeN": {
+      "command": "python",
+      "args": [
+        "c:/Users/marko/OneDrive/Desktop/Reymen Proje/hermes_projesi/mcp_serve.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}

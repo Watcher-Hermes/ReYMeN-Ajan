@@ -1,0 +1,31 @@
+{
+  "default_model": "cognitivecomputations.dolphin3.0-llama3.1-8b",
+  "default_provider": "lmstudio",
+  "secure_binding": true,
+  "providers": {
+    "lmstudio": {
+      "base_url": "http://localhost:1234",
+      "api_key": "not-needed"
+    },
+    "deepseek": {
+      "base_url": "https://api.deepseek.com",
+      "api_key": ""
+    }
+  },
+  "fallback_model": null,
+  "auxiliary": {
+    "compression": {
+      "model": "cognitivecomputations.dolphin3.0-llama3.1-8b",
+      "provider": "lmstudio",
+      "base_url": "http://localhost:1234",
+      "api_key": "not-needed"
+    }
+  },
+  "telegram": {
+    "token": "",
+    "chat_id": ""
+  },
+  "backend_mode": "local",
+  "skills_count": 333,
+  "skills_dir": ".reYMeN/skills"
+}

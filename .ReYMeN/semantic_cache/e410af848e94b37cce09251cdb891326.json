@@ -1,0 +1,1 @@
+["DÜŞÜN: Python çalıştırma fonksiyonunda sürekli hata alıyorum. Daha basit bir yaklaşım deneyeyim - önce sadece SKILL.md dosyalarının varlığını kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=os.listdir(d); print('Toplam:', len(items))\")", 1782016042.5092206]

@@ -1,0 +1,355 @@
+{
+  "2___2_kac_eder_": {
+    "ad": "2 + 2 kac eder?",
+    "aciklama": "2 + 2 kac eder?",
+    "tetikleyiciler": [
+      "kac",
+      "+",
+      "eder?",
+      "2"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Tamamlanamadi: tur asimi",
+    "kullanim_sayisi": 1,
+    "basari_orani": 0.7,
+    "olusturma": "2026-06-17",
+    "son_basari": "2026-06-17"
+  },
+  "skıller_kontrol_et": {
+    "ad": "skıller kontrol et",
+    "aciklama": "skıller kontrol et",
+    "tetikleyiciler": [
+      "kontrol",
+      "et",
+      "skıller"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "DOSYA_OKU",
+      "PYTHON_CALISTIR",
+      "DOSYA_OKU"
+    ],
+    "basari_kriteri": "Skills klasörü tarandı: 575 skill tespit edildi. Her skill bir klasör ve SKILL.m",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-20",
+    "son_basari": "2026-06-20"
+  },
+  "telegram_baglantısı_kopuk": {
+    "ad": "telegram baglantısı kopuk",
+    "aciklama": "telegram baglantısı kopuk",
+    "tetikleyiciler": [
+      "telegram",
+      "kopuk",
+      "baglantısı"
+    ],
+    "adimlar": [
+      "WEB_ARA",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "KOMUT_CALISTIR: \"find . -type f -name '*.py' -o -name '*.env' -o -name '*.json' ",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-20",
+    "son_basari": "2026-06-20"
+  },
+  "çöz": {
+    "ad": "çöz",
+    "aciklama": "çöz",
+    "tetikleyiciler": [
+      "çöz"
+    ],
+    "adimlar": [
+      "DOSYA_OKU",
+      "PYTHON_CALISTIR",
+      "HAFIZA_ARA",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "DOSYA_OKU",
+      "WEB_ARA"
+    ],
+    "basari_kriteri": "Tamamlanamadi: tur asimi",
+    "kullanim_sayisi": 1,
+    "basari_orani": 0.7,
+    "olusturma": "2026-06-20",
+    "son_basari": "2026-06-20"
+  },
+  "slm": {
+    "ad": "slm",
+    "aciklama": "slm",
+    "tetikleyiciler": [
+      "slm"
+    ],
+    "adimlar": [
+      "DUSUN"
+    ],
+    "basari_kriteri": "Tamamlanamadi: tur asimi",
+    "kullanim_sayisi": 1,
+    "basari_orani": 0.7,
+    "olusturma": "2026-06-20",
+    "son_basari": "2026-06-20"
+  },
+  "kac_skill_var": {
+    "ad": "kac skill var",
+    "aciklama": "kac skill var",
+    "tetikleyiciler": [
+      "skill",
+      "var",
+      "kac"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "skills/ dizininde toplam 547 skill bulundu. Ilk 10: 3d-pipeline, a2a-agent-spec,",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-20",
+    "son_basari": "2026-06-20"
+  },
+  "sen_c__users_marko_desktop_reymen_proje_hermes_pro": {
+    "ad": "sen C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_pro",
+    "aciklama": "sen C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_pro",
+    "tetikleyiciler": [
+      "c:\\users\\marko\\desktop\\reymen",
+      "icerisinde",
+      "ageant",
+      "calısan",
+      "proje\\hermes_projesi",
+      "sen"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Kullaniciya kendimi tanittim. Ben ReYMeN ajan modeliyim, ReYMeN core uzerinde ca",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "hepsını_kontrol_et": {
+    "ad": "hepsını kontrol et",
+    "aciklama": "hepsını kontrol et",
+    "tetikleyiciler": [
+      "hepsını",
+      "et",
+      "kontrol"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Tamamlanamadi: tur asimi",
+    "kullanim_sayisi": 1,
+    "basari_orani": 0.7,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "kac_skıl_var": {
+    "ad": "kac skıl var",
+    "aciklama": "kac skıl var",
+    "tetikleyiciler": [
+      "kac",
+      "skıl",
+      "var"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Sistemde toplam **547 adet skill** (beceri) bulunuyor.",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "koontrol_et": {
+    "ad": "koontrol et",
+    "aciklama": "koontrol et",
+    "tetikleyiciler": [
+      "koontrol",
+      "et"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "DOSYA_OKU"
+    ],
+    "basari_kriteri": "✅ **Sistem kontrolü tamamlandı.**\\n\\n**Durum:** Sistem çalışıyor.\\n**Dizin:** `C",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "hafızan_guncelle": {
+    "ad": "hafızan guncelle",
+    "aciklama": "hafızan guncelle",
+    "tetikleyiciler": [
+      "hafızan",
+      "guncelle"
+    ],
+    "adimlar": [
+      "DOSYA_OKU",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Hafızan güncellendi. SQLite veritabanına (`hafiza.db`) yeni bir kayıt eklendi. M",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "_telegram___reymen_reymenbot__yanlıs_bot_kıral_38": {
+    "ad": "[Telegram] @ReYMeN_ReYMeNbot  yanlıs bot kıral 38 ",
+    "aciklama": "[Telegram] @ReYMeN_ReYMeNbot  yanlıs bot kıral 38 ",
+    "tetikleyiciler": [
+      "yanlıs",
+      "38",
+      "@reymen_reymenbot",
+      "[telegram]",
+      "kıral",
+      "bot"
+    ],
+    "adimlar": [
+      "DOSYA_OKU",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "KOMUT_CALISTIR: \"curl -s https://api.telegram.org/bot8774151638:AAFNMVK12XjC-V7T",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "kac_skıll_var": {
+    "ad": "kac skıll var",
+    "aciklama": "kac skıll var",
+    "tetikleyiciler": [
+      "kac",
+      "var",
+      "skıll"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Toplamda **547 adet skill** bulunuyor.",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "c__users_marko_desktop_reymen_proje_hermes_projesi": {
+    "ad": "C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi",
+    "aciklama": "C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi",
+    "tetikleyiciler": [
+      "proje\\hermes_projesi",
+      "c:\\users\\marko\\desktop\\reymen",
+      "skıl",
+      "kac",
+      "fazla",
+      "bak",
+      "calısıyorsun",
+      "daha",
+      "de",
+      "var"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "C:\\\\Users\\\\marko\\\\Desktop\\\\Reymen Proje\\\\hermes_projesi\\\\skills klasörüne baktım",
+    "kullanim_sayisi": 2,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "memory_kontrol_et": {
+    "ad": "memory kontrol et",
+    "aciklama": "memory kontrol et",
+    "tetikleyiciler": [
+      "et",
+      "kontrol",
+      "memory"
+    ],
+    "adimlar": [
+      "HAFIZA_ARA"
+    ],
+    "basari_kriteri": "Hafıza kontrolü tamam. Toplam 4 kayıt bulundu:\\n\\n1. **hermes_state_db** (sessio",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "https___github_com_watcher_hermes_hermes_full_back": {
+    "ad": "https://github.com/Watcher-Hermes/hermes-full-back",
+    "aciklama": "https://github.com/Watcher-Hermes/hermes-full-back",
+    "tetikleyiciler": [
+      "https://github.com/watcher-hermes/ReYMeN-full-backup.git",
+      "ki",
+      "memory",
+      "memoruy",
+      "ve",
+      "burda",
+      "ındır",
+      "hafızana",
+      "skıll"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "KOMUT_CALISTIR: \"cd /tmp && git clone https://github.com/Watcher-Hermes/hermes-f",
+    "kullanim_sayisi": 2,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "tekrar_kontrol_et": {
+    "ad": "tekrar kontrol et",
+    "aciklama": "tekrar kontrol et",
+    "tetikleyiciler": [
+      "tekrar",
+      "kontrol",
+      "et"
+    ],
+    "adimlar": [
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Tekrar kontrol edildi. **Toplam 547 adet skill** bulunuyor. İlk 10: 3d-pipeline,",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  }
+}

@@ -1,0 +1,5 @@
+## Authorization
+
+### Permissions
+
+```python

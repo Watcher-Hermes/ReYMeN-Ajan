@@ -1,0 +1,1 @@
+["DÜŞÜN: Dizin başarıyla değişti. Şimdi bu dizinin içeriğini listeleyip ajan/model ile ilgili dosyaları tespit etmeliyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"\nimport os\nitems = os.listdir('.')\nprint('Dizin icerigi:')\nfor item in items:\n    print(item)\n\")", 1782015355.985652]

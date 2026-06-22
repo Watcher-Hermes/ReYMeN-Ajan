@@ -1,0 +1,1 @@
+["DÜŞÜN: Hata `ModuleNotFoundError: No module named 'dotenv'` - dotenv modülü eksik. Önce dotenv modülünü yüklemeliyim. Ama sistemde pip çalışıyor mu kontrol edeyim.\n\nEYLEM:\nKOMUT_CALISTIR(\"pip install python-dotenv\")", 1782016468.3715568]

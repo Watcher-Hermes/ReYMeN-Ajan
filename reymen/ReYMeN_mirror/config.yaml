@@ -1,0 +1,42 @@
+# ReYMeN Bilgi Ajani — Config
+
+# Kaynak listesi
+sources:
+  - name: "ai_news"
+    query: "artificial intelligence news today"
+    interval_min: 30
+    priority: "high"
+
+  - name: "tech_startups"
+    query: "tech startup funding 2026"
+    interval_min: 60
+    priority: "normal"
+
+  - name: "market_data"
+    query: "global market trends"
+    interval_min: 15
+    priority: "normal"
+
+  - name: "turkey_tech"
+    query: "Turkiye teknoloji haberleri 2026"
+    interval_min: 120
+    priority: "low"
+
+# Scheduler ayarlari
+scheduler:
+  timezone: "UTC"
+  max_instances: 1
+  misfire_grace_time: 300
+
+# Tarayici ayarlari
+browser:
+  headless: true
+  viewport_width: 1920
+  viewport_height: 1080
+  timeout_seconds: 30
+
+# Vektor DB
+vector_db:
+  path: "./chroma_db"
+  model: "all-MiniLM-L6-v2"
+  top_k: 5

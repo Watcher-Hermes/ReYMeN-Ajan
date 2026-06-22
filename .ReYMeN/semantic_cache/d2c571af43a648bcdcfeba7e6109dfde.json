@@ -1,0 +1,1 @@
+["DÜŞÜN: Komut çalıştırma aracı 2 argüman bekliyor ancak ben 3 argüman gönderdim. Tek argüman olarak komutu vermeliyim.\n\nEYLEM:\nKOMUT_CALISTIR(\"cd /tmp && git clone https://github.com/Watcher-Hermes/ReYMeN-full-backup.git hermes_backup 2>&1\")", 1782019489.5712848]

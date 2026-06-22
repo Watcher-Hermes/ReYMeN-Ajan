@@ -1,0 +1,1 @@
+["DÜŞÜN: PYTHON_CALISTIR'da \"Kod gerekli\" hatası alıyorum. Bu, sandbox ortamının çalışmadığını gösteriyor. Farklı bir yaklaşım denemeliyim - doğrudan `bot_direkt.py` dosyasını çalıştırmayı deneyeyim, çünkü bu dosya \"direkt Telegram API\" kullanıyor ve bağımsız çalışabiliyor.\n\nEYLEM:\nKOMUT_CALISTIR(\"python bot_direkt.py\")", 1782016458.009871]

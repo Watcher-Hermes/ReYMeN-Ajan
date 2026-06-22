@@ -1,0 +1,63 @@
+agent:
+  api_max_retries: 1
+  api_timeout: 60
+  environment_probe: true
+  gateway_timeout: 1800
+  max_turns: 90
+  parallel_tool_call_guidance: true
+  task_completion_guidance: true
+  tool_use_enforcement: auto
+approvals:
+  mode: false
+compression:
+  enabled: true
+  target_ratio: 0.2
+  threshold: 0.5
+credential_pool_strategies: {}
+display:
+  compact: false
+  final_response_markdown: strip
+  interface: cli
+  language: tr
+  skin: reymen
+  streaming: false
+fallback_providers:
+- api_mode: chat_completions
+  model: mimo-v2.5
+  provider: xiaomi
+- api_mode: chat_completions
+  base_url: https://openrouter.ai/api/v1
+  model: deepseek/deepseek-v4-flash
+  provider: openrouter
+gateway:
+  strict: false
+max_concurrent_sessions: null
+mcp_servers:
+  powerbi:
+    args:
+    - --start
+    command: powerbi-modeling-mcp
+memory_char_limit: 50000
+model:
+  api_mode: chat_completions
+  base_url: ''
+  default: deepseek-chat
+  provider: deepseek
+onboarding:
+  seen:
+    busy_input_prompt: true
+    profile_build_offered: true
+providers: {}
+skills:
+  external_dirs:
+  - C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\skills
+telegram:
+  allowed_chats: ''
+  channel_prompts: {}
+  reactions: false
+terminal:
+  backend: local
+  cwd: C:\Users\marko\Desktop\Reymen Proje\hermes_projesi
+  timeout: 180
+web:
+  backend: firecrawl

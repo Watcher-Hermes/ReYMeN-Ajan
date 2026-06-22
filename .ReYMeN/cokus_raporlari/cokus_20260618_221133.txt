@@ -1,0 +1,48 @@
+============================================================
+🚨 [OTONOM SISTEM COKUS / TAHLIYE RAPORU] 🚨
+============================================================
+Kritik Zaman Dilimi    : 2026-06-18 22:11:33
+Basarisiz Olunan Gorev : Bilgisayar da ekran fotoğrafı cek at bana
+Toplam Tuketilen Dongu : 15 Tur
+
+Sistem, otonom problem cozme sinirlarina ulasmis ve
+kritik kilitlenme yasamistir. Donem icinde devreye alinan
+tum uzman yapay zeka personalari basarisiz olmustur.
+
+------------------------------------------------------------
+🔍 [KRONOLOJIK HATA VE ADAPTASYON GECMISI]
+------------------------------------------------------------
+  [1] PYTHON_CALISTIR: "import pyautogui; import sys; print('pyautogui version:', pyautogui.__version__)"
+  [2] PYTHON_CALISTIR: "from PIL import ImageGrab; import sys; print('PIL ImageGrab mevcut'); im = ImageGrab.grab(); im.save('ekran.png'); print('Ekran goruntusu ekran.png olarak kaydedildi')"
+  [3] KOMUT_CALISTIR: "powershell -Command \"Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bitmap = New-Object System.Drawing.Bitmap $screen.Width, $screen.Height; $graphics = [System.Drawing.Graphics]::FromImage($bitmap); $graphics.CopyFromScreen($screen.X, $screen.Y, 0, 0, $screen.Size); $bitmap.Save('ekran.png', [System.Drawing.Imaging.ImageFormat]::Png); $graphics.Dispose(); $bitmap.Dispose(); Write-Output 'Ekran goruntusu alindi: ekran.png'\""
+  [4] KOMUT_CALISTIR: "powershell -Command \"Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap $bounds.Width, $bounds.Height; $g = [System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($bounds.X, $bounds.Y, 0, 0, $bounds.Size); $bmp.Save('ekran.png', [System.Drawing.Imaging.ImageFormat]::Png); $g.Dispose(); $bmp.Dispose(); Write-Host 'Ekran goruntusu alindi: ekran.png'\""
+  [5] DOSYA_YAZ: "screenshot.ps1", "Add-Type -AssemblyName System.Windows.Forms`nAdd-Type -AssemblyName System.Drawing`n`$bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds`n`$bmp = New-Object System.Drawing.Bitmap `$bounds.Width, `$bounds.Height`n`$g = [System.Drawing.Graphics]::FromImage(`$bmp)`n`$g.CopyFromScreen(`$bounds.X, `$bounds.Y, 0, 0, `$bounds.Size)`n`$bmp.Save('ekran.png', [System.Drawing.Imaging.ImageFormat]::Png)`n`$g.Dispose()`n`$bmp.Dispose()`nWrite-Host 'Ekran goruntusu alindi: ekran.png'"
+  [6] PYTHON_CALISTIR: "import base64; cmd = \"Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap $bounds.Width, $bounds.Height; $g = [System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($bounds.X, $bounds.Y, 0, 0, $bounds.Size); $bmp.Save('ekran.png', [System.Drawing.Imaging.ImageFormat]::Png); $g.Dispose(); $bmp.Dispose(); Write-Host 'OK'\"; print(base64.b64encode(cmd.encode('utf-16le')).decode())"
+  [7] PYTHON_CALISTIR: "import base64; cmd = 'Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap $bounds.Width, $bounds.Height; $g = [System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($bounds.X, $bounds.Y, 0, 0, $bounds.Size); $bmp.Save(\"ekran.png\", [System.Drawing.Imaging.ImageFormat]::Png); $g.Dispose(); $bmp.Dispose(); Write-Host \"OK\"'; encoded = base64.b64encode(cmd.encode('utf-16le')).decode(); print(encoded)"
+
+------------------------------------------------------------
+🧠 [GOREV SURESINCE DENENEN AJANLAR]
+------------------------------------------------------------
+genel_cozucu
+
+------------------------------------------------------------
+⚠️  [OLUMCUL KILITLENME NOKTASI (KOK NEDEN)]
+------------------------------------------------------------
+Son gozlem: [ÇIKTI]
+QQBkAGQALQBUAHkAcABlACAALQBBAHMAcwBlAG0AYgBsAHkATgBhAG0AZQAgAFMAeQBzAHQAZQBtAC4AVwBpAG4AZABvAHcAcwAuAEYAbwByAG0AcwA7ACAAQQBkAGQALQBUAHkAcABlACAALQBBAHMAcwBlAG0AYgBsAHkATgBhAG0AZQAgAFMAeQBzAHQA
+
+============================================================
+🚨 KULLANICI ACIL MUDAHALE VE GOREV DEVRİ PROTOKOLU
+============================================================
+Otonom dongunun tiklanma noktasi yukarida teshis edilmistir.
+Sistemin kendini guncelleyerek genisleyebilmesi adina:
+
+  1. Yukaridaki verileri inceleyin
+  2. Bir COZUM ONERISI hazirlayin
+  3. Cozum onerisini sisteme YENI BIR GOREV olarak iletin
+  4. Ornek: "Su adimlari izle, su bagimliligi duzelt ve tekrar dene"
+
+Iletilen bu girdi, 'Yetenek Fabrikasi' tarafindan kalici bir
+sablon beceriye donusturulecek ve gelecekte benzer hatalarla
+karsilasildiginda otonom olarak kullanilacaktir.
+============================================================

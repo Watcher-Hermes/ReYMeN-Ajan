@@ -1,0 +1,1 @@
+["DÜŞÜN: İki farklı terminal backend hatası alıyorum. Önce proje dizinini bulup doğrudan bot dosyasını çalıştırmayı denemeliyim. Windows ortamında olduğum için doğru komutları kullanmalıyım.\n\nEYLEM:\nKOMUT_CALISTIR(\"cd C:\\\\Users\\\\marko\\\\Desktop\\\\Reymen Proje\\\\hermes_projesi && dir /b *.py 2>nul | findstr /i bot\")", 1782016428.6065946]

@@ -1,0 +1,21 @@
+{
+  "olusturma": "2026-06-16T21:26:36.540542",
+  "toplam_istek": 14,
+  "toplam_token": 9800,
+  "toplam_maliyet": 0.014,
+  "providerlar": {
+    "deepseek": {
+      "istek": 14,
+      "token": 9800,
+      "maliyet": 0.014,
+      "model": "deepseek-chat"
+    }
+  },
+  "aylik_veri": {
+    "2026-06": {
+      "istek": 14,
+      "token": 9800,
+      "maliyet": 0.014
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "skıl_dosyaları_ve_memory_kontorl_et": {
+    "ad": "skıl dosyaları ve memory kontorl et",
+    "aciklama": "skıl dosyaları ve memory kontorl et",
+    "tetikleyiciler": [
+      "ve",
+      "dosyaları",
+      "et",
+      "skıl",
+      "memory",
+      "kontorl"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "Skill ve memory kontrolü tamamlandı. Toplam 9 adet skill bulunuyor (2___2_kac_ed",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "deepseek_v4_flash___64_6k_1m________________6____2": {
+    "ad": "deepseek-v4-flash │ 64.6K/1M │ [█░░░░░░░░░] 6% │ 2",
+    "aciklama": "deepseek-v4-flash │ 64.6K/1M │ [█░░░░░░░░░] 6% │ 2",
+    "tetikleyiciler": [
+      "[█░░░░░░░░░]",
+      "deepseek-v4-flash",
+      "64.6k/1m",
+      "│",
+      "6%"
+    ],
+    "adimlar": [
+      "YARDIM_ISTE"
+    ],
+    "basari_kriteri": "Merhaba! Ben ReYMeN, otonom bir yazılım ajanıyım. Konuşma tarzımı şöyle ayarlaya",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "termınalde_ac_ve__altın_ons_fıyatları_ıncele": {
+    "ad": "termınalde ac ve  altın ons fıyatları ıncele",
+    "aciklama": "termınalde ac ve  altın ons fıyatları ıncele",
+    "tetikleyiciler": [
+      "ve",
+      "fıyatları",
+      "termınalde",
+      "ons",
+      "altın",
+      "ac"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "Altın ons fiyatı başarıyla alındı.\\n\\n📊 **Altın Ons Fiyatı: 4156.70 USD**\\n\\nFiy",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "tor_browser_ac_ve_alanya_hava_durumu_hakkında_bılg": {
+    "ad": "Tor Browser ac ve alanya hava durumu hakkında bılg",
+    "aciklama": "Tor Browser ac ve alanya hava durumu hakkında bılg",
+    "tetikleyiciler": [
+      "browser",
+      "ve",
+      "tor",
+      "alanya",
+      "hava",
+      "ac"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "WEB_ARA",
+      "TARAYICI_AC",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR"
+    ],
+    "basari_kriteri": "Tor Browser açıldı ancak internet bağlantısı sorunu nedeniyle Alanya hava durumu",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "nasıl_yapacagın_memory_ve_skıller_den_kontol_etder": {
+    "ad": "nasıl yapacagın memory ve skıller den kontol etder",
+    "aciklama": "nasıl yapacagın memory ve skıller den kontol etder",
+    "tetikleyiciler": [
+      "skıller",
+      "ve",
+      "nasıl",
+      "yapacagın",
+      "den",
+      "memory"
+    ],
+    "adimlar": [
+      "HAFIZA_ARA",
+      "KOMUT_CALISTIR",
+      "KOMUT_CALISTIR",
+      "DOSYA_OKU",
+      "PYTHON_CALISTIR",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR",
+      "PYTHON_CALISTIR"
+    ],
+    "basari_kriteri": "Web scraping için memory ve skill'leri kontrol ettim. İşte tüm yetenekler:\\n\\n##",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  },
+  "tor_tarayıcıyı_ac_ekranda": {
+    "ad": "tor tarayıcıyı ac ekranda",
+    "aciklama": "tor tarayıcıyı ac ekranda",
+    "tetikleyiciler": [
+      "tarayıcıyı",
+      "tor",
+      "ac",
+      "ekranda"
+    ],
+    "adimlar": [
+      "KOMUT_CALISTIR",
+      "EKRAN_OKU"
+    ],
+    "basari_kriteri": "Tor Browser sisteminizde kurulu görünmüyor. Tor Browser'ı kullanmak için:\\n\\n1. ",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-21",
+    "son_basari": "2026-06-21"
+  }
+}

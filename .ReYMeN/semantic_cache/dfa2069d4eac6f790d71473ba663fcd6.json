@@ -1,0 +1,1 @@
+["DÜŞÜN: TerminalBackendDispatcher.calistir() 2 pozisyonel argüman alıyor ama 3 verildi hatası var. Bu, aracın çağrılma şeklinde bir sorun olabilir. KOMUT_CALISTIR aracını daha basit bir şekilde kullanmayı deneyeyim. Belki aracın kendisi farklı bir imzaya sahip.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; print(os.listdir('skills/'))\")", 1781983000.1430151]

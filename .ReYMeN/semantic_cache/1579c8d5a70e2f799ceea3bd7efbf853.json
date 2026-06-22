@@ -1,0 +1,1 @@
+["Dusunce: Kullanıcı bilgisayarında ekran görüntüsü çekip göndermemi istiyor. Öncelikle pyautogui kütüphanesinin sistemde olup olmadığını kontrol edip, ekran görüntüsünü alıp kaydedeceğim. Ardından dosyayı Telegram üzerinden göndereceğim.\n\nEylem: PYTHON_CALISTIR(\"import pyautogui; import sys; print('pyautogui version:', pyautogui.__version__)\")", 1781809857.5705643]

@@ -1,0 +1,1 @@
+["DÜŞÜN: Çok satırlı kod çalıştıramıyorum. Tek satırda yapmalıyım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; var=sum(1 for s in items if os.path.exists(os.path.join(d,s,'SKILL.md'))); print('Toplam:', len(items), 'VAR:', var, 'YOK:', len(items)-var)\")", 1782016055.0172822]

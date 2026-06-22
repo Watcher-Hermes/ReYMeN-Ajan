@@ -1,0 +1,6 @@
+# Automatic merge failed; fix conflicts and then commit the result.
+```
+
+### Resolve Conflicts
+
+```bash

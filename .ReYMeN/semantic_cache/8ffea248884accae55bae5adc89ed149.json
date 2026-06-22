@@ -1,0 +1,1 @@
+["DÜŞÜN: Hedef, GitHub'daki ReYMeN-full-backup deposundan skill ve memory dosyalarını indirip kendi sistemime güncellemek. Önce depoyu klonlamalıyım.\n\nEYLEM:\nKOMUT_CALISTIR(\"cd /tmp && git clone https://github.com/Watcher-Hermes/ReYMeN-full-backup.git hermes_backup 2>&1\")", 1782019487.3479664]

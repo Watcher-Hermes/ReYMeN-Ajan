@@ -1,0 +1,34 @@
+{
+  "GitHub MCP": {
+    "kurulu": false,
+    "env_var": [
+      "GITHUB_PERSONAL_ACCESS_TOKEN"
+    ]
+  },
+  "Dosya Sistemi MCP": {
+    "kurulu": false,
+    "env_var": []
+  },
+  "Puppeteer MCP": {
+    "kurulu": false,
+    "env_var": []
+  },
+  "SQLite MCP": {
+    "kurulu": false,
+    "env_var": []
+  },
+  "Brave Search MCP": {
+    "kurulu": false,
+    "env_var": [
+      "BRAVE_API_KEY"
+    ]
+  },
+  "Web Fetch MCP": {
+    "kurulu": false,
+    "env_var": []
+  },
+  "Sıralı Düşünme MCP": {
+    "kurulu": false,
+    "env_var": []
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "summary": "",
+  "history": [
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "Merhaba"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "user",
+      "content": "test mesajı"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "role": "assistant",
+      "content": "Merhaba! Size nasıl yardımcı olabilirim?"
+    }
+  ],
+  "context_length": 50,
+  "summarize_after": 30,
+  "updated_at": "2026-06-20T18:45:23.812201"
+}

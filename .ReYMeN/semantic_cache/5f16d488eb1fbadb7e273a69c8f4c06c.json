@@ -1,0 +1,1 @@
+["Dusunce: Kullanıcı \"kaç Python dosyası var?\" diye soruyor. Bunu öğrenmek için önce mevcut dizindeki dosyaları listelemem ve .py uzantılı dosyaları saymam gerekiyor. Bunun için bir komut çalıştırabilirim.\n\nEylem: KOMUT_CALISTIR(\"find . -name '*.py' -type f | wc -l\")\nGozlem: [Tamam]:\n18123", 1781814772.9766364]

@@ -1,0 +1,1 @@
+["DÜŞÜN: Windows'ta `find` komutu farklı çalışıyor. Python ile mevcut çalışma dizinini ve ReYMeN-full-backup klasörünün konumunu bulmalıyım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; print('CWD:', os.getcwd()); print('ls:', os.listdir('.'))\")", 1782019969.8208878]

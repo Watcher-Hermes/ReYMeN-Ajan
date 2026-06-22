@@ -1,0 +1,9 @@
+{
+  "offset": 649615405,
+  "model": "deepseek-chat",
+  "provider": "deepseek",
+  "sistem_prompt": "Sen ReYMeN adinda yardimsever bir AI asistanisin. Kisa ve oz cevap ver. Turkce konus. Sohbet et, sorulari yanitla.",
+  "bilinen_chatler": [
+    6328823909
+  ]
+}

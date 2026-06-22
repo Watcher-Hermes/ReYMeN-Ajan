@@ -1,0 +1,163 @@
+{
+  "oturum_id": "739fcff5",
+  "mesajlar": [
+    {
+      "role": "user",
+      "content": "hepsını kontrol et"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Kullanıcı \"hepsini kontrol et\" diyerek tüm skill'leri kontrol etmemi istiyor. Önce skill sayısını öğrenip, ardından her bir skill'in SKILL.md dosyasını okuyarak içeriklerini incelemeliyim. Toplam 575 skill var, hepsini tek seferde okumak çok uzun sürecek. Önce sayıyı doğrulayıp, sonra gruplar halinde ilerleyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; skills_dir = 'skills'; items = [d for d in os.listdir(skills_dir) if os.path.isdir(os.path.join(skills_dir, d))]; print(f'Toplam skill sayisi: {len(items)}')\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nToplam skill sayisi: 547\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Daha önce 575 olarak görünen skill sayısı şimdi 547. Sayı farklı olabilir, güncel durumu alıyorum. Şimdi tüm skill'lerin SKILL.md dosyalarını okuyarak kontrol etmeye başlayayım. Çok fazla olduğu için gruplar halinde ilerleyeceğim.\n\nEYLEM:\nPYTHON_CALISTIR(\"\"\"\nimport os\n\nskills_dir = 'skills'\nitems = sorted([d for d in os.listdir(skills_dir) if os.path.isdir(os.path.join(skills_dir, d))])\n\n# İlk 50 skill'in SKILL.md içeriğini kontrol et\nfor i, skill in enumerate(items[:50]):\n    skill_path = os.path.join(skills_dir, skill)\n    md_file = os.path.join(skill_path, 'SKILL.md')\n    if os.path.exists(md_file):\n        with open(md_file, 'r', encoding='utf-8', errors='ignore') as f:\n            content = f.read()\n        print(f'[{i+1}/50] {skill}: {len(content)} karakter')\n    else:\n        print(f'[{i+1}/50] {skill}: SKILL.md YOK')\n\nprint('---')\nprint(f'Toplam: {len(items)} skill')\nprint(f'SKILL.md olanlar kontrol ediliyor...')\n\"\"\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Python]: Kod gerekli."
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Python çalıştırma hatası aldım. Şimdi KOMUT_CALISTIR ile deneyeyim, belki dizin yapısı farklıdır.\n\nEYLEM:\nKOMUT_CALISTIR(\"dir skills /b\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Hata]: TerminalBackendDispatcher.calistir() takes 2 positional arguments but 3 were given"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: TerminalBackendDispatcher'de bir hata var. PYTHON_CALISTIR ile deneyeyim, daha basit bir kod çalıştırayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; print('Merhaba')\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nMerhaba\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Python çalışıyor. Şimdi skills dizinini listeleyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; items = [d for d in os.listdir('skills') if os.path.isdir(os.path.join('skills', d))]; print(f'{len(items)} skill bulundu'); print(items[:5])\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\n547 skill bulundu\n['3d-pipeline', 'a2a-agent-spec', 'a2a-integrator', 'aar-deployment-review', 'ab-plan']\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: 547 skill var. Şimdi her bir skill'in SKILL.md dosyasını okuyarak kontrol edeyim. Çok fazla olduğu için önce ilk 100'ü okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"\"\"\nimport os\n\nskills_dir = 'skills'\nitems = sorted([d for d in os.listdir(skills_dir) if os.path.isdir(os.path.join(skills_dir, d))])\n\nsonuclar = []\nfor i, skill in enumerate(items[:100]):\n    md_file = os.path.join(skills_dir, skill, 'SKILL.md')\n    if os.path.exists(md_file):\n        with open(md_file, 'r', encoding='utf-8', errors='ignore') as f:\n            content = f.read()\n        sonuclar.append(f'[{i+1}] {skill}: OK ({len(content)} karakter)')\n    else:\n        sonuclar.append(f'[{i+1}] {skill}: SKILL.md YOK')\n\nprint('\\\\n'.join(sonuclar[:20]))\nprint(f'...\\\\nToplam {len(sonuclar)} skill kontrol edildi')\nprint(f'SKILL.md olan: {sum(1 for s in sonuclar if \"OK\" in s)}')\nprint(f'SKILL.md olmayan: {sum(1 for s in sonuclar if \"YOK\" in s)}')\n\"\"\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Python]: Kod gerekli."
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Python çalıştırma konusunda tutarsız hatalar alıyorum. Daha basit bir yaklaşım deneyeyim - tek satırlık kod.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; print(f'Sayı: {len(items)}'); print(f'İlk: {items[0] if items else \\\"yok\\\"}')\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Self-correction]: 1 denemede düzeltilemedi.\nSon hata: [ÇIKTI]\n\n[HATA]\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\_ReYMeN_a2436d89.py\", line 1\n    import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; print(f'Say�: {len(items)}'); print(f'�lk: {items[0] if items else \n                               "
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Encoding sorunu yaşıyorum. ASCII dışı karakterler (İ, ğ gibi) sorun çıkarıyor. Sadece ASCII karakterler kullanarak deneyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; print('Sayi:', len(items)); print('Ilk:', items[0] if items else 'yok')\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nSayi: 547\nIlk: 3d-pipeline\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Şimdi sorunsuz çalışıyor. Encoding hatasını fark ettim - Türkçe karakterler (ı,ğ,ü,ş,ö,ç,İ) sorun çıkarıyor. Şimdi her bir skill'in SKILL.md dosyasını okuyayım. 547 skill var, hepsini tek seferde okumak çok büyük bir çıktı olur. Önce ilk 50'yi kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]); sonuc=[]; ok=0; yok=0; dos=0; for i,s in enumerate(items[:50]): p=os.path.join(d,s,'SKILL.md'); dos+=1; ok+=1 if os.path.exists(p) else 0; yok+=0 if os.path.exists(p) else 1; sonuc.append(f'{i+1}. {s}: {\"VAR\" if os.path.exists(p) else \"YOK\"}'); print('Ilk 50 skill kontrolu:'); print('\\\\n'.join(sonuc)); print(f'\\\\nVAR: {ok}, YOK: {yok}')\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Self-correction]: 1 denemede düzeltilemedi.\nSon hata: [Hata]: run() takes from 1 to 2 positional arguments but 3 were given"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Python çalıştırma fonksiyonunda sürekli hata alıyorum. Daha basit bir yaklaşım deneyeyim - önce sadece SKILL.md dosyalarının varlığını kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=os.listdir(d); print('Toplam:', len(items))\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nToplam: 578\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: 578 dosya/klasör var, bunlardan 547'si klasör (skill). Şimdi her bir skill'in SKILL.md dosyasını okuyup içeriğini kontrol etmek için daha basit bir yöntem deneyeyim. Önce bir skill'in dosyasını okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; p='skills/3d-pipeline/SKILL.md'; print(os.path.exists(p))\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nTrue\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Dosya var. Şimdi içeriğini okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"with open('skills/3d-pipeline/SKILL.md','r',encoding='utf-8') as f: print(f.read()[:200])\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\n---\nname: 3d-pipeline\ndescription: Choose a 3D generation or reconstruction pipeline given input type, output format, and use case.\ntitle: \"3D Pipeline\"\nversion: 1.0.0\nphase: 8\nlesson: 12\ntags: [3d, g\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Çalışıyor! Şimdi tüm skill'leri kontrol etmek için bir döngü yapmalıyım. Ancak çok fazla skill var (547), hepsini tek seferde okumak çıktıyı şişirir. Önce sadece SKILL.md'si olan/olmayanları tespit edeyim, sonra içeriklerini inceleyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"\"\"\nimport os\nd='skills'\nitems=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))])\nvar=0\nyok=0\nfor s in items:\n    if os.path.exists(os.path.join(d,s,'SKILL.md')):\n        var+=1\n    else:\n        yok+=1\nprint('Toplam skill:', len(items))\nprint('SKILL.md VAR:', var)\nprint('SKILL.md YOK:', yok)\n\"\"\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [Python]: Kod gerekli."
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Çok satırlı kod çalıştıramıyorum. Tek satırda yapmalıyım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; var=sum(1 for s in items if os.path.exists(os.path.join(d,s,'SKILL.md'))); print('Toplam:', len(items), 'VAR:', var, 'YOK:', len(items)-var)\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nToplam: 547 VAR: 505 YOK: 42\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: 547 skill'den 505'inde SKILL.md var, 42'sinde yok. Şimdi SKILL.md'si olanların içeriğini kontrol edeyim. Önce ilk 10 skill'in SKILL.md içeriğini okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); print('Ilk 10 skill:'); [print(f'{i+1}. {s}') for i,s in enumerate(items[:10])]\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nIlk 10 skill:\n1. 3d-pipeline\n2. __cleanup_deprecated_obsidian_vault_path_fix\n3. a2a-agent-spec\n4. a2a-integrator\n5. aar-deployment-review\n6. ab-plan\n7. actor-critic-trainer\n8. actor-runtime\n9. agent-budget-audit\n10. agent-bundle\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Şimdi her bir skill'in SKILL.md dosyasını okuyup içeriğini inceleyeyim. Çok fazla skill var, hepsini tek seferde okumak yerine gruplar halinde ilerleyeyim. Önce ilk 10 skill'in tam içeriğini okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"with open('skills/3d-pipeline/SKILL.md','r',encoding='utf-8') as f: print(f.read())\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\n---\nname: 3d-pipeline\ndescription: Choose a 3D generation or reconstruction pipeline given input type, output format, and use case.\ntitle: \"3D Pipeline\"\nversion: 1.0.0\nphase: 8\nlesson: 12\ntags: [3d, gaussian-splatting, nerf, mesh]\ncategory: 3d-pipeline\naudience: user\n---\n\nGiven inputs (text prompt / one image / few images / photo capture / video), target output (mesh / Gaussian splat / NeRF / point cloud), and use case (real-time render, game engine, AR / VR, cinematic), output:\n\n1. Pipeline. (a) Multi-view diffusion + 3D fit (SV3D, CAT3D + 3DGS), (b) direct single-shot (LRM, TripoSR, InstantMesh), (c) text-to-mesh with PBR (Meshy 4, Rodin Gen-1.5, Hunyuan3D 2.0), (d) photo capture + 3DGS (Gsplat, Postshot, Scaniverse).\n2. Base model + hosting. Named model + open / hosted. Include license relevance for commercial use.\n3. Iteration budget. Expected time to first output, iteration cost, refinement strategy.\n4. Topology + materials. Remesh pass needed? PBR channel requirements (albedo, roughness, metallic, normal)? UV layout automated or manual?\n5. Eval. SSIM on held-out views, CLIP score, mesh watertightness, poly count, texture resolution.\n6. Platform target. Unity / Unreal / Blender / web (three.js / Babylon) / AR (USDZ / glb).\n\nRefuse to ship a 3DGS directly into a game engine without a mesh conversion pass (most engines don't render splats natively). Refuse text-to-3D for complex articulated characters - use a rigging-aware pipeline instead. Flag any NeRF-only output when the downstream tool can't render NeRFs (most DCC tools).\n\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Skill'lerin içeriğini okuyabiliyorum. Şimdi tüm skill'leri sistematik olarak kontrol etmeliyim. 547 skill var, hepsini tek tek okumak çok uzun sürecek. Önce SKILL.md'si olmayan 42 skill'i tespit edeyim, sonra SKILL.md'si olanların hepsini okuyarak içeriklerini kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and not os.path.exists(os.path.join(d,x,'SKILL.md'))]); print('SKILL.md OLMAYANLAR ('+str(len(items))+')'); [print(x) for x in items]\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\nSKILL.md OLMAYANLAR (42)\n__cleanup_deprecated_telegram_gateway_monitor\nandroid\napple\nautomation\nautonomous-ai-agents\ncontent-creation\ncreative\ndata-science\ndevops\ndiagramming\ndomain\ndosya\necc\nemail\ngaming\ngifs\ngithub\nhermes-agent\nindex-cache\ninference-sh\nkod\nmcp\nmedia\nmlops\nnote-taking\notomasyon\nproductivity\nred-teaming\nresearch\nsecurity\nsistem\nsmart-home\nsocial-media\nsoftware-development\ntest-category\ntest-eval\nuser-preferences\nveri\nweb\nwindows-automation\nwindows-system-automation\nworkflow\n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: 42 skill'de SKILL.md yok. Bunları not ettim. Şimdi SKILL.md'si olan 505 skill'in içeriklerini kontrol etmeye başlayayım. Hepsini tek seferde okumak çok büyük olacağı için gruplar halinde ilerleyeceğim. Önce ilk 30 skill'in SKILL.md içeriğini okuyup kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(30)]\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\n--- 3d-pipeline ---\n---\nname: 3d-pipeline\ndescription: Choose a 3D generation or reconstruction pipeline given input type, output format, and use case.\ntitle: \"3D Pipelin\n--- __cleanup_deprecated_obsidian_vault_path_fix ---\n---\nname: obsidian-vault-path-fix\ndescription: \"Use whenever reading, writing, or syncing anything to Obsidian. Contains correct vault path and sync r\n--- a2a-agent-spec ---\n---\nname: a2a-agent-spec\ndescription: Produce the Agent Card and skills schema for an agent that should be callable over A2A.\ntitle: \"A2A Agent Spec\"\n\n--- a2a-integrator ---\n---\nname: a2a-integrator\ndescription: Design an A2A integration between two agents � Agent Card, task schemas, auth, streaming or polling.\ntitle: \"A2A\n--- aar-deployment-review ---\n---\nname: aar-deployment-review\ndescription: Pre-deployment review of an automated-alignment-research pipeline, including sandbox isolation and log in\n--- ab-plan ---\n---\nname: ab-plan\ndescription: Design an LLM A/B test � pick platform (Statsig or GrowthBook), primary metric, guardrails, sample size with LLM-noise \n--- actor-critic-trainer ---\n---\nname: actor-critic-trainer\ndescription: Produce an A2C / A3C / GAE configuration for a given environment, with advantage estimation and loss weigh\n--- actor-runtime ---\n---\nname: actor-runtime\ndescription: Build an AutoGen v0.4-shaped actor runtime with private state, inbox-per-actor, message-only IPC, fault isolation\n--- agent-budget-audit ---\n---\nname: agent-budget-audit\ndescription: Audit an agent deployment's cost-governor stack and flag missing layers before enabling unattended runs.\ntit\n--- agent-bundle ---\n---\nname: agent-bundle\ndescription: Produce a portable SKILL.md + AGENTS.md + MCP-server blueprint for a workflow, loadable across Claude Code, Cursor\n--- agent-loop ---\n---\nname: agent-loop\ndescription: Write a correct, minimal ReAct agent loop in any target language/runtime with tools, stop condition, and turn budget\n--- agent-project-bootstrap ---\n---\nname: agent-project-bootstrap\ntitle: \"Agent Projesi Bootstrap\"\ndescription: \"Kod tamam ama config/install/run eksik olan multi-service AI ajan pro\n--- agents-sdk-scaffold ---\n---\nname: agents-sdk-scaffold\ndescription: Scaffold an OpenAI Agents SDK app with a triage agent, handoffs, input/output/tool guardrails, session stor\n--- ai-scientist ---\n---\nname: ai-scientist\ndescription: Build an autonomous research agent that runs experiment tree search, writes LaTeX papers with vision critique, and\n--- ai-scientist-sandbox-review ---\n---\nname: ai-scientist-sandbox-review\ndescription: Two-gate review checklist for research-loop agent outputs before anything leaves the sandbox.\ntitle\n--- ai-sre-plan ---\n---\nname: ai-sre-plan\ndescription: Design an AI SRE rollout for a team � multi-agent triage architecture, structured runbooks, adversarial evaluation,\n--- ai-tutor ---\n---\nname: ai-tutor\ndescription: Ship an adaptive multimodal personal tutor for a specific subject with Bayesian knowledge tracing, a curriculum graph,\n--- alm-picker ---\n---\nname: alm-picker\ndescription: Pick an audio-language model, benchmark subset, output modality (text vs speech), and guardrails for an audio-unders\n--- any-to-any-pipeline-auditor ---\n---\nname: any-to-any-pipeline-auditor\ndescription: Audit a conversational any-to-any design and compute the latency budget for a MIO / AnyGPT / Moshi-\n--- apikey-image-gen ---\n---\nname: apikey-image-gen\ndescription: \"Generate or edit images through ReYMeN Web UI using the selected/requested profile's fun-codex provider from \n--- asr-configurator ---\n---\nname: asr-configurator\ndescription: Pick an ASR model (Whisper variant / Moonshine / faster-whisper) and decoding parameters for a new speech pipe\n--- asr-picker ---\n---\nname: asr-picker\ndescription: Pick ASR model, decoding strategy, chunking, and LM fusion for a given deployment target.\ntitle: \"Asr Picker\"\nversio\n--- attack-audit ---\n---\nname: attack-audit\ndescription: Audit a red-team evaluation report for attack coverage, budget, judge identity, and behaviour set.\ntitle: \"Attack \n--- attention-shapes ---\n---\nname: attention-shapes\ndescription: Debug shape bugs in attention implementations.\ntitle: \"Attention Shapes\"\ntags: [general]\nphase: 5\nlesson: 10\n\n\n--- attention-variant-picker ---\n---\nname: attention-variant-picker\ndescription: Pick a full / sliding-window / sparse / differential attention topology for a new model given context \n--- audio-brief ---\n---\nname: audio-brief\ndescription: Translate an audio brief into a model + prompt + eval plan across TTS, music, and SFX.\ntitle: \"Audio Brief\"\nversion\n--- audio-evaluator ---\n---\nname: audio-evaluator\ndescription: Pick metrics, benchmarks, normalization rules, and reporting format for any audio model release.\ntitle: \"Audio \n--- audio-llm-pipeline-picker ---\n---\nname: audio-llm-pipeline-picker\ndescription: Pick cascaded (Whisper + LLM) or end-to-end (AF3 / Qwen-Audio) for an audio task, plus the encoder an\n--- audio-loader ---\n---\nname: audio-loader\ndescription: Validate a raw audio file against a target model's expectations and resample it safely.\ntitle: \"Audio Loader\"\nvers\n--- bargainer-designer ---\n---\nname: bargainer-designer\ntitle: \"Bargainer Designer\"\ndescription: \"Design a negotiation protocol: which agent narrates, which component generates \n\n[HATA]"
+    },
+    {
+      "role": "assistant",
+      "content": "DÜŞÜN: Skill'leri kontrol ediyorum. Şimdi 30-60 arası skill'leri okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(30,60)]\")"
+    },
+    {
+      "role": "user",
+      "content": "Gozlem: [ÇIKTI]\n--- batch-triager ---\n---\nname: batch-triager\ndescription: Triage LLM workloads into interactive / semi-interactive / batch lanes, compute stacked discount (batch + cache) \n--- benchmark-harness ---\n---\nname: benchmark-harness\ndescription: Build a SWE-bench-style harness for a codebase with FAIL_TO_PASS / PASS_TO_PASS gating, contamination checks,\n--- benchmark-reader ---\n---\nname: benchmark-reader\ndescription: Read a multi-agent benchmark claim skeptically. Grades the claim on benchmark selection, contamination, baseli\n--- bert-finetuner ---\n---\nname: bert-finetuner\ndescription: Scope a BERT fine-tune for a new classification, extraction, or retrieval task.\ntitle: \"Bert Finetuner\"\nversion:\n--- bias-eval ---\n---\nname: bias-eval\ndescription: Audit a bias evaluation report across metric categories, intersectionality, and debias mechanism.\ntitle: \"Bias Eval\"\n\n--- bounded-loop-review ---\n---\nname: bounded-loop-review\ndescription: Audit a proposed bounded self-improvement loop against the four-primitive stack (invariants, anchor, multi-\n--- browser-agent-trust-boundary ---\n---\nname: browser-agent-trust-boundary\ndescription: Scope a proposed browser-agent deployment � trust zones, authorized writes, required defenses � be\n--- cache-auditor ---\n---\nname: cache-auditor\ndescription: Audit an LLM prompt template and traffic pattern for cacheability. Recommend prompt restructure, TTL choice, para\n--- card-audit ---\n---\nname: card-audit\ndescription: Audit a model card, datasheet, or system card for completeness and verifiability.\ntitle: \"Card Audit\"\nversion: 1.0.0\n--- case-study-mapper ---\n---\nname: case-study-mapper\ndescription: Map a proposed multi-agent system design to the closest 2026 production reference (Anthropic Research, MetaGP\n--- chaos-plan ---\n---\nname: chaos-plan\ndescription: Design an LLM chaos engineering plan � verify prerequisites, build four planes, pick tool, start with three safe exp\n--- chatbot-architect ---\n---\nname: chatbot-architect\ndescription: Design a chatbot stack for a given use case.\ntitle: \"Chatbot Architect\"\nversion: 1.0.0\nphase: 5\nlesson: 17\nta\n--- check-understanding ---\n---\nname: check-understanding\nversion: 1.0.0\ndescription: Phase quiz for AI Engineering from Scratch. Trigger with \"quiz me\", \"test phase\", \"check my \n--- checkpoint-save-resume ---\n---\nname: checkpoint-save-resume\ndescription: Atomic, sharded checkpoints with full RNG capture so a killed run resumes mid-epoch with the same loss t\n--- checkpointing-planner ---\n---\nname: checkpointing-planner\ndescription: Choose an activation recomputation policy per layer (none / selective / full / offload) given a training \n--- chunker ---\n---\nname: chunker\ndescription: Pick a chunking strategy, size, and overlap for a given corpus and query distribution.\ntitle: \"Chunker\"\nversion: 1.0.0\n\n--- classifier-designer ---\n---\nname: classifier-designer\ndescription: Pick architecture, augmentation, class-balance strategy, and eval metric for an audio classification task.\n\n--- classifier-stack-audit ---\n---\nname: classifier-stack-audit\ndescription: Audit a deployment's input/output classifier stack (model, taxonomy, input rails, output rails, dialog r\n--- claude-agent-scaffold ---\n---\nname: claude-agent-scaffold\ndescription: Scaffold a Claude Agent SDK app with subagents, lifecycle hooks, session store, MCP server attachment, an\n--- clip-zero-shot ---\n---\nname: clip-zero-shot\ndescription: Run zero-shot image classification with a CLIP / SigLIP checkpoint, producing ranked predictions with similarity\n--- codebase-rag ---\n---\nname: codebase-rag\ndescription: Build a cross-repo semantic search system with AST-aware chunking, hybrid retrieval, incremental re-index, and cit\n--- codec-picker ---\n---\nname: codec-picker\ndescription: Pick a neural audio codec (EnCodec / DAC / SNAC / Mimi) for a given generative or compression task.\ntitle: \"Codec \n--- coding-scaffold-audit ---\n---\nname: coding-scaffold-audit\ndescription: Audit a proposed coding-agent scaffold (retrieval, verifier loop, sandbox, benchmark fit) before adopting\n--- cold-start-planner ---\n---\nname: cold-start-planner\ndescription: Pick and stack cold-start mitigations for serverless LLM deployments. Budget phases (node, image, weights, e\n--- compliance-gap ---\n---\nname: compliance-gap\ndescription: Evaluate whether a safety report can detect alignment faking, via the monitored / unmonitored compliance gap.\nti\n--- compliance-matrix ---\n---\nname: compliance-matrix\ndescription: Produce the required-framework matrix for an LLM SaaS given customer geography, segment, and contract scope. \n--- computer-use-safety ---\n---\nname: computer-use-safety\ndescription: Build per-step safety classifier + confirmation gate for a computer-use agent, with allowlist navigation an\n--- consensus-designer ---\n---\nname: consensus-designer\ndescription: Design a BFT-aware consensus protocol for a multi-agent ensemble. Picks clustering, weighting, threshold, an\n--- constitution-review ---\n---\nname: constitution-review\ndescription: Audit a deployment's constitutional layer � hardcoded prohibitions, soft-coded defaults, operator-adjustabl\n--- constitution-writer ---\n---\nname: constitution-writer\ndescription: Draft a four-tier constitution for a domain-specific AI system.\ntitle: \"Constitution Writer\"\nversion: 1.0.0\n\n[HATA]"
+    }
+  ],
+  "ozet": "",
+  "son_guncelleme": 1782016110.424654
+}

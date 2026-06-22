@@ -1,0 +1,1 @@
+["DÜŞÜN: Playwright kurulu değil. Python ile hava durumu bilgisini almak için bir API kullanabilirim. OpenWeatherMap veya benzeri bir API'yi deneyelim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import urllib.request, json; print('Deneme')\")", 1782049619.1880674]

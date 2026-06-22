@@ -1,0 +1,1 @@
+["DÜŞÜN: Bu bir hata logu değil, normal bilgi logu. bot_err.log'a bakalım.\n\nEYLEM:\nPYTHON_CALISTIR(\"print(open('bot_err.log', 'r').read()[:1000])\")", 1781984621.671513]
