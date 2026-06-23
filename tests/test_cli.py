@@ -73,8 +73,13 @@ class TestCLIEntegrasyon:
 
     def test_cli_argument_parser(self):
         proje = Path(__file__).parent.parent
-        main_py = proje / "main.py"
-        content = main_py.read_text(encoding="utf-8")
+        # Entry point (main.py) is a thin runpy wrapper — check the real main
+        real_main = proje / "reymen" / "sistem" / "main.py"
+        if real_main.exists():
+            content = real_main.read_text(encoding="utf-8")
+        else:
+            main_py = proje / "main.py"
+            content = main_py.read_text(encoding="utf-8")
         # ReYMeN: REPL tarzi — input() ile kullanicidan hedef alir
         # veya geleneksel ArgumentParser/sys.argv/argparse kullanir
         assert (

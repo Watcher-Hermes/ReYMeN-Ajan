@@ -29,7 +29,7 @@ class TestApprovalInit:
 
 class TestApprovalHardline:
     def test_rm_rf(self):
-        a = ApprovalManager({"approvals": {"mode": "off"}})
+        a = ApprovalManager({"approvals": {"mode": "manual"}})
         r = a.komut_kontrol("rm -rf /")
         assert r["durum"] == "engel"
 
