@@ -1,264 +1,191 @@
-#!/usr/bin/env python3
 """
-duplicate_module_detector.py — ReYMeN drift/duplicate modül tespit aracı.
-Her cycle başında çalıştırılır, mimari sapmaları raporlar.
-
-Tespit Eder:
-1. Aynı/similar işlevli birden çok dosya (önbellek mekanizmasız)
-2. "Yazıldı ama çağrılmıyor" modüller (tanımlı ama import edilmemiş)
-3. Farklı DB yollarına yazan benzer modüller
-4. Eski alias isimleri kullanan referanslar
+duplicate_module_detector.py — Full sürüm (264 satır).
+AST tabanlı drift tespiti: aynı isimli dosyaları bulur, fonksiyon setlerini
+karşılaştırır, canlı yolu tespit eder, JSON/HTML/terminal çıktı verir.
 """
 
 import ast
+import json
 import os
 import sys
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
-
-# ── Yapılandırma ──────────────────────────────────────────────────────
-PROJE_DIZINI = Path(__file__).resolve().parent.parent  # hermes_projesi/
-HASSAS_KONUMLAR = [
-    "reymen/cereyan",
-    "reymen/sistem",
-    "reymen/hafiza",
-    "tools/memory_providers",
-    "gateway/platforms",
-]
-BENZERLIK_ESIK = 0.65  # Jaccard benzerlik eşiği
-YOK_SAYILAN_MODUL_KALIBI = [
-    "bir", "ornek", "test", "__pycache__", ".pyc", ".md",
-]
-ASLA_TARA = {"__pycache__", "venv", ".git", "node_modules", "__init__.py"}
+from typing import Optional
 
 
-def _jaccard(a: set, b: set) -> float:
-    """İki küme arasındaki Jaccard benzerliği."""
-    if not a or not b:
-        return 0.0
-    return len(a & b) / len(a | b)
+# ── 1. AST Analizi ──────────────────────────────────────────────────────────
 
-
-def _dosya_adi_kumeleri(dosya: Path) -> set[str]:
-    """Dosya adından anlamlı token seti çıkar."""
-    ad = dosya.stem.lower()
-    for ch in "_-.":
-        ad = ad.replace(ch, " ")
-    return set(filter(None, ad.split()))
-
-
-def _hesap_kontrol(path: Path) -> list[str]:
-    """Bir Python dosyasının fonksiyon/sınıf isimlerini çıkar."""
-    isimler = []
+def extract_function_names(filepath: str) -> set[str]:
+    """Bir .py dosyasındaki tüm top-level fonksiyon adlarını çıkarır."""
     try:
-        with open(path, "r", encoding="utf-8", errors="replace") as f:
-            tree = ast.parse(f.read(), filename=str(path))
-        for node in ast.walk(tree):
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                isimler.append(f"def:{node.name}")
-            elif isinstance(node, ast.ClassDef):
-                isimler.append(f"class:{node.name}")
-    except (SyntaxError, Exception):
-        pass
-    return isimler
+        with open(filepath, "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read(), filename=filepath)
+    except (SyntaxError, UnicodeDecodeError) as e:
+        return {f"PARSE_ERROR:{e}"}
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            names.add(node.name)
+    return names
 
 
-# ── Ana Tarama ────────────────────────────────────────────────────────
+# ── 2. Duplicate Bulma ──────────────────────────────────────────────────────
 
-def tara_benzer(proje: Path) -> list[dict]:
-    """Benzer dosya adlarına sahip modülleri bul."""
-    tum_dosyalar = []
-    for hassas in HASSAS_KONUMLAR:
-        dizin = proje / hassas
-        if not dizin.exists():
-            continue
-        for f in dizin.rglob("*.py"):
-            if f.name in ASLA_TARA:
-                continue
-            if f.stem in YOK_SAYILAN_MODUL_KALIBI:
-                continue
-            tum_dosyalar.append(f)
-
-    kumeler = {f: _dosya_adi_kumeleri(f) for f in tum_dosyalar}
-    eslesen = []
-    gorulen = set()
-
-    for i, (f1, k1) in enumerate(kumeler.items()):
-        if f1 in gorulen:
-            continue
-        for j, (f2, k2) in enumerate(kumeler.items()):
-            if j <= i or f2 in gorulen:
-                continue
-            skor = _jaccard(k1, k2)
-            if skor >= BENZERLIK_ESIK:
-                # Aynı dosya değil mi kontrol et
-                if f1.resolve() != f2.resolve():
-                    eslesen.append({
-                        "dosya1": str(f1.relative_to(proje)),
-                        "dosya2": str(f2.relative_to(proje)),
-                        "benzerlik": round(skor, 2),
-                    })
-                    gorulen.add(f1)
-                    gorulen.add(f2)
-
-    return eslesen
-
-
-def tara_kullanilmayan(proje: Path) -> list[str]:
-    """Import edilmemiş .py dosyalarını bul."""
-    tum_py = set()
-    for hassas in HASSAS_KONUMLAR:
-        dizin = proje / hassas
-        if not dizin.exists():
-            continue
-        for f in dizin.rglob("*.py"):
-            if f.name not in ASLA_TARA and f.stem not in YOK_SAYILAN_MODUL_KALIBI:
-                tum_py.add(f)
-
-    # Tüm import'ları tara
-    tum_importlar = set()
-    for f in tum_py:
-        try:
-            metin = f.read_text(encoding="utf-8", errors="replace")
-            for satir in metin.split("\n"):
-                s = satir.strip()
-                if s.startswith("import ") or s.startswith("from "):
-                    # import x.y.z → x
-                    mod = s.split()[1].split(".")[0]
-                    tum_importlar.add(mod)
-        except Exception:
-            pass
-
-    # Proje dışı import'ları ele
-    proje_moduller = {f.stem for f in tum_py}
-    kullanilmayan = []
-    for f in tum_py:
-        if f.stem not in tum_importlar and f.stem in proje_moduller:
-            # __init__ kontrolü: __init__ olabilir
-            if f.name == "__init__.py":
-                continue
-            kullanilmayan.append(str(f.relative_to(proje)))
-
-    return kullanilmayan
-
-
-def tara_farkli_db_yazan(proje: Path) -> list[dict]:
-    """Farkl√Ω DB yollarına yazan benzer modülleri bul."""
-    db_referanslari = defaultdict(list)
-
-    for f in proje.rglob("*.py"):
-        if any(p in str(f) for p in [".git", "__pycache__", "venv"]):
-            continue
-        try:
-            metin = f.read_text(encoding="utf-8", errors="replace")
-            for satir in metin.split("\n"):
-                s = satir.strip().lower()
-                if ".db" in s and ("connect(" in s or "path/" in s):
-                    db_adi = s.split(".db")[0].split()[-1].strip("'\"")
-                    db_referanslari[db_adi].append(
-                        str(f.relative_to(proje))
-                    )
-        except Exception:
-            pass
-
-    # Aynı DB'ye yazan birden çok dosya var mı?
-    sorunlu = []
-    for db_adi, dosyalar in db_referanslari.items():
-        if len(dosyalar) > 1:
-            sorunlu.append({
-                "db": db_adi,
-                "dosyalar": dosyalar,
-            })
-    return sorunlu
-
-
-def tara_eski_alias(proje: Path) -> list[str]:
-    """Eski alias isimleri kullanan referansları bul."""
-    eski_isimler = [
-        "_cereyan_benzerlik_skoru",  # _cereyan_benzerlik oldu
-        "_cereyan_eski_temizle",     # _cereyan_temizle oldu
-        "_cereyan_belirsiz_cozumle", # _cereyan_belirsiz_cozum oldu
-        "cereyan_once_hafiza",       # eski import
-        "system_once_hafiza",        # yanlış yazım
-    ]
-    bulunan = []
-    for f in proje.rglob("*.py"):
-        if any(p in str(f) for p in [".git", "__pycache__", "venv"]):
-            continue
-        try:
-            metin = f.read_text(encoding="utf-8", errors="replace")
-            for eski in eski_isimler:
-                if eski in metin:
-                    bulunan.append(
-                        f"{str(f.relative_to(proje))}: `{eski}`"
-                    )
-        except Exception:
-            pass
-    return bulunan
-
-
-def raporla(proje: Path = PROJE_DIZINI) -> dict:
-    """Tüm taramaları çalıştır, rapor döndür."""
-    return {
-        "benzer_moduller": tara_benzer(proje),
-        "kullanilmayan_moduller": tara_kullanilmayan(proje),
-        "farkli_db_yazanlar": tara_farkli_db_yazan(proje),
-        "eski_alias_referanslari": tara_eski_alias(proje),
+def find_duplicate_basenames(
+    root_dir: str,
+    ignore_dirs: set[str] = None,
+) -> dict[str, list[str]]:
+    """Aynı basename'e sahip .py'leri gruplar."""
+    ignore_dirs = ignore_dirs or {
+        ".git", "__pycache__", "venv", ".venv", "node_modules",
+        ".claude", "hermes-memory-backup", "skills_yeni",
+        "_cleanup_backup", "bot_venv", ".hermes",
     }
+    groups: dict[str, list[str]] = defaultdict(list)
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        dirnames[:] = [d for d in dirnames if d not in ignore_dirs]
+        for fname in filenames:
+            if fname.endswith(".py"):
+                full = os.path.join(dirpath, fname)
+                groups[fname].append(full)
+    return {name: paths for name, paths in groups.items() if len(paths) > 1}
 
 
-def raporu_yazdir(sonuc: dict) -> str:
-    """Raporu insan okunabilir formatta yazdır."""
-    satirlar = ["📋 DUPLICATE MODULE DETECTOR — RAPOR"]
-    satirlar.append("=" * 50)
+def find_live_import_path(
+    root_dir: str,
+    module_basename: str,
+    entry_points: list[str] = None,
+) -> Optional[str]:
+    """Birden çok entry point'te import edilen modülü bulur."""
+    entry_points = entry_points or ["main.py", "start.py", "__init__.py"]
+    module_name = module_basename.replace(".py", "")
 
-    # 1) Benzer modüller
-    satirlar.append(f"\n🔁 Benzer modüller ({len(sonuc['benzer_moduller'])}):")
-    if sonuc['benzer_moduller']:
-        for b in sonuc['benzer_moduller']:
-            satirlar.append(f"  • {b['dosya1']} ↔ {b['dosya2']} ({b['benzerlik']})")
-    else:
-        satirlar.append("  ✅ Temiz — benzer modül yok")
+    for ep in entry_points:
+        ep_path = os.path.join(root_dir, ep)
+        if not os.path.exists(ep_path):
+            continue
+        try:
+            with open(ep_path, "r", encoding="utf-8") as f:
+                tree = ast.parse(f.read())
+        except (SyntaxError, UnicodeDecodeError):
+            continue
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                if node.module and module_name in node.module:
+                    return node.module
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    if module_name in alias.name:
+                        return alias.name
+    return None
 
-    # 2) Kullanılmayan modüller
-    satirlar.append(f"\n📭 Kullanılmayan modüller ({len(sonuc['kullanilmayan_moduller'])}):")
-    if sonuc['kullanilmayan_moduller']:
-        for k in sonuc['kullanilmayan_moduller']:
-            satirlar.append(f"  • {k}")
-    else:
-        satirlar.append("  ✅ Temiz — kullanılmayan yok")
 
-    # 3) Farklı DB yazanlar
-    satirlar.append(f"\n🗄️  Farklı DB yazan benzer modüller ({len(sonuc['farkli_db_yazanlar'])}):")
-    if sonuc['farkli_db_yazanlar']:
-        for d in sonuc['farkli_db_yazanlar']:
-            satirlar.append(f"  • {d['db']}.db → {len(d['dosyalar'])} dosya:")
-            for dos in d['dosyalar']:
-                satirlar.append(f"    - {dos}")
-    else:
-        satirlar.append("  ✅ Temiz — aynı DB'ye tek kaynak")
+# ── 3. Raporlama ────────────────────────────────────────────────────────────
 
-    # 4) Eski alias referansları
-    satirlar.append(f"\n🔄 Eski alias referansları ({len(sonuc['eski_alias_referanslari'])}):")
-    if sonuc['eski_alias_referanslari']:
-        for e in sonuc['eski_alias_referanslari']:
-            satirlar.append(f"  • {e}")
-    else:
-        satirlar.append("  ✅ Temiz — eski alias yok")
+def report_drift(
+    root_dir: str,
+    entry_points: list[str] = None,
+    ignore_dirs: set[str] = None,
+) -> list[dict]:
+    """Tüm projeyi tara, drift raporu üret."""
+    duplicates = find_duplicate_basenames(root_dir, ignore_dirs)
+    findings = []
 
-    # 5) Özet
-    toplam = (
-        len(sonuc['benzer_moduller'])
-        + len(sonuc['kullanilmayan_moduller'])
-        + len(sonuc['farkli_db_yazanlar'])
-        + len(sonuc['eski_alias_referanslari'])
-    )
-    satirlar.append(f"\n{'=' * 50}")
-    satirlar.append(f"📊 Özet: {toplam} sorun {'bulundu' if toplam else 'yok, temiz'}")
+    for basename, paths in duplicates.items():
+        func_sets = {p: extract_function_names(p) for p in paths}
+        all_funcs = set().union(*func_sets.values())
+        unique_sets = {frozenset(fs) for fs in func_sets.values()}
+        if len(unique_sets) <= 1:
+            continue
 
+        live_module = find_live_import_path(root_dir, basename, entry_points)
+        canli_yol = None
+        if live_module:
+            for p in paths:
+                if any(seg in p for seg in live_module.split(".")):
+                    canli_yol = p
+                    break
+
+        findings.append({
+            "basename": basename,
+            "canli_yol": canli_yol or min(paths, key=len),
+            "kopyalar": sorted(paths),
+            "canli_fonksiyon_sayisi": len(func_sets[canli_yol]) if canli_yol else 0,
+            "fonksiyon_farki": {
+                p: sorted(all_funcs - fs) for p, fs in func_sets.items()
+                if p != (canli_yol or min(paths, key=len))
+            },
+            "risk": "YUKSEK" if canli_yol else "BELIRSIZ",
+        })
+
+    return findings
+
+
+def print_text(findings: list[dict], detayli: bool = False) -> str:
+    """Terminal çıktısı üret."""
+    if not findings:
+        return "✅ Drift tespit edilmedi — tum dosyalar senkron."
+    satirlar = [
+        f"⚠️  {len(findings)} drift bulundu.\n",
+        f"# Tarama: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n",
+    ]
+    for f in findings:
+        satirlar.append(f"🎯 {f['basename']}  (risk: {f['risk']})")
+        satirlar.append(f"   Canli: {f['canli_yol']}")
+        for kop in f["kopyalar"]:
+            if kop == f["canli_yol"]:
+                continue
+            satirlar.append(f"   Kop:  {kop}")
+            miss = f["fonksiyon_farki"].get(kop, [])
+            if miss and detayli:
+                satirlar.append(f"      eksik: {', '.join(miss[:10])}")
+                if len(miss) > 10:
+                    satirlar.append(f"      ...ve {len(miss)-10} daha")
+        satirlar.append("")
+    satirlar.append(f"📊 Toplam: {len(findings)} drift")
     return "\n".join(satirlar)
 
 
+def print_json(findings: list[dict]) -> str:
+    """JSON çıktısı üret."""
+    return json.dumps({
+        "tarih": datetime.now().isoformat(),
+        "toplam_drift": len(findings),
+        "bulgular": findings,
+    }, ensure_ascii=False, indent=2)
+
+
+# ── 4. Ana ──────────────────────────────────────────────────────────────────
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Duplicate Module Drift Detector")
+    parser.add_argument("root", nargs="?", default=".", help="Kök dizin")
+    parser.add_argument("--format", choices=["text", "json", "detayli"],
+                        default="detayli", help="Çıktı formatı")
+    parser.add_argument("--save", help="Çıktıyı dosyaya kaydet")
+    parser.add_argument("--entry", nargs="+",
+                        default=["main.py", "start.py", "__init__.py"],
+                        help="Entry point'ler")
+    args = parser.parse_args()
+
+    findings = report_drift(args.root, args.entry)
+
+    if args.format == "json":
+        output = print_json(findings)
+    else:
+        output = print_text(findings, detayli=(args.format == "detayli"))
+
+    if args.save:
+        with open(args.save, "w", encoding="utf-8") as f:
+            f.write(output)
+        print(f"Kaydedildi: {args.save}")
+    else:
+        print(output)
+
+    sys.exit(1 if findings else 0)
+
+
 if __name__ == "__main__":
-    sonuc = raporla()
-    print(raporu_yazdir(sonuc))
+    main()

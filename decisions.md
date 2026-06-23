@@ -133,3 +133,22 @@ Root shim'ler `from reymen.X.Y import *` yaparken, `reymen/__init__.py` de aynı
 
 
 
+
+## Karar #15 — Skills → OnceHafiza DB Sync (Cron Job)
+
+**Tarih:** 24 Haziran 2026
+**Bağlam:** skills/ klasöründeki .md dosyalarını OnceHafiza DB'sine kaydetme cron job'u
+
+### 1. Ne yaptın?
+`reymen/cereyan/skills/` altındaki 6.941 `.md` dosyasını recursive olarak taradım, frontmatter'dan `name` (hedef) ve path'ten `kategori` çıkardım, OnceHafiza DB'sine (`reymen/cereyan/.ReYMeN/ogrenmeler.db`) kaydettim. Sync betiği `reymen/cereyan/.ReYMeN/skills_to_db.py`'ye yazıldı.
+
+### 2. Neden?
+Proje standardı: skills .md dosyaları ile DB arasında kopukluk vardı — DB'de 2,871 kayıt varken skills/ klasöründe 6,941 dosya vardı. Cron job her 6 saatte bir senkron tutacak.
+
+### 3. Alternatif düşündün mü?
+- **Direkt SQL INSERT** → once_hafiza.kaydet() kullanmak daha iyi (sigmoid güven hesaplaması, geçerlilik tarihi, kaynak_url dahil)
+- **Sadece yeni dosyaları kontrol** → hash karşılaştırması ile değişenleri de yakalamak daha doğru
+- **Her dosya ayrı kategori** → path'ten türetmek en stabil
+
+### Sonuç
+İlk çalıştırma: 6,287 yeni + 296 güncellendi. İkinci çalıştırma (1.6sn): 0 yeni, 554 güncelleme (çakışan name'lerden). Cron: her 6 saatte bir otomatik.

@@ -1,0 +1,58 @@
+{
+  "hedef": "Her self-improvement cycle başında otomatik çalışır.\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}: \n  - example_com_verisi|Bu veri Example Domain (example.com) sayfasından alınmıştır. Başlık: Example Domain. Paragraflar: This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more. Bağlantılar: https://iana.org/domains/example. Etiketler: example, web_scraping: \n  - drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler: drift_duzeltme, hafiza_yonetimi: ",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 7,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['MEMORY']",
+      "gozlem": "[Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'hafiza_durum_kontrol'",
+      "zaman": "2026-06-23T23:47:40.547231"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['MEMORY']",
+      "gozlem": "# ReYMeN Hafıza\n> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulunamadı' gürültü girişi kaldırıldı\n> Otomatik cron self-improvement loop tarafından temizlendi\n\n[Gecmis]: - [HATA] docker calistir: Docker kurulu degil\n- [BASARILI] web arama: WEB_ARA ile Python dokumanina ulasildi\n- [BASARILI] dosya olustur: DOSYA_YAZ ile test.txt olusturuldu\n[Gecmis]: - 2 + 2 kac eder? -> Tamamlanamadi: tur asimi\n- [HATA] docker calistir: Docker kurulu degil\n- [BASARILI] web arama: WEB_ARA ile Pytho",
+      "zaman": "2026-06-23T23:47:43.335993"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:1araç",
+      "eylem": "['MEMORY']",
+      "gozlem": "[Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz|drift_duzeltme_raporu_20260622|reymen hafiza drift duzeltmesi - 2. kontrol. tespit edilen sorunlar: 1) tekrar_eden_sorgu - 'kac skıll var' sorgusu hafizada 5+ kez tekrarlaniyor, 2) tekrar_eden_grs - '[basarili] web arama' ve '[basarili] dosya olustur' kayitlari cok kez tekrarlanmis, 3) tamamlanmamis_gorev - 'tum hatakarı gıder' ve '2+2 kac eder?' tamamlanamamis. cozum: tekrar_sil (tekrarlari birlestir), temizle (gereksiz girisleri kaldir), birl",
+      "zaman": "2026-06-23T23:47:49.660142"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_EKLE']",
+      "gozlem": "[Referans]: Eklendi",
+      "zaman": "2026-06-23T23:47:59.894739"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:1araç",
+      "eylem": "['SISTEM_KAYNAK']",
+      "gozlem": "[Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was given",
+      "zaman": "2026-06-23T23:48:02.079838"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:1araç",
+      "eylem": "['SISTEM_KAYNAK']",
+      "gozlem": "[Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was given",
+      "zaman": "2026-06-23T23:48:04.113765"
+    },
+    {
+      "tur": 7,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_ARA']",
+      "gozlem": "[{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler",
+      "zaman": "2026-06-23T23:48:06.937498"
+    }
+  ],
+  "tool_istatistik": {}
+}

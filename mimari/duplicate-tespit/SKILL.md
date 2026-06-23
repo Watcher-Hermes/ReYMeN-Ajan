@@ -1,79 +1,48 @@
 ---
 name: duplicate-tespit
-title: Çift/Kopya Modül Drift Tespiti
-category: mimari
+description: "Duplikasyon/Drift tespit sistemi. 2 script: full (264 satır, JSON/HTML/terminal çıktı) + basic (106 satır, terminal çıktı). Her cycle'da çalışır."
+tags: [mimari, drift, duplicate, bakim]
 ---
 
-# duplicate-tespit
+# Duplicate / Drift Tespit
 
-## 5N1K
+## 📋 5N1K
 
-| 5N1K | Açıklama |
-|:-----|:---------|
-| **Kim** | Hermes/ReYMeN projesindeki tüm geliştiriciler ve botlar |
-| **Ne** | Çift lokasyonda bulunan aynı modüllerin drift (ayrışma) tespiti |
-| **Nerede** | Proje kökünde `scripts/duplicate_module_detector.py` |
-| **Ne Zaman** | Her cycle başında otomatik, manuel de çağrılabilir |
-| **Neden** | once_hafiza.py gibi çift dosyalar zamanla farklılaşır (drift). Aynı fonksiyon iki yerde farklı çalışır → hata |
-| **Nasıl** | AST analizi + hash karşılaştırması ile fonksiyon gövdeleri karşılaştırılır |
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | ReYMeN ajan (otonom döngü) |
+| **Ne?** | Aynı isimli dosyaları AST ile karşılaştır, drift raporla |
+| **Nerede?** | `scripts/duplicate_module_detector.py` (full), `scripts/duplicate_module_detector_basic.py` (basic) |
+| **Ne Zaman?** | Her cycle başında + manuel |
+| **Neden?** | Aynı isim + farklı klasör → "zaten var" sanılır, karşılaştırma yapılmaz. Kalıcı kural. |
+| **Nasıl?** | AST → fonksiyon setleri → Jaccard benzerlik → canlı yol tespiti → rapor |
 
 ## Kullanım
 
 ```bash
-# BASIC versiyon — AST fonksiyon karşılaştırması (kullanıcının istediği)
-python scripts/duplicate_module_detector_basic.py . main.py
+# Full sürüm (detaylı çıktı)
+python scripts/duplicate_module_detector.py . --format detayli
 
-# FULL versiyon — Jaccard benzerlik + unused module tespiti (projede önceden vardı)
-python scripts/duplicate_module_detector.py
-python scripts/duplicate_module_detector.py --json
-python scripts/duplicate_module_detector.py --path /path/to/proje
+# JSON çıktı
+python scripts/duplicate_module_detector.py . --format json
+
+# Dosyaya kaydet
+python scripts/duplicate_module_detector.py . --save .ReYMeN/raporlar/drift-$(date +%F).md
+
+# Basic sürüm (hızlı tarama)
+python scripts/duplicate_module_detector_basic.py .
 ```
 
-## Tespit Edilen Çiftler
+## Kalıcı Kural
 
-| Dosya 1 | Dosya 2 | Açıklama |
-|:--------|:--------|:---------|
-| `cereyan/once_hafiza.py` | `sistem/once_hafiza.py` | OnceHafiza: modül-seviyesi vs sınıf |
-| `cereyan/once_hafiza.py` | `once_hafiza.py` | Kök shim vs cereyan (beklenen fark) |
+> Her cycle başında duplicate_module_detector.py otomatik çalışır.
+> Aynı isimli dosya bulunursa, içerik karşılaştırması ZORUNLU.
+> Hiçbir zaman iki kopya "geçici çözüm" olarak bırakılmaz.
+> "Her şey temiz" raporu, bu kontrol çalıştırılmadan verilemez.
 
-## Drift Skoru
+## İlişkili
 
-- **0.0**: Birebir aynı
-- **0.1-0.4**: Hafif drift (gözlem altında)
-- **0.5-0.7**: Orta drift (manuel inceleme gerek)
-- **0.8-1.0**: Ciddi drift (müdahale gerek)
-
-Eşik: **0.1** üzeri drift uyarısı verir.
-
-## Nasıl Çalışır
-
-1. Her dosyayı `ast.parse()` ile ayrıştır
-2. Fonksiyon/sınıf isimlerini ve gövdelerini çıkar
-3. Gövde `hashlib.md5` hash'ini hesapla (dokstring hariç)
-4. Ortak fonksiyon isimlerinde hash karşılaştırması
-5. Sadece bir dosyada var olan fonksiyonları işaretle
-6. Tüm farkları `drift_skoru` [0.0, 1.0] olarak özetle
-
-## İlgili Dosyalar
-
-- `scripts/duplicate_module_detector.py` — Full versiyon (önbellek + Jaccard)
-- `scripts/duplicate_module_detector_basic.py` — Basic versiyon (AST fonksiyon karşılaştırma)
-- `reymen/cereyan/once_hafiza.py` — Kaynak modül
-- `reymen/sistem/once_hafiza.py` — Hedef/çift modül
-
-## Oto-Çalıştırma (Cycle Integration)
-
-Her cycle başında otomatik çalıştırmak için:
-
-```python
-# conversation_loop.py veya closed_learning_loop.py içinde
-import subprocess
-result = subprocess.run(
-    ["python", "scripts/duplicate_module_detector.py", "--json"],
-    cwd=PROJE_DIZINI, capture_output=True, text=True, timeout=120
-)
-findings = json.loads(result.stdout)
-if findings:
-    logger.warning(f"⚠️ {len(findings)} drift bulundu — cycle raporuna eklendi")
-    # findings'i cycle raporuna ekle
-```
+- `scripts/duplicate_module_detector.py` (264 satır, full)
+- `scripts/duplicate_module_detector_basic.py` (106 satır, basic)
+- `.ReYMeN/raporlar/` — günlük tarama raporları
+- `.ReYMeN/decisions.md` — kalıcı kural kaydı

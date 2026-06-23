@@ -1,0 +1,23 @@
+{
+  "hedef": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}: \n  - example_com_verisi|Bu veri Example Domain (example.com) sayfasından alınmıştır. Başlık: Example Domain. Paragraflar: This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more. Bağlantılar: https://iana.org/domains/example. Etiketler: example, web_scraping: \n  - drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler: drift_duzeltme, hafiza_yonetimi: ",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 2,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_ARA']",
+      "gozlem": "[{'etiket': 'anahtar: onay_durumu_20260623\\ndeğer: ONAY SÜRECİ TAMAMLANDI. Durum değerlendirmesi: 1) example_com_verisi - Başarıyla kaydedildi (3 tekrar tespit edildi, clean_referanslar ile temizlendi) 2) drift_duzeltme_raporu_20260621 - Drift düzeltmesi yapıldı, TEKRAR_SIL ve BIRLESTIR adımları uygulandı 3) decisions_ve_plan - Güncel kararlar ve plan mevcut (5 aşamalı) 4) Kalıcı izleme mekanizması - 24 saatlik kontrol aktif 5) Sistem durumu - STABİL, tüm adımlar hatasız tamamlandı\\netiketler: o",
+      "zaman": "2026-06-24T00:11:33.174480"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_OZET']",
+      "gozlem": "[Referanslar]\n  - decisions_ve_plan_20260623|GUNCELLENMIS KARARLAR VE PLAN. Referanslar: [1] example_com_verisi - Example Domain sayfasindan alinan veri (tek kopya). [2] drift_duzeltme_raporu_20260621 - Ilk drift duzeltme raporu. [3] drift_duzeltme_raporu_20260623 - Ikinci drift duzeltme raporu (tekrarlar temizlendi). [4] clean_referanslar - Temizlenmis referans kumesi. PLAN: 1) Veri toplama ve analiz 2) Alternatif araclarin belirlenmesi 3) Geri donus plani 4) decisions.md'ye ekleme 5) Uygulama ",
+      "zaman": "2026-06-24T00:11:41.365442"
+    }
+  ],
+  "tool_istatistik": {}
+}

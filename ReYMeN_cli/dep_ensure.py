@@ -43,6 +43,19 @@ def kaydet(alt_parser):
                             help="Paket surumu (install icin)")
 
 
+def ensure_dependency(paket: str) -> bool:
+    """Belirtilen bagimliligin kurulu olup olmadigini kontrol et.
+
+    Args:
+        paket: Kontrol edilecek bagimlilik (ornek: 'node', 'npm', 'python').
+
+    Returns:
+        True eger bagimlilik kuruluysa, False degilse.
+    """
+    import shutil
+    return shutil.which(paket) is not None
+
+
 def calistir(args):
     """Bagimlilik denetleme komutunu calistir."""
     try:

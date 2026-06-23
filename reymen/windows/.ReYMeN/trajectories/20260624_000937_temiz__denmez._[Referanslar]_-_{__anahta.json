@@ -1,0 +1,65 @@
+{
+  "hedef": "temiz\" denmez.\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}: \n  - example_com_verisi|Bu veri Example Domain (example.com) sayfasından alınmıştır. Başlık: Example Domain. Paragraflar: This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more. Bağlantılar: https://iana.org/domains/example. Etiketler: example, web_scraping: \n  - drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler: drift_duzeltme, hafiza_yonetimi: ",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 8,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://example.com\n\nExample Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+      "zaman": "2026-06-24T00:11:44.049535"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:2araç",
+      "eylem": "['WEB_ARA', 'REFERANS_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- Example Domains - Internet Assigned Numbers Authority\n  Example Domains As described in RFC 2606 and RFC 6761, a number of domains such as example.com and example.org are maintained for documentation purposes. These domains may be used \n  https://www.iana.org/help/example-domains\n- example.com - Wikipedia\n  The domain names example.com, example.net, example.org, and example.edu are second-level domain names in the Domain Name System of the Internet. They are reserved by",
+      "zaman": "2026-06-24T00:11:48.057777"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:3araç",
+      "eylem": "['MEMORY', 'MEMORY', 'MEMORY']",
+      "gozlem": "[Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'checkpoint_3|referans_ara testi basarili - example_com_verisi bulundu'",
+      "zaman": "2026-06-24T00:11:52.366782"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ❌]\n--- HATA ---\nSyntaxError: unexpected character after line continuation character (<string>, line 1)\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\tools\\execute_code_tool.py\", line 108, in _kod_calistir\n    exec(duzgun_kod, temiz_globals)\n  File \"<string>\", line 1\n    checkpoint_log = \\\"\\\"\\\"\n                      ^\nSyntaxError: unexpected character after line continuation character",
+      "zaman": "2026-06-24T00:11:59.209064"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ❌]\n--- HATA ---\nSyntaxError: unexpected character after line continuation character (<string>, line 1)\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\tools\\execute_code_tool.py\", line 108, in _kod_calistir\n    exec(duzgun_kod, temiz_globals)\n  File \"<string>\", line 1\n    checkpoint_log = \\\"=== CHECKPOINT LOGU ===\\\\n\\\"\n                      ^\nSyntaxError: unexpected character after line continuation character",
+      "zaman": "2026-06-24T00:12:03.095929"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:1araç",
+      "eylem": "['TODO']",
+      "gozlem": "{\"durum\": \"hata\", \"hata\": \"Geçersiz işlem: 'checkpoint_log_olustur: web_icerik, web_ara, referans_ara test edildi. alternatif zincir olusturulacak.'. Desteklenen: ekle, listele, tamamla, sil\"}",
+      "zaman": "2026-06-24T00:12:06.385498"
+    },
+    {
+      "tur": 7,
+      "dusunce": "FC:3araç",
+      "eylem": "['TODO', 'TODO', 'TODO']",
+      "gozlem": "{\"durum\": \"hata\", \"hata\": \"Geçersiz işlem: 'ekle: checkpoint_3 - referans_ara test edildi ve calisiyor'. Desteklenen: ekle, listele, tamamla, sil\"}",
+      "zaman": "2026-06-24T00:12:09.365265"
+    },
+    {
+      "tur": 8,
+      "dusunce": "FC:2araç",
+      "eylem": "['DOSYA_YAZ', 'DOSYA_YAZ']",
+      "gozlem": "[Hata]: yaz() missing 1 required positional argument: 'icerik'",
+      "zaman": "2026-06-24T00:12:17.247658"
+    }
+  ],
+  "tool_istatistik": {}
+}

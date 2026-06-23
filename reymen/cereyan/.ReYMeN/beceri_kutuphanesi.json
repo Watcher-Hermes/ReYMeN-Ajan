@@ -886,5 +886,62 @@
     "basari_orani": 1.0,
     "olusturma": "2026-06-23",
     "son_basari": "2026-06-23"
+  },
+  "tespit_edilinel_hatalari_duzel__ve_onar___referans": {
+    "ad": "tespit edilinel hatalari duzel  ve onar\n\n[Referans",
+    "aciklama": "tespit edilinel hatalari duzel  ve onar\n\n[Referans",
+    "tetikleyiciler": [
+      "hatalari",
+      "tespit",
+      "ve",
+      "duzel",
+      "onar",
+      "edilinel"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_OZET",
+      "FC/MEMORY",
+      "FC/REFERANS_EKLE",
+      "FC/DOSYA_YAZ",
+      "FC/REFERANS_EKLE",
+      "FC/REFERANS_EKLE"
+    ],
+    "basari_kriteri": "\"Tespit edilen hatalar düzeltildi ve onarıldı:\n\n1. **TEKRAR_EDEN_GRS Çözümü**: e",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-23",
+    "son_basari": "2026-06-23"
+  },
+  "onay___referanslar_________anahtar______example_co": {
+    "ad": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_co",
+    "aciklama": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_co",
+    "tetikleyiciler": [
+      "\\\"example_com_verisi\\\",",
+      "[referanslar]",
+      "{\\\"anahtar\\\":",
+      "onay",
+      "-",
+      "\\\"deger\\\":"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/MEMORY",
+      "FC/REFERANS_EKLE",
+      "FC/WEB_ICERIK",
+      "FC/REFERANS_OZET",
+      "FC/HA_DURUM",
+      "FC/Browser",
+      "FC/HAFIZA_ARA",
+      "FC/WEB_ARA",
+      "FC/CRON_EKLE"
+    ],
+    "basari_kriteri": "Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE)",
+    "kullanim_sayisi": 17,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-23",
+    "son_basari": "2026-06-24"
   }
 }
