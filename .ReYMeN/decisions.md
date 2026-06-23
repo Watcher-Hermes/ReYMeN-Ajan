@@ -154,3 +154,73 @@ karşılaştırma yapılmadı.
 |:-----|:------|
 | A veya B | Rotasyona devam. A: import-missing check, B: hedefli Bandit |
 | C (son çare) | Farklı grup combine dene (mcp + tools) |
+| --- | --- |
+
+---
+
+## Karar #5 — Cron Iteration 5 (it5) — C: core modüller
+
+**Tarih:** 2026-06-24 ~02:25
+**Bağlam:** 5. self-improvement döngüsü — Adım C: çekirdek modüller
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **C — beyin + hafiza** | Core memory/brain modülleri | ✅ 78/78 PASS (10.03s) |
+| 2 | **C — motor + planlayici** | Engine + planner modülleri | ✅ 104/104 PASS (5.52s) |
+| 3 | **Syntax verify** | 4 değişen .py compile() check | ✅ clean |
+| 4 | **Toplam** | 2 grup, 182 test, 15.55s | ✅ 182/182 PASS |
+
+### Neden?
+- İt4 (C) yapıldı, churn=4 (<5) → B skip
+- 2 ardışık C (it3-4) → 3. C'ye yaklaşıyor ama henüz sınırda değil
+- Beyin/hafiza/motor/planlayici daha önce test edilmemişti
+
+### Alternatif?
+- A (import-missing): Son 4 .py değişikliği, hepsi stdlib — bulgu yok
+- B (bandit): churn <5 → kural gereği atlandı
+
+### Sonraki (İt. 6)
+| Adım | Öneri |
+|:-----|:------|
+| **B** | 3. ardışık C'ye ulaşıldı (it3=C, it4=C, it5=C) → zorla B |
+| A | Import-missing check — düşük öncelik |
+
+---
+
+## Karar #4 — Cron Iteration 4 (it4) — C: test group
+
+**Tarih:** 2026-06-24 ~01:50
+**Bağlam:** 4. self-improvement döngüsü — Adım C: farklı test grubu
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **C — araclar + mcp + error_classifier** | Yeni kombinasyon (it1/it3'te yok) | ✅ 123/123 PASS |
+| 2 | **Syntax verify** | 3 modified .py compile() check | ✅ clean |
+| 3 | **Commit** | `bd648c5` fresh-main | ✅ |
+
+### Test Detayı
+
+| Test Grubu | Süre | Sonuç |
+|:-----------|:----:|:-----:|
+| test_araclar.py + test_araclar_telegram.py + test_mcp.py + test_error_classifier.py | 5.89s | 123 PASS |
+
+### Neden?
+- İt3 (C) yapıldı, churn=3 (<5) → B skip
+- A (import-missing): 0 bulgu, tüm import'lar stdlib
+- Rotasyondaki en uygun: C — farklı grup
+- Churn=3: sadece dep_ensure.py + 2 script değişmiş, derin audit gereksiz
+
+### Alternatif?
+- A: import-missing check çalıştırıldı, bulgu yok. Yeni shim gerekmiyor.
+- B: churn < 5 → skill kuralı gereği atlandı
+
+### Sonraki (İt. 5)
+| Adım | Öneri |
+|:-----|:------|
+| B | Hedefli Bandit — cereyan/ dışında kalan kritik modüller (motor, beyin) |
+| A | Import-missing yoksa A atlanabilir |
+| C | Sadece nadiren — 3. ardışık C'ye yaklaşılıyor |
