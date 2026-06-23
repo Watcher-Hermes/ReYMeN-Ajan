@@ -5,13 +5,13 @@ tags: [security, windows]
 description: VeraCrypt container creation, formatting, mounting, and Obsidian vault encryption on Windows. CLI syntax for VeraCrypt Format.exe and VeraCrypt.exe, elevation pitfalls, and multi-session workflow.
 version: 1.1.0
 author: hermes
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [veracrypt, encryption, container, volume, obsidian, vault, windows, cli, uac]
 audience: user
 related_skills: [obsidian-vault-kurallari, tam-sistem-yetkisi, gorsel-onaylama]
+---
 ---
 
 # VeraCrypt Windows — Container Yönetimi

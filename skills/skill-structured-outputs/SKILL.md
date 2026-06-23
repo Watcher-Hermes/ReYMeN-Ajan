@@ -3,11 +3,10 @@ name: skill-structured-outputs
 description: Decision framework for choosing the right structured output strategy based on provider, reliability, and complexity
 title: "Skill Structured Outputs"
 version: 1.0.0
-phase: 11
-lesson: 03
 tags: [structured-output, json, schema, constrained-decoding, pydantic, function-calling]
 category: skill-structured-outputs
 audience: user
+---
 ---
 
 # Structured Output Strategy

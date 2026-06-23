@@ -3,11 +3,10 @@ name: prompt-sft-data-curator
 description: Design and curate instruction datasets for supervised fine-tuning
 title: "PRompt Sft Data Curator"
 version: 1.0.0
-phase: 10
-lesson: 6
 tags: [sft, instruction-tuning, fine-tuning, data-curation, alignment]
 category: prompt-sft-data-curator
 audience: user
+---
 ---
 
 # SFT Data Curator

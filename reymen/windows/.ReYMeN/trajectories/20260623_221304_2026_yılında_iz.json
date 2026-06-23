@@ -1,0 +1,16 @@
+{
+  "hedef": "2026 yılında iz",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 1,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['CLARIFY']",
+      "gozlem": "[NETLESTIR] ⚠️ **NETLEŞTİRME GEREKİYOR**\n\n2026 yılında iz",
+      "zaman": "2026-06-23T22:13:07.975850"
+    }
+  ],
+  "tool_istatistik": {}
+}

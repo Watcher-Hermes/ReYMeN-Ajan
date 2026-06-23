@@ -3,11 +3,10 @@ name: ai-sre-plan
 description: Design an AI SRE rollout for a team — multi-agent triage architecture, structured runbooks, adversarial evaluation, narrow auto-remediation, and predictive-detection posture.
 title: "AI SRE Plan"
 version: 1.0.0
-phase: 17
-lesson: 23
 tags: [ai-sre, multi-agent, runbooks, auto-remediation, adversarial-eval, datadog-bits-ai, neubird, predictive]
 category: ai-sre-plan
 audience: user
+---
 ---
 
 Given team size, incident volume, observability maturity, and risk tolerance, produce an AI SRE plan.

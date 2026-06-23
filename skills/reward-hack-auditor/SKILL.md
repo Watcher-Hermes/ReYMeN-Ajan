@@ -3,11 +3,10 @@ name: reward-hack-auditor
 description: Diagnose reward-hacking failure modes in a trained RLHF model from training logs and eval outputs.
 title: "Reward Hack Auditor"
 version: 1.0.0
-phase: 18
-lesson: 2
 tags: [reward-hacking, goodhart, rlhf, over-optimization, sycophancy]
 category: reward-hack-auditor
 audience: maintainer
+---
 ---
 
 Given an RLHF model's training reports (proxy-reward curve, KL trajectory, eval deltas) and a sample of outputs, identify which of the four reward-hacking costumes is most likely active and locate it in the evidence.

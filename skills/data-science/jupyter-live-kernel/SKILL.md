@@ -4,7 +4,6 @@ description: "Iterative Python via live Jupyter kernel (hamelnb)."
 title: "Jupyter Live Kernel"
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -13,6 +12,7 @@ category: data-science
     category: data-science
 audience: user
 tags: [data-science, python]
+---
 ---
 
 # Jupyter Live Kernel (hamelnb)

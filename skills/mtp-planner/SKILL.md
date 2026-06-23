@@ -3,11 +3,10 @@ name: mtp-planner
 description: Plan a multi-token prediction integration for a new pre-training run.
 title: "Mtp Planner"
 version: 1.0.0
-phase: 10
-lesson: 18
 tags: [mtp, multi-token-prediction, deepseek-v3, pre-training, speculative-decoding]
 category: mtp-planner
 audience: user
+---
 ---
 
 Given a pre-training run specification (model scale, hidden size, layers, data tokens budget, GPU topology, target deployment) and a stated goal (denser training signal vs speculative-decoding draft vs both), produce an MTP integration plan.

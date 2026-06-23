@@ -3,11 +3,10 @@ name: prompt-distributed-training-planner
 description: Plan a distributed training run given model size and available hardware
 title: "PRompt Distributed Training Planner"
 version: 1.0.0
-phase: 10
-lesson: 5
 tags: [distributed-training, fsdp, deepspeed, tensor-parallelism, pipeline-parallelism, scaling]
 category: prompt-distributed-training-planner
 audience: user
+---
 ---
 
 # Distributed Training Planner

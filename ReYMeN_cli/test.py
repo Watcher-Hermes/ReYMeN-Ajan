@@ -109,7 +109,7 @@ def calistir(args):
             try:
                 import time
                 while True:
-                    os.system("cls" if sys.platform == "win32" else "clear")
+                    subprocess.run("cls" if sys.platform == "win32" else "clear", shell=True, capture_output=True)
                     print(f"[Test] Izleniyor... ({datetime.now().strftime('%H:%M:%S')})")
                     print()
                     result = subprocess.run(

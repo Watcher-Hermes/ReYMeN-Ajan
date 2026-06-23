@@ -21,6 +21,7 @@ ReYMeN iki model katmanıyla çalışır:
 - **Ayrıca:** Reddit-benzeri, düşük öncelikli veya alternatif akış gerektiren görevler de bu katmana yönlendirilir
 
 > Detaylı yönlendirme kuralları için `hibrit-ai-yonlendirme-kurali` skill'ine bak.
+> Fallback zinciri detayı: `references/fallback-zinciri.md`
 
 ## Katman 2: Uzak (Değişken Provider)
 - **Ne zaman:** Uzun (>40 kelime), karmaşık, analiz/kod/tasarım gerektiren sorular

@@ -3,11 +3,10 @@ name: skill-segmentation-mask-inspector
 description: Report class distribution, predicted-mask statistics, and the classes most likely to be under-predicted or boundary-blurred
 title: "Skill Segmentation Mask Inspector"
 version: 1.0.0
-phase: 4
-lesson: 7
 tags: [computer-vision, segmentation, debugging, evaluation]
 category: skill-segmentation-mask-inspector
 audience: user
+---
 ---
 
 # Segmentation Mask Inspector

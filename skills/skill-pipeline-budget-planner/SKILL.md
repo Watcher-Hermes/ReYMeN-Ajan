@@ -3,11 +3,10 @@ name: skill-pipeline-budget-planner
 description: Given target latency and throughput, assign a time budget to every pipeline stage and flag which stage will miss its budget first
 title: "Skill Pipeline Budget Planner"
 version: 1.0.0
-phase: 4
-lesson: 16
 tags: [vision, pipeline, performance, deployment]
 category: skill-pipeline-budget-planner
 audience: maintainer
+---
 ---
 
 # Pipeline Budget Planner

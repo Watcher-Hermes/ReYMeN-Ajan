@@ -4,7 +4,6 @@ description: "Generate or edit images through ReYMeN Web UI using the selected/r
 title: "APIkey Image Gen"
 version: 1.0.0
 author: Ekko
-license: MIT
 platforms: [linux, macos, windows, termux]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ audience: user
 tags: [api, image]
 prerequisites:
   commands: [curl]
+---
 ---
 
 # APIKEY Image Generation

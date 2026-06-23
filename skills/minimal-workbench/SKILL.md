@@ -3,11 +3,10 @@ name: minimal-workbench
 description: Lay down the three-file minimum viable agent workbench for any repo — short AGENTS.md router, durable agent_state.json, and a JSON task_board.json keyed to the project's current backlog.
 title: "Minimal Workbench"
 version: 1.0.0
-phase: 14
-lesson: 32
 tags: [workbench, agents-md, state, task-board, scaffold]
 category: minimal-workbench
 audience: user
+---
 ---
 
 Given a repo path and a short backlog, scaffold the minimum viable agent workbench.

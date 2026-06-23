@@ -3,11 +3,10 @@ name: skill-bpe-vs-wordpiece
 description: Pick tokenizer algorithm, vocab size, library for a given corpus and deployment target.
 title: "Skill Bpe Vs Wordpiece"
 version: 1.0.0
-phase: 5
-lesson: 19
 tags: [nlp, tokenization]
 category: skill-bpe-vs-wordpiece
 audience: user
+---
 ---
 
 Given a corpus (size, languages, domain) and deployment target (training from scratch / fine-tuning / API-compatible inference), output:

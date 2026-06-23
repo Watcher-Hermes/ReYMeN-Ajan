@@ -6,7 +6,6 @@ tags: [machine-learning, mlops]
 description: "OBLITERATUS: abliterate LLM refusals (diff-in-means)."
 version: 2.0.0
 author: ReYMeN Agent
-license: MIT
 dependencies: [obliteratus, torch, transformers, bitsandbytes, accelerate, safetensors]
 platforms: [linux, macos]
 metadata:
@@ -14,6 +13,7 @@ metadata:
     tags: [Abliteration, Uncensoring, Refusal-Removal, LLM, Weight-Projection, SVD, Mechanistic-Interpretability, HuggingFace, Model-Surgery]
 audience: user
 related_skills: [vllm, gguf, huggingface-tokenizers]
+---
 ---
 
 # Obliteratus

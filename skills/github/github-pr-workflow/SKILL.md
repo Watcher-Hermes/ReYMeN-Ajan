@@ -6,13 +6,13 @@ tags: [development, git, github]
 description: "GitHub PR lifecycle: branch, commit, open, CI, merge."
 version: 1.1.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [GitHub, Pull-Requests, CI/CD, Git, Automation, Merge]
 audience: contributor
 related_skills: [github-auth, github-code-review]
+---
 ---
 
 # Github Pr Workflow

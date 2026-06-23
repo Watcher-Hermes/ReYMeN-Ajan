@@ -3,11 +3,10 @@ name: skill-recall-at-k-runner
 description: Write a clean evaluation harness for recall@K with train/val/gallery splits and proper data contract
 title: "Skill Recall At K Runner"
 version: 1.0.0
-phase: 4
-lesson: 20
 tags: [retrieval, evaluation, recall, faiss]
 category: skill-recall-at-k-runner
 audience: user
+---
 ---
 
 # Recall@K Runner

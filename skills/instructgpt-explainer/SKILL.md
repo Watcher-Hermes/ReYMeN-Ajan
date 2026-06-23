@@ -3,11 +3,10 @@ name: instructgpt-explainer
 description: Diagnose an RLHF-family paper or pipeline against the three-stage InstructGPT reference.
 title: "Instructgpt Explainer"
 version: 1.0.0
-phase: 18
-lesson: 1
 tags: [rlhf, instructgpt, sft, reward-model, ppo, alignment]
 category: instructgpt-explainer
 audience: user
+---
 ---
 
 Given a paper abstract, blog post, or pipeline description that claims to "align" a language model, identify which stages of the InstructGPT reference (SFT + RM + PPO-ptx with KL penalty) the method modifies, and what is at risk when each stage changes.

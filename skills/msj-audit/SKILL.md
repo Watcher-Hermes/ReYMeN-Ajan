@@ -3,11 +3,10 @@ name: msj-audit
 description: Audit a long-context safety evaluation for many-shot jailbreaking coverage.
 title: "Msj Audit"
 version: 1.0.0
-phase: 18
-lesson: 13
 tags: [many-shot-jailbreaking, context-window, power-law, anthropic]
 category: msj-audit
 audience: maintainer
+---
 ---
 
 Given a safety evaluation for a long-context model, audit whether the evaluation covers many-shot jailbreaking.

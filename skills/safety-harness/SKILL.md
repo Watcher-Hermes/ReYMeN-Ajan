@@ -3,11 +3,10 @@ name: safety-harness
 description: Wire a layered safety pipeline around a target LLM app, run a six-family red-team range, and run a constitutional self-critique for a measurable harmlessness delta.
 title: "Safety Harness"
 version: 1.0.0
-phase: 19
-lesson: 15
 tags: [capstone, safety, red-team, llama-guard, x-guard, garak, pyrit, constitutional-ai]
 category: safety-harness
 audience: user
+---
 ---
 
 Given a target LLM application (8B instruction-tuned model or a RAG chatbot), harden it with a layered safety pipeline and run an autonomous red-team range across six attack families. Produce a before/after harmlessness report.

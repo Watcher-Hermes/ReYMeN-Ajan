@@ -8,7 +8,6 @@ description: >-
   tek repoda toplar. Güncelleme için -Update parametresiyle tekrar çalıştırılır.
 version: 1.0.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [migration, restore, backup, setup, windows, state-db, git]
@@ -17,6 +16,7 @@ related_skills:
       - github-repo-management
       - gece-3-github-yedek
       - obsidian-vault-kurallari
+---
 ---
 
 # ReYMeN Migration & Restore

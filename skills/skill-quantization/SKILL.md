@@ -3,11 +3,10 @@ name: skill-quantization
 description: Choose the right quantization strategy for deploying LLMs based on hardware, quality, and latency constraints
 title: "Skill Quantization"
 version: 1.0.0
-phase: 10
-lesson: 11
 tags: [quantization, inference, deployment, optimization, fp8, int4, int8, gptq, awq, gguf]
 category: skill-quantization
 audience: maintainer
+---
 ---
 
 # Quantization Decision Framework

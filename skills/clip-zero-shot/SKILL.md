@@ -3,11 +3,10 @@ name: clip-zero-shot
 description: Run zero-shot image classification with a CLIP / SigLIP checkpoint, producing ranked predictions with similarity scores.
 title: "CLIp Zero Shot"
 version: 1.0.0
-phase: 12
-lesson: 02
 tags: [clip, siglip, zero-shot, vision-language]
 category: clip-zero-shot
 audience: user
+---
 ---
 
 Given a list of images (file paths or URLs) and a list of candidate class names, produce a ranked zero-shot classification using a declared CLIP or SigLIP checkpoint. The skill is pure-prediction; it does not train or finetune.

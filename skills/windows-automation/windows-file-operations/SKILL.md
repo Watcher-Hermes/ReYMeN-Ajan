@@ -4,7 +4,6 @@ description: Windows'ta dosya oluşturma, açma, düzenleme işlemleri için tem
 title: "Windows File Operations"
 version: 1.0.0
 author: hermes
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
 category: windows-automation
 audience: user
 tags: [automation, windows]
+---
 ---
 
 # Windows Dosya İşlemleri

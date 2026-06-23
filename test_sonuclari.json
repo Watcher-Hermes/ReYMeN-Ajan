@@ -1,0 +1,802 @@
+[
+  {
+    "no": 1,
+    "soru": "ReYMeN Agent'in ana dosya yapısı nasıldır?",
+    "durum": "KALDI",
+    "oran": 0.33,
+    "cevap": "ReYMeN Agent proje yapısı (sadece proje dosyaları, venv/venv hariç):\n\n```\nhermes_projesi/\n├── reymen/                    ← ANA MODÜL\n│   ├── sistem/                ← Çekirdek sistem (main.py, cli.py, ",
+    "beklenen": "ReYMeN projesi `reymen/` ana paketi altında 7 alt klasöre ayrılır:\n- `cereyan/` — Ana iş mantığı (conversation_loop, motor, beyin, steering_loop vb.)\n"
+  },
+  {
+    "no": 2,
+    "soru": "ReYMeN Agent hangi çalışma döngüsünü kullanır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "ReYMeN **hafıza-öncelikli karar döngüsü** kullanır:\n\n1. **ÖNCE HAFIZA** → guven_skoru > 0.8 ise direkt dön (0 LLM çağrısı)\n2. **SONRA CACHE** → selam/teşekkür/bye pattern eşleşmesi varsa dön\n3. **EN S",
+    "beklenen": "**ReAct (Reasoning + Acting)** döngüsü kullanır. Her turda: Düşün → Eylem (tool çağrısı) → Gözlem (tool sonucu) → Tekrar. Hedef tamamlanınca `GOREV_BI"
+  },
+  {
+    "no": 3,
+    "soru": "AGENTS.md dosyasının görevi nedir, bot davranışını nasıl etkiler?",
+    "durum": "GECTI",
+    "oran": 0.91,
+    "cevap": "AGENTS.md dosyasının görevi ve etkisi:\n\n**Görevi:** Her Hermes Agent oturumunda sistem promptuna otomatik enjekte edilen \"bot talimatları\" dosyası. Oturum açıldığında LLM bu dosyayı okur ve davranış k",
+    "beklenen": "AGENTS.md, ReYMeN bot'unun cevap stilini ve mühendislik kararlarını tanımlar. İçinde **Cave Mod**, **No Goblins**, **Status Line**, **Side Quest** ve "
+  },
+  {
+    "no": 4,
+    "soru": "ReYMeN projesindeki __init__.py ve __main__.py ne işe yarar?",
+    "durum": "GECTI",
+    "oran": 0.57,
+    "cevap": "İşte cevap:\n\n**reymen/__init__.py** — Paket giriş noktası. `from reymen import X` yapıldığında çalışan dosya. İçinde:\n- `Motor`, `ClosedLearningLoop`, `YetenekFabrikasi`, `SignalHandler`, `Planlayici`",
+    "beklenen": "`__init__.py` (2.2KB) paketi başlatır, `PromptAssembly`, `motor_kaydet` gibi ana fonksiyonları dışa aktarır. `__main__.py` (243 bayt) doğrudan `python"
+  },
+  {
+    "no": 5,
+    "soru": "ReYMeN'de \"motor\" kavramı nedir, hangi dosyadadır?",
+    "durum": "KALDI",
+    "oran": 0.45,
+    "cevap": "**Motor** — ReYMeN'in eylem çözümleyici katmanı.\n\n**Dosya:** `reymen/cereyan/motor.py` (1535 satır, ~74KB)\n\n**Ne yapar:**\nLLM çıktısından \"Eylem: ARAÇ(...)\" kalıbını yakalar, `ToolRegistry` üzerinden ",
+    "beklenen": "Motor (`motor.py`, 74KB), tüm araçların (tools) kaydedildiği, çağrıldığı ve yönetildiği merkezi sistemdir. Her tool `motor_kaydet()` veya `_plugin_ara"
+  },
+  {
+    "no": 6,
+    "soru": "conversation_loop.py ile steering_loop.py arasındaki fark nedir?",
+    "durum": "KALDI",
+    "oran": 0.33,
+    "cevap": "Fark:\n\nconversation_loop.py — Ajanın beyin döngüsü. API çağrısı, tool call döngüsü, context compression, prompt caching, session yönetimi, hafıza atlama (güven > 0.8 ise LLM atla). 73KB, 1715 satır.\n\n",
+    "beklenen": "`conversation_loop.py` (73KB) kullanıcı ile ajan arasındaki anlık konuşma döngüsünü yönetir (ReAct). `steering_loop.py` (28KB) ise uzun vadeli yönlend"
+  },
+  {
+    "no": 7,
+    "soru": "closed_learning_loop.py nedir, hangi şartlarda çalışır?",
+    "durum": "KALDI",
+    "oran": 0.33,
+    "cevap": "closed_learning_loop.py → ReYMeN'in FTS5 destekli kapalı öğrenme döngüsü. Beceri (skill) kristalleştirme ve自我-geliştirme motoru.\n\nNe yapar:\n- Görev sonrası başarılı adımları .md beceri kartına dönüştü",
+    "beklenen": "`closed_learning_loop.py` (39KB) ReYMeN'in kendi kendine öğrenme döngüsüdür. Şu şartlarda çalışır:\n1. Görev tamamlandıktan sonra\n2. Yeni bir skill/pat"
+  },
+  {
+    "no": 8,
+    "soru": "ReYMeN'de KAZANIMLAR.md hangi amaçla kullanılır?",
+    "durum": "GECTI",
+    "oran": 0.78,
+    "cevap": "KAZANIMLAR.md — ReYMeN'in proje geliştirme sürecinde elde ettiği **kazanımları, buluşları ve iyileştirmeleri** kaydettiği dosya.\n\n**Amaç:** Yapılan işleri, keşfedilen skill'leri, alınan kararları ve p",
+    "beklenen": "`KAZANIMLAR.md` (5.3KB), proje geliştirme sürecinde elde edilen kazanımları, buluşları ve iyileştirmeleri kaydeder. Her önemli değişiklikten sonra gün"
+  },
+  {
+    "no": 9,
+    "soru": "Projenin 3 ana belleği (hafiza) nedir, hangi dosyalarda?",
+    "durum": "GECTI",
+    "oran": 0.82,
+    "cevap": "3 ana bellek + 1 yardımcıkatman:\n\n1. OnceHafiza — reymen/sistem/once_hafiza.py (669 satır)\n\"Önce hafızaya bak\" prensibi. FTS5 skills + vektörel arama. isle() API'si ile: varsa kullan, yoksa dene, başa",
+    "beklenen": "ReYMeN'in 3 ana bellek katmanı vardır:\n1. **OnceHafiza** (`once_hafiza.py`, 22KB) — öncelikli/önbellek, LLM çağırmadan önce kontrol edilir\n2. **GorevH"
+  },
+  {
+    "no": 10,
+    "soru": ".ReYMeN/ klasörü ne içerir, hangi amaçla kullanılır?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "`.ReYMeN/` — ReYMeN'in ana çalışma dizini. Toplam ~209MB.\n\nİçeriği:\n\nKATEGORİ             BOYUT    AÇIKLAMA\n─────────────────────────────────────────────────────────────────\nskills/              28MB ",
+    "beklenen": "`.ReYMeN/` (gizli klasör), ReYMeN Agent'in runtime verilerini saklar:\n- `SOUL.md` — Ajan kimliği (varsayılan Hermes)\n- `prompts/` — Prompt parçacıklar"
+  },
+  {
+    "no": 11,
+    "soru": "conversation_loop.run_conversation() adım adım nasıl çalışır?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "~4500 satırlık `run_conversation()` 4 ana aşamada çalışıyor:\n\n## AŞAMA 1: Prologue (Turn Context) — satır 526-561\n`build_turn_context()` ile her tur başında tek seferlik hazırlık:\n- stdio guard (kırık",
+    "beklenen": "`run_conversation()` 9 aşamalıdır:\n1. Task ID oluştur, session başlat\n2. OnceHafiza kontrolü (guven > 0.8 → direkt döndür)\n3. Cache kontrolü (selamlaş"
+  },
+  {
+    "no": 12,
+    "soru": "ReAct döngüsünde \"tur\" (turn) kavramı nasıl işler?",
+    "durum": "TIMEOUT",
+    "oran": 0.0,
+    "cevap": "[TIMEOUT]",
+    "beklenen": "Her tur = 1 API çağrısı + tool sonucu işleme. Budget ile sınırlanır (varsayılan 15 tur). Her turda:\n- `tur_baslat_tetikle()` → hook\n- API çağrısı → ya"
+  },
+  {
+    "no": 13,
+    "soru": "_tool_calls_al() fonksiyonu hangi formatları destekler?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "`_tool_calls_al()` iki format destekler:\n\n1. **OpenAI standard** — `yanit[\"tool_calls\"]` list varsa direkt döner\n2. **ReAct text** — içerik içinden `\\b([A-Z][A-Z_]{2,})\\s*\\(([^)]*)\\)` pattern ile ARAÇ",
+    "beklenen": "İki format destekler:\n1. OpenAI standardı: `yanit[\"tool_calls\"]` → liste\n2. Anthropic standardı: `yanit[\"content\"][i][\"tool_use\"]` → gömülü"
+  },
+  {
+    "no": 14,
+    "soru": "_arac_calistir() tool çağrısını nasıl işler?",
+    "durum": "KALDI",
+    "oran": 0.25,
+    "cevap": "`conversation_loop.py:1264-1296` — 3 katmanlı fallback:\n\n```\nGirdi: eylem dict → {arac: \"X\", parametreler: {...}}\n  │\n  ├─ 1) Motor var mı? → self.motor.arac_calistir(arac, **parametreler)\n  │     Eve",
+    "beklenen": "Tool adını ve parametreleri alır, motor.py'deki kayıtlı fonksiyonu bulur, çalıştırır, sonucu döndürür. Başarısız olursa hata mesajı döndürür."
+  },
+  {
+    "no": 15,
+    "soru": "IterationBudget nasıl çalışır, hangi durumlarda döngüyü durdurur?",
+    "durum": "TIMEOUT",
+    "oran": 0.0,
+    "cevap": "[TIMEOUT]",
+    "beklenen": "IterationBudget (`iteration_budget.py`) konuşma döngüsünü 4 şekilde sınırlar:\n1. `max_tur` aşılırsa (varsayılan 15)\n2. `max_sure` aşılırsa (varsayılan"
+  },
+  {
+    "no": 16,
+    "soru": "Circuit breaker (CB) mekanizması nasıl çalışır, hangi dosyada?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "İki ana CB mekanizması var:\n\n**1. Tool Guardrail CB — `agent/tool_guardrails.py`**\n\n`ToolCallGuardrailController` sınıfı. Her tool çağrısında `before_call()` ve `after_call()` ile kontrol eder:\n\n- Ayn",
+    "beklenen": "CB, conversation_loop.py'de (satır 596-600) tanımlıdır. Art arda 3 API hatasından sonra açılır ve KALICI olarak kapanır (otomatik açılmaz). Kullanıcıy"
+  },
+  {
+    "no": 17,
+    "soru": "Conversation loop'da \"hafıza atlaması\" nedir, ne zaman tetiklenir?",
+    "durum": "TIMEOUT",
+    "oran": 0.0,
+    "cevap": "[TIMEOUT]",
+    "beklenen": "Hafıza atlaması = OnceHafiza'da `guven_skoru > 0.8` olan kayıt bulunursa, LLM çağrılmadan direkt cevap döndürülür. Tahmini %60 maliyet düşüşü sağlar."
+  },
+  {
+    "no": 18,
+    "soru": "Cache atlaması (ONCELIK_CACHE) nedir, hangi durumlarda tetiklenir?",
+    "durum": "GECTI",
+    "oran": 0.8,
+    "cevap": "ONCELIK_CACHE, `conversation_loop.py` satır 159-172'de tanımlı bir LLM bypass mekanizması.\n\nNe işe yarar: Selamlaşma/teşekkür gibi basit mesajları LLM çağırmadan direkt cache'ten döndürür — token ve s",
+    "beklenen": "`ONCELIK_CACHE` (conversation_loop.py satır 159-172), selamlaşma/teşekkür gibi basit mesajları LLM'siz cevaplar. \"merhaba\", \"selam\", \"teşekkür\", \"bye\""
+  },
+  {
+    "no": 19,
+    "soru": "Conversation loop'da _sistem_promptu_olustur() nasıl çalışır?",
+    "durum": "TIMEOUT",
+    "oran": 0.0,
+    "cevap": "[TIMEOUT]",
+    "beklenen": "PromptAssembly.insa_et() çağrılır, 4 katmanı birleştirir:\n1. SOUL.md (kimlik)\n2. MEMORY.md (kalıcı hafıza, son 2000 karakter)\n3. Beceri bağlamı (Close"
+  },
+  {
+    "no": 20,
+    "soru": "Conversation loop'da boş tool sonucu nasıl ele alınır, hangi kod çalışır?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "İşte tam akış:\n\n**Dosya:** `reymen/cereyan/conversation_loop.py`\n\n**Boş tool sonucu ele alma — satır 725-743:**\n\n```\n# ── BOS SONUC KONTROLU (halusinasyon onleme) ──────────────\nif not arac_sonuc or n",
+    "beklenen": "conversation_loop.py satır 724-732'de \"Boş Sonuç Kontrolü\" vardır. Tool sonucu boşsa veya \"cikti\" yoksa, AI'a direkt \"ASLA TAHMİN YÜRÜTME, sadece bulu"
+  },
+  {
+    "no": 21,
+    "soru": "prompt_assembly.py'de _varsayilan_react_talimati() hangi kuralları içerir?",
+    "durum": "GECTI",
+    "oran": 0.89,
+    "cevap": "4 zorunlu kural:\n\n1. TAHMIN YASAĞI — Bilinmeyen terim/kısaltma için tahmin yürütmeyi yasaklar, \"bilinmiyor/yok\" de der\n2. SORU YASAĞI — Kullanıcının sormadığı soruları sormayı yasaklar, açık uçlu tekl",
+    "beklenen": "4 zorunlu kural içerir:\n1. **TAHMİN YASAĞI** — Bilinmeyen terimde asla tahmin yürütme\n2. **SORU YASAĞI** — Kullanıcının sormadığı soruyu sorma\n3. **CA"
+  },
+  {
+    "no": 22,
+    "soru": "SOUL.md dosyası system prompt'a nasıl eklenir, hangi öncelikle?",
+    "durum": "GECTI",
+    "oran": 0.83,
+    "cevap": "SOUL.md system prompt'a şu şekilde eklenir:\n\n**Konum arama sırası:**\n1. `HERMES_HOME/SOUL.md` (yani `~/.hermes/SOUL.md`)\n2. CWD'deki SOUL.md aranmaz — sadece HERMES_HOME'dan yüklenir\n\n**Prompt Assembl",
+    "beklenen": "`_soul_oku()` metodu 3 yerde SOUL.md arar (sırayla):\n1. `.ReYMeN/SOUL.md`\n2. `.hermes/SOUL.md`\n3. `SOUL.md` (kök)\nİlk bulunan kullanılır. Prompt'ta \"#"
+  },
+  {
+    "no": 23,
+    "soru": "MEMORY.md prompt'a nasıl eklenir, boyut sınırı nedir?",
+    "durum": "GECTI",
+    "oran": 0.5,
+    "cevap": "İşte bulgular:\n\n**MEMORY.md prompt'a nasıl eklenir:**\n\n`reymen/cereyan/prompt_assembly.py:118` satırındaki `_memory_oku()` metodu ile okunur. Prompt sıralaması:\n\n1. SOUL.md (kimlik)\n2. **MEMORY.md** (",
+    "beklenen": "`_memory_oku()` metodu son 2000 karakteri alır. 4 yerde arar:\n1. `.ReYMeN/memories/MEMORY.md`\n2. `.hermes/memories/MEMORY.md`\n3. `MEMORY.md`\nPrompt'ta"
+  },
+  {
+    "no": 24,
+    "soru": "Beceri bağlamı (skill context) prompt'a nasıl eklenir?",
+    "durum": "GECTI",
+    "oran": 1.0,
+    "cevap": "Prompt assembly'deki akış (prompt_assembly.py:69):\n\n```\ninsa_et(hedef, ...) çağrılır →\n  1. _soul_oku()          → SOUL.md (sistem kimliği)\n  2. _memory_oku()        → MEMORY.md (kalıcı hafıza)\n  3. _",
+    "beklenen": "`_beceri_baglamini_al(hedef, adet=3)` metodu, ClosedLearningLoop'tan hedefle ilgili en alakalı 3 beceriyi alır ve prompt'a ekler."
+  },
+  {
+    "no": 25,
+    "soru": "Proje bağlam dosyaları (AGENTS.md) prompt'a nasıl eklenir?",
+    "durum": "TIMEOUT",
+    "oran": 0.0,
+    "cevap": "[TIMEOUT]",
+    "beklenen": "`ContextFileLoader.kok_yukle()` ile AGENTS.md, CLAUDE.md, .cursorrules dosyaları okunur ve \"## PROJE BAGLAMI\" başlığı altında prompt'a eklenir."
+  },
+  {
+    "no": 26,
+    "soru": "PromptAssembly sınıfının parçacık (parca) yönetim API'si nedir?",
+    "durum": "GECTI",
+    "oran": 0.82,
+    "cevap": "PromptAssembly sınıfının parçacık yönetim API'si (satır 179-251):\n\n- ekle(ad, icerik) → Depoya parçacık ekler\n- cikar(ad) → Parçacığı siler\n- birlestir(parcalar, ayrac, sablon) → Ad listesini birleşti",
+    "beklenen": "7 metot:\n- `ekle(ad, icerik)` — parçacık ekle\n- `cikar(ad)` — parçacık sil\n- `birlestir(parcalar, ayrac)` — parçacıkları birleştir\n- `kaydet(ad)` — pa"
+  },
+  {
+    "no": 27,
+    "soru": "Sistem talimatı (sistem_talimati) import edilemezse ne olur?",
+    "durum": "GECTI",
+    "oran": 1.0,
+    "cevap": "try/except ImportError ile yakalanır, `_varsayilan_react_talimati()` fallback kullanılır — 4 zorunlu kural + format + hedef + ilerleme bilgisi içeren basit prompt oluşur.\n\nKod: `reymen/cereyan/prompt_",
+    "beklenen": "`try/except ImportError` ile yakalanır ve `_varsayilan_react_talimati()` yedek talimatı kullanılır. Bu durumda 4 zorunlu kural + format talimatı + hed"
+  },
+  {
+    "no": 28,
+    "soru": "Prompt'ta tur ilerlemesi (tur N/M) nasıl gösterilir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "prompt_assembly.insa_et() parametre olarak tur ve toplam_tur alır. `ek_bilgi_parcalari` listesine \"Tur 3/15\" formatında eklenir. En altta \"## ILERLEME"
+  },
+  {
+    "no": 29,
+    "soru": "OnceHafiza (once_hafiza.py) hangi veritabanını kullanır, şeması nedir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "SQLite `ogrenmeler.db` kullanır. Tablo şeması:\n- `id` INTEGER PRIMARY KEY\n- `hedef` TEXT (görev tanımı)\n- `kategori` TEXT\n- `cozum` TEXT (çözüm/cevap)"
+  },
+  {
+    "no": 30,
+    "soru": "_kademeli_guven() fonksiyonu nasıl çalışır, formülü nedir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Sigmoid tabanlı kademeli güven hesaplama. Formül:\n`1 / (1 + e^(-0.5 * (basari - hata - 1)))`\nİlk kayıt: `guven=0.5` başlangıç. Her başarıda artar, her"
+  },
+  {
+    "no": 31,
+    "soru": "GorevOnceKontrol (gorev_once_kontrol.py) OnceHafiza'dan nasıl farklıdır?",
+    "durum": "GECTI",
+    "oran": 1.0,
+    "cevap": "",
+    "beklenen": ""
+  },
+  {
+    "no": 32,
+    "soru": "hafizada_ara() fonksiyonu hangi kriterlere göre eşleşme yapar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Tam eşleşme (exact match) ve anahtar kelime benzerliği ile çalışır. Hedef metindeki kelimelerin kayıtlı hedeflerle örtüşme oranına bakar. Sonuç: bulun"
+  },
+  {
+    "no": 33,
+    "soru": "kaydet() fonksiyonu hangi durumlarda UPDATE, hangi durumlarda INSERT yapar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Aynı hedef+kategori varsa UPDATE (basari_sayisi++, guven_skoru güncelle). Yoksa INSERT (yeni kayıt, guven=0.5 başlangıç)."
+  },
+  {
+    "no": 34,
+    "soru": "GorevHafiza (gorev_hafiza.py) hangi verileri saklar, hangi dosyada?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`gorev_hafiza.py` (34KB) görev bazlı belleği yönetir. Sakladıkları:\n- Görev tanımı (hedef)\n- Görev sonucu (çözüm)\n- Alt adımlar\n- Kullanılan araçlar\n-"
+  },
+  {
+    "no": 35,
+    "soru": "Hafıza budama (hafiza_budama.py) nasıl çalışır, ne zaman tetiklenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`hafiza_budama.py` (19KB) bellek boyutu sınırı aşıldığında çalışır. En düşük güvenli, en eski, en az kullanılan kayıtları siler. Veya periyodik cron i"
+  },
+  {
+    "no": 36,
+    "soru": "context_compressor.py ne işe yarar, konuşma geçmişini nasıl sıkıştırır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`context_compressor.py` (9.4KB), konuşma geçmişi %50 eşiğini aştığında otomatik sıkıştırma yapar. En eski mesajları özetler, gereksiz tool sonuçlarını"
+  },
+  {
+    "no": 37,
+    "soru": "BoundedMemory (bounded_memory.py) nedir, hangi sınırlarla çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`bounded_memory.py` (10.6KB), sınırlı boyutta bellek yönetimi sağlar. Maksimum kayıt sayısı, maksimum karakter sınırı ve FIFO (ilk giren ilk çıkar) pr"
+  },
+  {
+    "no": 38,
+    "soru": "Hafıza genişletme (hafiza_genislet.py) ne zaman ve nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`hafiza_genislet.py` (53KB) en büyük hafıza modülüdür. Görev tamamlandıktan sonra, yeni bir desen/pattern keşfedildiğinde otomatik genişleme yapar. Me"
+  },
+  {
+    "no": 39,
+    "soru": "motor.py'de \"moduller\" listesi ne işe yarar, nasıl yapılandırılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`motor.py` sonundaki `moduller` listesi, hangi Python modüllerinin tool olarak yükleneceğini belirler. Her modül bağımsız bir .py dosyasıdır. Liste ge"
+  },
+  {
+    "no": 40,
+    "soru": "motor_kaydet() ile _plugin_arac_kaydet() arasındaki fark nedir?",
+    "durum": "GECTI",
+    "oran": 1.0,
+    "cevap": "",
+    "beklenen": ""
+  },
+  {
+    "no": 41,
+    "soru": "arac_cagir() fonksiyonu tool çağrısını adım adım nasıl işler?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "1. Kayıtlı araçlar sözlüğünde (self._araclar) ara\n2. Bulunamazsa plugin listesinde (self._plugin_araclar) ara\n3. Bulunursa fonksiyonu parametrelerle ç"
+  },
+  {
+    "no": 42,
+    "soru": "motor.py'deki tool'lar nasıl keşfedilir ve otomatik kaydedilir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`moduller` listesindeki her modül import edilir. Modül içinde `@motor_kaydet` dekoratörü veya `motor_kaydet()` çağrısı varsa, tool otomatik kaydedilir"
+  },
+  {
+    "no": 43,
+    "soru": "Motor tool'ları parametreleri nasıl alır ve doğrular?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "conversation_loop'dan gelen `arac_params` dict'i doğrudan tool fonksiyonuna **kwargs olarak geçilir. Parametreler JSON string ise önce `json.loads()` "
+  },
+  {
+    "no": 44,
+    "soru": "MCP tool entegrasyonu (mcp_tool.py) nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`tools/mcp_tool.py`, MCP (Model Context Protocol) sunucularına bağlanarak harici araçları kullanır. Asyncio tabanlı, 3 transport destekler: stdio, SSE"
+  },
+  {
+    "no": 45,
+    "soru": "Tool sonucu \"tamamlandi\" sinyali nedir, ne zaman kullanılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Bir tool `{\"tamamlandi\": True, \"cikti\": \"...\"}` döndürürse, conversation_loop bu sinyali görür ve döngüyü kırar (break). Kullanıcıya sonuç döndürülür."
+  },
+  {
+    "no": 46,
+    "soru": "Motor tool'larında hata yönetimi nasıl yapılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Her tool çağrısı try/except içinde yapılır. Hata durumunda:\n1. Hata mesajı loglanır\n2. `_hata_tetikle()` hook'u çağrılır\n3. Conversation_loop hata son"
+  },
+  {
+    "no": 47,
+    "soru": "Motor tool'ları hangi kategorilere ayrılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Motor tool'ları 7 kategoriye ayrılır:\n1. **Bilgi** — skill_ara, web_arama, dosya_oku\n2. **Dosya** — dosya_olustur, dosya_sil, dosya_kopyala\n3. **Hafız"
+  },
+  {
+    "no": 48,
+    "soru": "Motor tool kaydı sırasında isim çakışması nasıl çözülür?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Aynı isimle ikinci kez `motor_kaydet()` çağrılırsa, eski kayıt otomatik üzerine yazılır. Uyarı loglanır. Plugin kayıtları ana kayıtları ezmez."
+  },
+  {
+    "no": 49,
+    "soru": "ReYMeN'de skill'ler nerede saklanır, hangi formattadır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Skill'ler `reymen/cereyan/skills/` ve `reymen/cereyan/skills_yeni/` klasörlerinde SKILL.md formatında saklanır. Her skill: YAML frontmatter + markdown"
+  },
+  {
+    "no": 50,
+    "soru": "Skill'ler nasıl keşfedilir ve indexlenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`skills_hub.py` ve `skills_sync.py` skill'leri tarar, `skills_index.db` SQLite veritabanında indexler. Her skill'in adı, kategorisi, açıklaması ve eti"
+  },
+  {
+    "no": 51,
+    "soru": "Skill arama (skill_ara) nasıl çalışır, hangi kriterlere göre sıralar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Skill adı, kategorisi, açıklaması ve etiketlerinde LIKE araması yapar. Tam eşleşme > kısmi eşleşme > etiket eşleşmesi sırasına göre sıralar."
+  },
+  {
+    "no": 52,
+    "soru": "Skill'ler ClosedLearningLoop'ta nasıl kullanılır (beceri_baglamini_al)?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "ClosedLearningLoop, hedef metnini analiz eder, en alakalı 3 skill'i seçer ve system prompt'a ekler. Her skill'in özeti + kullanım şekli prompt'a \"bece"
+  },
+  {
+    "no": 53,
+    "soru": "Skill kataloğunda yeni bir skill nasıl eklenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "İki yöntem:\n1. Manuel: `skills/Skill_kategori/yeni_skill_SKILL.md` oluştur, frontmatter + markdown ekle\n2. Otomatik: AI'a \"bu deseni skill olarak kayd"
+  },
+  {
+    "no": 54,
+    "soru": "Skill index DB (skills_index.db) hangi bilgileri saklar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "skills_index.db tablo şeması:\n- `id` INTEGER PRIMARY KEY\n- `ad` TEXT (skill adı)\n- `kategori` TEXT\n- `aciklama` TEXT\n- `etiketler` TEXT (virgülle ayrı"
+  },
+  {
+    "no": 55,
+    "soru": "Skill'lerde 5N1K formatı nedir, SKILL.md'de nasıl görünür?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "5N1K = Kim, Ne, Nerede, Ne Zaman, Neden, Nasıl. SKILL.md gövdesinde tablo olarak görünür (frontmatter'da değil):\n```\n| 5N1K | Açıklama |\n|------|-----"
+  },
+  {
+    "no": 56,
+    "soru": "Skill senkronizasyonu (skills_sync.py) nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`skills_sync.py` (6.8KB), Hermes'ten ReYMeN'e skill kopyalama işlemini yapar. Varolan skill'leri atlar (üzerine yazmaz), sadece eksik olanları kopyala"
+  },
+  {
+    "no": 57,
+    "soru": "Hata sınıflandırma (hata_siniflandirici.py) hangi hata türlerini ayırt eder?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`hata_siniflandirici.py` (31KB) hataları 5 ana tipe ayırır:\n1. **API Hatası** — Provider timeout, rate limit, auth hatası\n2. **Tool Hatası** — Tool bu"
+  },
+  {
+    "no": 58,
+    "soru": "api_hatasini_siniflandir() hangi API hatalarını nasıl sınıflandırır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "HTTP durum kodlarına ve hata mesajı içeriğine göre sınıflandırma:\n- **401/403** → Auth hatası (kurtarılamaz)\n- **429** → Rate limit (kurtarılabilir, b"
+  },
+  {
+    "no": 59,
+    "soru": "Failover (yedek provider'a geçiş) nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "conversation_loop.py'de art arda 3 hata alınırsa circuit breaker açılır. Failover zinciri: `deepseek-v4-flash → xiaomi/mimo-v2.5-pro → openrouter`. Pr"
+  },
+  {
+    "no": 60,
+    "soru": "auto_recovery.py hangi durumlarda devreye girer, neleri düzeltir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`auto_recovery.py` (19KB) sistem başlangıcında ve kritik hatalardan sonra çalışır. 5 şeyi kontrol eder/düzeltir:\n1. Bozuk session.db → sil, yeniden ol"
+  },
+  {
+    "no": 61,
+    "soru": "hata_cozucu.py (20KB) ne işe yarar, hata_cozucu ile hata_siniflandirici farkı nedir?",
+    "durum": "GECTI",
+    "oran": 1.0,
+    "cevap": "",
+    "beklenen": ""
+  },
+  {
+    "no": 62,
+    "soru": "Mesaj tamirci (mesaj_tamirci.py) hangi sorunları düzeltir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`mesaj_tamirci.py` (8.8KB) 4 tür konuşma mesajı sorununu düzeltir:\n1. Bozuk JSON içeren tool çağrısı argümanları → temizle/onar\n2. Yanlış sıralanmış m"
+  },
+  {
+    "no": 63,
+    "soru": "Hook sistemi (hook_dispatcher.py) nedir, hangi olayları dinler?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`hook_dispatcher.py` (5.6KB) olay tabanlı bildirim sistemidir. 8 olayı dinler:\n1. `oturum_baslat` — Session başladı\n2. `oturum_bitir` — Session bitti\n"
+  },
+  {
+    "no": 64,
+    "soru": "Conversation loop'da retry mekanizması nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "conversation_loop.py'de API çağrısı başarısız olursa, MAX_RETRY=3'e kadar otomatik tekrar dener. Her denemede log kaydı tutulur. 3 başarısız denemeden"
+  },
+  {
+    "no": 65,
+    "soru": "Context compression hangi eşikte tetiklenir, nasıl yapılandırılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`CONTEXT_SIKISTIRMA_ESIGI = 0.50` (%50). Yani kullanılan token sayısı, provider limitinin %50'sini aştığında sıkıştırma başlar. `CONTEXT_ESIK` ortam d"
+  },
+  {
+    "no": 66,
+    "soru": "Provider token limitleri nerede tanımlıdır, nasıl genişletilir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`PROVIDER_LIMITS` dict'i conversation_loop.py satır 181-192'de tanımlıdır. `PROVIDER_LIMIT_<PROVIDER>` ortam değişkeni ile override edilebilir. Varsay"
+  },
+  {
+    "no": 67,
+    "soru": "conversation_compression.py (6.3KB) context_compressor.py'den (9.4KB) nasıl farklıdır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`conversation_compression.py` eski/daha basit sıkıştırma mantığı (mesajları kısaltma/silme). `context_compressor.py` daha gelişmiş: LLM ile özetleme, "
+  },
+  {
+    "no": 68,
+    "soru": "Context compression sırasında hangi mesajlar korunur, hangileri sıkıştırılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Korumalı: kullanıcının son mesajı, AI'ın son yanıtı, sistem prompt'u. Sıkıştırılabilir: eski tool çağrıları, eski tool sonuçları, tekrarlanan mesajlar"
+  },
+  {
+    "no": 69,
+    "soru": "Session context injection nedir, onceki session ozetleri nasıl eklenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`_session_context_injection()` (satır 552-567) önceki 3 session'ın özetini alır ve yeni konuşmaya ekler. Böylece AI bir önceki oturumda ne yapıldığını"
+  },
+  {
+    "no": 70,
+    "soru": "Provider'a göre prompt caching nasıl çalışır, hangi provider'lar desteklenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Prompt caching, sistem prompt'unun tekrar kullanılmasını sağlar. Desteklenen provider'lar: Anthropic (caching_control), DeepSeek, OpenRouter. `_prompt"
+  },
+  {
+    "no": 71,
+    "soru": "ReYMeN hangi provider'ları destekler, hangi dosyada yapılandırılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Desteklenen provider'lar: DeepSeek (varsayılan), Xiaomi MiMo v2.5 Pro, OpenRouter, Anthropic Claude, OpenAI GPT, Groq, LM Studio (yerel). Yapılandırma"
+  },
+  {
+    "no": 72,
+    "soru": "_provider_tipi_belirle() fonksiyonu provider adını nasıl normalize eder?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Verilen provider adını küçük harfe çevirir ve bilinen alias'lara göre normalize eder. Örn: \"anthropic/claude-sonnet-4-20250514\" → \"claude\". Böylece to"
+  },
+  {
+    "no": 73,
+    "soru": "Provider API çağrısı hangi mesaj formatını kullanır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "OpenAI-compatible format kullanılır. Her mesaj: `{\"role\": \"system\"/\"user\"/\"assistant\"/\"tool\", \"content\": \"...\"}`. Tool çağrıları için `tool_calls` ve "
+  },
+  {
+    "no": 74,
+    "soru": "Provider failover sırası nedir, hangi koşulda değişir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Varsayılan sıra: `deepseek-v4-flash → xiaomi/mimo-v2.5-pro → openrouter`. Koşullar:\n- **429 Too Many Requests** → rate limit, sonraki provider'a geç\n-"
+  },
+  {
+    "no": 75,
+    "soru": "API anahtarları nerede saklanır, güvenlik nasıl sağlanır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "API anahtarları `~/.hermes/profiles/<profil>/.env` dosyasında saklanır. `.gitignore` ile dışlanır. Hermes auth.json'da Nous OAuth token'ı saklanır ama"
+  },
+  {
+    "no": 76,
+    "soru": "Provider ayarları (model adı, parametreler) nerede tanımlıdır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`baslangic_kontrol.py` (18KB) ve `budget_config.py` (10KB) provider ayarlarını içerir. Model adı, sıcaklık (temperature), max token, top_p gibi parame"
+  },
+  {
+    "no": 77,
+    "soru": "LM Studio (yerel model) ReYMeN'de nasıl kullanılır, hangi portta çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "LM Studio yerel sunucu olarak çalışır, varsayılan port 1234. ReYMeN motor.py'de LM Studio provider'ı config'de tanımlıysa kullanılır. `http://localhos"
+  },
+  {
+    "no": 78,
+    "soru": "Provider API çağrısı sırasında streaming nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "conversation_loop.py'de streaming, `stream_diagnostics.py` ile takip edilir. API'den parçalı (chunked) yanıt alınır, her chunk işlenir ve konuşma geçm"
+  },
+  {
+    "no": 79,
+    "soru": "steering_loop.py hangi amaçla kullanılır, conversation_loop'tan farkı nedir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`steering_loop.py` (28KB) uzun vadeli strateji yönetimi içindir. Görev takibi, yön değiştirme, alt hedef oluşturma gibi işlemleri yapar. Conversation_"
+  },
+  {
+    "no": 80,
+    "soru": "ClosedLearningLoop (closed_learning_loop.py) kendi kendine öğrenmeyi nasıl yönetir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "5 aşamalı öğrenme döngüsü:\n1. **Keşfet** — Yeni desen/tekrar eden görev tespiti\n2. **Öğren** — Başarılı çözümü kaydet, pattern çıkar\n3. **Genelle** — "
+  },
+  {
+    "no": 81,
+    "soru": "ClosedLearningLoop cron job olarak nasıl çalışır (30dk/7 gün/336 tekrar)?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Hermes cron job ile yönetilir. Schedule: \"every 30m\", tekrar: 336 (7 gün × 24 saat × 2). Her çalışmada:\n1. skills_index.db'yi kontrol et\n2. Yeni skill"
+  },
+  {
+    "no": 82,
+    "soru": "_kur() metodu hangi veritabanlarını kontrol eder, hangi hataları düzeltir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`closed_learning_loop._kur()` iki veritabanını kontrol eder:\n1. `skills_index.db` — Skill index'i\n2. `session.db` — Session kayıtları\nHatalar: `sqlite"
+  },
+  {
+    "no": 83,
+    "soru": "web_test_loop.py (15KB) ne işe yarar, hangi 5 tetikleyiciyle çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "WEB-UYGULA-PUANLA-KARAR döngüsünü yönetir. 5 tetikleyici:\n1. **Hafıza boş** → hemen web'den bilgi topla\n2. **Güven < 0.5** → tekrar doğrula\n3. **2 hat"
+  },
+  {
+    "no": 84,
+    "soru": "iteration_budget.py (5.2KB) hangi sınırlamaları getirir, nasıl yapılandırılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "3 sınırlama:\n1. **max_tur** — Maksimum ReAct tur sayısı (varsayılan 15)\n2. **max_sure** — Maksimum çalışma süresi (varsayılan 300 sn)\n3. **max_maliyet"
+  },
+  {
+    "no": 85,
+    "soru": "Steering loop'da \"yön değiştirme\" kararı nasıl alınır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Steering loop, hedefe ilerleme hızını (tur başına tamamlanan adım sayısı) takip eder. Art arda 3 turda ilerleme yoksa veya hata oranı yükselirse yön d"
+  },
+  {
+    "no": 86,
+    "soru": "Reflexion (reflexion_motoru.py) nedir, hangi durumlarda tetiklenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`reflexion_motoru.py` (12KB) AI'ın kendi cevaplarını değerlendirmesini sağlar. Tetiklendiği durumlar:\n1. Hata sonrası: \"Nerede hata yaptım?\"\n2. Başarı"
+  },
+  {
+    "no": 87,
+    "soru": "alt_ajan.py (30KB) hangi amaçla kullanılır, nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Alt ajan sistemi, ana conversation_loop'tan bağımsız çalışan ikincil ajanları yönetir. Her alt ajan:\n- Kendi ReAct döngüsüne sahiptir\n- İzole context'"
+  },
+  {
+    "no": 88,
+    "soru": "Alt ajan izole context'te nasıl çalışır, ana ajanı nasıl etkilemez?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Her alt ajan:\n- Kendi `_konusma_gecmisi` listesine sahiptir\n- Kendi `IterationBudget`'ı vardır\n- Kendi `OnceHafiza` bağlantısı vardır\n- Ana ajanın değ"
+  },
+  {
+    "no": 89,
+    "soru": "Alt ajanlarda \"gözlem\" (gozlem.py) sistemi nasıl çalışır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`gozlem.py` (9.4KB) alt ajanların çalışmasını izler. Her alt ajanın tur sayısı, kullandığı araçlar, hata sayısı gibi metrikleri toplar. `AltAjanGozlem"
+  },
+  {
+    "no": 90,
+    "soru": "Alt ajan sonucu ana ajana nasıl iletilir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Alt ajan tamamlandığında, sonucu `{\"basarili\": bool, \"cikti\": str, \"ozet\": str, \"hata\": str}` formatında döndürür. Ana conversation_loop bu sonucu kon"
+  },
+  {
+    "no": 91,
+    "soru": "Kendini Anlat (kendini_anlat.py) modülü ne işe yarar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`kendini_anlat.py` (16KB) ReYMeN'in kendi yeteneklerini, sınırlarını ve mimarisini açıklamasını sağlar. Kullanıcı \"Neler yapabilirsin?\" veya \"Nasıl ça"
+  },
+  {
+    "no": 92,
+    "soru": "planlayici.py (8KB) ne işe yarar, nasıl plan oluşturur?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`planlayici.py` karmaşık görevleri alt adımlara böler. Her adım:\n- Bağımsız olarak çalıştırılabilir\n- Başarı/başarısızlık durumunda sonraki adım karar"
+  },
+  {
+    "no": 93,
+    "soru": "ReYMeN'de güvenlik katmanı (guvenlik/ klasörü) neleri denetler?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`guvenlik/` klasörü 4 şeyi denetler:\n1. **Tool izinleri** — Hangi tool'ların çağrılabileceği\n2. **Dosya erişimi** — Hangi dosyaların okunup yazılabile"
+  },
+  {
+    "no": 94,
+    "soru": "Tool güvenlik kontrolleri (gorev_once_kontrol.py'de) nelerdir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "GorevOnceKontrol, her tool çağrısı öncesinde 3 kontrol yapar:\n1. **Bloklu mu?** — Yasaklı tool listesinde var mı?\n2. **Limit aşıldı mı?** — Aynı tool "
+  },
+  {
+    "no": 95,
+    "soru": "API anahtarlarının .env dosyasına yanlışlıkla yazılması nasıl önlenir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`write_file()` .env dosyasını overwrite eder ve tüm credential'ları siler. Bu nedenle:\n- `.env` dosyaları için **sadece terminal'de `echo >>` ile appe"
+  },
+  {
+    "no": 96,
+    "soru": "anayasa_denetci.py (1.4KB) ve anayasa_denetcisi.py (4.2KB) ne işe yarar, neden iki farklı dosya var?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "İkisi de AI'ın verdiği cevapları anayasal kurallara göre denetler. `anayasa_denetci.py` eski/basit versiyon (1.4KB), `anayasa_denetcisi.py` yeni/geliş"
+  },
+  {
+    "no": 97,
+    "soru": "conversation_loop.py'de loglama nasıl yapılır, hangi seviyeler kullanılır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "Python logging modülü kullanılır. 3 seviye:\n- `logging.INFO` — Normal akış (tur başlangıcı, tool çağrısı, session açma)\n- `logging.WARNING` — Uyarı (r"
+  },
+  {
+    "no": 98,
+    "soru": "Stream diagnostics (stream_diagnostics.py) hangi metrikleri toplar?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`stream_diagnostics.py` (5.2KB) streaming API çağrıları için sağlık takibi yapar. Metrikler:\n- Her chunk geliş süresi (ms)\n- Toplam streaming süresi\n-"
+  },
+  {
+    "no": 99,
+    "soru": "Session veritabanı (session.db) hangi bilgileri saklar, şeması nedir?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "`AdvancedSessionStorage` (session_db.py) tarafından yönetilir. Tablo şeması:\n- `session_id` TEXT PRIMARY KEY\n- `source` TEXT (telegram/cli/web)\n- `mod"
+  },
+  {
+    "no": 100,
+    "soru": "ReYMeN'in 5 mühendislik kararı nedir, hangi dosyalarda uygulanır?",
+    "durum": "KALDI",
+    "oran": 0.0,
+    "cevap": "",
+    "beklenen": "5 karar, AGENTS.md'de tanımlıdır ve tüm bot davranışını şekillendirir:\n\n| Kural | Açıklama | Uygulandığı Dosya |\n|-------|----------|-----------------"
+  }
+]

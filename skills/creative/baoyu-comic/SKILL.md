@@ -4,13 +4,13 @@ name: baoyu-comic
 description: "Knowledge comics (知识漫画): educational, biography, tutorial."
 version: 1.56.1
 author: 宝玉 (JimLiu)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [comic, knowledge-comic, creative, image-generation]
 audience: user
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-comic
+---
 ---
 
 # Baoyu Comic

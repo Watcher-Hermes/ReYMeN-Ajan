@@ -5,7 +5,6 @@ description: "vLLM: high-throughput LLM serving, OpenAI API, quantization."
 title: "Serving LLMs Vllm"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [vllm, torch, transformers]
 platforms: [linux, macos]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
 
+---
 ---
 
 # Vllm

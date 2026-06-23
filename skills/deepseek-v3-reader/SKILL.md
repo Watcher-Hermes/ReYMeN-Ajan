@@ -3,11 +3,10 @@ name: deepseek-v3-reader
 description: Read a DeepSeek-family config and produce a component-by-component architecture analysis.
 title: "DeepSeek V3 Reader"
 version: 1.0.0
-phase: 10
-lesson: 20
 tags: [deepseek-v3, deepseek-r1, mla, moe, mtp, dualpipe, architecture]
 category: deepseek-v3-reader
 audience: user
+---
 ---
 
 Given a DeepSeek-family model (V3, R1, or any derivative) and its config (hidden_size, layers, num_experts, kv_lora_rank, etc.), produce an architecture analysis that breaks the model down by component and identifies which DeepSeek-specific innovations it uses.

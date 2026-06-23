@@ -52,3 +52,36 @@ last_used: 2026-06-16
     ```
   - **Önem:** Gateway PID doğrulamasında `ps -p` tek başına güvenilir DEĞİLDİR. `tasklist` fallback'i zorunludur.
   - **Belirti:** gateway_state.json "running", Telegram "connected" gösteriyor ama monitor scripti "PID CALISMIYOR" raporluyorsa → önce `tasklist` ile doğrula, yanlış alarm olabilir.
+- **🎯 PowerBI MCP Stdout Kirliliği → "No Messaging Platforms Enabled" (23 Haziran 2026):** `powerbi-modeling-mcp` aracı başlangıçta stdout'a JSON olmayan satırlar yazıyor (`Detected platform: win32`, `Using @microsoft/powerbi...`). Bu satırlar MCP JSON-RPC ayrıştırıcısını çökertir:
+  ```
+  ERROR mcp.client.stdio: Failed to parse JSONRPC message from server
+  Invalid JSON: expected value at line 1 column 1
+  ```
+  Sonuç: Gateway Telegram'a hiç bağlanmaz ("No messaging platforms enabled.") ve `Connecting to telegram...` satırı bile log'da görünmez.
+
+  **Kök neden:** MCP server'ın stdout'u JSON-RPC protokolü için kullanılır ama powerbi-modeling-mcp başlangıç mesajlarını da stdout'a basar.
+
+  **Çözüm:** Profil config.yaml'ından MCP server blokunu kaldır:
+  ```yaml
+  # Sil: mcp_servers.powerbi bloğu
+  ```
+
+  **Tespit:** Gateway log'unda `Failed to parse JSONRPC message from server` varsa, Telegram bağlanmıyorsa — MCP şüphelen.
+
+- **🎯 Windows Lock Dosyası "Device or resource busy" (23 Haziran 2026):** Windows'ta bir process dosyaya handle tutuyorsa `rm -f` başarısız olur (hatalı: "Device or resource busy"). Ancak `echo "{}" > file` ile üzerine yazmak çalışır. Bu nedenle gateway lock/kilit dosyalarını temizlerken:
+  ```bash
+  # ÇALIŞMAZ: rm -f ~/.../gateway.lock → "Device or resource busy"
+  # ÇALIŞIR: echo "{}" > ~/.../gateway.lock
+  ```
+  Bu Windows'a özgü bir durumdur, Linux'ta `rm -f` sorunsuz çalışır.
+
+- **🎯 `.env` Kurtarma — Token Binary Doğrulama (23 Haziran 2026):** `sed` kullanarak token değiştirmek tehlikelidir çünkü sistem çıktıda token'ı redakte eder (`***`). `sed` literal `***` arar, gerçek token'ı bulamaz. Tek güvenilir yöntem:
+  1. Çalışan bir profilin `.env`'sini kopyala (`cp reymen/.env kiral38/.env`)
+  2. Python ile binary-safe token replacement yap
+  3. `od -c` ile doğrula — literal `* * *` görmemelisin
+
+- **🎯 ZOMBIE GATEWAY — Multi-Profil (23 Haziran 2026):** `gateway_state.json` "running", Telegram "connected", ama PID gerçekte **ölmüş**. Farkı: `updated_at` saatler önce. Bunu tespit etmek için:
+  - PID'yi önce `tasklist`, yoksa `ps -p` ile doğrula. İkisi de bulamıyorsa → process gerçekten ölmüş.
+  - `gateway.lock` + `gateway.pid` hala eski PID'yi tutar — temizlenmeli.
+  - **Kilit kural:** Kullanıcı "@Kiral38bot neden çalışmıyor" gibi **başka bir bot** sorduğunda, o botun KENDİ profilinin gateway_state.json'ına bak (`profiles/kiral38/`), reymen'inkine değil. Her profil ayrı gateway process'i çalıştırır.
+  - **Tam teşhis akışı:** `skill_view(name="telegram-gateway-monitor", file_path="references/multi-profil-zombie-teshisi.md")` ile yükle.

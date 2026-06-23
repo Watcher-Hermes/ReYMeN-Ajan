@@ -3,11 +3,10 @@ name: stategraph-designer
 description: Turn an agent task into a LangGraph StateGraph with named nodes, typed state, reducers, checkpointer, and human interrupts.
 title: "Stategraph Designer"
 version: 1.0.0
-phase: 11
-lesson: 16
 tags: [langgraph, stategraph, checkpointer, interrupt, time-travel, react-agent, human-in-the-loop]
 category: stategraph-designer
 audience: user
+---
 ---
 
 Given the agent task (user-facing goal, available tools, expected turn count, side effects with safety blast radius, durability requirements, target latency budget), output:

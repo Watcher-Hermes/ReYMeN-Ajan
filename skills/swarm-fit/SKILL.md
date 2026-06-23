@@ -3,11 +3,10 @@ name: swarm-fit
 description: Decide whether a task fits a swarm (decentralized) architecture or a supervisor (centralized) one.
 title: "Swarm Fit"
 version: 1.0.0
-phase: 16
-lesson: 09
 tags: [multi-agent, swarm, decentralized, langgraph, matrix]
 category: swarm-fit
 audience: user
+---
 ---
 
 Given a task and its throughput / determinism requirements, recommend swarm or supervisor and list the specific queue and guardrail choices.

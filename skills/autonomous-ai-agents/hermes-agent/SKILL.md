@@ -4,7 +4,6 @@ name: hermes-agent
 description: "Configure, extend, or contribute to ReYMeN Agent."
 version: 2.1.0
 author: ReYMeN Agent + Teknium
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
 audience: user
     homepage: https://github.com/NousResearch/hermes-agent
 related_skills: [claude-code, codex, opencode]
+---
 ---
 
 # ReYMeN Agent

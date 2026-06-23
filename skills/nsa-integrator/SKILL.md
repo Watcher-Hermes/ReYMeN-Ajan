@@ -3,11 +3,10 @@ name: nsa-integrator
 description: Integration plan for Native Sparse Attention in a long-context pre-training run.
 title: "Nsa Integrator"
 version: 1.0.0
-phase: 10
-lesson: 17
 tags: [nsa, sparse-attention, long-context, pre-training, kernel-aligned, deepseek]
 category: nsa-integrator
 audience: user
+---
 ---
 
 Given a long-context pre-training run specification (target context, base architecture, training tokens available, GPU topology, deployment target), produce an NSA integration plan.

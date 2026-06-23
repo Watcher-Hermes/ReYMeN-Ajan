@@ -5,7 +5,6 @@ description: "W&B: log ML experiments, sweeps, model registry, dashboards."
 title: "Weights And Biases"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [wandb]
 platforms: [linux, macos, windows]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
 
+---
 ---
 
 # Weights And Biases

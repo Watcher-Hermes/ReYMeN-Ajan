@@ -5,13 +5,13 @@ tags: [coding, development]
 description: "Write implementation plans: bite-sized tasks, paths, code."
 version: 1.1.0
 author: ReYMeN Agent (adapted from obra/superpowers)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [planning, design, implementation, workflow, documentation]
 audience: contributor
 related_skills: [subagent-driven-development, test-driven-development, requesting-code-review]
+---
 ---
 
 # Writing Implementation Plans

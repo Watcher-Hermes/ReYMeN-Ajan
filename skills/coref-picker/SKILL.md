@@ -3,11 +3,10 @@ name: coref-picker
 description: Pick a coreference approach, evaluation plan, and integration strategy.
 title: "Coref Picker"
 version: 1.0.0
-phase: 5
-lesson: 24
 tags: [nlp, coref, information-extraction]
 category: coref-picker
 audience: user
+---
 ---
 
 Given a use case (single-doc / multi-doc, domain, language), output:

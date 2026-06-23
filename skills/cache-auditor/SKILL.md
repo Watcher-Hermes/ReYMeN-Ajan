@@ -3,11 +3,10 @@ name: cache-auditor
 description: Audit an LLM prompt template and traffic pattern for cacheability. Recommend prompt restructure, TTL choice, parallelization fix, and semantic-cache threshold.
 title: "Cache Auditor"
 version: 1.0.0
-phase: 17
-lesson: 14
 tags: [caching, prompt-cache, semantic-cache, anthropic, openai, parallelization, ttl]
 category: cache-auditor
 audience: maintainer
+---
 ---
 
 Given a prompt template, traffic pattern (arrival rate, parallel factor), and provider (Anthropic, OpenAI, Gemini, self-hosted vLLM), produce a cache audit.

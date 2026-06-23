@@ -1,0 +1,53 @@
+{
+  "hedef": "1. Web'den gÃ¼ncel TÃ¼rk AI giriÅŸimlerini ara (web scraping)",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 4,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "GOREV_BITTI(\"DÜŞÜN: Kullanıcı \\\"Web'den güncel Türk AI girişimlerini ara (web scraping)\\\" dedi. Plan bana bir API adresi vermiş: https://api.turkai.com/v1/public/openweathermap. Önce bu adrese GET isteği yaparak veriyi alacağım. Eğer çalışmazsa alternatif kaynaklara yönelebilirim.",
+      "eylem": "PYTHON_CALISTIR(\"\\\"import requests\\\\nurl = 'https://api.turkai.com/v1/public/openweathermap'\\\\ntry:\\\\n    r = requests.get(url, timeout=10)\\\\n    print('Status:', r.status_code)\\\\n    print('Response (ilk 500 karakter):', r.text[:500])\\\\nexcept Exception as e:\\\\n    print('Hata:', e)\\\")\"\")",
+      "gozlem": "[Self-correction]: 1 denemede düzeltilemedi.\nSon hata: [ÇIKTI]\n\n[HATA]\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\_ReYMeN_ed8ce72c.py\", line 1, in <module>\n    import requests\nModuleNotFoundError: No module named 'requests'",
+      "zaman": "2026-06-23T21:26:58.908960"
+    },
+    {
+      "tur": 2,
+      "dusunce": "GOREV_BITTI(\"DÜŞÜN: requests modülü yok. Python'da yerleşik `urllib.request` kullanarak aynı işlemi yapabilirim. Ayrıca alternatif olarak `curl` komutunu kullanmayı deneyebilirim. ",
+      "eylem": "PYTHON_CALISTIR(\"\\\"import urllib.request, json\\\\nurl = 'https://api.turkai.com/v1/public/openweathermap'\\\\ntry:\\\\n    with urllib.request.urlopen(url, timeout=10) as response:\\\\n        data = response.read().decode('utf-8')\\\\n        print('Status:', response.status)\\\\n        print('Response (ilk 500 karakter):', data[:500])\\\\nexcept Exception as e:\\\\n    print('Hata:', str(e))\\\")\"\")",
+      "gozlem": "[ÇIKTI]\nHata: <urlopen error [Errno 11001] getaddrinfo failed>\n\n[HATA]",
+      "zaman": "2026-06-23T21:27:03.492849"
+    },
+    {
+      "tur": 3,
+      "dusunce": "GOREV_BITTI(\"GOREV_BITTI(\\\"DÜŞÜN: `urllib.request` ile de `getaddrinfo failed` hatası alındı. Bu DNS çözümleme hatası (muhtemelen internet bağlantısı yok veya API adresi yanlış). Şimdi alternatif olarak `curl` komutunu dene. Eğer curl da çalışmazsa WEB_ARA aracını kullanarak Türk AI girişimlerini web'den ara.",
+      "eylem": "KOMUT_CALISTIR(\"\\\\\\\"curl -s -m 10 'https://api.turkai.com/v1/public/openweathermap' 2>&1\\\\\\\")\\\")\"\")",
+      "gozlem": "[Hata]:",
+      "zaman": "2026-06-23T21:27:06.469361"
+    },
+    {
+      "tur": 4,
+      "dusunce": "GOREV_BITTI(\"GOREV_BITTI(\\\"DÜŞÜN: `curl` da hata verdi. API adresi çalışmıyor veya internet bağlantısı yok. Şimdi WEB_ARA aracını kullanarak \\\\\\\"Türk AI girişimleri\\\\\\\" için web araması yapacağım. Bu araç doğrudan web'den bilgi çekmek için tasarlanmış.",
+      "eylem": "WEB_ARA(\"\\\\\\\"güncel Türk yapay zeka girişimleri 2025 liste\\\\\\\")\\\")\"\")",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- Yapay Zeka Girişimleri Haritası: Nisan 2025 Güncellemesi Yayında\n  Her çeyrek düzenli olarak güncellediğimiz Yapay Zeka Girişimleri Haritası, 2025 yılının ilk çeyrek verileriyle birlikte Nisan 2025 itibarıyla yenilendi. Bu güncelleme ile haritaya \n  https://turkiye.ai/yapay-zeka-girisimleri-haritasi-nisan-2025-guncellemesi-yayinda/\n- Yapay Zeka İstatistikleri - 2025 - Veri Portalı - TÜİK\n  Yapay zeka kullanan girişimler çalışan sayısı büyüklük grubuna göre incelendiğind",
+      "zaman": "2026-06-23T21:27:09.776693"
+    }
+  ],
+  "tool_istatistik": {
+    "PYTHON_CALISTIR": {
+      "count": 2,
+      "success": 2,
+      "failure": 0
+    },
+    "KOMUT_CALISTIR": {
+      "count": 1,
+      "success": 0,
+      "failure": 1
+    },
+    "WEB_ARA": {
+      "count": 1,
+      "success": 1,
+      "failure": 0
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "hedef": "# Duplicate Module Drift Tespiti\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}: \n  - example_com_verisi|Bu veri Example Domain (example.com) sayfasından alınmıştır. Başlık: Example Domain. Paragraflar: This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more. Bağlantılar: https://iana.org/domains/example. Etiketler: example, web_scraping: \n  - drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler: drift_duzeltme, hafiza_yonetimi: ",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 9,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_ARA']",
+      "gozlem": "[{'etiket': '{\\\\\"anahtar\\\\\": \\\\\"example_com_verisi\\\\\", \\\\\"deger\\\\\": {\\\\\"baslik\\\\\": \\\\\"Example Domain\\\\\", \\\\\"paragraflar\\\\\": [\\\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\\\", \\\\\"Learn more\\\\\"], \\\\\"baglantilar\\\\\": [\\\\\"https://iana.org/domains/example\\\\\"]}, \\\\\"etiketler\\\\\": [\\\\\"example\\\\\", \\\\\"web_scraping\\\\\"]}', 'icerik': '', 'kaynak': '', 'tarih': '2026-06-23'}, {'etiket': '{\\\\\"anahtar\\\\\": \\\\\"example_com_verisi\\\\\", \\\\\"deger\\\\\": {\\\\\"baslik",
+      "zaman": "2026-06-23T23:39:36.304917"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://example.com\n\nExample Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+      "zaman": "2026-06-23T23:39:39.428686"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ❌]\n--- HATA ---\nSyntaxError: unexpected character after line continuation character (<string>, line 6)\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\tools\\execute_code_tool.py\", line 108, in _kod_calistir\n    exec(duzgun_kod, temiz_globals)\n  File \"<string>\", line 6\n    \\\"baslik\\\": \\\"Example Domain\\\",\n     ^\nSyntaxError: unexpected character after line continuation character",
+      "zaman": "2026-06-23T23:39:46.287526"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ❌]\n--- HATA ---\nSyntaxError: unexpected character after line continuation character (<string>, line 3)\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\tools\\execute_code_tool.py\", line 108, in _kod_calistir\n    exec(duzgun_kod, temiz_globals)\n  File \"<string>\", line 3\n    ref = {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"L",
+      "zaman": "2026-06-23T23:39:50.465504"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:1araç",
+      "eylem": "['DOSYA_YAZ']",
+      "gozlem": "[Hata]: yaz() missing 1 required positional argument: 'icerik'",
+      "zaman": "2026-06-23T23:39:52.437169"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ❌]\n--- HATA ---\nSyntaxError: unexpected character after line continuation character (<string>, line 1)\nTraceback (most recent call last):\n  File \"C:\\Users\\marko\\Desktop\\Reymen Proje\\hermes_projesi\\tools\\execute_code_tool.py\", line 108, in _kod_calistir\n    exec(duzgun_kod, temiz_globals)\n  File \"<string>\", line 1\n    print(\\\"test\\\")\n           ^\nSyntaxError: unexpected character after line continuation character",
+      "zaman": "2026-06-23T23:39:54.740799"
+    },
+    {
+      "tur": 7,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ✅]\n--- ÇIKTI ---\ntest",
+      "zaman": "2026-06-23T23:39:57.233844"
+    },
+    {
+      "tur": 8,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[EXECUTE_CODE ✅]\n--- ÇIKTI ---\nREFERANS HASH: 8f1f100d7c5193b0188a36949cd58a549ae8620e1200d35a3a6b784e3b8a12ac\nGUNCEL HASH:   8f1f100d7c5193b0188a36949cd58a549ae8620e1200d35a3a6b784e3b8a12ac\n\nSONUC: Drift YOK - Hashler eslesiyor.\nVeriler birebir ayni, herhangi bir temizlik gerekmiyor.",
+      "zaman": "2026-06-23T23:40:02.044687"
+    },
+    {
+      "tur": 9,
+      "dusunce": "FC:1araç",
+      "eylem": "['REFERANS_OZET']",
+      "gozlem": "[Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was given",
+      "zaman": "2026-06-23T23:40:05.161660"
+    }
+  ],
+  "tool_istatistik": {}
+}

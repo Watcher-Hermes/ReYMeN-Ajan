@@ -3,11 +3,10 @@ name: img2img-chooser
 description: Pick an image-to-image approach given paired vs unpaired data, domain specificity, and latency budget.
 title: "Img2Img Chooser"
 version: 1.0.0
-phase: 8
-lesson: 04
 tags: [pix2pix, img2img, conditional]
 category: img2img-chooser
 audience: user
+---
 ---
 
 Given a task description (source domain, target domain, data availability - paired/unpaired/N samples, latency budget, quality bar), output:

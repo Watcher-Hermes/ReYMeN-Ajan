@@ -3,11 +3,10 @@ name: runtime-picker
 description: Pick a production agent runtime (Agno, Mastra, LangGraph, provider SDK) for a given stack, latency budget, and operational shape.
 title: "Runtime Picker"
 version: 1.0.0
-phase: 14
-lesson: 18
 tags: [agno, mastra, langgraph, runtime, selection]
 category: runtime-picker
 audience: user
+---
 ---
 
 Given a stack, latency budget, required primitives, and operational shape, pick a runtime.

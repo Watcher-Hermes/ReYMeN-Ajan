@@ -7,7 +7,6 @@ description: >
 title: "Telegram Gateway Monitor"
 version: 1.2.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [telegram, gateway, monitor, watchdog, reconnect]
@@ -15,6 +14,7 @@ category: autonomous-ai-agents
 audience: user
 tags: [agents, ai, automation, telegram, tor]
 related_skills: [hermes-agent]
+---
 ---
 
 # Telegram Gateway Monitor
@@ -34,7 +34,9 @@ Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve 
 | send_message Tool Token Cache | `references/send_message-tool-token-cache.md` |
 | Kazanımlar / Operasyon Notları (sessiz ve güvenli kullanım için) | `references/kazan-mlar-operasyon-notlar-sessiz-ve-g-venli-kullan-m-i-in.md` |
 | Polling Sağlık Kontrolü — sessiz donma tespiti ve çözümü | `references/polling-saglik-kontrolu.md` |
+| **Multi-Profil Zombie Teşhisi** — bot ölü ama state "running" diyor | `references/multi-profil-zombie-teshisi.md` |
 | Not | `references/not.md` |
+| **.env Kurtarma & Runtime Lock** — token corruption, global lock, multi-profil | `references/env-corruption-recovery-ve-runtime-lock.md` |
 | Cron Teslimat Davranışı (cron job'da `hermes send` atlanır) | `references/cron-teslimat-davranisi.md` |
 | .env kalıcılığı kuralı | `references/env-kal-c-l-kural.md` |
 | Obsidian kayıt | `references/obsidian-kay-t.md` |

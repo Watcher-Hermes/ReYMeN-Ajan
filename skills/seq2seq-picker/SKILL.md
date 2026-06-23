@@ -3,11 +3,10 @@ name: seq2seq-picker
 description: Choose encoder-decoder vs decoder-only for a new sequence-to-sequence task.
 title: "Seq2Seq Picker"
 version: 1.0.0
-phase: 7
-lesson: 8
 tags: [transformers, t5, bart, seq2seq]
 category: seq2seq-picker
 audience: user
+---
 ---
 
 Given a seq2seq task (translation / summarization / speech-to-text / structured extraction / rewrite), input and output length distributions, and quality vs latency priorities, output:

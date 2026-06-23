@@ -144,7 +144,7 @@ def calistir(args):
             komut = joblar[name].get("komut", "")
             print(f"[Cron] Calistiriliyor: {name} -> {komut}")
             try:
-                subprocess.run(komut, shell=True, check=True)
+                subprocess.run(komut, shell=True, check=True, timeout=60)
                 print(f"[Cron] Gorev tamamlandi: {name}")
             except subprocess.CalledProcessError as e:
                 print(f"[Cron] Gorev hatasi: {e}")

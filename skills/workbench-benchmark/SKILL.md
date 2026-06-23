@@ -3,11 +3,10 @@ name: workbench-benchmark
 description: Run the same task through prompt-only and workbench-guided pipelines on a project's own sample app and emit a five-outcome before/after report.
 title: "Workbench Benchmark"
 version: 1.0.0
-phase: 14
-lesson: 41
 tags: [benchmark, before-after, evaluation, workbench, sample-app]
 category: workbench-benchmark
 audience: user
+---
 ---
 
 Given a repo, an agent product, and a small sample app, produce a portable evaluation harness that compares prompt-only against workbench-guided pipelines.

@@ -3,11 +3,10 @@ name: audio-evaluator
 description: Pick metrics, benchmarks, normalization rules, and reporting format for any audio model release.
 title: "Audio Evaluator"
 version: 1.0.0
-phase: 6
-lesson: 17
 tags: [evaluation, wer, mos, utmos, eer, der, fad, mmau, leaderboard]
 category: audio-evaluator
 audience: user
+---
 ---
 
 Given the task (ASR / TTS / cloning / speaker-verif / diarization / classification / music / LALM / streaming S2S), output:

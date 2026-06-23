@@ -5,13 +5,13 @@ tags: [coding, development]
 description: Use when writing, running, or debugging Python code in VS Code. ReYMeN opens VS Code, writes code, runs it, reads output/errors, asks AI for fixes, and retries automatically (try-fix loop). Use for any coding task that needs real execution and error correction.
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [vscode, python, kod, calistir, hata, duzelt, otomasyon, loop, debug, try-fix]
 audience: contributor
 related_skills: [screen-vision-analiz, gorsel-onaylama, mouse-klavye-ctypes, tor-browser-arama]
+---
 ---
 
 # VS Code Otomasyonu — Kullanıcı Gibi Kod Yaz, Çalıştır, Düzelt

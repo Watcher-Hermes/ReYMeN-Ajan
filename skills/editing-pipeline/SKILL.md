@@ -3,11 +3,10 @@ name: editing-pipeline
 description: Plan an image-editing pipeline from source + edit description to a ready-to-ship output.
 title: "Editing Pipeline"
 version: 1.0.0
-phase: 8
-lesson: 09
 tags: [inpaint, outpaint, edit, sam]
 category: editing-pipeline
 audience: user
+---
 ---
 
 Given source image, target edit (remove X, replace Y with Z, extend canvas, restyle region, change season / time-of-day), and quality bar (draft / portfolio / print), output:

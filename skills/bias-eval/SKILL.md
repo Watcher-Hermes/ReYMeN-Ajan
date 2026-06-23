@@ -3,11 +3,10 @@ name: bias-eval
 description: Audit a bias evaluation report across metric categories, intersectionality, and debias mechanism.
 title: "Bias Eval"
 version: 1.0.0
-phase: 18
-lesson: 20
 tags: [bias, fairness, weat, intersectionality, mechanistic-interpretability]
 category: bias-eval
 audience: user
+---
 ---
 
 Given a bias evaluation report or fairness claim, audit across the Gallegos et al. 2024 three-category framework and the 2024-2025 intersectionality literature.

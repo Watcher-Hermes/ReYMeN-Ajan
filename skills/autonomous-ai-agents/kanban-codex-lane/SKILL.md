@@ -6,12 +6,12 @@ tags: [agents, ai]
 description: Use when a ReYMeN Kanban worker wants to run Codex CLI as an isolated implementation lane while ReYMeN keeps ownership of task lifecycle, reconciliation, testing, and handoff.
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 metadata:
   hermes:
     tags: [kanban, codex, worktrees, autonomous-agents, prediction-market-bot]
 audience: user
 related_skills: [kanban-worker, codex, hermes-agent]
+---
 ---
 
 # Kanban Codex Lane

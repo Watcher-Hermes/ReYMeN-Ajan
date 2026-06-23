@@ -5,13 +5,13 @@ tags: [config, hermes]
 description: "Configure ReYMeN Agent approval and auto-approve settings for autonomous operation. Use when user wants to eliminate interactive approval prompts, enable subagent auto-approval, or adjust destructive-command confirmation behavior."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [hermes, approvals, autonomous, config, workflow]
 audience: user
 related_skills: [hermes-agent, windows-automation]
+---
 ---
 
 # ReYMeN Approval Policy

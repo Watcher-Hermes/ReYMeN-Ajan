@@ -5,13 +5,13 @@ tags: [automation, obsidian, windows]
 description: Use whenever reading, writing, or syncing anything to Obsidian. Contains the ONLY correct vault path and startup verification routine. ALWAYS check this skill before any Obsidian file operation.
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [obsidian, vault, path, startup, sync, kural, yanlis-yol, doğru-yol]
 audience: user
 related_skills: [obsidian, gorsel-onaylama, tam-sistem-yetkisi]
+---
 ---
 
 # Obsidian Vault Kuralları — Kesin Yol ve Başlangıç Rutini

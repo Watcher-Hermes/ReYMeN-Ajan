@@ -1,0 +1,51 @@
+{
+  "hedef": "dunya kupasında durum nedir ..(yazdığımda sorduğu soru goole qrat herzaman)",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 6,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARAMA']",
+      "gozlem": "[Sonuc] Bulunamadi.",
+      "zaman": "2026-06-23T22:11:44.515703"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- FIFA Kulüpler Dünya Kupası 2025 maç sonuçları, Futbol Dünya ...\n  Sadece sol taraftaki menüden ülke ismine tıklayın ve istediğiniz karşılaşmayı veya turnuvayı seçin (lig sonuçları, ulusal kupa livescore, diğer turnuvalar). FIFA Kulüpler Dünya Kup\n  https://www.flashscore.com.tr/futbol/dunya/fifa-club-dunya-kupas/\n- Kulüpler Dünya Kupası 2025 Puan Tablosu & Puan Durumları - Futbol ...\n  2025 Kulüpler Dünya Kupası puan durumlarından haberdar olun. En iyi takımları takip e",
+      "zaman": "2026-06-23T22:11:47.112161"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.flashscore.com.tr/futbol/dunya/fifa-club-dunya-kupas/\n\nFIFA Kulüpler Dünya Kupası 2025 maç sonuçları, Futbol Dünya - Flashscore.com.tr FIFA Kulüpler Dünya Kupası 2025 skorları, maç sonuçları, puan durumu AD Futbol Dünya FIFA Kulüpler Dünya Kupası 2025 Genel Oranlar Sonuçlar Fikstür Puan Durumu Arşiv Son Skorlar Daha fazla karşılaşma göster Programlar Daha fazla karşılaşma göster 2025 Dünya Dünya Kupası Olimpiyat Oyunları FIFA Kulüpler Dünya Kupası FIFA Intercontin",
+      "zaman": "2026-06-23T22:11:49.651672"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- Uluslararası FIFA Kulüpler Dünya Kupası 2025 Puan Durumu, İstatistik ...\n  FIFA Kulüpler Dünya Kupası (Uluslararası) puan tablosu, maç sonuçları, ve detaylı istatistikler. Güncel sezondan atılan goller, gol krallığı, alt/üst, karşılıklı gol, korner, kart \n  https://footystats.org/tr/international/fifa-club-world-cup\n- FIFA Kulüpler Dünya Kupası Puan Durumu - Futbol/Dünya\n  FIFA Kulüpler Dünya Kupası puan durumunu, genel, ev/deplasman puan durumunu ve FIFA Kulüpler Dünya",
+      "zaman": "2026-06-23T22:11:53.086515"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://footystats.org/tr/international/fifa-club-world-cup\n\nUluslararası FIFA Kulüpler Dünya Kupası 2025 Puan Durumu, İstatistik, Fikstür  | FootyStats Giriş 1500+ lige daha ulaşmak için sürümünü yükselt Saat Dilimini Değiştir Kayıt Ol Daha Fazla English Japanese Turkish Portuguese French Korean Russian Spanish Swedish German Dutch Italian Polish Romanian Greek Czech Indonesian Chinese Traditional Chinese Simplified Croatian Thai Norwegian Hungarian Vietnamese Bulgarian Serb",
+      "zaman": "2026-06-23T22:11:56.049747"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:1araç",
+      "eylem": "['EXECUTE_CODE']",
+      "gozlem": "[GUVENLIK_REDDI] Güvenlik: 'open(' içeren kod çalıştırılamaz",
+      "zaman": "2026-06-23T22:12:03.320532"
+    }
+  ],
+  "tool_istatistik": {}
+}

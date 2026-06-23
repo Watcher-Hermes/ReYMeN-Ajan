@@ -4,7 +4,6 @@ name: google-workspace
 description: "Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python."
 version: 1.1.0
 author: Nous Research
-license: MIT
 platforms: [linux, macos, windows]
 required_credential_files:
   - path: google_token.json
@@ -17,6 +16,7 @@ metadata:
 audience: user
     homepage: https://github.com/NousResearch/hermes-agent
 related_skills: [himalaya]
+---
 ---
 
 # Google Workspace

@@ -3,11 +3,10 @@ name: mdp-modeler
 description: Given a task description, produce a Markov Decision Process spec and flag formulation risks before training.
 title: "Mdp Modeler"
 version: 1.0.0
-phase: 9
-lesson: 1
 tags: [rl, mdp, modeling]
 category: mdp-modeler
 audience: user
+---
 ---
 
 Given a task (control / game / recommendation / LLM fine-tuning), output:

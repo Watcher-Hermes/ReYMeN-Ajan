@@ -3,11 +3,10 @@ name: horizon-reality-check
 description: Given a task you want to hand to an agent, decide whether the current frontier's horizon covers it with enough margin.
 title: "Horizon Reality Check"
 version: 1.0.0
-phase: 15
-lesson: 1
 tags: [autonomous-agents, metr, time-horizon, reliability, deployment]
 category: horizon-reality-check
 audience: user
+---
 ---
 
 Given a proposed autonomous task (what the agent should do, how long a human expert would take, what the failure cost is), produce a reality check on whether the current frontier model's horizon actually covers it.

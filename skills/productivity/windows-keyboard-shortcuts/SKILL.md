@@ -5,13 +5,13 @@ tags: [productivity, windows]
 description: "Windows klavye kýsayollarý: sistem, pencere, tarayýcý, dosya, metin, geliþtirici. Uzun listeler yerine kýsa, akýlda kalýr bloklar."
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [windows, keyboard, shortcuts, productivity, system, browser, editor]
 audience: user
 related_skills: [windows-system-automation, openai-screenshot, obsidian]
+---
 ---
 
 # Windows Klavye Kısayolları

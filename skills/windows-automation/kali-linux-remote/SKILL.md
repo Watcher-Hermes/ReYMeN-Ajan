@@ -3,13 +3,13 @@
 name: kali-linux-remote
 description: "Kali Linux VM'ye SSH ile bağlanıp komut çalıştırma workflow'u. sshpass ile şifresiz bağlantı, sudo komutları, arp-scan/nmap gibi ağ tarama araçları. HER ADIMDA kullanıcıdan klavyeden onay alınır — hangi araç, hangi hedef, hangi parametre. İzinsiz hiçbir şey çalıştırılmaz."
 version: 3
-license: MIT
 metadata:
   hermes:
     tags: [kali, ssh, remote, linux, vm, network-scanning, kali-pentest]
 audience: user
     platform: windows
     lang: turkish
+---
 ---
 
 # Kali Linux Remote

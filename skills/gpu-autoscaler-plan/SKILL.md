@@ -3,11 +3,10 @@ name: gpu-autoscaler-plan
 description: Design a three-layer GPU autoscaling plan (Karpenter + KAI Scheduler + application signals) for a Kubernetes-based LLM serving cluster. Diagnose DCGM_FI_DEV_GPU_UTIL traps and partial-allocation failures.
 title: "GPU Autoscaler Plan"
 version: 1.0.0
-phase: 17
-lesson: 03
 tags: [kubernetes, gpu, autoscaling, karpenter, kai-scheduler, hpa, dynamo-planner, llm-d]
 category: gpu-autoscaler-plan
 audience: maintainer
+---
 ---
 
 Given cluster topology (nodes, GPU types, NVLink domains), workload shape (TP/PP config, average concurrency, burst factor), and SLO (TTFT P99, goodput), produce a three-layer autoscaling plan.

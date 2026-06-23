@@ -3,11 +3,10 @@ name: provider-portability-audit
 description: Audit a function-calling integration against one provider for what breaks when ported to the other two.
 title: "PRovider Portability Audit"
 version: 1.0.0
-phase: 13
-lesson: 02
 tags: [function-calling, openai, anthropic, gemini, portability]
 category: provider-portability-audit
 audience: maintainer
+---
 ---
 
 Given a function-calling integration on one provider (OpenAI, Anthropic, or Gemini), produce a portability audit listing every field rename, behavior difference, and hard-limit collision that appears when the same logic is shipped on the other two providers.

@@ -3,7 +3,6 @@ name: teams-meeting-pipeline
 description: "Operate the Teams meeting summary pipeline via ReYMeN CLI — summarize meetings, inspect pipeline status, replay jobs, manage Microsoft Graph subscriptions."
 version: 1.1.0
 author: ReYMeN Agent + Teknium
-license: MIT
 prerequisites:
   env_vars: [MSGRAPH_TENANT_ID, MSGRAPH_CLIENT_ID, MSGRAPH_CLIENT_SECRET]
   commands: [hermes]
@@ -15,6 +14,7 @@ audience: user
       - /docs/guides/microsoft-graph-app-registration
       - /docs/user-guide/messaging/teams-meetings
       - /docs/guides/operate-teams-meeting-pipeline
+---
 ---
 
 # Teams Meeting Pipeline

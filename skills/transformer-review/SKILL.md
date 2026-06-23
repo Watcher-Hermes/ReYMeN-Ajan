@@ -3,11 +3,10 @@ name: transformer-review
 description: Review a transformer-from-scratch implementation against the 13 Phase 7 lessons.
 title: "Transformer Review"
 version: 1.0.0
-phase: 7
-lesson: 14
 tags: [transformers, review, capstone]
 category: transformer-review
 audience: user
+---
 ---
 
 Given a transformer-from-scratch codebase (PyTorch / JAX), review against the 2026 defaults and flag missing or incorrect pieces:

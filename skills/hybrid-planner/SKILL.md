@@ -3,11 +3,10 @@ name: hybrid-planner
 description: Build a hybrid planner — ChatHTN for provably-sound plans, AlphaEvolve for code search with a machine-checkable evaluator — and pick the right one for the problem.
 title: "Hybrid Planner"
 version: 1.0.0
-phase: 14
-lesson: 11
 tags: [planning, htn, chathtn, alphaevolve, evolutionary-search]
 category: hybrid-planner
 audience: user
+---
 ---
 
 Given a problem class (policy-bound workflow vs code optimization vs open-ended task), pick a planner and produce a correct scaffold.

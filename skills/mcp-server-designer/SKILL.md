@@ -3,11 +3,10 @@ name: mcp-server-designer
 description: Design and scaffold an MCP server with tools, resources, and safety defaults.
 title: "MCP Server Designer"
 version: 1.0.0
-phase: 11
-lesson: 14
 tags: [llm-engineering, mcp, tool-use]
 category: mcp-server-designer
 audience: user
+---
 ---
 
 Given a domain (internal API, database, file source) and the hosts that will mount the server, output:

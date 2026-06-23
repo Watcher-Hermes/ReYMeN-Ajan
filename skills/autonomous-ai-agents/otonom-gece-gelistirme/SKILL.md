@@ -8,12 +8,12 @@ description: >
   sonucu Telegram'a raporla.
 version: 2.2.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [nightly, autonomous, self-improvement, cron, obsidian, skill-maintenance]
 audience: user
 related_skills: [obsidian-vault-kurallari, nightly-self-improvement, hermes-agent, telegram-gateway-monitor]
+---
 ---
 
 # Otonom Gece Geliştirme Döngüsü

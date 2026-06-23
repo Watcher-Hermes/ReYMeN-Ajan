@@ -5,13 +5,13 @@ tags: [agents, ai]
 description: "Delegate coding to OpenCode CLI (features, PR review)."
 version: 1.2.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Coding-Agent, OpenCode, Autonomous, Refactoring, Code-Review]
 audience: user
 related_skills: [claude-code, codex, hermes-agent]
+---
 ---
 
 # OpenCode CLI

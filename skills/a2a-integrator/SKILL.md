@@ -3,11 +3,10 @@ name: a2a-integrator
 description: Design an A2A integration between two agents — Agent Card, task schemas, auth, streaming or polling.
 title: "A2A Integrator"
 version: 1.0.0
-phase: 16
-lesson: 12
 tags: [multi-agent, a2a, protocol, interoperability, google]
 category: a2a-integrator
 audience: user
+---
 ---
 
 Given two agent systems that need to interoperate, produce the A2A integration plan: Agent Card contents, task schemas, auth, transport mode.

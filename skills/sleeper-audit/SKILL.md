@@ -3,11 +3,10 @@ name: sleeper-audit
 description: Audit an alignment-training report for whether it actually demonstrates removal of a planted or suspected backdoor.
 title: "Sleeper Audit"
 version: 1.0.0
-phase: 18
-lesson: 7
 tags: [sleeper-agents, backdoor, alignment-training, adversarial-training, probes]
 category: sleeper-audit
 audience: maintainer
+---
 ---
 
 Given a report that claims a harmful behaviour has been removed from a model (via SFT, RLHF, adversarial training, or any combination), audit whether the removal has actually been demonstrated against the standard Hubinger et al. 2024 threat model.

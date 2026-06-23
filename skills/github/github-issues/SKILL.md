@@ -6,13 +6,13 @@ tags: [development, git, github]
 description: "Create, triage, label, assign GitHub issues via gh or REST."
 version: 1.1.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [GitHub, Issues, Project-Management, Bug-Tracking, Triage]
 audience: contributor
 related_skills: [github-auth, github-pr-workflow]
+---
 ---
 
 # Github Issues

@@ -3,11 +3,10 @@ name: durable-execution-review
 description: Review a proposed long-running agent deployment for correct durable-execution shape (activities, determinism, checkpoint backend, human-input state, HITL-on-resume).
 title: "Durable Execution Review"
 version: 1.0.0
-phase: 15
-lesson: 12
 tags: [durable-execution, workflows, checkpointing, temporal, langgraph, agents-sdk]
 category: durable-execution-review
 audience: user
+---
 ---
 
 Given a proposed long-running agent deployment (Temporal + OpenAI Agents SDK, LangGraph with PostgreSQL checkpointer, Microsoft Agent Framework, Claude Code Routines, Cloudflare Durable Objects, or an in-house equivalent), audit the design against the durable-execution pattern.

@@ -3,11 +3,10 @@ name: finetuning-pipeline
 description: Run a reproducible data-to-SFT-to-DPO-to-serve fine-tuning pipeline with ablations, quantization, and a 2026 Model Openness Framework model card.
 title: "Finetuning Pipeline"
 version: 1.0.0
-phase: 19
-lesson: 07
 tags: [capstone, fine-tuning, axolotl, trl, dpo, grpo, vllm, eagle-3, mof]
 category: finetuning-pipeline
 audience: user
+---
 ---
 
 Given a base model (Llama 3.3 8B, Qwen3 14B, or Gemma 3 12B) and a task-specific dataset, build a single-command pipeline that produces a served endpoint and a reproducible model card.

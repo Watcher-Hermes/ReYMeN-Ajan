@@ -5,7 +5,6 @@ title: "Hyperframes"
 tags: [general]
 version: 1.0.0
 author: Ekko
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ category: hyperframes
 audience: user
 prerequisites:
   commands: [node, npx]
+---
 ---
 
 # HyperFrames

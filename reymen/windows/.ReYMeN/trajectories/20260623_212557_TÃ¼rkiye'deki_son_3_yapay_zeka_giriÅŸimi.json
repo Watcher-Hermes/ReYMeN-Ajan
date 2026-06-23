@@ -1,0 +1,58 @@
+{
+  "hedef": "TÃ¼rkiye'deki son 3 yapay zeka giriÅŸimini (2026) araÅŸtÄ±r. Her biri iÃ§in 5N1K tablosu Ã§Ä±kar (Kim, Ne, Nerede, Ne Zaman, Neden, NasÄ±l). En gÃ¼Ã§lÃ¼/yenilikÃ§i olanÄ± puanla (10 Ã¼zerinden). Raporu AI_girisimleri_raporu.md olarak kaydet. Åu adÄ±mlarÄ± izle:",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 7,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:2araç",
+      "eylem": "['WEB_ARAMA', 'WEB_ARAMA']",
+      "gozlem": "[Sonuc] Bulunamadi.",
+      "zaman": "2026-06-23T21:26:08.699983"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:2araç",
+      "eylem": "['WEB_ARA', 'WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- 100 Top AI (Artificial Intelligence) Companies in Turkey - F6S\n  Detailed info and reviews on 100 top AI (Artificial Intelligence) companies and startups in Turkey in 2026. Get the latest updates on their products, jobs, funding, investors, foun\n  https://www.f6s.com/companies/artificial-intelligence/turkey/co\n- PDF Turkish Startup Investments Review 2025 - assets.kpmg.com\n  Welcome to the 2025 annual edition of the Turkish Startup Investments Review, prepared in collab",
+      "zaman": "2026-06-23T21:26:12.423917"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:3araç",
+      "eylem": "['WEB_ICERIK', 'WEB_ICERIK', 'WEB_ICERIK']",
+      "gozlem": "[Web] Icerik alinamadi: HTTP Error 404: Not Found",
+      "zaman": "2026-06-23T21:26:16.778750"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:2araç",
+      "eylem": "['WEB_ARA', 'WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- TRAI Girişim Haritası -Nisan 2026 | Türkiye Yapay Zeka ... - LinkedIn\n  🚀 TRAI Girişim Haritası'ndaki yapay zeka startup sayısı 482'ye ulaştı! 📈 Nisan 2026 güncellemesiyle birlikte haritaya 25 yeni girişim eklendi.\n  https://tr.linkedin.com/posts/turkiyeai_trai-giri%C5%9Fim-haritas%C4%B1-nisan-2026-activity-7446837343631843328-u_F8\n- Anasayfa | Türkiye Yapay Zeka İnisiyatifi\n  Her yıl dört kez güncellediğimiz TRAI Yapay Zeka Girişim Haritası 25 yeni girişimin eklenmesiy",
+      "zaman": "2026-06-23T21:26:20.947757"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:3araç",
+      "eylem": "['WEB_ICERIK', 'WEB_ICERIK', 'WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://turkiye.ai/trai-girisim-haritasindaki-yapay-zeka-startup-sayisi-482ye-ulasti/\n\nTRAI Girişim Haritası’ndaki Yapay Zeka Startup Sayısı 482’ye Ulaştı | Türkiye Yapay Zeka İnisiyatifi Skip to content TRAI Girişim Haritası’ndaki Yapay Zeka Startup Sayısı 482’ye Ulaştı Hasret Bilmez Haberler , Startuplar 6 Nisan 2026 TRAI Girişim Haritası’ndaki Yapay Zeka Startup Sayısı 482’ye Ulaştı Hasret Bilmez Haberler , Startuplar 6 Nisan 2026 Türkiye Yapay Zeka İnisiyatifi (TRAI) olar",
+      "zaman": "2026-06-23T21:26:25.421451"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:3araç",
+      "eylem": "['WEB_ARA', 'WEB_ARA', 'WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- #agenticai #documind #trai #documentintelligence | Documind - LinkedIn\n  Agentic AI artık bir trend değil, kurumsal yazılımın yeni standardı. Documind olarak Türkiye Yapay Zeka İnisiyatifi (TRAI) girişim haritasında Agentic AI kategorisinde yer almaktan\n  https://tr.linkedin.com/posts/documindcloud_agenticai-documind-trai-activity-7454550112233537536-Q3Ex\n- Girişimler | Türkiye Yapay Zeka İnisiyatifi\n  Yapay zeka teknolojileriyle bir problemi çözen veya pazarda yenilikç",
+      "zaman": "2026-06-23T21:26:30.430093"
+    },
+    {
+      "tur": 7,
+      "dusunce": "FC:3araç",
+      "eylem": "['WEB_ICERIK', 'WEB_ICERIK', 'WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://epnext.com/turkiye-merkezli-kuresel-yapay-zeka-girisimi-promake-tanitildi/\n\nTürkiye Merkezli Küresel Yapay Zeka Girişimi Promake Tanıtıldı - Enterprise Next Ses Ajanları Kurumsal Dünyaya Giriyor Yapay Zeka Veri Merkezleri ve Uç Bilişim İçin Yeni Bir Bellek DLP İşletmeler İçin Neden Önemli? Siber Suçlular 2026 FIFA Dünya Kupası’nı Hedef Alıyor Türk Fintech Sektörüne 7 Milyon Dolar Yatırım Türkiye’de E-Ticaret Hacmi 4,6 Trilyon Liraya Ulaştı Zararlı Yazılımın Yüzde 35’i",
+      "zaman": "2026-06-23T21:26:35.393133"
+    }
+  ],
+  "tool_istatistik": {}
+}

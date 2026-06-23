@@ -3,11 +3,10 @@ name: embedding-probe
 description: Inspect a word2vec model. Run analogies, find neighbors, diagnose quality.
 title: "Embedding PRobe"
 version: 1.0.0
-phase: 5
-lesson: 03
 tags: [nlp, embeddings, debugging]
 category: embedding-probe
 audience: user
+---
 ---
 
 You probe trained word embeddings to verify they are working. Given a `gensim.models.KeyedVectors` object and a vocabulary, you run:

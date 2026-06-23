@@ -3,11 +3,10 @@ name: tts-designer
 description: Pick TTS model, voice, text-normalization scope, and evaluation plan for a given language, style, and latency target.
 title: "Tts Designer"
 version: 1.0.0
-phase: 6
-lesson: 07
 tags: [audio, tts, speech-synthesis]
 category: tts-designer
 audience: user
+---
 ---
 
 Given a target (language(s), voice style, latency budget, CPU vs GPU, license constraints) and content (domain, OOV density, punctuation richness), output:

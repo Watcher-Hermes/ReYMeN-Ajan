@@ -5,7 +5,6 @@ description: "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.)."
 title: "Evaluating LLMs Harness"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [lm-eval, transformers, vllm]
 platforms: [linux, macos]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
 
+---
 ---
 
 # Lm Evaluation Harness

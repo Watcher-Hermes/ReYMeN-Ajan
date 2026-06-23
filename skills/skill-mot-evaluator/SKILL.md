@@ -3,11 +3,10 @@ name: skill-mot-evaluator
 description: Write a complete evaluation harness for MOTA / IDF1 / HOTA against ground-truth tracks
 title: "Skill Mot Evaluator"
 version: 1.0.0
-phase: 4
-lesson: 27
 tags: [mot, evaluation, tracking, metrics]
 category: skill-mot-evaluator
 audience: user
+---
 ---
 
 # MOT Evaluator

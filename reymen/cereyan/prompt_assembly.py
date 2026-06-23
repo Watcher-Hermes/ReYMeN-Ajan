@@ -40,7 +40,7 @@ class PromptAssembly:
     # ── Ana metot: eksiksiz sistem promptu ─────────────────────────────
 
     def insa_et(self, hedef, son_gozlem="", tur=1, toplam_tur=15,
-                ic_gozlem_modu=False):
+                ic_gozlem_modu=False, hizli_mod=False):
         """SOUL + MEMORY + beceri + ReAct kurallarindan sistem promptu olustur.
 
         Args:
@@ -49,10 +49,32 @@ class PromptAssembly:
             tur:            Mevcut tur numarasi
             toplam_tur:     Maksimum tur sayisi
             ic_gozlem_modu: True ise oz-degerlendirme talimatini ekle
+            hizli_mod:      True ise sadece minimal prompt (SOUL/AGENTS/skills atlanir)
 
         Returns:
             str: Birlestirilmis sistem promptu
         """
+        # ── HIZLI MOD: minimal prompt, hafiza + kimlik + format ──────────
+        if hizli_mod:
+            parcalar = []
+
+            # Sadece SOUL (kimlik)
+            soul = self._soul_oku()
+            if soul:
+                parcalar.append(f"## KIMLIK\n{soul}")
+
+            # Kisa format talimati
+            parcalar.append(
+                "Kisa ve oz cevap ver. Turkce konus. "
+                "Bilgiyi tablo ile sun. Gereksiz anlatma."
+            )
+
+            if son_gozlem:
+                parcalar.append(f"## SON GOZLEM\n{son_gozlem}")
+
+            return "\n\n".join(p for p in parcalar if p)
+
+        # ── NORMAL MOD: tam prompt ──────────────────────────────────────
         parcalar = []
 
         # 1. Kimlik katmani (SOUL.md)

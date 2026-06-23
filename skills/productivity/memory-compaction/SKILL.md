@@ -8,12 +8,12 @@ description: >-
   Kullanıcının "memory dolu" veya memory add başarısız olduğunda kullan.
 version: 1.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [memory, compaction, cleanup, consolidation]
 audience: user
 related_skills: [telegram-gateway-monitor]
+---
 ---
 
 # Memory Compaction
@@ -126,6 +126,19 @@ Kullanıcı küçük, modüler entry'leri büyük tek blok yerine tercih eder. ~
 | Entry benzersiz başlık/header ile başlıyorsa | ✅ EVET |
 | 2+ entry aynı metinle başlıyorsa | ❌ HAYIR |
 | Metinde satır sonu/boşluk farkı varsa | ⚠️ riskli |
+| Entry system prompt'ta görünenden farklı saklanıyorsa | ❌ HAYIR |
+
+### Replace Başarısız Olursa (Deneyim)
+
+Replace 3+ kez "no entry matched" hatası dönerse:
+
+1. **Daha kısa eşsiz substring dene** — entry'nin ilk 4-5 kelimesini dene
+2. **Hâlâ başarısızsa** — entry muhtemelen farklı formatta saklanmıştır (system prompt'ta görünenden farklı)
+3. **Direkt ADD + REMOVE'a geç** — replace üzerinde ısrar etme, tool loop'a girme
+4. **Raporla:** "Replace başarısız, ADD ile devam edildi" deyip geç
+5. **Asla 5+ kez deneme** — tool loop warning alırsan strateji değiştir
+
+**Kural:** 3 başarısız replace denemesi = tool loop riski. Hemen ADD + REMOVE'a geç.
 
 **Önerilen sıra:** Önce REPLACE dene (en hızlı). Başarısız olursa ADD + REMOVE'a geç. Asla önce REMOVE sonra ADD yapma — 10K limit aşılır.
 

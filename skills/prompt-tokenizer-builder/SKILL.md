@@ -3,11 +3,10 @@ name: prompt-tokenizer-builder
 description: Build and debug production-quality tokenizers for LLM projects
 title: "PRompt Tokenizer Builder"
 version: 1.0.0
-phase: 10
-lesson: 2
 tags: [tokenizer, bpe, byte-level, special-tokens, chat-template, multilingual]
 category: prompt-tokenizer-builder
 audience: user
+---
 ---
 
 # Production Tokenizer Builder

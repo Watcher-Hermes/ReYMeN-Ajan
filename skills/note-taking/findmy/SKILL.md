@@ -4,7 +4,6 @@ description: "Track Apple devices/AirTags via FindMy.app on macOS."
 title: "Findmy"
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [macos]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
 category: note-taking
 audience: user
 tags: [note-taking, obsidian, productivity]
+---
 ---
 
 # Find My (Apple)

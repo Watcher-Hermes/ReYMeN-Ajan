@@ -1,0 +1,58 @@
+{
+  "hedef": "2026 yılında dunya kupasi mac durumu nedir",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 7,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARAMA']",
+      "gozlem": "[Sonuc] Bulunamadi.",
+      "zaman": "2026-06-23T22:13:50.435996"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- World Cup 2026 | Match schedule, fixtures & stadiums\n  Find out the full match schedule for World Cup 2026 in Canada, Mexico and USA with fixtures and results from each of the 104 games in the 48-team tournament.\n  https://ppr-www.fifa.com/en/articles/match-schedule-fixtures-results-teams-stadiums\n- World Cup 2026 | Match schedule, fixtures & stadiums - FIFA\n  Find out the full match schedule for World Cup 2026 in Canada, Mexico and USA with fixtures and results from ea",
+      "zaman": "2026-06-23T22:13:53.154935"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-sta\n\n",
+      "zaman": "2026-06-23T22:13:55.110717"
+    },
+    {
+      "tur": 4,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.espn.com/soccer/story/_/id/48939282/2026-fifa-world-cup-fixtures-results\n\n2026 FIFA World Cup match schedule: Fixtures, results, features - ESPN Skip to main content Skip to navigation Menu ESPN scores 2026 FIFA World Cup match schedule: All fixtures, results and coverage 12h ESPN World Cup Daily: Ronaldo scores twice in big Portugal win; England in action 12m ESPN Ronaldo snaps goal drought, 1st to score at 6 WCs 5m Alex Kirkland Iran cleared to fly into U.S. 2 d",
+      "zaman": "2026-06-23T22:13:57.782616"
+    },
+    {
+      "tur": 5,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.soccergraph.com/2025/12/fifa-world-cup-2026-match-schedule-fixtures-times-results-scores.html\n\nFIFA World Cup 2026 Full Match Schedule, Kick-off times, Fixtures, Dates, Venues - Soccergraph Search Search FIFA World Cup 2026 Full Match Schedule, Kick-off times, Fixtures, Dates, Venues sports history June 23, 2026 0\nComments Full match schedule for 2026 FIFA World Cup 26, Full Fixtures List, Dates, Times, Venues, Groups, Teams. Check out the complete match schedule ",
+      "zaman": "2026-06-23T22:14:01.574141"
+    },
+    {
+      "tur": 6,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://fifa-worldcup26.com/matches/\n\nFIFA World Cup 2026 Matches | Schedule, Fixtures & Results Skip to content Search Search Toggle Menu Matches Hub You can find all the Worldcup Match Fixtures on this page WATCH LIVE STREAM World Cup 2026 Fixtures 23 Jun - 16:00 EDT SCHEDULED World Cup 2026 Group STAGE 🇬🇧 England 0 - 0 Ghana 🇬🇭 Venue: Gillette Stadium, Boston 23 Jun - 19:00 EDT SCHEDULED World Cup 2026 Group STAGE 🇵🇦 Panama 0 - 0 Croatia 🇭🇷 Venue: BMO Field, Toronto 23 Jun",
+      "zaman": "2026-06-23T22:14:05.827768"
+    },
+    {
+      "tur": 7,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://fifa-worldcup26.com/matches/?page=2\n\nFIFA World Cup 2026 Matches | Schedule, Fixtures & Results Skip to content Search Search Toggle Menu Matches Hub You can find all the Worldcup Match Fixtures on this page WATCH LIVE STREAM World Cup 2026 Fixtures 23 Jun - 16:00 EDT SCHEDULED World Cup 2026 Group STAGE 🇬🇧 England 0 - 0 Ghana 🇬🇭 Venue: Gillette Stadium, Boston 23 Jun - 19:00 EDT SCHEDULED World Cup 2026 Group STAGE 🇵🇦 Panama 0 - 0 Croatia 🇭🇷 Venue: BMO Field, Toronto",
+      "zaman": "2026-06-23T22:14:09.964632"
+    }
+  ],
+  "tool_istatistik": {}
+}

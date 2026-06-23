@@ -3,11 +3,10 @@ name: audio-loader
 description: Validate a raw audio file against a target model's expectations and resample it safely.
 title: "Audio Loader"
 version: 1.0.0
-phase: 6
-lesson: 01
 tags: [audio, speech, preprocessing]
 category: audio-loader
 audience: user
+---
 ---
 
 Given an audio file (path, channels, sample rate, bit depth, codec) and a target model (ASR / TTS / classifier with a required sample rate and channel count), output:

@@ -3,11 +3,10 @@ name: multilingual-picker
 description: Pick source language, target model, and evaluation plan for a multilingual NLP task.
 title: "Multilingual Picker"
 version: 1.0.0
-phase: 5
-lesson: 18
 tags: [nlp, multilingual, cross-lingual]
 category: multilingual-picker
 audience: user
+---
 ---
 
 Given requirements (target languages, task type, available labeled data per language), output:

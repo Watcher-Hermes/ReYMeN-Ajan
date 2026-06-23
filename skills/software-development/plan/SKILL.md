@@ -6,13 +6,13 @@ tags: [coding, development]
 description: "Plan mode: write an actionable markdown plan to .hermes/plans/, no execution. Bite-sized tasks, exact paths, complete code."
 version: 2.0.0
 author: ReYMeN Agent (writing-craft adapted from obra/superpowers)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [planning, plan-mode, implementation, workflow, design, documentation]
 audience: contributor
 related_skills: [subagent-driven-development, test-driven-development, requesting-code-review]
+---
 ---
 
 # Plan

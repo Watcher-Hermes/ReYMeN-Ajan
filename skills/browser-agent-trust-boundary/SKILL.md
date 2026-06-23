@@ -3,11 +3,10 @@ name: browser-agent-trust-boundary
 description: Scope a proposed browser-agent deployment — trust zones, authorized writes, required defenses — before the agent touches a real site.
 title: "Browser Agent Trust Boundary"
 version: 1.0.0
-phase: 15
-lesson: 11
 tags: [browser-agents, prompt-injection, trust-boundary, osworld, webarena]
 category: browser-agent-trust-boundary
 audience: user
+---
 ---
 
 Given a proposed browser-agent workflow, produce a trust-boundary scoping document that enumerates every read, every write, and the minimum defense stack required for first run.

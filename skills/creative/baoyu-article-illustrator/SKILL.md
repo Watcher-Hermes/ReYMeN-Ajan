@@ -3,7 +3,6 @@ name: baoyu-article-illustrator
 description: "Article illustrations: type × style × palette consistency."
 version: 1.57.0
 author: 宝玉 (JimLiu)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -11,6 +10,7 @@ metadata:
     category: creative
 audience: user
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-article-illustrator
+---
 ---
 
 # Article Illustrator

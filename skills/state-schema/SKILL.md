@@ -3,11 +3,10 @@ name: state-schema
 description: Generate project-specific JSON Schemas for agent state and task board, a Python StateManager with atomic writes, and a migration scaffold so schema bumps cannot corrupt the workbench.
 title: "State Schema"
 version: 1.0.0
-phase: 14
-lesson: 34
 tags: [state, schema, json-schema, atomic-writes, migrations]
 category: state-schema
 audience: user
+---
 ---
 
 Given a repo and the agent product running inside it, produce schema-first state files for the workbench.

@@ -4,7 +4,6 @@ description: "Animate a local image into a short mp4 video through ReYMeN Web UI
 title: "Grok Image To Video"
 version: 1.0.0
 author: Ekko
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ audience: user
 tags: [image, video]
 prerequisites:
   commands: [curl]
+---
 ---
 
 # Grok Image To Video

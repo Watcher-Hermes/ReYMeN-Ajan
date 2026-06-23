@@ -3,11 +3,10 @@ name: long-context-eval
 description: Design a long-context evaluation battery for a given model and use case.
 title: "Long Context Eval"
 version: 1.0.0
-phase: 5
-lesson: 28
 tags: [nlp, long-context, evaluation]
 category: long-context-eval
 audience: user
+---
 ---
 
 Given a target model, target context length, and use case, output:

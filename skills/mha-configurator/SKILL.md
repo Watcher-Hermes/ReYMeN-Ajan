@@ -3,11 +3,10 @@ name: mha-configurator
 description: Recommend head count, KV-head count, and projection strategy (MHA / MQA / GQA / MLA) for a new transformer.
 title: "Mha Configurator"
 version: 1.0.0
-phase: 7
-lesson: 3
 tags: [transformers, attention, mha, gqa]
 category: mha-configurator
 audience: user
+---
 ---
 
 Given a transformer spec (parameter budget, hidden size `d_model`, target context length, inference device memory, training vs inference priority), output:

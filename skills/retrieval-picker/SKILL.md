@@ -3,11 +3,10 @@ name: retrieval-picker
 description: Pick a retrieval stack for a given corpus and query pattern.
 title: "Retrieval Picker"
 version: 1.0.0
-phase: 5
-lesson: 14
 tags: [nlp, retrieval, rag, search]
 category: retrieval-picker
 audience: user
+---
 ---
 
 Given requirements (corpus size, query pattern, latency budget, quality bar, infra constraints), output:

@@ -4,7 +4,6 @@ description: "Search/download GIFs from Tenor via curl + jq."
 title: "Gif Search"
 version: 1.1.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 prerequisites:
   env_vars: [TENOR_API_KEY]
@@ -15,6 +14,7 @@ metadata:
 category: media
 audience: user
 tags: [audio, media, video]
+---
 ---
 
 # GIF Search (Tenor API)

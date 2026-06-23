@@ -3,11 +3,10 @@ name: init-script
 description: Interview a project and emit a deterministic init_agent.py with five probes plus a CI workflow that refuses to launch the agent if any probe fails.
 title: "Init Script"
 version: 1.0.0
-phase: 14
-lesson: 35
 tags: [init, probes, ci, workbench, fail-loud]
 category: init-script
 audience: contributor
+---
 ---
 
 Given a repo, the agent product, and its dependency surface, produce a project-specific init script and CI wiring.

@@ -3,11 +3,10 @@ name: parallel-call-safety-check
 description: Audit a tool registry for safe parallelization. Mark each tool parallel_safe, note ordering dependencies, and flag downstream rate-limit risk.
 title: "Parallel Call Safety Check"
 version: 1.0.0
-phase: 13
-lesson: 03
 tags: [parallel-tool-calls, streaming, correlation, rate-limits]
 category: parallel-call-safety-check
 audience: user
+---
 ---
 
 Given a tool registry (list of tools with names, descriptions, and executors), return an annotated copy with `parallel_safe: bool`, `ordering_deps: [tool_name]`, and `rate_limit_group: name` fields added.

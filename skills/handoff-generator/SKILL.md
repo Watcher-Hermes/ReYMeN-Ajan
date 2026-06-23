@@ -3,11 +3,10 @@ name: handoff-generator
 description: Generate end-of-session handoff packets from workbench artifacts, producing both human-readable Markdown and machine-readable JSON keyed to the seven canonical fields.
 title: "Handoff Generator"
 version: 1.0.0
-phase: 14
-lesson: 40
 tags: [handoff, generator, session-end, packet, next-action]
 category: handoff-generator
 audience: user
+---
 ---
 
 Given a workbench (state, verdict, review, feedback log, diff), produce a session-end handoff generator wired into the agent runtime.

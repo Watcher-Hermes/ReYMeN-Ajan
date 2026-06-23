@@ -3,11 +3,10 @@ name: aar-deployment-review
 description: Pre-deployment review of an automated-alignment-research pipeline, including sandbox isolation and log integrity.
 title: "Aar Deployment Review"
 version: 1.0.0
-phase: 15
-lesson: 6
 tags: [aar, alignment-research, sandbox, log-integrity, rsp]
 category: aar-deployment-review
 audience: user
+---
 ---
 
 Given a proposed Automated-Alignment-Research deployment (model, sandbox, task queue, forum), produce a pre-deployment review that a frontier-lab safety team would sign off on.

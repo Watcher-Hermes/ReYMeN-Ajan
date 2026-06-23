@@ -6,12 +6,12 @@ tags: [ai, coding, development]
 description: Modify, debug, or extend the s6-overlay supervision tree inside the ReYMeN Agent Docker image — adding new services, debugging profile gateways, understanding the Architecture B main-program pattern.
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 metadata:
   hermes:
     tags: [docker, s6, supervision, gateway, profiles]
 audience: contributor
 related_skills: [hermes-agent, hermes-agent-dev]
+---
 ---
 
 # ReYMeN S6 Container Supervision

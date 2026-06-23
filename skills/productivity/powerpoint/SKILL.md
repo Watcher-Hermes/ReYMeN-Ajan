@@ -2,7 +2,6 @@
 name: powerpoint
 description: "Create, read, edit .pptx decks, slides, notes, templates."
 title: "Powerpoint"
-license: Proprietary. LICENSE.txt has complete terms
 platforms: [linux, macos, windows]
 
 audience: user
@@ -23,6 +22,7 @@ Use this skill any time a .pptx file is involved in any way — as input, output
 | Edit or create from template | Read [editing.md](editing.md) |
 | Create from scratch | Read [pptxgenjs.md](pptxgenjs.md) |
 
+---
 ---
 
 ## Reading Content

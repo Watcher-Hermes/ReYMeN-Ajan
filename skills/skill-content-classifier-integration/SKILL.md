@@ -3,11 +3,10 @@ name: skill-content-classifier-integration
 description: Three output-side classifiers (toxicity, PII, instruction-leakage) behind a single severity router with block, redact, warn, log actions
 title: "Skill Content Classifier Integration"
 version: 1.0.0
-phase: 19
-lesson: 85
 tags: [safety, classifier, output-filter]
 category: skill-content-classifier-integration
 audience: user
+---
 ---
 
 # Content Classifier Integration

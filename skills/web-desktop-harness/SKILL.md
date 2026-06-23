@@ -3,11 +3,10 @@ name: web-desktop-harness
 description: Build a WebArena/OSWorld-style harness with execution-based evaluation and trajectory-efficiency metrics.
 title: "Web Desktop Harness"
 version: 1.0.0
-phase: 14
-lesson: 20
 tags: [webarena, osworld, harness, trajectory-efficiency]
 category: web-desktop-harness
 audience: user
+---
 ---
 
 Given a target app (web or desktop) and a list of tasks with gold trajectories, build an eval harness.

@@ -5,7 +5,6 @@ description: "SAM: zero-shot image segmentation via points, boxes, masks."
 title: "Segment Anything Model"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [segment-anything, transformers>=4.30.0, torch>=1.7.0]
 platforms: [linux, macos, windows]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, machine-learning, mlops, model]
 
+---
 ---
 
 # Segment Anything Model

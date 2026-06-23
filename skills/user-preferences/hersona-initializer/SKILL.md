@@ -3,7 +3,6 @@ name: hersona-initializer
 description: Initializes hersona persona on first use of a profile and assists in maintaining the applied speech style if deviation is detected during conversation.
 version: 0.0.2
 author: shiro-0x
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -11,6 +10,7 @@ metadata:
     category: personality
 audience: user
     requires_toolsets: []
+---
 ---
 
 # hersona-initializer

@@ -3,11 +3,10 @@ name: routing-config-designer
 description: Given a workload profile, pick LiteLLM / OpenRouter / Portkey and produce a routing config.
 title: "Routing Config Designer"
 version: 1.0.0
-phase: 13
-lesson: 20
 tags: [routing, litellm, openrouter, portkey, fallback]
 category: routing-config-designer
 audience: user
+---
 ---
 
 Given a workload profile (latency requirements, compliance constraints, team size, spend budget), produce a routing gateway choice and configuration.

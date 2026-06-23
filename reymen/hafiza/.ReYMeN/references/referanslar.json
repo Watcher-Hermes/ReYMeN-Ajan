@@ -1,0 +1,32 @@
+[
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-23"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"example_com_verisi\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain\\\", \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"], \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"]}, \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-23"
+  },
+  {
+    "etiket": "example_com_verisi|Bu veri Example Domain (example.com) sayfasından alınmıştır. Başlık: Example Domain. Paragraflar: This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more. Bağlantılar: https://iana.org/domains/example. Etiketler: example, web_scraping",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-23"
+  },
+  {
+    "etiket": "drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamamlandi. Tespit edilen sorunlar: 1) TEKRAR_EDEN_GRS - ayni girisler birden fazla kez kaydedilmis, 2) ASIRI_TEKRAR - ayni sorgular cok kez tekrarlanmis (ornek: kac skill var 5 kez), 3) TAMAMLANMAMIS_GOREV - tur asimi nedeniyle tamamlanamamis gorevler. Cozum onerileri: TEKRAR_SIL, BIRLESTIR, TEMIZLE. Kalici izleme mekanizmasi kuruldu (24 saatlik kontrol). Referans verisi example_com_verisi basariyla kaydedildi. Etiketler: drift_duzeltme, hafiza_yonetimi",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-23"
+  },
+  {
+    "etiket": "anahtar: decisions_ve_plan\ndeğer: {\n  \\\"referanslar\\\": [\n    {\n      \\\"anahtar\\\": \\\"example_com_verisi\\\",\n      \\\"baslik\\\": \\\"Example Domain\\\",\n      \\\"paragraflar\\\": [\\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"Learn more\\\"],\n      \\\"baglantilar\\\": [\\\"https://iana.org/domains/example\\\"],\n      \\\"etiketler\\\": [\\\"example\\\", \\\"web_scraping\\\"]\n    },\n    {\n      \\\"anahtar\\\": \\\"drift_duzeltme_raporu_20260621\\\",\n      \\\"ozet\\\": \\\"ReYMeN hafiza drift duzeltmesi tamamlandi. Sorunlar: TEKRAR_EDEN_GRS, ASIRI_TEKRAR, TAMAMLANMAMIS_GOREV. Cozum: TEKRAR_SIL, BIRLESTIR, TEMIZLE.\\\",\n      \\\"etiketler\\\": [\\\"drift_duzeltme\\\", \\\"hafiza_yonetimi\\\"]\n    }\n  ],\n  \\\"plan\\\": {\n    \\\"asama_1_veri_toplama\\\": \\\"Mevcut sistem hakkinda veri toplama, calisma sekli, zayif noktalar ve iyilestirme alanlari analizi\\\",\n    \\\"asama_2_alternatif_araclar\\\": \\\"Sisteme entegre edilecek alternatif araclarin belirlenmesi\\\",\n    \\\"asama_3_geri_donus_plani\\\": \\\"Alternatif araclara uyum icin geri donus plani (adimlar, kaynaklar, zaman tablolari)\\\",\n    \\\"asama_4_decisions_md_ekleme\\\": \\\"Alternatif araclar ve geri donus planinin decisions.md'ye eklenmesi\\\",\n    \\\"asama_5_uygulama_takip\\\": \\\"Alternatif araclara uyum adimlarinin uygulanmasi ve performans takibi\\\"\n  }\n}\netiketler: [\\\"decisions\\\", \\\"plan\\\", \\\"alternatif_araclar\\\", \\\"geri_donus_plani\\\"]",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-23"
+  }
+]

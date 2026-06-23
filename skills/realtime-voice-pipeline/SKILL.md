@@ -3,11 +3,10 @@ name: realtime-voice-pipeline
 description: Pick transport, VAD, streaming STT, LLM, streaming TTS, and orchestration for a target end-to-end latency.
 title: "Realtime Voice Pipeline"
 version: 1.0.0
-phase: 6
-lesson: 11
 tags: [voice-agent, livekit, pipecat, silero, streaming, latency]
 category: realtime-voice-pipeline
 audience: user
+---
 ---
 
 Given the target (latency P50/P95, language, channel, offline vs cloud, call volume), output:

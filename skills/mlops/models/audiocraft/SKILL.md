@@ -5,7 +5,6 @@ description: "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound."
 title: "Audiocraft Audio Generation"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [audiocraft, torch>=2.0.0, transformers>=4.30.0]
 platforms: [linux, macos]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, audio, machine-learning, mlops]
 
+---
 ---
 
 # Audiocraft

@@ -5,13 +5,13 @@ tags: [automation, windows]
 description: Use when a dialog box, popup, or confirmation window appears on screen and needs to be approved. Also covers ANY choice/approval prompt — user never wants to be asked, always picks the most permissive option. ReYMeN takes a screenshot, uses llava-llama3 to find the OK/Yes/Tamam button, moves the mouse there, and clicks it automatically.
 version: 3.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [onay, approve, confirm, dialog, popup, tamam, ok, yes, mouse, vision, llava, gorsel, otomatik, allow-once, bir-kere-izin-ver]
 audience: user
 related_skills: [mouse-klavye-ctypes, screen-vision-analiz, tam-sistem-yetkisi]
+---
 ---
 
 # Görsel Onaylama (Allow Once — Bir Kere İzin Ver)

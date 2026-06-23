@@ -3,11 +3,10 @@ name: chatbot-architect
 description: Design a chatbot stack for a given use case.
 title: "Chatbot Architect"
 version: 1.0.0
-phase: 5
-lesson: 17
 tags: [nlp, agents, chatbot]
 category: chatbot-architect
 audience: user
+---
 ---
 
 Given a product context (user need, compliance constraints, available tools, data volume), output:

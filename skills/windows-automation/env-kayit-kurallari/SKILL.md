@@ -5,13 +5,13 @@ tags: [automation, windows]
 description: Use FIRST before any configuration, API key, or settings task. Contains all .env file locations, key names, and the rule that .env is the single source of truth. Every .env change must be saved to Obsidian automatically. Check this skill before reading/writing any config.
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [env, config, api-key, token, obsidian, kayit, oncelik, source-of-truth, kalici]
 audience: user
 related_skills: [obsidian-vault-kurallari, tam-sistem-yetkisi, obsidian]
+---
 ---
 
 # .env Kayıt Kuralları — Öncelik ve Kalıcı Hafıza

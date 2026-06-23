@@ -3,7 +3,6 @@ name: maps
 description: "Geocode, POIs, routes, timezones via OpenStreetMap/OSRM."
 version: 1.2.0
 author: Mibayy
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
 audience: user
     requires_toolsets: [terminal]
     supersedes: [find-nearby]
+---
 ---
 
 # Maps Skill

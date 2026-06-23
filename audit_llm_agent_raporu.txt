@@ -1,0 +1,207 @@
+# LLM Capability & Agent Audit — ReYMeN Agent
+
+> Tarih: 2026-06-23 | Kaynak: kod tabanı taraması + entegrasyon analizi
+
+---
+
+## 1. MODEL SEVİYESİ
+
+### 1.1 Kullanılan Model/Provider'lar
+
+| Provider | Model | Varsayılan mı? | API Key Durumu |
+|----------|-------|----------------|----------------|
+| **lmstudio** | dolphin3.0-llama3.1-8b | ✅ EVET (beyin.py:173) | Yok (localhost) |
+| deepseek | deepseek-chat / v4-flash | ❌ seçilirse | ❌ profil .env'lerinde yok, proje .env'de var |
+| openrouter | openrouter/auto | ❌ fallback | ❌ profil .env'lerinde yok |
+| xiaomi | mimo-v2.5-pro | ❌ fallback | ❌ profil .env'lerinde yok |
+
+❌ **KRİTİK:** `beyin.py` satır 173'te varsayılan provider `"lmstudio"` — yani DeepSeek API'ye geçmek için her seferinde manuel `/model` komutu gerekiyor. Varsayılan DeepSeek yapılmamış.
+
+### 1.2 Context Window
+
+| Provider | Limit (token) | Gerçek Kullanım | Sıkıştırma Eşiği |
+|----------|--------------|-----------------|-------------------|
+| DeepSeek | 128.000 | ~6.9K (normal prompt) | %50 (64K token'da sıkıştırma başlar) |
+| Claude | 200.000 | ~76 (hızlı mod) | - |
+
+**Gerçek durum:** Normal modda prompt ~7KB, hızlı modda ~76 karakter. Context window'un %5'inden azı kullanılıyor. Sıkıştırma eşiği asla tetiklenmez (çünkü zaten çok küçük).
+
+### 1.3 Function Calling / Tool Use
+
+| Özellik | Durum | Detay |
+|---------|-------|-------|
+| OpenAI-compatible tools | ✅ | `_cagir_openai_uyumlu_v2()` ile 64+ tool |
+| Graceful degradation | ✅ | Provider desteklemiyorsa tools'suz dener |
+| FC desteklenmeyen cache | ✅ | `_fc_desteklenmeyen` set'i ile tekrar denemez |
+| tool_choice="auto" | ✅ | LLM hangi tool'u kullanacağına karar verir |
+| Anthropic tool_use | ✅ | `_tool_calls_al()` içinde parse edilir |
+
+---
+
+## 2. AGENT ÖZELLİKLERİ
+
+### 2.1 Multi-Step Planning (ReAct Loop)
+
+| Özellik | Durum | Detay |
+|---------|-------|-------|
+| ReAct döngüsü | ✅ | conversation_loop.py: Düşün → Eylem → Gözlem |
+| Maks tur | 30 | conversation_loop.py:276 |
+| Iteration budget | ✅ | budget_config.py (290 satır) |
+| Görev sınıflandırıcı | ✅ YENİ | main.py: selam/sohbet/bilgi/skill/dosya/karmaşık |
+| Hızlı mod routing | ✅ YENİ | Basit sorgular direkt API'ye |
+
+### 2.2 Memory / State Persistence
+
+| Depolama | Tür | Dosya | Aktif mi? |
+|----------|-----|-------|-----------|
+| OnceHafiza | SQLite (ogrenmeler.db) | once_hafiza.py (22KB) | ✅ |
+| GorevHafiza | SQLite (gorev_hafiza.db) | gorev_hafiza.py (34KB) | ✅ |
+| GorevOnceKontrol | SQLite + Sigmoid güven | gorev_once_kontrol.py (35KB) | ✅ |
+| BoundedMemory | RAM + FIFO sınırlı | bounded_memory.py (317 satır) | ✅ |
+| Session DB | SQLite (session.db) | session_db.py | ✅ |
+| Context Compressor | LLM özetleme | context_compressor.py (9.4KB) | ✅ |
+| Hafıza budama | Otomatik | hafiza_budama.py (19KB) | ✅ |
+| Hafıza genişletme | Otomatik çıkarım | hafiza_genislet.py (53KB) | ✅ |
+
+**Toplam 10 DB dosyası** aktif (ogrenmeler.db ×2, hafiza.db ×2, session.db, skills_index.db, karar.db, memory.db, steering.db, kanban.db)
+
+### 2.3 Tool Listesi
+
+| Kategori | Sayı | Aktif mi? |
+|----------|------|-----------|
+| **motor.py kayıtlı** | 18 | ✅ |
+| **moduller listesi** | 46+ | ✅ (import edilen her modül) |
+| **tools/ klasörü** | ~40 .py dosyası | ✅ |
+| **Toplam aktif** | ~64 | ✅ |
+
+**Önemli tool'lar:**
+- `session_search_tool` — geçmiş konuşma arama
+- `web_tools` — web scraping
+- `file_operations`, `file_state`, `file_tools` — dosya işlemleri
+- `browser_tool`, `browser_camofox` — browser otomasyonu
+- `mcp_tool`, `mcp_oauth` — MCP protokolü
+- `discord_tool`, `yuanbao_tools` — platform entegrasyonları
+- `code_execution_tool` — kod çalıştırma
+- `approval`, `write_approval` — onay mekanizması
+- `skills_hub`, `skills_sync` — skill yönetimi
+- `vision_tools` — görsel analiz
+- `delegate_tool` — alt ajan yönetimi
+- `voice_mode` — ses modu
+- `mixture_of_agents_tool` — çoklu ajan
+- `todo_tool`, `kanban_tools` — görev yönetimi
+- `cronjob_tools` — zamanlanmış görevler
+
+### 2.4 Error Handling / Retry
+
+| Mekanizma | Durum | Detay |
+|-----------|-------|-------|
+| Retry (exponential backoff) | ✅ | MAKS_DENEME=3, ILK_BEKLEME=1sn, CARPAN=2x |
+| Circuit breaker (kalıcı) | ✅ | 3 ardışık hata → KALICI dur, otomatik açılmaz |
+| Rate limit tespiti | ✅ | 429 / "rate limit" içerik kontrolü |
+| Failover zinciri | ✅ | deepseek → xiaomi → openrouter |
+| Hata sınıflandırıcı | ✅ | 5 tip: API/Tool/Bağlantı/Veri/Sistem |
+| Mesaj tamirci | ✅ | Bozuk JSON, sıralama, surrogate karakter |
+| Hata çözücü | ✅ | Retry/failover/bildirim kararları |
+
+### 2.5 Self-Reflection / Critic Loop
+
+| Özellik | Durum | Detay |
+|---------|-------|-------|
+| Reflexion Motoru | ✅ | reflexion_motoru.py (Shinn et al. 2023 pattern) |
+| OzYansima (Idle-Time) | ✅ | oz_yansima.py — arka planda çalışır |
+| Öz-yansıma bildirim | ✅ | `/yansima` komutu ile görüntülenir |
+| Anayasa denetçisi | ✅ | anayasa_denetci.py + anayasa_denetcisi.py |
+| Hallüsinasyon filtresi | ✅ | guardrails.py içinde |
+
+---
+
+## 3. SINIRLAR
+
+### 3.1 Rate Limit / Cycle Limit
+
+| Sınır | Değer | Aşılınca Ne Olur? |
+|-------|-------|-------------------|
+| Maks API deneme | 3 | Exponential backoff (1sn → 2sn → 4sn) |
+| Circuit breaker eşiği | 3 ardışık hata | Kalıcı dur, kullanıcı bildirimi |
+| Maks tur | 30 (conversation_loop) / 15-90 (main.py budget) | IterationBudget durdurur |
+| Maks süre | 300sn (budget_config) | Timeout ile durdurma |
+| API rate limit | Provider'a bağlı (DeepSeek: ~500req/dk) | 429 → retry → failover |
+| Context compression | %50 token eşiği | Otomatik sıkıştırma |
+
+### 3.2 Human-in-the-Loop (HITL)
+
+| Nokta | Durum | Detay |
+|-------|-------|-------|
+| Tool onayı | ✅ | `onay_iste=True` parametresi ile aktif |
+| Approval tool | ✅ | `tools/approval.py` (235 satır) — dosya tabanlı onay |
+| YOLO modu | ✅ | `enable_session_yolo()` ile tüm onayları atla |
+| HITL sıkılaştırıcı | ⚠️ | guardrails.py'de tanımlı ama devrede değil |
+| Sessiz onay | ✅ YENİ | 3dk bekle → cevap yoksa onay say |
+
+### 3.3 Sandbox / İzolasyon
+
+| Katman | Durum | Detay |
+|--------|-------|-------|
+| Güvenlik modülü | ✅ | `reymen/guvenlik/` — 13 dosya |
+| File safety | ✅ | file_safety.py |
+| Path security | ✅ | path_security.py |
+| Message sanitization | ✅ | message_sanitization.py |
+| URL safety | ✅ | url_safety.py |
+| Tool guardrails | ✅ | tool_guardrails.py |
+| Güvenli sandbox | ✅ | guvenli_sandbox.py |
+| Redact (PII) | ✅ | redact.py |
+| Threat patterns | ✅ | threat_patterns.py |
+
+❌ **EKSİK:** Sandbox kod çalıştırma için Docker/VM izolasyonu yok — direkt sistem erişimi. `code_execution_tool` doğrudan shell'de çalışır.
+
+---
+
+## 4. BOŞLUKLAR
+
+### 4.1 4 Test Edilmeyen Modül
+
+| Modül | Projede Var mı? | Ne İşe Yarar? | Durum |
+|-------|-----------------|---------------|-------|
+| `github_tools.py` | ❌ **YOK** | GitHub API entegrasyonu | ❌ **Tanımlı ama yok** |
+| `obsidian_watcher.py` | ❌ **YOK** | Obsidian not değişikliği izleme | ❌ **Tanımlı ama yok** |
+| `onboarding.py` | ❌ **YOK** (sadece .claude/worktrees'te) | Yeni kullanıcı karşılama | ❌ **Eski backup'ta kalmış** |
+| `reymen.py` | ❌ **YOK** | Ana modül wrapper'ı | ❌ **Hiç oluşturulmamış** |
+
+### 4.2 Eksik Özellikler
+
+| # | Eksik | Etki |
+|---|-------|------|
+| 1 | **Varsayılan provider DeepSeek değil** (`lmstudio`) | Her açılışta DeepSeek'e geçmek gerekiyor |
+| 2 | **Profil .env'lerinde API key yok** | Sadece proje .env'de var, taşınabilirlik yok |
+| 3 | **Sandbox izolasyonu yok** | Kod çalıştırma direkt shell'de |
+| 4 | **github_tools.py yok** | GitHub API tool'u motor'a kayıtlı değil |
+| 5 | **obsidian_watcher.py yok** | Obsidian entegrasyonu eksik |
+| 6 | **Test coverage bilinmiyor** | 4 modül hiç test edilmemiş |
+| 7 | **Multi-agent koordinasyonu pasif** | alt_ajan.py var ama aktif kullanılmıyor |
+| 8 | **Hızlı mod henüz test edilmedi** | Yeni eklendi, runtime doğrulaması yapılmadı |
+
+---
+
+## 5. ÖZET İSTATİSTİK
+
+| Metrik | Değer |
+|--------|-------|
+| **Toplam Python dosyası** | ~150+ (reymen/ + tools/ + sistem/ + hafiza/) |
+| **Aktif tool sayısı** | ~64 |
+| **Hafıza DB sayısı** | 10 SQLite dosyası |
+| **Provider sayısı** | 5 (lmstudio, deepseek, openrouter, xiaomi, anthropic) |
+| **Güvenlik modülü sayısı** | 13 dosya |
+| **Hata yönetimi modülü** | 3 dosya (sınıflandırıcı, çözücü, tamirci) |
+| **Self-reflection** | 2 modül (reflexion, oz_yansima) |
+| **HITL noktası** | 3 (approval, write_approval, sessiz_onay) |
+| **Eksik modül** | 4 (github_tools, obsidian_watcher, onboarding, reymen) |
+| **Kritik eksik** | 1 (varsayılan provider lmstudio) |
+
+## ⭐ GENEL PUAN: 7.5/10
+
+| Kategori | Puan | Neden |
+|----------|------|-------|
+| Model/config | 6/10 | Varsayılan lmstudio, profil .env boş |
+| Agent özellikleri | 9/10 | ReAct, hafıza, tool, hata yönetimi eksiksiz |
+| Sınırlar | 8/10 | Rate limit + CB + budget var, sandbox yok |
+| Boşluklar | 5/10 | 4 modül yok, test coverage bilinmiyor |

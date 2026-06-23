@@ -3,7 +3,6 @@ name: hersona
 description: Anime-style character attribute system. Once applied, strictly enforces and maintains the chosen personality and speech style in both Japanese and English throughout the entire conversation. Deviation is not permitted.
 version: 0.0.2
 author: shiro-0x
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -11,6 +10,7 @@ metadata:
     category: personality
 audience: user
     requires_toolsets: []
+---
 ---
 
 # hersona

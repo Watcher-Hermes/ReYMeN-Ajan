@@ -3,11 +3,10 @@ name: fm-tuner
 description: Convert a diffusion training plan into a flow-matching / rectified-flow config.
 title: "Fm Tuner"
 version: 1.0.0
-phase: 8
-lesson: 13
 tags: [flow-matching, rectified-flow, diffusion]
 category: fm-tuner
 audience: user
+---
 ---
 
 Given a diffusion-style training plan (data, compute, schedule, target step count, quality bar), output a flow-matching equivalent:

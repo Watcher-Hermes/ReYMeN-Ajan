@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ---
 name: ekran-al
 title: "Ekran Al"
@@ -20,3 +21,23 @@ Bu yöntem hata verirse, sistem ekran görüntüsü alır ve `~/Desktop/ekran_go
 - Varsayılan kayıt: `~/Desktop/ekran_gorselleri/`
 - İsteğe bağlı Telegram veya veri akışı hedefi
   \_PATH: ~/Desktop/ekran_gorselleri/ekran_goruntu.png
+=======
+---
+name: ekran-al
+description: "Windows ekran görüntüsü al ve kaydet"
+title: "Ekran Al"
+tags: [automation, windows]
+audience: user
+---
+
+**Skill ID:** `ekran-al`
+**Kısayol/Önemi:** Win+Shift+S (alan seçimli kesme)
+**KMüşteri Tanımı:**
+Kullanıcı masaüstünde "ekran görüntüsü alma" işlemlerini tek tuşla yapabilir.
+Bu yöntem hata verirse, sistem ekran görüntüsü alır ve `~/Desktop/ekran_gorselleri/` içine yükler.
+- Doğrudan ekran kesme denemesi (Win+Shift+S)
+- Python ile otomatik kontrol
+- Varsayılan kayıt: `~/Desktop/ekran_gorselleri/`
+- İsteğe bağlı Telegram veya veri akışı hedefi
+  \_PATH: ~/Desktop/ekran_gorselleri/ekran_goruntu.png
+>>>>>>> Stashed changes

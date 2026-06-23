@@ -3,11 +3,10 @@ name: permission-mode-picker
 description: Match a Claude Code task to the correct permission mode, budget caps, and required isolation before starting a run.
 title: "Permission Mode Picker"
 version: 1.0.0
-phase: 15
-lesson: 10
 tags: [claude-code, permission-modes, auto-mode, budgets, isolation]
 category: permission-mode-picker
 audience: user
+---
 ---
 
 Given a proposed Claude Code task, pick the permission mode, set budgets, and specify the minimum isolation required before the agent is allowed to start.

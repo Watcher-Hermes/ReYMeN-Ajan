@@ -3,11 +3,10 @@ name: otel-genai
 description: Instrument an agent with OpenTelemetry GenAI semantic conventions — invoke_agent, chat, tool_call spans with correct attributes and opt-in content capture.
 title: "Otel Genai"
 version: 1.0.0
-phase: 14
-lesson: 23
 tags: [opentelemetry, genai, observability, tracing, semantic-conventions]
 category: otel-genai
 audience: user
+---
 ---
 
 Given an agent runtime, wire OTel GenAI semantic conventions.

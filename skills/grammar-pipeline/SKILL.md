@@ -3,11 +3,10 @@ name: grammar-pipeline
 description: Design a classical POS + dependency pipeline for a downstream NLP task.
 title: "Grammar Pipeline"
 version: 1.0.0
-phase: 5
-lesson: 07
 tags: [nlp, pos, parsing]
 category: grammar-pipeline
 audience: user
+---
 ---
 
 Given a downstream task (information extraction, rewrite validation, query decomposition, lemmatization), you output:

@@ -5,13 +5,13 @@ tags: [coding, development]
 description: "Debug ReYMeN TUI slash commands: Python, gateway, Ink UI."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [debugging, hermes-agent, tui, slash-commands, typescript, python]
 audience: contributor
 related_skills: [python-debugpy, node-inspect-debugger, systematic-debugging]
+---
 ---
 
 # Debugging ReYMeN TUI Slash Commands

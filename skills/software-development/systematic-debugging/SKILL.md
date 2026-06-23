@@ -6,13 +6,13 @@ tags: [coding, development]
 description: "4-phase root cause debugging: understand bugs before fixing."
 version: 1.1.0
 author: ReYMeN Agent (adapted from obra/superpowers)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [debugging, troubleshooting, problem-solving, root-cause, investigation]
 audience: contributor
 related_skills: [test-driven-development, plan, subagent-driven-development]
+---
 ---
 
 # Systematic Debugging

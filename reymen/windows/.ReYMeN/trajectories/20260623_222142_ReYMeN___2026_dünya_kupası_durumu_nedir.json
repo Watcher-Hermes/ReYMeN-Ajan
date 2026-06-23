@@ -1,0 +1,30 @@
+{
+  "hedef": "ReYMeN > 2026 dünya kupası durumu nedir",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 3,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ARA']",
+      "gozlem": "[Web Arama — DDG-HTML]:\n- 2026 FIFA Dünya Kupası Fikstürü, Gruplar ve Maç Programı - Sporx\n  2026 Dünya Kupası fikstürü, gruplar ve tüm maç programı TSİ saatleriyle. Türkiye'nin maçları, grup detayları ve 104 maçlık turnuva takvimi tek sayfada.\n  https://www.sporx.com/2026-dunya-kupasi-fiksturu-gruplar-mac-programi\n- 2026 Dünya Kupası Maç Takvimi: Fikstür, Tarihler ve Saatler\n  2026 Dünya Kupası'nın eksiksiz maç takvimi: 104 maçın tamamı, tarihler, Türkiye saatiyle başlama saatleri, gruplar ve e",
+      "zaman": "2026-06-23T22:21:51.322184"
+    },
+    {
+      "tur": 2,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.sporx.com/2026-dunya-kupasi-fiksturu-gruplar-mac-programi\n\n2026 FIFA Dünya Kupası Fikstürü, Gruplar ve Maç Programı 2026 Dünya Kupası Fikstürü, Gruplar ve Maç Programı SPORX YOUTUBE Abone Ol Futbol Basketbol 2026 Dünya Kupası Sporx TV Canlı Skor Voleybol At Yarışı Tümü GÜNÜN ÖZETİ İLK 11'İNİ KUR DÜNYA KUPASI FİKSTÜRÜ VOLEYBOL MİLLİ TAKIMLAR SÜPER LİG TRANSFER HABERLERİ TV'DE BUGÜN İSTATİSTİK (YENİ) OYUNLAR CANLI ANLATIM İNGİLTERE Tenis Motorsporları Voleybol At Ya",
+      "zaman": "2026-06-23T22:21:53.402810"
+    },
+    {
+      "tur": 3,
+      "dusunce": "FC:1araç",
+      "eylem": "['WEB_ICERIK']",
+      "gozlem": "[Sayfa:urllib] URL: https://www.futbolkupasi.com/schedule/\n\n2026 Dünya Kupası Maç Takvimi: Fikstür, Tarihler ve Saatler | FutbolKupası 2026 Dünya Kupası Maç Takvimi Eksiksiz fikstür — tüm maçlar, tarihler, stadyumlar ve tahminler Tüm maç sonuçları turnuva boyunca gerçek zamanlı güncellenir — skorları Canlı Skor sayfasından takip edin. 🕒 Başlama saatleri yerel saat diliminizde gösterilir 11 Haziran 2026 19:00 Meksika — Güney Afrika 2.10 3.40 3.20 Mexico City 12 Haziran 2026 02:00 Güney Kore — Çek",
+      "zaman": "2026-06-23T22:21:56.243416"
+    }
+  ],
+  "tool_istatistik": {}
+}

@@ -3,11 +3,10 @@ name: skill-refusal-evaluation
 description: Two-sided refusal metrics with calibration and per-category breakdown over a labeled prompt corpus
 title: "Skill Refusal Evaluation"
 version: 1.0.0
-phase: 19
-lesson: 84
 tags: [safety, evaluation, calibration]
 category: skill-refusal-evaluation
 audience: user
+---
 ---
 
 # Refusal Evaluation

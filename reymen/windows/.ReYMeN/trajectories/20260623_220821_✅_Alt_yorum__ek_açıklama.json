@@ -1,0 +1,16 @@
+{
+  "hedef": "✅ Alt yorum: ek açıklama",
+  "model": "local",
+  "tamamlandi": true,
+  "adim_sayisi": 1,
+  "adimlar": [
+    {
+      "tur": 1,
+      "dusunce": "FC:1araç",
+      "eylem": "['CLARIFY']",
+      "gozlem": "[NETLESTIR] ⚠️ **NETLEŞTİRME GEREKİYOR**\n\nVerdiğiniz planı anladım ancak somut bir hedef belirtilmemiş. Hangi kaynaktan hangi veriyi çekip dosyaya kaydetmemi istiyorsunuz? Lütfen şunları netleştirin:\n\n1. **Veri kaynağı:** Hangi web sitesi, API veya kaynaktan veri çekilecek?\n2. **Veri türü:** Ne tür bir veri (haber başlıkları, hava durumu, hisse senedi fiyatları, vb.)?\n3. **Dosya formatı:** Hangi formatta kaydedilsin (JSON, CSV, TXT, vb.)?\n4. **Dosya adı:** Kaydedilecek dosyanın adı ne olsun?\n\nÖr",
+      "zaman": "2026-06-23T22:08:39.906535"
+    }
+  ],
+  "tool_istatistik": {}
+}

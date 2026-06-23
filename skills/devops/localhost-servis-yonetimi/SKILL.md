@@ -7,12 +7,12 @@ description: >-
   for HTTP services (ReYMeN Studio, LM Studio, Streamlit, n8n, etc.)
 version: 1.0.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [localhost, port, servis, dashboard, shortcut, windows]
 audience: maintainer
 related_skills: []
+---
 ---
 
 # Localhost Servis Yönetimi

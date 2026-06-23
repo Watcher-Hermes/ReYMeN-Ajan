@@ -6,7 +6,6 @@ tags: [academic, research]
 description: "Karpathy's LLM Wiki: build/query interlinked markdown KB."
 version: 2.1.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ metadata:
     category: research
 audience: user
 related_skills: [obsidian, arxiv]
+---
 ---
 
 # Llm Wiki

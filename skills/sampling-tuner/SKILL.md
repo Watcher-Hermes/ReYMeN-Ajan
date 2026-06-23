@@ -3,11 +3,10 @@ name: sampling-tuner
 description: Pick decoding strategy (greedy / temperature / top-k / top-p / min-p / speculative) for a given generation task.
 title: "SAMpling Tuner"
 version: 1.0.0
-phase: 7
-lesson: 7
 tags: [gpt, sampling, decoding, inference]
 category: sampling-tuner
 audience: user
+---
 ---
 
 Given a generation task (code, creative writing, reasoning, dialogue, structured output) and a latency/quality target, output:

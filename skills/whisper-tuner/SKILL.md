@@ -3,11 +3,10 @@ name: whisper-tuner
 description: Design a Whisper fine-tune or inference pipeline for a given language, domain, and latency budget.
 title: "Whisper Tuner"
 version: 1.0.0
-phase: 6
-lesson: 05
 tags: [audio, whisper, asr, fine-tuning, lora]
 category: whisper-tuner
 audience: user
+---
 ---
 
 Given a target (language set, domain, clip length distribution, latency budget, hardware) and data (hours available, quality), output:

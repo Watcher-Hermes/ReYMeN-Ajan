@@ -6,7 +6,6 @@ tags: [creative, design]
 description: "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii."
 version: 4.0.0
 author: 0xbyt4, ReYMeN Agent
-license: MIT
 dependencies: []
 platforms: [linux, macos, windows]
 metadata:
@@ -15,6 +14,7 @@ metadata:
 audience: user
 related_skills: [excalidraw]
 
+---
 ---
 
 # Ascii Art

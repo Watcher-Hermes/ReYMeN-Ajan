@@ -3,11 +3,10 @@ name: ner-picker
 description: Pick the right NER approach for a given extraction task.
 title: "Ner Picker"
 version: 1.0.0
-phase: 5
-lesson: 06
 tags: [nlp, ner, extraction]
 category: ner-picker
 audience: user
+---
 ---
 
 Given a task description (domain, label set, language, latency, data volume), output:

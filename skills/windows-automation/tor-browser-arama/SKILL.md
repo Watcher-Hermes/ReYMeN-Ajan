@@ -3,13 +3,13 @@ name: tor-browser-arama
 description: "Use when searching for information, browsing the web, or researching any topic. ALWAYS use Tor Browser for ALL web searches — never use regular browser or direct connections. Tor Browser exe is at C:\Users\marko\OneDrive\Desktop\Tor Browser\Browser\firefox.exe and SOCKS5 proxy runs on port 9150."
 version: 2.1.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [tor, browser, search, arama, web, gizlilik, duckduckgo, proxy, socks5, internet]
 audience: user
 related_skills: [gorsel-onaylama, screen-vision-analiz, mouse-klavye-ctypes]
+---
 ---
 
 # Tor Browser ile Web Araması

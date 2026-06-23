@@ -3,11 +3,10 @@ name: dqn-trainer
 description: Produce a DQN training config (buffer, target sync, ε schedule, reward clipping) for a discrete-action RL task.
 title: "Dqn Trainer"
 version: 1.0.0
-phase: 9
-lesson: 5
 tags: [rl, dqn, deep-rl]
 category: dqn-trainer
 audience: user
+---
 ---
 
 Given a discrete-action environment (observation shape, action count, horizon, reward scale), output:

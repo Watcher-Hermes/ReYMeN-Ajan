@@ -3,11 +3,10 @@ name: llm-security-plan
 description: Produce an LLM security plan covering secrets vault, PII scrubbing with consistent tokenization, network egress allowlist, audit log retention, and zero-trust posture.
 title: "LLM Security Plan"
 version: 1.0.0
-phase: 17
-lesson: 25
 tags: [security, vault, hashicorp, aws-secrets-manager, pii, presidio, egress, audit-log, zero-trust, ci-cd-supply-chain]
 category: llm-security-plan
 audience: user
+---
 ---
 
 Given regulatory scope (SOC 2, HIPAA, GDPR), current credential state, and network/egress posture, produce a security plan.

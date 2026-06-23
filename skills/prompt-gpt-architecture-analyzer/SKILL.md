@@ -3,11 +3,10 @@ name: prompt-gpt-architecture-analyzer
 description: Analyze architecture choices in any GPT-style transformer model
 title: "PRompt GPT Architecture Analyzer"
 version: 1.0.0
-phase: 10
-lesson: 4
 tags: [gpt, transformer, architecture, attention, kv-cache, scaling, pre-training]
 category: prompt-gpt-architecture-analyzer
 audience: user
+---
 ---
 
 # GPT Architecture Analyzer

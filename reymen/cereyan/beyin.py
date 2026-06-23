@@ -150,7 +150,7 @@ class Beyin:
         config: Sağlayıcı yapılandırma sözlüğü.  Beklenen alanlar::
 
             {
-                "default_provider": "lmstudio",
+                "default_provider": "deepseek",
                 "default_model":    "model-adı",
                 "providers": {
                     "lmstudio": {"base_url": "http://localhost:1234", "api_key": ""},
@@ -170,7 +170,7 @@ class Beyin:
         # Önce üst düzey anahtarları, yoksa "general" altındakileri oku
         self.provider: str = config.get(
             "default_provider",
-            config.get("general", {}).get("default_provider", "lmstudio"),
+            config.get("general", {}).get("default_provider", "deepseek"),
         )
         self.model: str = config.get(
             "default_model",
@@ -1291,7 +1291,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     cfg: dict[str, Any] = {
-        "default_provider": "lmstudio",
+        "default_provider": "deepseek",
         "default_model":    "cognitivecomputations.dolphin3.0-llama3.1-8b",
         "providers": {
             "lmstudio": {"base_url": "http://localhost:1234", "api_key": "not-needed"},

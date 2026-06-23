@@ -3,11 +3,10 @@ name: prompt-reward-model-designer
 description: Design reward model training pipelines for RLHF alignment
 title: "PRompt Reward Model Designer"
 version: 1.0.0
-phase: 10
-lesson: 7
 tags: [rlhf, reward-model, ppo, alignment, human-feedback, preference-learning]
 category: prompt-reward-model-designer
 audience: user
+---
 ---
 
 # Reward Model Designer

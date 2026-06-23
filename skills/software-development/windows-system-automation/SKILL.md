@@ -5,12 +5,12 @@ tags: [coding, development, windows]
 description: Windows sistem otomasyonu — fare hareketi, imleç kontrolü, PowerShell + .NET desenleri ve ekran görüntüsü alma.
 version: 1.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [windows, automation, powershell, mouse, screenshot]
 audience: contributor
 related_skills: [hermes-agent]
+---
 ---
 
 # Windows System Automation

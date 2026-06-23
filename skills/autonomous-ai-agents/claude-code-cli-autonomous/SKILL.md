@@ -4,7 +4,6 @@ description: "Claude Code CLI (print mode) ile otonom kodlama görevleri — ReY
 title: "Claude Code CLI Autonomous"
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
 category: autonomous-ai-agents
 audience: user
 tags: [agents, ai, automation]
+---
 ---
 
 # Claude Code CLI — Otonom Kodlama Görevleri

@@ -259,6 +259,46 @@ class TelegramTools:
         except Exception as e:
             return f"[TelegramTools] Hata: {e}"
 
+    def stream_mesaj_gonder(self, chat_id: str, mesaj: str) -> str:
+        """Uzun mesaji parcalar halinde gonderir."""
+        if not mesaj:
+            return "[TelegramTools] Mesaj bos, gonderilmedi."
+        LIMIT = 4096
+        if len(mesaj) <= LIMIT:
+            return self.mesaj_gonder(chat_id, mesaj)
+        # Gateway uzerinden stream dene
+        try:
+            from gateway.platforms.telegram import send_stream
+            sonuc = send_stream(chat_id, mesaj, self._token)
+            chunk_sayisi = sonuc.get("chunk_sayisi", 1) if isinstance(sonuc, dict) else 1
+            return f"[TelegramTools] Stream mesaj gonderildi ({chunk_sayisi} chunk)."
+        except Exception:
+            pass
+        # Fallback: manuel chunk
+        parcalar = [mesaj[i:i + LIMIT] for i in range(0, len(mesaj), LIMIT)]
+        for parca in parcalar:
+            self.mesaj_gonder(chat_id, parca)
+        return f"[TelegramTools] Stream mesaj gonderildi ({len(parcalar)} chunk)."
+
+    def reaction_ekle(self, chat_id: str, mesaj_id: int, emoji: str = "\U0001f44d") -> str:
+        """Mesaja reaction ekler."""
+        try:
+            from gateway.platforms.telegram import set_reaction
+            set_reaction(chat_id, mesaj_id, emoji, self._token)
+            return f"[TelegramTools] Reaction eklendi: {emoji}"
+        except Exception:
+            pass
+        # Fallback: direct API
+        try:
+            self._api_istek("setMessageReaction", {
+                "chat_id": chat_id,
+                "message_id": mesaj_id,
+                "reaction": [{"type": "emoji", "emoji": emoji}],
+            })
+            return f"[TelegramTools] Reaction eklendi: {emoji}"
+        except Exception as e:
+            return f"[TelegramTools] Reaction hatasi: {e}"
+
 
 def run(**kwargs) -> str:
     """TelegramTools sinifini calistir.
@@ -288,7 +328,29 @@ def run(**kwargs) -> str:
             )
         elif islem == "oku":
             mesajlar = bot.mesaj_oku(limit=kwargs.get("limit", 10))
-            return json.dumps(mesajlar, ensure_ascii=False, indent=2)
+            if not mesajlar:
+                return "[TelegramTools] Mesaj bulunamadi."
+            satirlar = []
+            for msg in mesajlar:
+                if isinstance(msg, dict):
+                    kim = (msg.get("kimden") or
+                           msg.get("from", {}).get("first_name") or "?")
+                    metin = msg.get("metin") or msg.get("text") or ""
+                else:
+                    kim, metin = "?", str(msg)
+                satirlar.append(f"{kim}: {metin}")
+            return "\n".join(satirlar)
+        elif islem == "stream":
+            return bot.stream_mesaj_gonder(
+                chat_id=kwargs.get("chat_id", bot._chat_id),
+                mesaj=kwargs.get("mesaj", ""),
+            )
+        elif islem == "reaction":
+            return bot.reaction_ekle(
+                chat_id=kwargs.get("chat_id", bot._chat_id),
+                mesaj_id=kwargs.get("mesaj_id", 0),
+                emoji=kwargs.get("emoji", "\U0001f44d"),
+            )
         elif islem == "dosya_gonder":
             return bot.dosya_gonder(
                 chat_id=kwargs.get("chat_id", bot._chat_id),

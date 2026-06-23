@@ -3,11 +3,10 @@ name: compliance-matrix
 description: Produce the required-framework matrix for an LLM SaaS given customer geography, segment, and contract scope. Map controls across SOC 2, HIPAA, GDPR, PCI-DSS, EU AI Act, Colorado AI Act, ISO 42001.
 title: "Compliance Matrix"
 version: 1.0.0
-phase: 17
-lesson: 26
 tags: [compliance, soc2, hipaa, gdpr, pci-dss, eu-ai-act, colorado-ai-act, iso-42001, iso-27001]
 category: compliance-matrix
 audience: maintainer
+---
 ---
 
 Given customer geography (US / EU / Global, or specific US states), segment (SaaS / healthcare / fintech), contract scope (enterprise vs SMB), and current compliance state, produce the required-framework matrix.

@@ -3,11 +3,10 @@ name: spec-decode-picker
 description: Pick a speculative decoding strategy (vanilla / Medusa / EAGLE / lookahead) and tuning parameters for a new LLM inference workload.
 title: "Spec Decode Picker"
 version: 1.0.0
-phase: 7
-lesson: 16
 tags: [inference, decoding, latency, speculative, optimization]
 category: spec-decode-picker
 audience: user
+---
 ---
 
 # Speculative Decoding Picker

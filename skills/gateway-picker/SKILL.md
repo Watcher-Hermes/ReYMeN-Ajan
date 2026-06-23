@@ -3,11 +3,10 @@ name: gateway-picker
 description: Pick an AI gateway (LiteLLM, Portkey, Kong AI, Cloudflare/Vercel) given scale, latency budget, compliance, ops posture, and pricing tolerance.
 title: "Gateway Picker"
 version: 1.0.0
-phase: 17
-lesson: 19
 tags: [ai-gateway, litellm, portkey, kong, cloudflare, vercel, bifrost, fallback, rate-limit, guardrails]
 category: gateway-picker
 audience: user
+---
 ---
 
 Given RPS (current and projected 12-month), latency budget, compliance (self-host required?), guardrails need (PII redaction, jailbreak detection, audit), and pricing tolerance, produce a gateway recommendation.

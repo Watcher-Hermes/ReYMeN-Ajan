@@ -3,11 +3,10 @@ name: skill-linear-probe-runner
 description: Write the complete linear-probe evaluation for any frozen encoder and labelled dataset
 title: "Skill Linear PRobe Runner"
 version: 1.0.0
-phase: 4
-lesson: 17
 tags: [self-supervised, evaluation, linear-probe, pytorch]
 category: skill-linear-probe-runner
 audience: user
+---
 ---
 
 # Linear Probe Runner

@@ -1,0 +1,83 @@
+KENDI KENDINI GELISTIRME PROMPT KATMANLARI
+=============================================
+
+Benim (Hermes Agent) çalışma şeklimi belirleyen 3 ana katman:
+
+KATMAN 1 — HERMES AGENT VARSAYILAN PROMPT (Nous Research)
+---------------------------------------------------------
+Oturum başında gelen temel talimat. İçerik:
+- Cave Mod (kısa cevap, süslü yok)
+- No Goblins (gereksiz sapma yok, direkt ilerle)
+- Side Quest → Sub-Agent (yan işler alt ajana)
+- Karar Döngüsü (Ne yaptın? Neden? Alternatif? → decisions.md)
+- Hafıza-öncelikli çalışma (önce memory/hafiza kontrol et)
+- Skill kullanımı zorunluluğu (her görevde skill tara)
+
+
+KATMAN 2 — SENIN VERDIGIN OZEL TALIMATLAR
+------------------------------------------
+Memory'de 35KB olarak saklanır, her oturumda otomatik yüklenir.
+
+KURAL                      NEREDE                     ICERIK
+Cevap Formatı              MEMORY/USER                Başlık(emoji) → kısa açıklama → tablo → altta yorum
+Cave Mod (Concise)         MEMORY                     Uzun süslü yok, direkt söyle
+No Goblins                 MEMORY                     Gereksiz soru/sapma yok
+Side Quest                 MEMORY                     Yan görevler sub-agent'a
+Karar Döngüsü              MEMORY + decisions.md      Sor → Açıkla → Kaydet → Getir → Tekrarla
+Tahmin Yasağı              prompt_assembly.py         Bilinmeyen terimde asla tahmin yürütme
+Soru Yasağı                prompt_assembly.py         Kullanıcının sormadığını sorma
+Halüsinasyon Önleme       conversation_loop.py       Boş tool sonucunda direkt yönlendirme
+Sessiz Onay               MEMORY                     3dk bekle, cevap yoksa onay say
+Model Seçimi              MEMORY                     DeepSeek v4 Flash (fallback: Xiaomi/OpenRouter)
+Cevap Dili                MEMORY                     Türkçe, kısa ve öz
+
+
+KATMAN 3 — KENDI KENDINI GELISTIRME (SELF-IMPROVEMENT)
+-------------------------------------------------------
+
+BEN (HERMES AGENT) ICIN:
+├── Skill'ler: her karmaşık/tekrarlı görev sonrası skill_manage ile kaydet
+│   - Yeni desen keşfedildiğinde SKILL.md oluştur
+│   - Eski/hatalı skill'leri güncelle
+├── Memory: kullanıcı tercihleri, çevre bilgisi, düzeltmeler
+│   - "bunu unutma" dendiğinde memory.add()
+│   - Hatalı bilgi varsa memory.replace()
+├── Kron: gece 3'te GitHub yedek
+│   - hermes-skills, hermes-memory-backup, hermes-full-backup
+│   - 3 repo da güncellenir, hiçbiri atlanmaz
+├── decisions.md: her karar sonrası
+│   - "Ne yaptın? Neden? Alternatif düşündün mü?"
+│   - Aynı senaryo tekrarlanırsa session_search ile getir
+└── Hafıza-öncelikli döngü: Görev → ÖNCE hafızaya bak → Bilgi varsa uygula
+    → Bilgi yoksa dene → Hata varsa analiz et → düzelt → kaydet
+
+
+REYMEN PROJESI ICIN (kapalı öğrenme döngüsü):
+├── closed_learning_loop.py: 5 aşamalı öğrenme döngüsü
+│   1. Keşfet (yeni desen tespiti)
+│   2. Öğren (başarılı çözümü kaydet)
+│   3. Genelle (benzer durumlara uygulanabilir hale getir)
+│   4. Depola (skill kataloğuna ekle)
+│   5. Uygula (sonraki benzer görevde otomatik kullan)
+├── skills_index.db: skill index veritabanı
+├── once_hafiza.py: LLM çağırmadan önce hafıza kontrolü
+│   - guven > 0.8 → LLM atla, direkt döndür (%60 maliyet düşüşü)
+├── cron: 30dk / 7 gün / 336 tekrar
+│   - Bandit HIGH açık taraması
+│   - Skill index güncelleme
+│   - Rapor Telegram'a gönder
+└── __pycache__ conversation_loop.cpython-311.pyc ile çalışır
+
+
+OZET
+----
+Bana verdiğin prompt'lar memory'de 35KB olarak duruyor:
+- Cevap formatı (başlık+emoji+tablo+yorum)
+- 5 kural (Cave Mod, No Goblins, Side Quest, Karar Döngüsü, Status Line)
+- Tahmin ve soru yasakları
+- Self-improvement cron ayarları
+- Sessiz onay (3dk bekle)
+- DeepSeek v4 Flash (fallback Xiaomi/OpenRouter)
+- Türkçe, kısa, direkt
+
+Bunlar her oturumda otomatik yüklenir.

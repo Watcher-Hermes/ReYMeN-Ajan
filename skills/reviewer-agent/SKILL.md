@@ -3,11 +3,10 @@ name: reviewer-agent
 description: Stand up a reviewer agent role with a five-dimension rubric that reads builder artifacts, produces a structured review report, and starts human review from a written page instead of a blank one.
 title: "Reviewer Agent"
 version: 1.0.0
-phase: 14
-lesson: 39
 tags: [reviewer, rubric, role-separation, second-loop, review-report]
 category: reviewer-agent
 audience: user
+---
 ---
 
 Given a builder agent already producing workbench artifacts, stand up a reviewer that reads them and writes structured reports.

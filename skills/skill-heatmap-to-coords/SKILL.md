@@ -3,11 +3,10 @@ name: skill-heatmap-to-coords
 description: Write the sub-pixel heatmap-to-coordinate routine used by every production pose model
 title: "Skill Heatmap To Coords"
 version: 1.0.0
-phase: 4
-lesson: 21
 tags: [keypoint, pose, subpixel, inference]
 category: skill-heatmap-to-coords
 audience: user
+---
 ---
 
 # Heatmap to Coords

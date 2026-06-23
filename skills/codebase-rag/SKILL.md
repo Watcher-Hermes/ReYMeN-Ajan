@@ -3,11 +3,10 @@ name: codebase-rag
 description: Build a cross-repo semantic search system with AST-aware chunking, hybrid retrieval, incremental re-index, and cited answers.
 title: "Codebase RAG"
 version: 1.0.0
-phase: 19
-lesson: 02
 tags: [capstone, rag, code-search, tree-sitter, qdrant, bm25, hybrid-retrieval]
 category: codebase-rag
 audience: contributor
+---
 ---
 
 Given 10+ repositories totaling at least 2M lines of code, build an ingestion pipeline, a hybrid index, and a citation-enforced query agent that answers cross-repo questions with verifiable file:line anchors.

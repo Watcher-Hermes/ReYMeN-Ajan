@@ -3,7 +3,6 @@ name: songsee
 description: "Audio spectrograms/features (mel, chroma, MFCC) via CLI."
 version: 1.0.0
 author: community
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ audience: user
     homepage: https://github.com/steipete/songsee
 prerequisites:
   commands: [songsee]
+---
 ---
 
 # songsee

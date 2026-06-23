@@ -3,11 +3,10 @@ name: finops-plan
 description: Design an LLM FinOps program — attribution schema (user/task/tenant + four token layers), three-tier enforcement ladder, and unit metric (cost per resolved / artifact).
 title: "Finops Plan"
 version: 1.0.0
-phase: 17
-lesson: 27
 tags: [finops, cost-attribution, multi-tenant, kill-switch, unit-economics, rate-limit]
 category: finops-plan
 audience: maintainer
+---
 ---
 
 Given product surface, tenant tiers, monthly spend, and current attribution state, produce a FinOps plan.

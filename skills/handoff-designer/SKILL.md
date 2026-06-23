@@ -3,10 +3,9 @@ name: handoff-designer
 title: "Handoff Designer"
 description: "Design a handoff topology for a Swarm/Agents-SDK-style system: which agents exist, which handoffs they can call, what context transfers."
 version: 1.0.0
-phase: 16
-lesson: 11
 tags: [multi-agent, swarm, handoff, openai-agents-sdk]
 audience: user
+---
 ---
 
 Given a user-facing task (often triage or skill-based routing), produce a handoff topology ready to map onto OpenAI Swarm or the OpenAI Agents SDK.

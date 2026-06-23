@@ -3,11 +3,10 @@ name: rsi-cycle-pause-spec
 description: Specify the conditions under which an RSI pipeline must pause and wait for human review before the next cycle.
 title: "Rsi Cycle Pause Spec"
 version: 1.0.0
-phase: 15
-lesson: 7
 tags: [rsi, self-improvement, alignment, pause-threshold, rsp]
 category: rsi-cycle-pause-spec
 audience: user
+---
 ---
 
 Given a proposed recursive-self-improvement pipeline, produce a pause specification: the explicit conditions that halt the loop for human inspection before the next cycle begins. A pipeline without a pause spec is not ready to run.

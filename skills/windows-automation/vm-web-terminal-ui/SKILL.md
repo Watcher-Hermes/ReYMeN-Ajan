@@ -8,13 +8,13 @@ description: >
   User opens a .bat shortcut, interacts via browser, no GUI needed.
 version: 1.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [flask, paramiko, ssh, web-terminal, kali, vm]
 audience: user
     platform: windows
     lang: turkish
+---
 ---
 
 # Vm Web Terminal Ui

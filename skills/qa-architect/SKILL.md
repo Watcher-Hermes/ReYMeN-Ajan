@@ -3,11 +3,10 @@ name: qa-architect
 description: Choose QA architecture, retrieval strategy, and evaluation plan.
 title: "Qa Architect"
 version: 1.0.0
-phase: 5
-lesson: 13
 tags: [nlp, qa, rag]
 category: qa-architect
 audience: user
+---
 ---
 
 Given requirements (corpus size, question type, factuality constraint, latency budget), output:

@@ -3,11 +3,10 @@ name: vae-trainer
 description: Specify VAE architecture, latent size, beta schedule, and eval plan for a given dataset and downstream use.
 title: "Vae Trainer"
 version: 1.0.0
-phase: 8
-lesson: 02
 tags: [vae, latent, generative]
 category: vae-trainer
 audience: user
+---
 ---
 
 Given a dataset profile (modality, resolution, dataset size) and the downstream use (reconstruction only, sampling, or input-encoder for a latent-diffusion or token-AR model), output:

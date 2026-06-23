@@ -3,11 +3,10 @@ name: rewoo-planner
 description: Generate a validated ReWOO plan DAG from a user request and tool catalog.
 title: "Rewoo Planner"
 version: 1.0.0
-phase: 14
-lesson: 02
 tags: [rewoo, plan-and-execute, planning, dag, distillation]
 category: rewoo-planner
 audience: user
+---
 ---
 
 Given a user request and a tool catalog (name, input schema, description), produce a ReWOO plan: a DAG of steps with tool calls and evidence references (`#E1`, `#E2`, ...). Validate the plan before handing it to an executor.

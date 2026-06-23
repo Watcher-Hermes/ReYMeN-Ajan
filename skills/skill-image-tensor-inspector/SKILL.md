@@ -3,11 +3,10 @@ name: skill-image-tensor-inspector
 description: Inspect any image-shaped tensor or array and report dtype, layout, range, and whether it looks raw, normalized, or standardized
 title: "Skill Image Tensor Inspector"
 version: 1.0.0
-phase: 4
-lesson: 1
 tags: [computer-vision, debugging, preprocessing, tensors]
 category: skill-image-tensor-inspector
 audience: user
+---
 ---
 
 # Image Tensor Inspector

@@ -6,13 +6,13 @@ tags: [coding, development]
 description: "Execute plans via delegate_task subagents (2-stage review)."
 version: 1.1.0
 author: ReYMeN Agent (adapted from obra/superpowers)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [delegation, subagent, implementation, workflow, parallel]
 audience: contributor
 related_skills: [writing-plans, requesting-code-review, test-driven-development]
+---
 ---
 
 # Subagent Driven Development

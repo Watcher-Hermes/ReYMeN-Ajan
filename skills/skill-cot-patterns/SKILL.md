@@ -3,11 +3,10 @@ name: skill-cot-patterns
 description: Decision framework for choosing the right reasoning technique based on task complexity, accuracy requirements, and cost constraints
 title: "Skill Cot Patterns"
 version: 1.0.0
-phase: 11
-lesson: 02
 tags: [chain-of-thought, few-shot, self-consistency, tree-of-thought, react, reasoning, prompting]
 category: skill-cot-patterns
 audience: user
+---
 ---
 
 # Reasoning Technique Selection Guide

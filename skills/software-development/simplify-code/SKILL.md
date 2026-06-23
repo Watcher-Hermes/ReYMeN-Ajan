@@ -3,12 +3,12 @@ name: simplify-code
 description: "Parallel 3-agent cleanup of recent code changes."
 version: 1.0.0
 author: ReYMeN Agent (inspired by Claude Code /simplify)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [code-review, cleanup, refactor, delegation, subagent, parallel, simplify]
     related_skills: [requesting-code-review, test-driven-development, plan]
+---
 ---
 
 # Simplify Code — Parallel Review & Cleanup

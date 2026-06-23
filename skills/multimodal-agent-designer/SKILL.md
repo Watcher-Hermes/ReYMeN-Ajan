@@ -3,11 +3,10 @@ name: multimodal-agent-designer
 description: Design a multimodal agent (computer-use, GUI grounding, web or mobile) with action schema, memory strategy, and benchmark evaluation plan.
 title: "Multimodal Agent Designer"
 version: 1.0.0
-phase: 12
-lesson: 25
 tags: [multimodal-agents, computer-use, gui-grounding, visualwebarena, agentvista]
 category: multimodal-agent-designer
 audience: user
+---
 ---
 
 Given a computer-use product spec (domain, action set, evaluation target), design the agent loop, memory strategy, grounding mode, and evaluation.

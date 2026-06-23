@@ -6,13 +6,13 @@ tags: [automation, windows]
 description: Use when ReYMeN needs full system access on Windows — Telegram bot token writing to .env/config.yaml, terminal commands, mouse/keyboard automation, and screenshots. Covers all permission-sensitive operations without asking the user to do it manually.
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [telegram, terminal, mouse, keyboard, screenshot, automation, windows, env, config, full-access]
 audience: user
 related_skills: [hermes-agent-skill-authoring]
+---
 ---
 
 # Tam Sistem Yetkisi
@@ -50,6 +50,7 @@ Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve 
 | 5. ReYMeN .env Dosyası Tam Erişim Haritası | `references/5-hermes-env-dosyas-tam-eri-im-haritas.md` |
 | Common Pitfalls | `references/common-pitfalls.md` |
 | Verification Checklist | `references/verification-checklist.md` |
+| 6. Telegram Bot Davranış Hata Ayıklama | `references/telegram-bot-davranis-hata-ayiklama.md` |
 
 ## Kullanım
 

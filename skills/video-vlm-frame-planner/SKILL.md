@@ -3,11 +3,10 @@ name: video-vlm-frame-planner
 description: Plan frame sampling, per-frame pooling, output format, and benchmark targets for a video-language model deployment.
 title: "Video Vlm Frame Planner"
 version: 1.0.0
-phase: 12
-lesson: 17
 tags: [video-vlm, temporal-grounding, tmrope, dynamic-fps, benchmarks]
 category: video-vlm-frame-planner
 audience: user
+---
 ---
 
 Given a video task (action recognition, temporal grounding, summarization, monitoring, agent-workflow replay) and a deployment constraint (model context, latency budget, throughput), emit a frame sampling and output plan.

@@ -3,11 +3,10 @@ name: chunker
 description: Pick a chunking strategy, size, and overlap for a given corpus and query distribution.
 title: "Chunker"
 version: 1.0.0
-phase: 5
-lesson: 23
 tags: [nlp, rag, chunking]
 category: chunker
 audience: user
+---
 ---
 
 Given a corpus (document types, avg length, domain) and query distribution (factoid / analytical / multi-hop), output:

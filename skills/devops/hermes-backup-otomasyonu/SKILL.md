@@ -7,12 +7,12 @@ description: >-
   haftalik LLM bakim (Carsamba). Startup .bat ile flag tabanli tetikleme.
 version: 1.1.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [yedek, github, backup, cron, otomasyon, sync]
 audience: maintainer
 related_skills: [gece-3-github-yedek]
+---
 ---
 
 # ReYMeN Backup Otomasyonu

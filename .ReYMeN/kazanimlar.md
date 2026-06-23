@@ -258,3 +258,20 @@ Karar #24 — Cron Iteration 20: Planlama taraması yapıldı. 3197 py dosyası 
 ---
 ## 2026-06-21 23:20 — ReYMeN — Hız (Alan 4)
 Pycache temizliği: 77.3MB freed (250 dirs). Big files: 444 (>500 lines). session.db: 464KB (normal). INDEX.md gap (Yön B) fixed: Karar #25'ten sonra INDEX.md güncellenmemişti, düzeltildi. Karar #26 eklendi.
+---
+
+### Karar #27 — Cron Iteration 27 — Kod Kalitesi (Alan 3) — 8. tur
+| # | Isleme | Detay | Sonuc |
+|:-:|--------|-------|:-----:|
+| 1 | Syntax kontrol | 3071 .py dosyasi compile() ile taranmisti | ✅ 0 hata |
+| 2 | test_motor fix | test_motor_global_sabitler_var'da modul kirlenmesine karsi del sys.modules | ✅ |
+| 3 | test_mcp fix (2 test) | isinstance checki ile brittle testler duzeltildi | ✅ |
+| 4 | Test run | 131 PASS, 16 skipped, 0 FAILED | ✅ |
+
+### Karar #28 — Cron Iteration 28 — Hata (Alan 5) — 8. tur — BOM temizligi
+| # | Isleme | Detay | Sonuc |
+|:-:|--------|-------|:-----:|
+| 1 | BOM taramasi | 37,947 .py dosyasi U+FEFF icin tarandi | ✅ 5 BOM bulundu |
+| 2 | conversation_loop.py | BOM hatasi (`invalid non-printable character U+FEFF`) duzeltildi | ✅ |
+| 3 | hermes-memory-backup/ | 4 BOMlu dosya daha temizlendi | ✅ |
+| 4 | INDEX.md | Kod Kalitesi, Hafiza satirlari guncellendi, 8. tur rotasyonu | ✅ |

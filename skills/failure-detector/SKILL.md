@@ -3,11 +3,10 @@ name: failure-detector
 description: Generate failure-mode detectors for agent traces, wired to a trace store, tagging the five industry-recurring modes plus domain-specific signatures.
 title: "Failure Detector"
 version: 1.0.0
-phase: 14
-lesson: 26
 tags: [failure-modes, masft, detection, observability]
 category: failure-detector
 audience: user
+---
 ---
 
 Given a product domain and a trace store, produce detectors for agent failure modes.

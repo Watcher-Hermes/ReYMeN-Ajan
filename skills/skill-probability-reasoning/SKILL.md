@@ -3,11 +3,10 @@ name: skill-probability-reasoning
 description: Choose the right probability distribution for a given ML problem
 title: "Skill PRobability Reasoning"
 version: 1.0.0
-phase: 1
-lesson: 6
 tags: [probability, distributions, modeling]
 category: skill-probability-reasoning
 audience: user
+---
 ---
 
 # Probability Distribution Selection

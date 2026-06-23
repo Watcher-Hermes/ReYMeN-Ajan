@@ -86,8 +86,9 @@ class ChromaDBBellek(BellekSaglayici):
             return []
         ids  = sonuc.get("ids",       [[]])[0]
         docs = sonuc.get("documents", [[]])[0]
+        dist = sonuc.get("distances", [[]])[0]
         return [
-            {"id": ids[i], "icerik": self._sinirla(docs[i])}
+            {"id": ids[i], "document": self._sinirla(docs[i]), "distance": dist[i] if i < len(dist) else 1.0}
             for i in range(len(ids))
         ]
 

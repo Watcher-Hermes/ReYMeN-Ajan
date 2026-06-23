@@ -4,7 +4,6 @@ description: llama.cpp local GGUF inference + HF Hub model discovery.
 title: "LLaMA Cpp"
 version: 2.1.2
 author: Orchestra Research
-license: MIT
 dependencies: [llama-cpp-python>=0.2.0]
 platforms: [linux, macos, windows]
 metadata:
@@ -13,6 +12,7 @@ metadata:
 category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
+---
 ---
 
 # llama.cpp + GGUF

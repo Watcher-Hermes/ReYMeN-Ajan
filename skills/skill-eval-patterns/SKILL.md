@@ -3,11 +3,10 @@ name: skill-eval-patterns
 description: Decision framework for choosing evaluation strategies -- when to use which method, how to size test suites, and how to integrate evals into CI/CD
 title: "Skill Eval Patterns"
 version: 1.0.0
-phase: 11
-lesson: 10
 tags: [evaluation, testing, llm-as-judge, regression, confidence-intervals, ci-cd]
 category: skill-eval-patterns
 audience: user
+---
 ---
 
 # Eval Patterns

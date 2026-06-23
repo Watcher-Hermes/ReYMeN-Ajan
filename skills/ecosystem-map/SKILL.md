@@ -3,11 +3,10 @@ name: ecosystem-map
 description: Map an alignment claim or evaluation to the organisation, methodology, and cross-checks.
 title: "Ecosystem Map"
 version: 1.0.0
-phase: 18
-lesson: 28
 tags: [mats, redwood, apollo, metr, eleos, ecosystem]
 category: ecosystem-map
 audience: user
+---
 ---
 
 Given an alignment claim or evaluation, map the source to the research ecosystem and identify cross-checks.

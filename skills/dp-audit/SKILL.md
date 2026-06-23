@@ -3,11 +3,10 @@ name: dp-audit
 description: Audit a differential-privacy claim for a language-model deployment.
 title: "Dp Audit"
 version: 1.0.0
-phase: 18
-lesson: 22
 tags: [differential-privacy, dp-sgd, lora, mia, pmixed]
 category: dp-audit
 audience: maintainer
+---
 ---
 
 Given a privacy claim for a language-model deployment, audit the claim.

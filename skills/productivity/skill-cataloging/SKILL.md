@@ -3,7 +3,6 @@ name: skill-cataloging
 description: Export and maintain a browsable catalog of all ReYMeN skills in an Obsidian vault. Enumerates skill definitions, copies their documentation, and generates a refreshed index.
 title: "Skill Cataloging"
 version: 1.0.0
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -11,6 +10,7 @@ metadata:
 category: productivity
 audience: user
 tags: [productivity, tools]
+---
 ---
 
 # Skill Cataloging

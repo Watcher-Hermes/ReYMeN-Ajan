@@ -8,7 +8,6 @@ description: >-
   reposundaki KURULACAK_REPOLAR.md dosyasını referans alır.
 version: 1.0.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [kurulum, github, repo, setup, migration]
@@ -16,6 +15,7 @@ audience: maintainer
 related_skills:
       - hermes-migration-restore
       - github-repo-management
+---
 ---
 
 # ReYMeN Kurulacak GitHub Repoları

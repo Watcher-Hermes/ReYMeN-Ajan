@@ -3,11 +3,10 @@ name: skill-information-theory
 description: Apply information theory concepts to ML loss functions, model evaluation, and feature selection
 title: "Skill Information Theory"
 version: 1.0.0
-phase: 1
-lesson: 9
 tags: [information-theory, entropy, loss-functions]
 category: skill-information-theory
 audience: user
+---
 ---
 
 # Information Theory for ML

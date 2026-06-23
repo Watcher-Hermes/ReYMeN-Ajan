@@ -6,13 +6,13 @@ tags: [mcp, protocol]
 description: "MCP client: connect servers, register tools (stdio/HTTP)."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [MCP, Tools, Integrations]
 audience: user
 related_skills: [mcporter]
+---
 ---
 
 # Native Mcp

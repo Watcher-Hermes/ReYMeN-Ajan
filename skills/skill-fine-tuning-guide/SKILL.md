@@ -3,11 +3,10 @@ name: skill-fine-tuning-guide
 description: Decision tree for when and how to fine-tune LLMs with LoRA and QLoRA
 title: "Skill Fine Tuning GUIde"
 version: 1.0.0
-phase: 11
-lesson: 8
 tags: [fine-tuning, lora, qlora, peft, llm-engineering]
 category: skill-fine-tuning-guide
 audience: user
+---
 ---
 
 # Fine-Tuning Decision Guide

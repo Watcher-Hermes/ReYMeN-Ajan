@@ -3,11 +3,10 @@ name: duplex-pipeline
 description: Pick full-duplex (Moshi) vs pipeline (VAD + STT + LLM + TTS) architecture for a voice-agent workload.
 title: "Duplex Pipeline"
 version: 1.0.0
-phase: 6
-lesson: 15
 tags: [moshi, hibiki, full-duplex, voice-agent, streaming]
 category: duplex-pipeline
 audience: user
+---
 ---
 
 Given the workload (latency target, tool-calling needs, language coverage, hardware budget, cloud vs edge), output:

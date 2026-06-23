@@ -5,13 +5,13 @@ tags: [security, windows]
 description: Systematic audit of forensic traces on Windows — Event Log, USBSTOR, SRUM, WiFi profiles, OneDrive, VirtualBox VM logs, PowerShell history, and disk encryption status. One-time evidence check before deciding on countermeasures.
 version: 1.0.0
 author: hermes
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [forensic, evidence, traces, windows, security, audit, event-log, usbstor, srum, virtualbox, onedrive, powershell]
 audience: user
 related_skills: [veracrypt-windows, guvenlik-izleme-sistemi, port-firewall-taramasi, tor-browser-arama]
+---
 ---
 
 # Windows Forensic Assessment

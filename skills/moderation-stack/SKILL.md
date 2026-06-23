@@ -3,11 +3,10 @@ name: moderation-stack
 description: Recommend a moderation stack configuration for a production deployment.
 title: "Moderation Stack"
 version: 1.0.0
-phase: 18
-lesson: 29
 tags: [openai-moderation, perspective, llama-guard, layered-moderation, azure-content-safety]
 category: moderation-stack
 audience: user
+---
 ---
 
 Given a production deployment, recommend a moderation stack configuration across the three layers.

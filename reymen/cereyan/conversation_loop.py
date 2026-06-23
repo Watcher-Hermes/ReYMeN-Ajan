@@ -194,7 +194,7 @@ PROVIDER_LIMITS = {
 PROVIDER_LIMIT_VARSAYILAN = int(os.environ.get("PROVIDER_LIMIT_DEFAULT", "128000"))
 
 # Yanıttaki "gorev bitti" tetikleyicileri
-GOREV_BITTI_TETIK = ("GOREV_BITTI", "görev bitti", "tamamlandi", "TASK_DONE")
+GOREV_BITTI_TETIK = ("GOREV_BITTI", "GÖREV_BİTTİ", "görev bitti", "tamamlandi", "TASK_DONE", "TASK_COMPLETE")
 
 
 def motor_tools_schema_al(motor, maks_arac: int = 64) -> list:
@@ -378,6 +378,7 @@ class ConversationLoop:
         hedef: str,
         baglam: Optional[dict] = None,
         provider: Optional[str] = None,
+        hizli_mod: bool = False,
     ) -> dict:
         """ReYMeN Agent run_conversation() seviyesinde konusma dongusu.
 
@@ -398,6 +399,7 @@ class ConversationLoop:
             hedef:    Kullanicinin hedefi.
             baglam:   Ek baglam dict'i (opsiyonel).
             provider: Provider override ("anthropic", "deepseek", "codex", ...).
+            hizli_mod: True ise direkt API cagrisi (tool/hafiza/session atlanir).
 
         Returns:
             Sonuc dict'i (task_id, basarili, turlar, sure, budget, ...).
@@ -419,6 +421,47 @@ class ConversationLoop:
             "provider":  provider,
             "yanit":     None,
         }
+
+        # ── HIZLI MOD: OnceHafiza + direkt API (tool/session/compression atlanir) ──
+        if hizli_mod and self.beyin is not None:
+            try:
+                # OnceHafiza kontrolu (LLM cagirmadan once)
+                try:
+                    from reymen.hafiza.gorev_once_kontrol import hafizada_ara as _hafizada_ara
+                    hafiza_sonuc = _hafizada_ara(hedef, kategori="")
+                    if hafiza_sonuc and hafiza_sonuc.get("bulundu"):
+                        guven = float(hafiza_sonuc.get("guven_skoru", 0))
+                        if guven > 0.8:
+                            sonuc["basarili"] = True
+                            sonuc["yanit"] = f"[Hafizadan] {hafiza_sonuc.get('icerik', '')[:2000]}"
+                            sonuc["hizli_mod"] = True
+                            sonuc["hafiza_atlama"] = True
+                            sonuc["guven_skoru"] = guven
+                            sonuc["turlar"] = 0
+                            sonuc["sure"] = round(time.time() - baslama, 3)
+                            log.info("[%s] HIZLI+Hafiza: guven=%.2f, LLM atlandi", task_id, guven)
+                            self._durum = "tamamlandi"
+                            return sonuc
+                except ImportError:
+                    pass  # modul yoksa direkt API'ye gec
+
+                # Minimal prompt ile direkt API
+                hizli_prompt = self._sistem_promptu_olustur(hedef, None, hizli_mod=True)
+                yanit = self.beyin.uret(
+                    hizli_prompt,
+                    [{"role": "user", "content": hedef}],
+                )
+                sonuc["basarili"] = True
+                sonuc["yanit"] = yanit.strip() if yanit else "Anlayamadim."
+                sonuc["hizli_mod"] = True
+                sonuc["turlar"] = 1
+                sonuc["sure"] = round(time.time() - baslama, 3)
+                log.info("[%s] HIZLI MOD: yanit alindi (%.2fs)", task_id, sonuc["sure"])
+                self._durum = "tamamlandi"
+                return sonuc
+            except Exception as e:
+                log.warning("[%s] Hizli mod hatasi, normal moda dusuluyor: %s", task_id, e)
+                # hata olursa normal akisa devam et
 
         # Session başlat
         session_id = None
@@ -500,6 +543,59 @@ class ConversationLoop:
         except Exception as _he:
             self._onceki_bilgi = None
             log.warning("[%s] Hafiza kontrol hatasi: %s", task_id, _he)
+
+        # ── İYİLEŞTİRME 5: CHROMADB SEMANTİK FALLBACK ─────────────────
+        # OnceHafiza bulamazsa, ChromaDB ile anlamsal benzerlik ara
+        _chroma_hit = None
+        if not sonuc.get("hafiza_atlama"):
+            try:
+                from tools.memory_providers.chromadb_provider import ChromaDBBellek
+                _vektor_bellek = ChromaDBBellek(
+                    koleksiyon="ReYMeN",
+                    dizin=os.path.join(
+                        os.path.dirname(os.path.abspath(__file__)),
+                        ".ReYMeN", "vektor"
+                    ),
+                )
+                _bulunanlar = _vektor_bellek.ara(hedef, limit=1)
+                if _bulunanlar:
+                    _ilk = _bulunanlar[0]
+                    _mesafe = _ilk.get("distance", 1.0)
+                    # cosine similarity: 0 = ayni, 1 = tamamen farkli
+                    if _mesafe < 0.3:  # esik: cok benzer
+                        _icerik = _ilk.get("document", "")
+                        log.info(
+                            "[%s] CHROMADB HIT: mesafe=%.3f, icerik=%.60s",
+                            task_id, _mesafe, _icerik,
+                        )
+                        _chroma_hit = {
+                            "icerik": _icerik,
+                            "kaynak": "chromadb",
+                            "guven_skoru": max(0.5, 1.0 - _mesafe),
+                            "kayit_id": _ilk.get("id", ""),
+                        }
+            except ImportError:
+                log.info("[%s] ChromaDB kurulu degil, semantic fallback atlandi", task_id)
+            except Exception as _ce:
+                log.warning("[%s] ChromaDB sorgu hatasi: %s", task_id, _ce)
+
+        # ChromaDB'de bulunduysa hafiza bilgisi olarak kaydet
+        if _chroma_hit:
+            self._onceki_bilgi = _chroma_hit
+            # guven > 0.8 ise direkt dondur
+            if _chroma_hit["guven_skoru"] > 0.8:
+                sonuc["basarili"] = True
+                sonuc["yanit"] = f"[ChromaDB] {_chroma_hit['icerik'][:2000]}"
+                sonuc["kaynak"] = "chromadb"
+                sonuc["hafiza_atlama"] = True
+                sonuc["guven_skoru"] = _chroma_hit["guven_skoru"]
+                sonuc["turlar"] = 0
+                sonuc["sure"] = round(time.time() - baslama, 3)
+                if budget:
+                    budget.gorev_tamamla()
+                self._durum = "tamamlandi"
+                log.info("[%s] CHROMADB ATLAMASI: guven=%.2f, LLM cagrilmadi", task_id, _chroma_hit["guven_skoru"])
+                return sonuc
 
         # ── İYİLEŞTİRME 4: BELİRSİZ GÖREV → HAFIZA TABANLI ÖNERİ ──
         # Hafizada bulunamadiysa, oneri_uret ile kullaniciya tahmin sun
@@ -896,7 +992,7 @@ class ConversationLoop:
 
         return _SimpleBudget(self.max_tur)
 
-    def _sistem_promptu_olustur(self, hedef: str, baglam: Optional[dict] = None) -> str:
+    def _sistem_promptu_olustur(self, hedef: str, baglam: Optional[dict] = None, hizli_mod: bool = False) -> str:
         """PromptBuilder ile sistem promptu insa et."""
         if _BUILDER_AKTIF and PromptBuilder:
             try:

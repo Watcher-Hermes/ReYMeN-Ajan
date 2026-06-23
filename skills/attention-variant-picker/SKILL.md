@@ -3,11 +3,10 @@ name: attention-variant-picker
 description: Pick a full / sliding-window / sparse / differential attention topology for a new model given context length, retrieval demands, and compute profile.
 title: "Attention Variant Picker"
 version: 1.0.0
-phase: 7
-lesson: 15
 tags: [attention, transformer, long-context, inference, memory]
 category: attention-variant-picker
 audience: user
+---
 ---
 
 # Attention Variant Picker

@@ -4,7 +4,6 @@ description: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.
 title: "Popular Web Designs"
 version: 1.0.0
 author: ReYMeN Agent + Teknium (design systems sourced from VoltAgent/awesome-design-md)
-license: MIT
 tags: [design, css, html, ui, web-development, design-systems, templates]
 category: creative
 audience: user
@@ -19,6 +18,7 @@ triggers:
   - landing page
   - dashboard design
   - website styled like
+---
 ---
 
 # Popular Web Designs

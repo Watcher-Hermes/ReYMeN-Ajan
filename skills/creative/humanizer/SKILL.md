@@ -4,7 +4,6 @@ name: humanizer
 description: "Humanize text: strip AI-isms and add real voice."
 version: 2.5.1
 author: Siqi Chen (@blader, https://github.com/blader/humanizer), ported by ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -13,6 +12,7 @@ metadata:
 audience: user
     homepage: https://github.com/blader/humanizer
 related_skills: [songwriting-and-ai-music]
+---
 ---
 
 # Humanizer

@@ -3,11 +3,10 @@ name: gradient-accumulation
 description: Train at an effective batch larger than device memory by scaling micro-batch losses and stepping the optimizer once per window.
 title: "Gradient Accumulation"
 version: 1.0.0
-phase: 19
-lesson: 46
 tags: [training, batch-size, distributed, scaling]
 category: gradient-accumulation
 audience: user
+---
 ---
 
 ## When to use

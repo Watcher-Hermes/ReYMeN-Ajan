@@ -3,11 +3,10 @@ name: ecosystem-blueprint
 description: Produce a full Phase 13 ecosystem architecture given a product need; name primitives, security posture, telemetry, and packaging.
 title: "Ecosystem Blueprint"
 version: 1.0.0
-phase: 13
-lesson: 22
 tags: [mcp, capstone, ecosystem, architecture, a2a, otel]
 category: ecosystem-blueprint
 audience: user
+---
 ---
 
 Given a product need (research, summarization, automation, any agent-driven workflow), produce the full architecture.

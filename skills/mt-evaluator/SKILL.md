@@ -3,11 +3,10 @@ name: mt-evaluator
 description: Evaluate a machine translation output for shipping.
 title: "Mt Evaluator"
 version: 1.0.0
-phase: 5
-lesson: 11
 tags: [nlp, translation, evaluation]
 category: mt-evaluator
 audience: user
+---
 ---
 
 Given a source text and a candidate translation, output:

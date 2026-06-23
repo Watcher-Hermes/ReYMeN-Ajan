@@ -3,11 +3,10 @@ name: topic-picker
 description: Pick LDA or BERTopic for a corpus. Specify library, knobs, evaluation.
 title: "Topic Picker"
 version: 1.0.0
-phase: 5
-lesson: 15
 tags: [nlp, topic-modeling]
 category: topic-picker
 audience: user
+---
 ---
 
 Given a corpus description (document count, avg length, domain, language, compute budget), output:

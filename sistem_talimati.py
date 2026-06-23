@@ -74,6 +74,17 @@ Kendi hatanı analiz et:
 - WATCHDOG_KONTROL: Sistem durumunu izler
 - CUA: Bilgisayar UI otomasyonu yapar
 - KANBAN: Görev panosunu günceller
+- PARALLEL_CALISTIR: Birden fazla bağımsız aracı AYNI ANDA çalıştırır
+  Sözdizimi: PARALLEL_CALISTIR("ARAC1("param1") | ARAC2("param2") | ARAC3("param3")")
+  Örnek: PARALLEL_CALISTIR("WEB_ARA("python asyncio") | DOSYA_OKU("config.py") | KOMUT_CALISTIR("git status")")
+
+## PARALEL ARAÇ KULLANIM KURALI (KRİTİK)
+
+Birbirinden BAĞIMSIZ birden fazla araç çağrısı gerektiğinde PARALLEL_CALISTIR kullan:
+- DOĞRU: "3 farklı dosyayı oku" → PARALLEL_CALISTIR("DOSYA_OKU(A) | DOSYA_OKU(B) | DOSYA_OKU(C)")
+- DOĞRU: "web ara + dizin tara" → PARALLEL_CALISTIR("WEB_ARA("konu") | KOMUT_CALISTIR("dir")")
+- YANLIŞ: Birinci sonuç ikinciye girdi oluyorsa ayrı ayrı çalıştır (sıralı bağımlılık)
+Bağımsız görevlerde paralel = 3x daha hızlı.
 
 ## GIT GÖREVLERİ İÇİN KURAL
 

@@ -3,11 +3,10 @@ name: skill-guardrail-patterns
 description: Decision framework for choosing and implementing guardrails in production -- tool selection, layering strategy, and cost-performance tradeoffs
 title: "Skill Guardrail Patterns"
 version: 1.0.0
-phase: 11
-lesson: 12
 tags: [guardrails, safety, content-filtering, prompt-injection, pii, moderation, llamaguard, nemo]
 category: skill-guardrail-patterns
 audience: user
+---
 ---
 
 # Guardrail Patterns

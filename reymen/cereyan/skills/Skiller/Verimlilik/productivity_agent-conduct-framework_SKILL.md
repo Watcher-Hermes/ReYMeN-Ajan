@@ -8,6 +8,8 @@ version: 1.0.0
 author: ReYMeN
 platforms: [windows, linux, macos]
 tags: [reymen, conduct, concise, decisions, delegation]
+usage_count: 2
+last_used: 2026-06-23
 ---
 
 # Agent Conduct Framework
@@ -150,3 +152,31 @@ Referans: `references/inter-agent-coordination.md` — Kali↔Windows ajan koord
 Referans: `references/hafiza-tabanli-tahmin.md` — Belirsiz görevde OnceHafiza ile tahmin
 Referans: `references/kademeli-guven.md` — Sigmoid güven skoru formülü
 Referans: `references/sistem-denetimi.md` — 13 hata, 5 kategoride analiz
+
+---
+## Ek Adimlar / Varyasyon (2026-06-23T19:08:20Z)
+
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\fetch_data.py
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\veri.json
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/KOMUT_CALISTIR: [Hata]: run() missing 1 required positional argument: 'komut'
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ✅]
+--- ÇIKTI ---
+{
+  "title": "Example Domain",
+  "paragraphs": [
+
+FC/EXECUTE_CODE: [EXECUTE_CODE ✅]
+--- ÇIKTI ---
+=================================================

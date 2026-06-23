@@ -3,11 +3,10 @@ name: checkpointing-planner
 description: Choose an activation recomputation policy per layer (none / selective / full / offload) given a training config and HBM budget.
 title: "Checkpointing Planner"
 version: 1.0.0
-phase: 10
-lesson: 34
 tags: [gradient-checkpointing, activation-recomputation, selective-checkpoint, fsdp-offload, training-memory]
 category: checkpointing-planner
 audience: user
+---
 ---
 
 Given the training config (layer count L, hidden size d, sequence length S, microbatch B, dtype bytes per value, attention kernel, tensor-parallel degree TP, pipeline-parallel degree PP, expert-parallel degree EP if MoE) and the per-rank HBM budget after weights and optimizer state, output:

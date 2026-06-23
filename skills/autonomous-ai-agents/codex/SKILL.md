@@ -5,13 +5,13 @@ tags: [agents, ai]
 description: "Delegate coding to OpenAI Codex CLI (features, PRs)."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Coding-Agent, Codex, OpenAI, Code-Review, Refactoring]
 audience: user
 related_skills: [claude-code, hermes-agent]
+---
 ---
 
 # Codex CLI

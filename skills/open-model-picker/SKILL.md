@@ -3,11 +3,10 @@ name: open-model-picker
 description: Pick an open LLM family, quantization, and inference stack for a given deployment target.
 title: "Open Model Picker"
 version: 1.0.0
-phase: 10
-lesson: 14
 tags: [open-models, llama, deepseek, mixtral, qwen, gemma, moe, gqa, mla, quantization]
 category: open-model-picker
 audience: user
+---
 ---
 
 Given a deployment target (GPU type, VRAM per GPU, number of GPUs, target context length, target p50/p99 latency, peak concurrent requests) and a task profile (chat, code, reasoning, long-context retrieval, tool use), recommend an open model plus serving stack with explicit reasoning about each of the six architectural knobs from Lesson 14.

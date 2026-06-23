@@ -3,11 +3,10 @@ name: audio-brief
 description: Translate an audio brief into a model + prompt + eval plan across TTS, music, and SFX.
 title: "Audio Brief"
 version: 1.0.0
-phase: 8
-lesson: 11
 tags: [audio, tts, music, sfx, codec]
 category: audio-brief
 audience: user
+---
 ---
 
 Given an audio brief (task: TTS / music / SFX / voice clone, duration, style, voice or genre, license constraints, real-time or offline, quality bar), output:

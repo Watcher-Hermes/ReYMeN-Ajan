@@ -3,11 +3,10 @@ name: var-tokenizer-designer
 description: Design a multi-scale residual VQ tokenizer for next-scale visual autoregressive image generation.
 title: "Var Tokenizer Designer"
 version: 1.0.0
-phase: 8
-lesson: 19
 tags: [var, next-scale-prediction, vq-vae, residual-vq, image-generation, tokenizer]
 category: var-tokenizer-designer
 audience: user
+---
 ---
 
 Given the image target (resolution, channels, color vs grayscale, dataset size, downstream LM compute budget, target FID), output:

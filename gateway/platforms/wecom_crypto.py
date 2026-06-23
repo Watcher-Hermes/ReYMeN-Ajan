@@ -28,6 +28,115 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+# ── Exception hiyerarşisi ─────────────────────────────────────────────────
+
+class WeComCryptoError(Exception):
+    pass
+
+class SignatureError(WeComCryptoError):
+    pass
+
+class DecryptError(WeComCryptoError):
+    pass
+
+class EncryptError(WeComCryptoError):
+    pass
+
+
+# ── PKCS7Encoder sınıfı ───────────────────────────────────────────────────
+
+class PKCS7Encoder:
+    BLOCK_SIZE = 32
+
+    @classmethod
+    def encode(cls, data: bytes) -> bytes:
+        pad = cls.BLOCK_SIZE - (len(data) % cls.BLOCK_SIZE)
+        return data + bytes([pad] * pad)
+
+    @classmethod
+    def decode(cls, data: bytes) -> bytes:
+        if not data:
+            raise DecryptError("Bos veri")
+        pad = data[-1]
+        if pad < 1 or pad > cls.BLOCK_SIZE:
+            raise DecryptError(f"Gecersiz padding: {pad}")
+        return data[:-pad]
+
+
+# ── SHA1 imza ─────────────────────────────────────────────────────────────
+
+def _sha1_signature(token: str, timestamp: str, nonce: str, encrypted: str) -> str:
+    parts = sorted([token, timestamp, nonce, encrypted])
+    return hashlib.sha1("".join(parts).encode("utf-8")).hexdigest()
+
+
+# ── WXBizMsgCrypt sınıfı ──────────────────────────────────────────────────
+
+class WXBizMsgCrypt:
+
+    def __init__(self, token: str, encoding_aes_key: str, receive_id: str):
+        if not token:
+            raise ValueError("token is required")
+        if not encoding_aes_key:
+            raise ValueError("encoding_aes_key is required")
+        if len(encoding_aes_key) != 43:
+            raise ValueError("encoding_aes_key must be 43 chars")
+        if not receive_id:
+            raise ValueError("receive_id is required")
+        self.token = token
+        self.receive_id = receive_id
+        self.key = base64.b64decode(encoding_aes_key + "=")
+
+    @staticmethod
+    def _random_nonce() -> str:
+        return "".join(random.choices(string.ascii_letters + string.digits, k=10))
+
+    def encrypt(self, plaintext: str, nonce: str = None, timestamp: str = None) -> str:
+        if nonce is None:
+            nonce = self._random_nonce()
+        if timestamp is None:
+            import time as _time
+            timestamp = str(int(_time.time()))
+        rand = "".join(random.choices(string.ascii_letters + string.digits, k=16))
+        veri = rand.encode("utf-8")
+        veri += len(plaintext).to_bytes(4, "big")
+        veri += plaintext.encode("utf-8")
+        veri += self.receive_id.encode("utf-8")
+        try:
+            sifreli = aes_encrypt(PKCS7Encoder.encode(veri), self.key)
+        except Exception as e:
+            raise EncryptError(str(e))
+        encrypted_b64 = base64.b64encode(sifreli).decode("utf-8")
+        sig = _sha1_signature(self.token, timestamp, nonce, encrypted_b64)
+        return (
+            f"<xml><Encrypt><![CDATA[{encrypted_b64}]]></Encrypt>"
+            f"<MsgSignature><![CDATA[{sig}]]></MsgSignature>"
+            f"<TimeStamp>{timestamp}</TimeStamp>"
+            f"<Nonce><![CDATA[{nonce}]]></Nonce></xml>"
+        )
+
+    def decrypt(self, msg_signature: str, timestamp: str, nonce: str, encrypted: str) -> str:
+        beklenen = _sha1_signature(self.token, timestamp, nonce, encrypted)
+        if beklenen != msg_signature:
+            raise SignatureError("signature mismatch")
+        try:
+            ham = base64.b64decode(encrypted)
+        except Exception as e:
+            raise DecryptError(f"Bad base64: {e}")
+        try:
+            cozulmus = aes_decrypt(ham, self.key)
+            cozulmus = PKCS7Encoder.decode(cozulmus)
+        except DecryptError:
+            raise
+        except Exception as e:
+            raise DecryptError(str(e))
+        msg_len = int.from_bytes(cozulmus[16:20], "big")
+        return cozulmus[20:20 + msg_len].decode("utf-8")
+
+    def verify_url(self, msg_signature: str, timestamp: str, nonce: str, echostr: str) -> str:
+        return self.decrypt(msg_signature, timestamp, nonce, echostr)
+
+
 def pkcs7_pad(veri: bytes, blok_boyutu: int = 32) -> bytes:
     """PKCS7 padding uygular.
 

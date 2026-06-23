@@ -48,6 +48,7 @@ ROOT = Path(__file__).parent.resolve()
 SKILLS_DIZINLERI: list[Path] = [
     ROOT / "skills",
     ROOT / ".ReYMeN" / "skills",
+    Path.home() / "AppData" / "Local" / "hermes" / "profiles" / "reymen" / "skills",
 ]
 
 MAKS_BAGLAM_KARAKTER: int = 4_000
@@ -852,8 +853,14 @@ class ClosedLearningLoop:
                 status, score = self.test_in_sandbox(best)
 
                 if status == "BAŞARILI":
-                    self.save_as_skill(best, score)
-                    logger.info("[SelfImprove] ✅ Yeni skill eklendi: %s", focus)
+                    yol = self.save_as_skill(best, score)
+                    logger.info("[SelfImprove] ✅ Yeni skill eklendi: %s (%s)", focus, yol)
+                    # 5b. Genelle — başarılı skill'i benzer durumlara uygulanabilir yap
+                    try:
+                        self.genelle(beceri_adi=focus, soyutlama_seviyesi="orta")
+                        logger.info("[SelfImprove] ✅ Genellendi: %s", focus)
+                    except Exception as ge:
+                        logger.warning("[SelfImprove] Genelleme basarisiz (%s): %s", focus, ge)
 
             elif decision == "DAHA_FAZLA_ARAŞTIR":
                 logger.info("[SelfImprove] ⏳ Eklendi: bekleme listesine alindi: %s", focus)
@@ -868,6 +875,120 @@ class ClosedLearningLoop:
             logger.info("[SelfImprove] Bekleniyor (%d saat)...", cycle_hours)
             time.sleep(cycle_hours * 3600)
 
+
+    # ── Genelle ───────────────────────────────────────────────────────────
+    def genelle(
+        self,
+        beceri_adi: str,
+        etiketler: list[str] | None = None,
+        soyutlama_seviyesi: str = "orta",
+    ) -> str:
+        """
+        Var olan bir beceriyi genelle — benzer durumlara uygulanabilir hale getir.
+
+        1. Beceriyi FTS5'ten bul
+        2. İçeriğini analiz et, spesifik/soyut kısımları ayır
+        3. Parametrik şablon oluştur
+        4. "genel/<kategori>/" altına soyutlanmış versiyonu kaydet
+
+        Args:
+            beceri_adi: Genellenecek beceri adı.
+            etiketler: Opsiyonel etiket listesi (otomatik çıkarılmazsa).
+            soyutlama_seviyesi: "dusuk" (değişken isimleri değişir),
+                                "orta" (araç/adlar değişir, yapı kalır),
+                                "yuksek" (tamamen soyut akış).
+
+        Returns:
+            Oluşturulan genel beceri dosya yolu.
+        """
+        with self._lock, self._baglanti() as con:
+            # 1. Beceriyi bul
+            sorgu = _fts5_token(beceri_adi)
+            if not sorgu:
+                return f"[GENELLE] HATA: Geçersiz beceri adı: {beceri_adi}"
+            satir = con.execute(
+                "SELECT ad, aciklama, icerik, kaynak FROM beceriler WHERE beceriler MATCH ? LIMIT 1",
+                (sorgu,),
+            ).fetchone()
+            if not satir:
+                return f"[GENELLE] HATA: '{beceri_adi}' bulunamadi."
+
+            eski_ad, eski_aciklama, eski_icerik, kaynak = satir
+            eski_ad = eski_ad or beceri_adi
+
+        # 2. Genelleştirilmiş ad ve açıklama oluştur
+        genel_ad = f"genel_{eski_ad}"
+        genel_aciklama = (
+            f"[GENELLENMIS] {eski_aciklama[:200]} | "
+            f"Soyutlama: {soyutlama_seviyesi} | "
+            f"Kaynak beceri: {eski_ad}"
+        )
+
+        # 3. Parametrik şablon oluştur
+        soyutlama_notu = {
+            "dusuk": (
+                "## Parametreler\n"
+                "Bu şablon doğrudan kullanılabilir. İhtiyaca göre:\n"
+                "- Değişken/isimleri kendi ortamına uyarla\n"
+                "- Sabit değerleri kendi parametrenle değiştir\n"
+            ),
+            "orta": (
+                "## Parametreler\n"
+                "- **Hedef**: [kendi hedefini yaz]\n"
+                "- **Araç/Yöntem**: [kullanılacak araç/yöntem]\n"
+                "- **Beklenen çıktı**: [beklenen sonuç]\n"
+                "Adımlardaki `<degisken>` işaretli yerleri kendi değerinle değiştir.\n"
+            ),
+            "yuksek": (
+                "## Şablon Parametreleri\n"
+                "```yaml\n"
+                "hedef: <hedef>\n"
+                "ortam: <windows|linux|web>\n"
+                "arac: <kullanilacak_arac>\n"
+                "parametreler:\n"
+                "  - <param1: deger1>\n"
+                "  - <param2: deger2>\n"
+                "basarı_kriteri: <ne_zaman_basarili>\n"
+                "```\n"
+                "Bu soyut akışı kendi ortamına uyarlamak için yukarıdaki "
+                "parametreleri doldurman yeterli.\n"
+            ),
+        }.get(soyutlama_seviyesi, "")
+
+        # 4. Genel içeriği oluştur
+        genel_adimlar = (
+            f"## Kaynak Beceri\n"
+            f"`{eski_ad}` — {eski_aciklama[:150]}\n\n"
+            f"---\n\n"
+            f"{soyutlama_notu}\n\n"
+            f"---\n\n"
+            f"## Genelleştirilmiş Akış\n\n"
+            f"1. **Hazırlık**: Ortamı ve ön koşulları kontrol et\n"
+            f"2. **Uygulama**: {eski_aciklama[:100]} adımlarını takip et\n"
+            f"   - Özel durumlar için parametreleri güncelle\n"
+            f"   - Hata durumunda alternatif yolları dene\n"
+            f"3. **Doğrulama**: Çıktıyı beklenen sonuçla karşılaştır\n"
+            f"4. **Kaydet**: Başarılıysa yeni varyasyonu kaydet\n\n"
+            f"---\n\n"
+            f"## Varyasyonlar\n"
+            f"| Senaryo | Fark | Uyarlama |\n"
+            f"|---------|------|----------|\n"
+            f"| Aynı araç, farklı hedef | Parametreler değişir | Parametreleri güncelle |\n"
+            f"| Farklı araç, aynı mantık | Araç adı/sözdizimi değişir | Adımları yeni araca uyarla |\n"
+            f"| Farklı ortam (OS/web) | Komutlar/API'ler değişir | Ortama göre dönüştür |\n\n"
+            f"## İlgili Genel Beceriler\n"
+            f"Bu beceriyi genelleştiren: `{genel_ad}`\n"
+        )
+
+        # 5. Kaydet
+        yol = self.beceri_kristallestir(genel_ad, genel_aciklama, genel_adimlar)
+        logger.info("[Genelle] ✅ %s → genel/%s (seviye=%s)", eski_ad, genel_ad, soyutlama_seviyesi)
+        return yol if yol else f"[GENELLE] HATA: Kaydedilemedi: {genel_ad}"
+
+    def tum_genel_beceriler(self) -> list[dict[str, str]]:
+        """Tüm 'genel_' ön ekli becerileri listele."""
+        tumu = self.tum_beceriler()
+        return [b for b in tumu if "genel_" in b.get("ad", "").lower()]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Smoke test
@@ -926,6 +1047,34 @@ if __name__ == "__main__":
         assert loop.toplam_beceri_sayisi() > 0, "Test 6 FAIL: injection!"
         print(f"[Test 6] Injection safety: OK ({loop.toplam_beceri_sayisi()} beceri hala var)")
 
+        # Test 7: Genelle (dusuk seviye)
+        genel_yol = loop.genelle("web_scraping", soyutlama_seviyesi="dusuk")
+        assert genel_yol and "genel_" in genel_yol, f"Test 7 FAIL: {genel_yol}"
+        print(f"[Test 7] Genelle (dusuk): {genel_yol}")
+
+        # Test 8: Genelle (yuksek seviye) — farkli beceri
+        loop.beceri_kristallestir(
+            "nmap_port_tarama", "Ag portlarini tara",
+            "1. nmap -sV hedef_ip\n2. Sonuclari analiz et\n3. Raporla"
+        )
+        genel_yol2 = loop.genelle("nmap_port_tarama", soyutlama_seviyesi="yuksek")
+        assert genel_yol2 and "genel_" in genel_yol2, f"Test 8 FAIL: {genel_yol2}"
+        print(f"[Test 8] Genelle (yuksek): {genel_yol2}")
+
+        # Test 9: Genel becerileri listele
+        geneller = loop.tum_genel_beceriler()
+        assert len(geneller) >= 2, f"Test 9 FAIL: {len(geneller)} genel beceri bulundu"
+        print(f"[Test 9] Genel beceri sayisi: {len(geneller)}")
+
+        # Test 10: Genel becerilerde genel_ var
+        assert all("genel_" in b.get("ad","") for b in geneller), "Test 10 FAIL"
+        print(f"[Test 10] Genel icerik kontrol: OK")
+
+        # Test 11: Olmayan beceri genelleme
+        hata = loop.genelle("hic_var_olmayan_beceri_12345")
+        assert hata.startswith("[GENELLE] HATA"), f"Test 11 FAIL: {hata}"
+        print(f"[Test 11] Olmayan beceri hatasi: OK")
+
         loop.kapat()
         print(f"\n✓ Tum testler gecti. Son: {loop.toplam_beceri_sayisi()} beceri")
 
@@ -969,6 +1118,17 @@ def _beceri_ara(sorgu: str = "") -> str:
     return f"[BECERI] '{sorgu}' ile ilgili beceri bulunamadi."
 
 
+def _beceri_genelle(ad: str = "", seviye: str = "orta") -> str:
+    """Agent dostu wrapper: ClosedLearningLoop.genelle()"""
+    if not ad:
+        return "[HATA]: Beceri adi gerekli"
+    loop = _get_loop()
+    sonuc = loop.genelle(beceri_adi=ad, soyutlama_seviyesi=seviye)
+    if sonuc and not sonuc.startswith("[GENELLE] HATA"):
+        return f"[GENELLE] ✅ {sonuc}"
+    return sonuc
+
+
 def _beceri_durum() -> str:
     """Toplam beceri sayisi + tum beceriler."""
     loop = _get_loop()
@@ -999,4 +1159,9 @@ def motor_kaydet(motor: object):
             "BECERI_DURUM",
             _beceri_durum,
             "Toplam beceri sayisi ve beceri listesini gosterir",
+        )
+        motor._plugin_arac_kaydet(
+            "BECERI_GENELLE",
+            lambda ad="", seviye="orta": _beceri_genelle(ad, seviye),
+            "Var olan bir beceriyi genellestirir. 'ad' parametresi zorunlu, 'seviye' (dusuk/orta/yuksek) opsiyonel. Benzer durumlara uygulanabilir soyut şablon olusturur.",
         )

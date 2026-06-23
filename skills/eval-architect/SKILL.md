@@ -3,11 +3,10 @@ name: eval-architect
 description: Design an LLM evaluation plan with calibrated judge and CI gates.
 title: "Eval Architect"
 version: 1.0.0
-phase: 5
-lesson: 27
 tags: [nlp, evaluation, rag]
 category: eval-architect
 audience: user
+---
 ---
 
 Given a use case (RAG / agent / generative task), output:

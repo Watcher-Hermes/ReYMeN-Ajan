@@ -3,7 +3,6 @@ name: ollama-local-llm
 description: Ollama local LLM workflows — model pull/run, command execution, generated-code verification, VS Code handoff, and Windows network/device enumeration fallback when model-generated system calls are unreliable on Windows.
 title: "Ollama Local LLM"
 version: 1.0.0
-license: MIT
 platforms: [windows, linux, macos]
 metadata:
   hermes:
@@ -11,6 +10,7 @@ metadata:
 category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
+---
 ---
 
 # Ollama Local LLM

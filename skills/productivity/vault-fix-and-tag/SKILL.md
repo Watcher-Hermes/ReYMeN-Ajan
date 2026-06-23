@@ -4,13 +4,13 @@ description: Obsidian vault'ta kırık linkleri düzeltme, orphan dosyaları tem
 title: "Vault Fix And Tag"
 version: 1.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [obsidian, vault, maintenance, cleanup, tags]
 category: productivity
 audience: user
 tags: [productivity, tools]
+---
 ---
 
 # Vault Fix and Tag

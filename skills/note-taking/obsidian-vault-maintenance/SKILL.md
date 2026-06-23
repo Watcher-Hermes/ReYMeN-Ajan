@@ -7,13 +7,13 @@ title: "Obsidian Vault Maintenance"
   Python script tabanlı yaklaşım.
 version: 2.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [obsidian, vault, maintenance, cleanup, audit, links, tags]
 category: note-taking
 audience: user
 tags: [note-taking, obsidian, productivity]
+---
 ---
 
 # Obsidian Vault Maintenance

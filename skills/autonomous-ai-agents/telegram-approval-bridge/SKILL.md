@@ -4,13 +4,13 @@ description: Multi-model LLM bridge with file-based Telegram approval gates. Use
 title: "Telegram Approval Bridge"
 version: 1.0.0
 author: ReYMeN Agent + User
-license: MIT
 metadata:
   hermes:
     tags: [bridge, approval, claude, ollama, telegram, file-signal]
 category: autonomous-ai-agents
 audience: user
 tags: [agents, ai, automation, telegram]
+---
 ---
 
 # Telegram-Onaylı LLM Köprü

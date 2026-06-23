@@ -3,11 +3,10 @@ name: skill-gradient-computation
 description: Compute gradients of common ML loss functions and choose the right derivative approach
 title: "Skill Gradient Computation"
 version: 1.0.0
-phase: 1
-lesson: 4
 tags: [calculus, gradients, backpropagation]
 category: skill-gradient-computation
 audience: user
+---
 ---
 
 # Gradient Computation for ML

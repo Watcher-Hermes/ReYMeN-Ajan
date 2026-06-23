@@ -6,13 +6,13 @@ tags: [coding, development, testing]
 description: "TDD: enforce RED-GREEN-REFACTOR, tests before code."
 version: 1.1.0
 author: ReYMeN Agent (adapted from obra/superpowers)
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [testing, tdd, development, quality, red-green-refactor]
 audience: contributor
 related_skills: [systematic-debugging, plan, subagent-driven-development]
+---
 ---
 
 # Test Driven Development

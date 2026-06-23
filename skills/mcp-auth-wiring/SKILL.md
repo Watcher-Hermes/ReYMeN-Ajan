@@ -3,11 +3,10 @@ name: mcp-auth-wiring
 description: 立起生产级 MCP 授权（RFC 8414、CIMD、7591、8707、7636 PKCE、9728、9207）——protected-resource 元数据、入册、JWKS 刷新，以及逐请求 token 校验。
 title: "MCP Auth Wiring"
 version: 1.1.0
-phase: 13
-lesson: 18
 tags: [mcp, oauth, cimd, dcr, jwks, rfc8414, rfc7591, rfc8707, rfc7636, rfc9728, rfc9207]
 category: mcp-auth-wiring
 audience: user
+---
 ---
 
 给定一个 MCP server 配置和一组 IdP 能力，输出构成一个生产级 MCP 授权层的鉴权表面和拒绝规则。

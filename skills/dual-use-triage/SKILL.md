@@ -3,11 +3,10 @@ name: dual-use-triage
 description: Triage a capability claim or incident report across the four CBRN domains.
 title: "Dual Use Triage"
 version: 1.0.0
-phase: 18
-lesson: 30
 tags: [dual-use, cbrn, bio, chem, cyber, nuclear, uplift]
 category: dual-use-triage
 audience: user
+---
 ---
 
 Given a capability claim, evaluation report, or incident, triage across the four CBRN domains and identify whether the claim affects novice-relative uplift, expert-absolute capability, or both.

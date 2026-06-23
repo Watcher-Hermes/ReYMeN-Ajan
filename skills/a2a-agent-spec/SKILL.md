@@ -3,11 +3,10 @@ name: a2a-agent-spec
 description: Produce the Agent Card and skills schema for an agent that should be callable over A2A.
 title: "A2A Agent Spec"
 version: 1.0.0
-phase: 13
-lesson: 18
 tags: [a2a, agent-card, task-lifecycle, delegation]
 category: a2a-agent-spec
 audience: user
+---
 ---
 
 Given an agent's capabilities and intended collaborators, produce its A2A Agent Card and skill definitions.

@@ -5,13 +5,13 @@ tags: [skills, standards, conventions, hermes-agent]
 description: "Use when creating or updating any ReYMeN skill. Enforces Router+Reference structure, frontmatter requirements, and zero-bloat policy. Load before any skill_manage(action='create') or skill_manage(action='edit') call."
 version: 1.0.0
 author: ReYMeN User
-license: MIT
 metadata:
   hermes:
     tags: [skills, standards, conventions, hermes-agent]
     related_skills: [hermes-agent-skill-authoring, skill-shrink, skill-library, skill-cataloging]
 audience: maintainer
 related_skills: [hermes-agent-skill-authoring, skill-shrink, skill-library, skill-cataloging]
+---
 ---
 
 # Skill Oluşturma ve Güncelleme Standartları

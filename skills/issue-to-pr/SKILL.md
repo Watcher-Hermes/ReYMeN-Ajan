@@ -3,11 +3,10 @@ name: issue-to-pr
 description: Build an async GitHub issue-to-PR agent that runs in a cloud sandbox, reproduces the build, verifies tests, and opens review-ready PRs within strict per-repo budgets.
 title: "Issue To PR"
 version: 1.0.0
-phase: 19
-lesson: 16
 tags: [capstone, async-agent, github, fargate, daytona, swe-bench, budget, safety]
 category: issue-to-pr
 audience: contributor
+---
 ---
 
 Given a GitHub repository with issues labeled `@agent fix this`, ship a self-hosted cloud agent that turns each labeled issue into a review-ready PR with scoped credentials and bounded cost.

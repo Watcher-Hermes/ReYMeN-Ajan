@@ -3,11 +3,10 @@ name: spoof-defender
 description: Pick detection model, watermark, provenance manifest, and operational playbook for a voice-generation / voice-auth deployment.
 title: "Spoof Defender"
 version: 1.0.0
-phase: 6
-lesson: 16
 tags: [anti-spoofing, watermark, audioseal, asvspoof, c2pa, voice-fraud]
 category: spoof-defender
 audience: user
+---
 ---
 
 Given the workload (voice-gen vs voice-auth, deploy scale, compliance region, adversary profile), output:

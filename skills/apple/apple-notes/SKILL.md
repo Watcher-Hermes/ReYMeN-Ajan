@@ -5,7 +5,6 @@ tags: [apple, ios, note-taking]
 description: "Manage Apple Notes via memo CLI: create, search, edit."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [macos]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ audience: user
 related_skills: [obsidian]
 prerequisites:
   commands: [memo]
+---
 ---
 
 # Apple Notes

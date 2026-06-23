@@ -3,11 +3,10 @@ name: crew-or-flow
 description: Pick CrewAI Crew or Flow for a given task, and scaffold the minimal implementation.
 title: "Crew Or Flow"
 version: 1.0.0
-phase: 14
-lesson: 15
 tags: [crewai, crews, flows, multi-agent, role-based]
 category: crew-or-flow
 audience: user
+---
 ---
 
 Given a task description, pick Crew (autonomous) or Flow (deterministic), then scaffold.

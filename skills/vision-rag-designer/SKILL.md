@@ -3,11 +3,10 @@ name: vision-rag-designer
 description: Design a vision-native document RAG using ColPali / ColQwen2 / VisRAG, with storage estimate and generator-pick.
 title: "Vision RAG Designer"
 version: 1.0.0
-phase: 12
-lesson: 23
 tags: [colpali, colqwen2, visrag, late-interaction, vidore]
 category: vision-rag-designer
 audience: user
+---
 ---
 
 Given a document RAG project (corpus size, query latency target, storage budget, per-query cost), emit a vision-native RAG config.

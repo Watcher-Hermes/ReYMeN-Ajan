@@ -3,11 +3,10 @@ name: marl-architect
 description: Pick the right multi-agent RL regime (IPPO, CTDE, self-play, league) for a given task.
 title: "Marl Architect"
 version: 1.0.0
-phase: 9
-lesson: 10
 tags: [rl, multi-agent, marl, self-play]
 category: marl-architect
 audience: user
+---
 ---
 
 Given a task with `n` agents, output:

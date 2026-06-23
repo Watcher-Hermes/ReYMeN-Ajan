@@ -3,11 +3,10 @@ name: mcp-threat-model
 description: Produce a threat model for an MCP deployment naming the applicable attack classes, defenses in place, and Rule-of-Two violations.
 title: "MCP Threat Model"
 version: 1.0.0
-phase: 13
-lesson: 15
 tags: [mcp, security, tool-poisoning, threat-model, rule-of-two]
 category: mcp-threat-model
 audience: user
+---
 ---
 
 Given an MCP deployment (list of servers, list of tools, list of permissions), produce a threat model.

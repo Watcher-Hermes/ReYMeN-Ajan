@@ -5,13 +5,13 @@ tags: [productivity]
 description: "Extract text from PDFs/scans (pymupdf, marker-pdf)."
 version: 2.3.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [PDF, Documents, Research, Arxiv, Text-Extraction, OCR]
 audience: user
 related_skills: [powerpoint]
+---
 ---
 
 # PDF & Document Extraction

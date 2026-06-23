@@ -3,11 +3,10 @@ name: multi-region-router
 description: Design a multi-region LLM routing plan with KV-cache locality, residency boundaries, DR manifest, and a quarterly failover drill.
 title: "Multi Region Router"
 version: 1.0.0
-phase: 17
-lesson: 11
 tags: [multi-region, kv-cache, routing, dr, bedrock-cri, vllm-router, llm-d, gorgo]
 category: multi-region-router
 audience: user
+---
 ---
 
 Given regions in scope, residency boundaries, expected prefix-cache diversity, and TTFT SLA, produce a multi-region routing and DR plan.

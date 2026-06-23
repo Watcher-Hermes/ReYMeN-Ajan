@@ -5,7 +5,6 @@ description: "DSPy: declarative LM programs, auto-optimize prompts, RAG."
 title: "DSPy"
 version: 1.0.0
 author: Orchestra Research
-license: MIT
 dependencies: [dspy, openai, anthropic]
 platforms: [linux, macos, windows]
 metadata:
@@ -15,6 +14,7 @@ category: mlops
 audience: user
 tags: [ai, machine-learning, mlops]
 
+---
 ---
 
 # Dspy

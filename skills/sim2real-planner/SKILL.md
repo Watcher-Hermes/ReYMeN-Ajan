@@ -3,11 +3,10 @@ name: sim2real-planner
 description: Plan a sim-to-real transfer pipeline for a given robot + task, covering DR, SI, and safety.
 title: "Sim2Real Planner"
 version: 1.0.0
-phase: 9
-lesson: 11
 tags: [rl, sim2real, robotics, domain-randomization]
 category: sim2real-planner
 audience: user
+---
 ---
 
 Given a robot platform, a task, and access to real hardware time, output:

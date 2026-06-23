@@ -3,11 +3,10 @@ name: gated-bridge-diagnostic
 description: Identify Flamingo-lineage design elements in an open VLM config and diagnose freezing / gating issues.
 title: "Gated Bridge Diagnostic"
 version: 1.0.0
-phase: 12
-lesson: 04
 tags: [flamingo, idefics, openflamingo, gated-cross-attention, interleaved-inputs]
 category: gated-bridge-diagnostic
 audience: user
+---
 ---
 
 Given an open VLM checkpoint and its config (layer structure, cross-attention schedule, gate parametrization, training recipe), identify which Flamingo-lineage elements it uses and diagnose common symptoms of mis-set gating.

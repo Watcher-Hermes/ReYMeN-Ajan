@@ -140,3 +140,80 @@ def medya_yukle(dosya_yolu: str, token: str = None, phone_id: str = None) -> dic
 def ping() -> bool:
     """Ortak modulun calistigini kontrol eder."""
     return True
+
+
+import re as _re
+
+
+def format_message(mesaj):
+    if mesaj is None:
+        return None
+    if mesaj == "":
+        return ""
+    # Preserve code blocks
+    parts = _re.split(r'(```[\s\S]*?```)', mesaj)
+    result = []
+    for i, part in enumerate(parts):
+        if i % 2 == 1:  # code block
+            result.append(part)
+        else:
+            p = part
+            p = _re.sub(r'\*\*(.+?)\*\*', r'*\1*', p)
+            p = _re.sub(r'~~(.+?)~~', r'~\1~', p)
+            p = _re.sub(r'^# (.+)$', r'*\1*', p, flags=_re.MULTILINE)
+            p = _re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'\1 (\2)', p)
+            result.append(p)
+    return "".join(result)
+
+
+def numara_normalize(numara):
+    if not numara:
+        return ""
+    return _re.sub(r'[\+\s\-\(\)]', '', numara)
+
+
+def jid_to_wa_id(jid):
+    if not jid:
+        return ""
+    return jid.split("@")[0]
+
+
+def is_broadcast_chat(jid):
+    if not jid:
+        return False
+    return jid.endswith("@broadcast") or jid.endswith("@newsletter")
+
+
+def dm_izinli(numara, policy, allowlist=None):
+    if policy == "open":
+        return True
+    if policy == "disabled":
+        return False
+    if policy == "allowlist":
+        return numara in (allowlist or set())
+    return False
+
+
+def grup_izinli(grup_id, policy, allowlist=None):
+    return dm_izinli(grup_id, policy, allowlist)
+
+
+def mention_patterns_derle(pattern_str):
+    if not pattern_str:
+        return []
+    try:
+        return [_re.compile(pattern_str)]
+    except _re.error:
+        return []
+
+
+def mesaj_mention_iceriyor(body, bot_id, patterns=None):
+    if not body:
+        return False
+    if f"@{bot_id}" in body:
+        return True
+    if patterns:
+        for p in patterns:
+            if p.search(body):
+                return True
+    return False

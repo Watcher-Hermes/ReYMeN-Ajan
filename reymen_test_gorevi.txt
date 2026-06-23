@@ -1,0 +1,40 @@
+REYMEN TEST GOREVI — COK KAYNAKLI ARAS+TIRMA + RAPOR
+
+Görevi ReYMeN bot'a aynen kopyala-yapıştır yap:
+
+---- KOPYALA BASLA ----
+
+Türkiye'deki son 3 yapay zeka girişimini (2026) araştır. Her biri için 5N1K tablosu çıkar (Kim, Ne, Nerede, Ne Zaman, Neden, Nasıl). En güçlü/yenilikçi olanı puanla (10 üzerinden). Raporu AI_girisimleri_raporu.md olarak kaydet. Şu adımları izle:
+
+1. Web'den güncel Türk AI girişimlerini ara (web scraping)
+2. Bulduğun her girişim için detaylı bilgi topla
+3. 5N1K formatında tablo oluştur
+4. Puanla (teknik, yenilik, yatırım, etki kriterlerine göre)
+5. Raporu dosyaya kaydet
+6. Özet tabloyu buraya yaz
+
+---- KOPYALA BITTI ----
+
+ALTERNATIF (daha teknik):
+
+---- KOPYALA BASLA ----
+
+Hermes Agent ile ReYMeN Agent'i karşılaştırmalı analiz et:
+
+Kategoriler:
+- Dosya yapısı ve mimari
+- Çalışma döngüsü (conversation_loop vs ReAct)
+- Hafıza sistemi (OnceHafiza, GorevHafiza)
+- Tool/motor mantığı
+- Hata yönetimi (circuit breaker, retry)
+- Skill yönetimi
+- Öğrenme döngüsü (self-improvement)
+
+Her kategori için:
+- Kimde var / kimde yok
+- Varsa nasıl çalışıyor (kısa)
+- Puan (1-10)
+
+Sonuç: toplam puan, hangisi hangi konuda daha iyi, tablo halinde raporla. decisions.md'ye işle.
+
+---- KOPYALA BITTI ----

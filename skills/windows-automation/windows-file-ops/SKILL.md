@@ -5,13 +5,13 @@ tags: [automation, windows]
 description: Windows'ta dosya/klasör oluşturma, açma ve yönetme işlemleri. Uzantı kuralları, Notepad/uygulama seçimi, dosya yolu yönetimi.
 version: 1.0.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [windows, dosya, file, notepad, uzanti]
 audience: user
 related_skills: [tam-sistem-yetkisi, windows-automation-shortcuts]
+---
 ---
 
 # Windows Dosya İşlemleri (windows-file-ops)

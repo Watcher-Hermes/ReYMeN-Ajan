@@ -8,12 +8,12 @@ description: >
   günceller ve sonucu Telegram'a bildirir. Her gece 02:00'de çalışır.
 version: 1.0.0
 author: hermes-agent
-license: MIT
 metadata:
   hermes:
     tags: [nightly, self-improvement, cron, obsidian, skill-maintenance]
 audience: user
 related_skills: [obsidian-vault-kurallari, hermes-agent, telegram-gateway-monitor]
+---
 ---
 
 # Nightly Self-Improvement

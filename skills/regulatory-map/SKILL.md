@@ -3,11 +3,10 @@ name: regulatory-map
 description: Map a deployment's AI regulatory obligations across EU, US, UK, Korea.
 title: "Regulatory Map"
 version: 1.0.0
-phase: 18
-lesson: 24
 tags: [eu-ai-act, gpai-code, caisi, uk-aisi, korean-framework-act]
 category: regulatory-map
 audience: user
+---
 ---
 
 Given a deployment description (provider jurisdiction, infrastructure jurisdiction, user jurisdiction), map the applicable AI regulatory obligations.

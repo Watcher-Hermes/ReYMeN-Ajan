@@ -3,11 +3,10 @@ name: skill-frame-sampler-auditor
 description: Audit a video pipeline's frame sampler for off-by-one, short-clip handling, and crop consistency
 title: "Skill Frame SAMpler Auditor"
 version: 1.0.0
-phase: 4
-lesson: 12
 tags: [computer-vision, video, sampling, debugging]
 category: skill-frame-sampler-auditor
 audience: user
+---
 ---
 
 # Frame Sampler Auditor

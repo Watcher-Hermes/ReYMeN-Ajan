@@ -3,11 +3,10 @@ name: skill-imbalanced-data
 description: Decision checklist for handling imbalanced classification problems
 title: "Skill Imbalanced Data"
 version: 1.0.0
-phase: 2
-lesson: 17
 tags: [imbalanced-data, smote, class-weights, threshold-tuning, evaluation]
 category: skill-imbalanced-data
 audience: user
+---
 ---
 
 # Imbalanced Data Strategy

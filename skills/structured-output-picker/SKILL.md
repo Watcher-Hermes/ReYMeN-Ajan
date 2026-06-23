@@ -3,11 +3,10 @@ name: structured-output-picker
 description: Choose a structured output approach, schema design, and validation plan.
 title: "Structured Output Picker"
 version: 1.0.0
-phase: 5
-lesson: 20
 tags: [nlp, llm, structured-output]
 category: structured-output-picker
 audience: user
+---
 ---
 
 Given a use case (provider, latency budget, schema complexity, failure tolerance), output:

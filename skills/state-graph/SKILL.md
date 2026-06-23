@@ -3,11 +3,10 @@ name: state-graph
 description: Build a LangGraph-shaped state machine with typed state, conditional edges, per-node checkpointing, and durable resume.
 title: "State Graph"
 version: 1.0.0
-phase: 14
-lesson: 13
 tags: [langgraph, state-machine, durable, checkpointing, human-in-the-loop]
 category: state-graph
 audience: user
+---
 ---
 
 Given a target runtime, a state shape, a set of node functions, and a checkpointer backend, produce a stateful agent graph.

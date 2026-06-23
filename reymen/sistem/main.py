@@ -161,10 +161,7 @@ try:
 except ImportError:
     _ReflexionMotoru = None
 
-try:
-    from anayasa_denetci import AnayasaDenetci as _AnayasaDenetci
-except ImportError:
-    _AnayasaDenetci = None
+_AnayasaDenetci = None  # anayasa denetimi kaldırıldı
 
 try:
     from oz_tutarlilik import OzTutarlilikDenetci as _OzTutarlilikDenetci
@@ -491,6 +488,36 @@ class AIAgentOrchestrator:
 
     # ── Ana ReAct dongusu ─────────────────────────────────────────────
 
+    # ── Gorev siniflandirici ───────────────────────────────────────────────
+    _SELAM_KELIMELER = {"slm", "selam", "merhaba", "hey", "hi", "hello", "sa", "sea", "selamun aleyküm"}
+    _SOHBET_KELIMELER = {"nasılsın", "naber", "nbr", "iyi", "kötü", "teşekkür", "tesekkur", "sağol", "sagol", "bye", "görüşürüz", "gorusuruz"}
+    _BILGI_KELIMELER = {"nedir", "kimdir", "nerede", "ne zaman", "nasıl yapılır", "ara", "bul", "sorgula", "kaç", "ne kadar", "fiyat"}
+    _SKILL_KELIMELER = {"skill", "beceri", "yetenek", "katalog", "ne yapabilirsin", "yeteneğin"}
+    _DOSYA_KELIMELER = {"dosya", "klasör", "kaydet", "oluştur", "sil", "kopyala", "taşı", "oku", "yaz"}
+
+    def _gorev_siniflandir(self, hedef: str) -> str:
+        """Hedef metnini siniflandir: selam, sohbet, bilgi, skill, dosya, karmasik."""
+        h = hedef.lower().strip()
+        # Selam (en kisa)
+        if h in self._SELAM_KELIMELER or h.rstrip("!?.,") in self._SELAM_KELIMELER:
+            return "selam"
+        # Sohbet (kisa, kisisel)
+        if any(k in h for k in self._SOHBET_KELIMELER) and len(h) < 30:
+            return "sohbet"
+        # Skill sorgu
+        if any(k in h for k in self._SKILL_KELIMELER):
+            return "skill"
+        # Bilgi sorgu
+        if any(k in h for k in self._BILGI_KELIMELER):
+            return "bilgi"
+        # Dosya islemi
+        if any(k in h for k in self._DOSYA_KELIMELER):
+            return "dosya"
+        # Varsayilan: chat/konusma (hizli mod)
+        if len(h) < 100:
+            return "sohbet"
+        return "karmasik"
+
     def run_conversation(self, hedef):
         import time as _time
         _t_baslat = _time.time()
@@ -512,6 +539,23 @@ class AIAgentOrchestrator:
                 "kaynak": kaynak,
             }
         # ──────────────────────────────────────────────────────────────────
+
+        # ── GOREV SINIFLANDIRMA + AKILLI ROUTING ────────────────────
+        _gorev_tipi = self._gorev_siniflandir(hedef)
+        # Selam/sohbet → direkt API (prompt assembly + tool zinciri atlanir)
+        if _gorev_tipi in ("selam", "sohbet"):
+            try:
+                hizli_prompt = "Kisa ve oz cevap ver. Turkce konus."
+                yanit = self.provider.uret(
+                    hizli_prompt,
+                    [{"role": "user", "content": hedef}],
+                )
+                if yanit and yanit.strip():
+                    print("\n\x1b[92m❯ ReYMeN\x1b[0m")
+                    print(yanit.strip())
+                    return {"output": yanit.strip(), "exit_code": 0}
+            except Exception:
+                pass  # hata olursa normal akisa devam
 
         # Iteration budget — once karmasiklik belirle, sonra goruntu karar ver
         if self.budget:
@@ -851,7 +895,7 @@ class AIAgentOrchestrator:
                                 _fc_esc = _fc_metin.replace("\\", "\\\\").replace('"', '\\"')
                                 cevap = f'GOREV_BITTI("{_fc_esc}")'
                             else:
-                                cevap = ""  # boş yanıt → metin moduna
+                                cevap = None  # boş yanıt → metin moduna (text fallback'e geç)
 
                     except Exception as _fc_err:
                         print(f"[FC] Hata ({type(_fc_err).__name__}): {_fc_err} → metin moduna geçildi.")
@@ -914,8 +958,13 @@ class AIAgentOrchestrator:
                 continue
 
             if not arac:
-                print("[Uyari] Eylem ayristirilamadi.")
-                break
+                if cevap and cevap.strip():
+                    # LLM düz metin yazdı (ReAct formatı yok) → GOREV_BITTI'ye çevir
+                    _fc_esc = cevap.strip().replace("\\", "\\\\").replace('"', '\\"')
+                    arac, ham = "GOREV_BITTI", f'"{_fc_esc}"'
+                else:
+                    print("[Uyari] Eylem ayristirilamadi — boş cevap.")
+                    break
 
             # Tekrar korumasi
             if tur >= 2 and arac == onceki_eylem and ham == onceki_param:
@@ -928,15 +977,6 @@ class AIAgentOrchestrator:
             if arac == "GOREV_BITTI":
                 ozet = self._param_oku(ham)
 
-                # Anayasa denetimi: yalnizca teknik/riskli gorevlerde (karmasiklik >= 3)
-                _karmasiklik = analiz.get("karmasiklik", 1) if isinstance(analiz, dict) else 1
-                if self.anayasa and _karmasiklik >= 3:
-                    try:
-                        _gecti, _son_ozet = self.anayasa.denetle(hedef, ozet, adim_gecmisi)
-                        if not _gecti:
-                            ozet = _son_ozet[:500] if _son_ozet else ozet
-                    except Exception:
-                        pass
 
                 # Yaniti yaz (real stdout'a)
                 _sure_sn = _time.time() - _t_baslat
@@ -1100,6 +1140,35 @@ class AIAgentOrchestrator:
         return None
 
     # ── Yardimci metodlar ─────────────────────────────────────────────
+
+    def _sessiz_onayla_input(self, prompt: str, bekle_sn: int = 180) -> str:
+        """3 dakika bekle, cevap gelmezse sessiz onay say. Sessiz bekler, bildirim gostermez."""
+        import threading
+        import time
+
+        sonuc = [""]
+        girdi_alindi = [False]
+
+        def _girdi_al():
+            try:
+                g = input(prompt).strip()
+                sonuc[0] = g
+                girdi_alindi[0] = True
+            except (EOFError, KeyboardInterrupt):
+                girdi_alindi[0] = True
+                sonuc[0] = "/q"
+
+        t = threading.Thread(target=_girdi_al, daemon=True)
+        t.start()
+
+        # Sessiz bekle — bildirim yok, sayaç yok
+        for _ in range(bekle_sn):
+            if girdi_alindi[0]:
+                return sonuc[0]
+            time.sleep(1)
+
+        # 3 dk doldu → sessiz onay
+        return "onay"  # kullaniciya bildirilmez, sessiz gecer
 
     def _giris_temizle(self, hedef: str) -> str:
         """Kullanici girisini guvenlik katmanindan gecir."""
@@ -1351,7 +1420,7 @@ if __name__ == "__main__":
         _hafiza_bilgi = ""
         if agent and agent.aktif_hafiza_plugin:
             _hafiza_bilgi = f"  Hafıza: {agent.aktif_hafiza_plugin.ad}"
-        print(f"Komutlar: /model  /guncelle  /yansima  /hafiza  /cikis{_hafiza_bilgi}\n")
+        print(f"Komutlar: /model  /think  /json  /sc <görev>  /swarm <görev>  /optimize  /yansima  /hafiza  /cikis{_hafiza_bilgi}\n")
 
     # 5b. Startup bitti — logging'i ac ama gürültülü logger'lari WARNING'de tut
     _startup_log.disable(_startup_log.NOTSET)
@@ -1420,7 +1489,7 @@ if __name__ == "__main__":
                 print(_oz_bildirim)
 
         try:
-            hedef = input("ReYMeN > ").strip()
+            hedef = agent._sessiz_onayla_input("ReYMeN > ", bekle_sn=180)
         except (EOFError, KeyboardInterrupt):
             print("\n[ReYMeN] Görüşürüz.")
             break
@@ -1442,6 +1511,82 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"[/model] Hata: {e}")
             continue
+
+        # ── /think: Extended Thinking (derin muhakeme modu) ───────────────────
+        if hedef.lower().startswith("/think"):
+            arg = hedef[6:].strip().lower()
+            if not hasattr(agent, "_think_budget"):
+                agent._think_budget = 0
+            if arg in ("", "ac", "on"):
+                agent._think_budget = 8000
+                print("[/think] Derin düşünme AÇIK — budget: 8000 token")
+            elif arg in ("kapat", "off"):
+                agent._think_budget = 0
+                print("[/think] Derin düşünme KAPALI")
+            elif arg.isdigit():
+                agent._think_budget = int(arg)
+                print(f"[/think] Budget ayarlandı: {agent._think_budget} token")
+            else:
+                durum = "AÇIK" if getattr(agent, "_think_budget", 0) > 0 else "KAPALI"
+                print(f"[/think] Durum: {durum} | Kullanım: /think [on|off|<token_sayısı>]")
+            continue
+
+        # ── /json: Yapısal JSON çıktı modu ────────────────────────────────────
+        if hedef.lower().startswith("/json"):
+            arg = hedef[5:].strip().lower()
+            if not hasattr(agent, "_json_modu"):
+                agent._json_modu = False
+            if arg in ("", "ac", "on"):
+                agent._json_modu = True
+                print("[/json] JSON modu AÇIK — yanıtlar JSON formatında")
+            elif arg in ("kapat", "off"):
+                agent._json_modu = False
+                print("[/json] JSON modu KAPALI")
+            else:
+                durum = "AÇIK" if getattr(agent, "_json_modu", False) else "KAPALI"
+                print(f"[/json] Durum: {durum} | Kullanım: /json [on|off]")
+            continue
+
+        # ── /sc: Self-Consistency (çoklu plan üret, en iyisini seç) ──────────
+        if hedef.lower().startswith("/sc "):
+            gercek_hedef = hedef[4:].strip()
+            if not gercek_hedef:
+                print("[/sc] Kullanım: /sc <görev>")
+            else:
+                try:
+                    from reymen.cereyan.oz_tutarlilik import OzTutarlilikDenetci
+                    sc = OzTutarlilikDenetci(provider=agent.provider)
+                    sistem = getattr(agent, "sistem_prompt", "")
+                    msgs = [{"role": "user", "content": gercek_hedef}]
+                    print("[/sc] 3 farklı plan üretiliyor, en iyisi seçiliyor...")
+                    en_iyi = sc.en_iyi_plani_sec(gercek_hedef, sistem, msgs, n=3)
+                    if en_iyi:
+                        print(f"[/sc] En iyi plan:\n{en_iyi}")
+                        hedef = f"Şu planı uygula:\n{en_iyi}"
+                    else:
+                        print("[/sc] Plan seçilemedi, normal devam ediliyor.")
+                except ImportError:
+                    print("[/sc] oz_tutarlilik modülü yüklenemedi.")
+            if hedef.startswith("/sc "):
+                continue
+
+        # ── /swarm: Çoklu ajan orkestrasyonu ──────────────────────────────────
+        if hedef.lower().startswith("/swarm "):
+            gercek_hedef = hedef[7:].strip()
+            if not gercek_hedef:
+                print("[/swarm] Kullanım: /swarm <karmaşık görev>")
+                continue
+            try:
+                from reymen.cereyan.ajan_suru import AjanSurusu
+                suru = AjanSurusu(provider=agent.provider)
+                print("[/swarm] Mimar+Geliştirici+Denetçi ajan sürüsü başlatılıyor...")
+                genis_plan = suru.calistir(gercek_hedef, list(agent.motor._araclar.keys()) if hasattr(agent.motor, "_araclar") else [])
+                if genis_plan:
+                    print(f"[/swarm] Plan hazır:\n{genis_plan[:500]}")
+                    hedef = f"Şu planı adım adım uygula:\n{genis_plan}"
+            except ImportError:
+                print("[/swarm] ajan_suru modülü yüklenemedi.")
+                continue
 
         # FAZ 6 — /yansima komutu: oz yansima logunu goster
         if hedef.lower() == "/yansima":

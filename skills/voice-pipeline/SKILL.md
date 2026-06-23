@@ -3,11 +3,10 @@ name: voice-pipeline
 description: Scaffold a Pipecat-shaped voice pipeline (VAD + STT + LLM + TTS + transport) with barge-in, confidence gating, and latency budget enforcement.
 title: "Voice Pipeline"
 version: 1.0.0
-phase: 14
-lesson: 22
 tags: [voice, pipecat, livekit, webrtc, latency]
 category: voice-pipeline
 audience: user
+---
 ---
 
 Given a voice product spec (language, transport, providers), scaffold a frame-based pipeline.

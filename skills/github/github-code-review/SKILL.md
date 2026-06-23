@@ -6,13 +6,13 @@ tags: [development, git, github]
 description: "Review PRs: diffs, inline comments via gh or REST."
 version: 1.1.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [GitHub, Code-Review, Pull-Requests, Git, Quality]
 audience: contributor
 related_skills: [github-auth, github-pr-workflow]
+---
 ---
 
 # Github Code Review

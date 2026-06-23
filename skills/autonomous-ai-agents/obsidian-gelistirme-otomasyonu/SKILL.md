@@ -8,12 +8,12 @@ description: >
   yeni konu araştır ve bilgi ekle.
 version: 1.0.0
 author: marko
-license: MIT
 metadata:
   hermes:
     tags: [obsidian, gelistirme, tor, otomasyon, arastirma]
 audience: user
 related_skills: [tor-browser-arama, obsidian]
+---
 ---
 
 # Obsidian Geliştirme Otomasyonu

@@ -3,11 +3,10 @@ name: injection-defense
 description: Build a PVE (Prompt-Validator-Executor) layer with source-tagged content, injection-marker scanning, and allowlist navigation for any agent runtime.
 title: "Injection Defense"
 version: 1.0.0
-phase: 14
-lesson: 27
 tags: [security, prompt-injection, pve, greshake, source-tag]
 category: injection-defense
 audience: user
+---
 ---
 
 Given an agent with tool access and retrieval, produce an injection-defense layer.

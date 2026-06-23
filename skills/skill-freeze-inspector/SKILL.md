@@ -3,11 +3,10 @@ name: skill-freeze-inspector
 description: Report which parameters are trainable, which BatchNorm layers are in eval mode, and whether the optimizer is actually consuming the trainable parameters
 title: "Skill Freeze Inspector"
 version: 1.0.0
-phase: 4
-lesson: 5
 tags: [computer-vision, transfer-learning, debugging, pytorch]
 category: skill-freeze-inspector
 audience: user
+---
 ---
 
 # Freeze Inspector

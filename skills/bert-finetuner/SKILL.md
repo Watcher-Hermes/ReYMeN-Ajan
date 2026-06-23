@@ -3,11 +3,10 @@ name: bert-finetuner
 description: Scope a BERT fine-tune for a new classification, extraction, or retrieval task.
 title: "Bert Finetuner"
 version: 1.0.0
-phase: 7
-lesson: 6
 tags: [bert, fine-tuning, nlp]
 category: bert-finetuner
 audience: user
+---
 ---
 
 Given a downstream task (classification / NER / retrieval / reranking / NLI), labeled data size, and deployment constraints (latency, device), output:

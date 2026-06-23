@@ -31,8 +31,8 @@
 | **CLI** | 100% | ✅ cli, dispatcher, skill_cli |
 | **Öğrenme** | 100% | ✅ closed_learning_loop, conversation_loop |
 | **Test** | 99% | 8720 test 0 error (core), 1755/1755 syntax OK |
-| **Kod Kalitesi** | 100% | ✅ 0 bare except, 0 BOM, 1 TODO (watcher) |
-| **Hafıza** | 100% | ✅ MEMORY.md cleaned (58 noise entries removed), gateway.pid deleted |
+| **Kod Kalitesi** | 100% | ✅ 0 bare except, 0 BOM (5 temizlendi), 1 TODO (watcher) |
+| **Hafıza** | 100% | ✅ MEMORY.md clean, `conversation_loop.py` BOM hatası düzeltildi |
 | **Hız** | 100% | ✅ Pycache: 77.3MB freed (250 dirs), 444 big files |
 | **Platform** | -2 | Discord, Desktop eksik (Slack aktif) |
 
@@ -41,7 +41,7 @@
 ReYMeN = 99/100 skor. Kalan:
 - **Platform** (-2): Discord, Desktop/TUI eklenmeli
 - Normal rotasyon: 1. tur tamam ✅ (Hafıza→Planlama→Kod→Hız→Hata)
-  ➡️ 4. tur — Alan 1 Hafıza ✅ → Alan 2 Planlama ✅ (İt. 20) → Alan 3 Kod kalitesi ✅ (İt. 21) → **Alan 4 Hız ✅** (İt. 22) → 🔜 **Hata düzeltme**
+    ➡️ 8. tur — Alan 1 Hafıza ✅ → Alan 2 Planlama ✅ → Alan 3 Kod ✅ → Alan 4 Hız ✅ → **Alan 5 Hata ✅** (İt. 28) → **Alan 6 Hafıza ✅** (İt. 29) → 🔜 **9. tur Alan 1 Hafıza**
 
 ## 📞 İletişim
 

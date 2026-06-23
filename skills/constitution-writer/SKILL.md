@@ -3,11 +3,10 @@ name: constitution-writer
 description: Draft a four-tier constitution for a domain-specific AI system.
 title: "Constitution Writer"
 version: 1.0.0
-phase: 18
-lesson: 5
 tags: [constitutional-ai, rlaif, principles, claude, governance]
 category: constitution-writer
 audience: user
+---
 ---
 
 Given a domain (customer support, medical advice, coding assistant, research tool, recruiting) and the deployment target (internal, consumer, enterprise API), draft a four-tier constitution following the 2026 Claude structure, and provide sample critique prompts for phase 1 of a CAI pipeline.

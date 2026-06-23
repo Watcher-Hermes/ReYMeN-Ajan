@@ -5,13 +5,13 @@ tags: [ai, productivity, screen]
 description: "OS-level screenshot and capture tooling for desktop, window, and region captures. Camera hardware capture is delegated to `camera-capture`."
 version: 1.2.0
 author: marko
-license: MIT
 platforms: [windows]
 metadata:
   hermes:
     tags: [screenshot, desktop, capture, windows, keyboard shortcut]
 audience: user
 related_skills: [windows-system-automation, obsidian, gorsel-onaylama]
+---
 ---
 
 # Screenshot Capture

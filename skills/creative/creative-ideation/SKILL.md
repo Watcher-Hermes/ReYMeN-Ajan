@@ -4,7 +4,6 @@ title: Creative Ideation — Constraint-Driven Project Generation
 description: "Generate project ideas via creative constraints."
 version: 1.0.0
 author: SHL0MS
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -12,6 +11,7 @@ metadata:
     category: creative
 audience: user
     requires_toolsets: []
+---
 ---
 
 # Creative Ideation

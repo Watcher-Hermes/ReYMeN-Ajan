@@ -5,7 +5,6 @@ title: "Markdown Viewer"
 tags: [general]
 version: 1.0.0
 author: Ekko
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -15,6 +14,7 @@ category: markdown-viewer
 audience: user
 prerequisites:
   commands: [node, npx]
+---
 ---
 
 # Markdown Viewer

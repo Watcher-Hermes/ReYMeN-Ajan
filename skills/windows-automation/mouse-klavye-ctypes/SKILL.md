@@ -4,11 +4,11 @@ title: "ReYMeN Mouse + Klavye Kontrolü (v5)"
 description: "Windows'ta fare ve klavye kontrolü — ctypes ile (bağımlılıksız, Win32 API). ReYMeN'ten uygulama açma, element tıklama, menü gezinme, metin yazma, otonom akış yürütme, ekran görüntüsü alma."
 version: 5.0.0
 author: marko
-license: MIT
 platforms: [windows]
 audience: user
 tags: [mouse, click, keyboard, scroll, sweep, ctypes, win32, automation, windows, element, uia, workflow, screenshot]
 related_skills: [tam-sistem-yetkisi, screen-vision-analiz, windows-automation-shortcuts]
+---
 ---
 
 # ReYMeN Mouse + Klavye Kontrolü (v5)

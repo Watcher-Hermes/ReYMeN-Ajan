@@ -3,11 +3,10 @@ name: primitive-mapper
 description: Map any multi-agent framework or codebase to the four primitive axes (agent, handoff, shared state, orchestrator).
 title: "PRimitive Mapper"
 version: 1.0.0
-phase: 16
-lesson: 04
 tags: [multi-agent, primitives, framework-comparison, architecture]
 category: primitive-mapper
 audience: user
+---
 ---
 
 Given a multi-agent framework (or a codebase that uses one), produce the four-primitive mapping so the reader can understand the framework in one paragraph.

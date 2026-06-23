@@ -3,11 +3,10 @@ name: simulation-designer
 description: Design a generative-agent simulation (Smallville-style) for a given scenario. Specifies memory schema, reflection cadence, plan horizon, spatial/social constraints, and evaluation metrics.
 title: "Simulation Designer"
 version: 1.0.0
-phase: 16
-lesson: 17
 tags: [multi-agent, simulation, generative-agents, emergence, memory]
 category: simulation-designer
 audience: user
+---
 ---
 
 Given a scenario that requires emergent behavior from a population of agents (social simulation, game NPCs, policy rehearsal, market dynamics), design the simulation.

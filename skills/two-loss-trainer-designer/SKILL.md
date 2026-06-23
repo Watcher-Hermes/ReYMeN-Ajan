@@ -3,11 +3,10 @@ name: two-loss-trainer-designer
 description: Design a Transfusion / MMDiT-style two-loss training setup (NTP on one modality, diffusion on another) with loss weights, mask design, and schedule.
 title: "Two Loss Trainer Designer"
 version: 1.0.0
-phase: 12
-lesson: 13
 tags: [transfusion, mmdit, two-loss, flow-matching, hybrid-attention]
 category: two-loss-trainer-designer
 audience: user
+---
 ---
 
 Given a multimodal training spec (two modalities, which gets NTP and which gets diffusion, target model scale, target sample length), design a working two-loss setup.

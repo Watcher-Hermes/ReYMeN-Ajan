@@ -3,11 +3,10 @@ name: wmdp-eval
 description: Audit a dual-use capability claim against WMDP, unlearning evaluation, and elicitation studies.
 title: "Wmdp Eval"
 version: 1.0.0
-phase: 18
-lesson: 17
 tags: [wmdp, rmu, dual-use, biosecurity, cybersecurity, chemistry]
 category: wmdp-eval
 audience: user
+---
 ---
 
 Given a dual-use capability claim ("our model does not meaningfully help with bioweapons / cyberattack / chemistry"), audit the supporting evaluation.

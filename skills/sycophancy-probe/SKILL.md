@@ -3,11 +3,10 @@ name: sycophancy-probe
 description: Generate matched user-belief / third-party-belief prompts and score a model's sycophancy.
 title: "Sycophancy PRobe"
 version: 1.0.0
-phase: 18
-lesson: 4
 tags: [sycophancy, rlhf, evaluation, calibration]
 category: sycophancy-probe
 audience: user
+---
 ---
 
 Given a model endpoint and a set of factual questions (with known true and false answers), produce matched user-belief / third-party-belief prompt pairs, query the model, and compute a sycophancy score with confidence interval.

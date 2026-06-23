@@ -3,11 +3,10 @@ name: feedback-runner
 description: Wrap shell commands with deterministic stdout/stderr/exit/duration capture, persist a JSONL record per command, and refuse to advance the agent loop when feedback is missing.
 title: "Feedback Runner"
 version: 1.0.0
-phase: 14
-lesson: 37
 tags: [feedback, subprocess, runner, jsonl, loop-control]
 category: feedback-runner
 audience: user
+---
 ---
 
 Given a project that runs shell commands inside an agent loop, produce a feedback runner and the JSONL it writes.

@@ -3,11 +3,10 @@ name: skill-rag-pipeline
 description: Build and debug RAG pipelines from first principles
 title: "Skill RAG Pipeline"
 version: 1.0.0
-phase: 11
-lesson: 6
 tags: [rag, retrieval, embeddings, vector-search, llm-engineering]
 category: skill-rag-pipeline
 audience: user
+---
 ---
 
 # RAG Pipeline Pattern

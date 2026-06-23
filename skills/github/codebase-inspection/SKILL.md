@@ -5,7 +5,6 @@ tags: [development, git, github]
 description: "Inspect codebases w/ pygount: LOC, languages, ratios."
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
@@ -14,6 +13,7 @@ audience: contributor
 related_skills: [github-repo-management]
 prerequisites:
   commands: [pygount]
+---
 ---
 
 # Codebase Inspection with pygount

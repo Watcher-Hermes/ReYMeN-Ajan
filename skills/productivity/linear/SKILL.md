@@ -5,7 +5,6 @@ description: "Linear: manage issues, projects, teams via GraphQL + curl."
 title: "Linear"
 version: 1.0.0
 author: ReYMeN Agent
-license: MIT
 platforms: [linux, macos, windows]
 prerequisites:
   env_vars: [LINEAR_API_KEY]
@@ -16,6 +15,7 @@ metadata:
 category: productivity
 audience: user
 tags: [productivity, tools]
+---
 ---
 
 # Linear

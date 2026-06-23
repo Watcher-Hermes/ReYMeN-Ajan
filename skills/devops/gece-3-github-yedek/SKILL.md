@@ -8,12 +8,12 @@ description: >-
   backup scripti ile skills+state.db+memory.
 version: 3.0.0
 author: marko
-license: MIT
 audience: maintainer
 related_skills:
   - github-auth
   - obsidian-vault-kurallari
   - tam-sistem-yetkisi
+---
 ---
 
 # GitHub Yedekleme

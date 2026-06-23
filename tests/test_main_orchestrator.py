@@ -31,20 +31,34 @@ def fresh_main():
         sys.stdout = old_out
         sys.stderr = old_err
 
-    # Ana siniflari MagicMock ile degistir
-    for _name in [
+    _mock_names = [
         "RuntimeProvider", "ContextCompressor", "BoundedMemory",
         "ClosedLearningLoop", "PromptAssemblyEngine", "AdvancedSessionStorage",
         "Motor", "Planlayici", "InsanArayuzu",
-    ]:
+    ]
+    # Ana siniflari MagicMock ile degistir
+    for _name in _mock_names:
         setattr(m, _name, MagicMock(name=_name))
 
     # vektorel_hafiza fonksiyonlari
     m.tecrube_kaydet = MagicMock(name="tecrube_kaydet")
     m.anlamsal_hafiza_ara = MagicMock(return_value="")
+    m.vektorel_hafiza_sistemini_kur = MagicMock(
+        name="vektorel_hafiza_sistemini_kur", return_value=MagicMock()
+    )
+
+    # Ic modulu de patch'le (AIAgentOrchestrator metotlari ic modul namespace'ini kullanir)
+    _inner = sys.modules.get("_reymen_sistem_main")
+    if _inner:
+        for _name in _mock_names:
+            if hasattr(_inner, _name):
+                setattr(_inner, _name, getattr(m, _name))
+        _inner.tecrube_kaydet = m.tecrube_kaydet
+        _inner.anlamsal_hafiza_ara = m.anlamsal_hafiza_ara
+        _inner.vektorel_hafiza_sistemini_kur = m.vektorel_hafiza_sistemini_kur
 
     # Opsiyonel modulleri kapat
-    for _attr in [
+    _optional_attrs = [
         "IterationBudget", "PromptBuilder", "Trajectory",
         "_GUARDRAILS_VAR", "HITLSikistirici", "motor_hitl_yamas_uygula",
         "HallucinationFiltresi", "ConversationCompressor",
@@ -56,10 +70,26 @@ def fresh_main():
         "_REYMEN_CLI", "_GATEWAY", "_PLUGINS", "_CRON",
         "_TUI_GATEWAY", "_ACP_ADAPTER", "_LLM_PROVIDER",
         "_NOTION_WRITER", "_TELEGRAM_BOT", "_DASHBOARD",
-    ]:
+    ]
+    for _attr in _optional_attrs:
         setattr(m, _attr, None)
+    if _inner:
+        for _attr in _optional_attrs:
+            if hasattr(_inner, _attr):
+                setattr(_inner, _attr, None)
 
     yield m
+
+    # Teardown: ic modulu restore et
+    if _inner:
+        try:
+            import importlib as _il
+            _orig = _il.import_module("reymen.sistem.main")
+            for _name in _mock_names:
+                if hasattr(_orig, _name):
+                    setattr(_inner, _name, getattr(_orig, _name))
+        except Exception:
+            pass
     sys.modules.pop("main", None)
 
 
@@ -272,10 +302,14 @@ def test_18_onay_iste_true(fresh_main):
 def test_19_ogren(agent):
     """19. _ogren — side-effect: tecrube_kaydet + beceri_kristallestir."""
     m = __import__("main")
-    m.tecrube_kaydet = MagicMock()
+    mock_kaydet = MagicMock()
+    m.tecrube_kaydet = mock_kaydet
+    _inner = sys.modules.get("_reymen_sistem_main")
+    if _inner:
+        _inner.tecrube_kaydet = mock_kaydet
     r = agent._ogren("test", ["ADIM"], "Basarili")
     assert r is None
-    m.tecrube_kaydet.assert_called_once()
+    mock_kaydet.assert_called_once()
     agent.learning.beceri_kristallestir.assert_called_once()
 
 
@@ -361,9 +395,13 @@ def test_giris_temizle_fallback(fresh_main):
 def test_ogren_bos_adim_gecmisi(agent):
     """_ogren — bos adim_gecmisi: kristallestir cagrilmaz."""
     m = __import__("main")
-    m.tecrube_kaydet = MagicMock()
+    mock_kaydet = MagicMock()
+    m.tecrube_kaydet = mock_kaydet
+    _inner = sys.modules.get("_reymen_sistem_main")
+    if _inner:
+        _inner.tecrube_kaydet = mock_kaydet
     agent._ogren("basit", [], "sonuc")
-    m.tecrube_kaydet.assert_called()
+    mock_kaydet.assert_called()
     agent.learning.beceri_kristallestir.assert_not_called()
 
 
@@ -399,8 +437,16 @@ def test_run_conversation_tekrarlanan_eylem(agent):
     agent.learning.beceri_kristallestir = MagicMock()
     agent.max_tur = 10
     m = __import__("main")
-    m.tecrube_kaydet = MagicMock()
+    mock_kaydet = MagicMock()
+    m.tecrube_kaydet = mock_kaydet
     m.anlamsal_hafiza_ara = MagicMock(return_value="")
+    _inner = sys.modules.get("_reymen_sistem_main")
+    if _inner:
+        _inner.tecrube_kaydet = mock_kaydet
+        _inner.anlamsal_hafiza_ara = m.anlamsal_hafiza_ara
+        _inner._get_once_hafiza = MagicMock(
+            return_value=MagicMock(hafizada_ara=MagicMock(return_value=None))
+        )
     result = agent.run_conversation("test")
     assert isinstance(result, str)
     assert "DOSYA_YAZ" in result
@@ -423,9 +469,13 @@ def test_init_varsayilanlar(fresh_main):
 def test_tecrube_kayit_id(agent):
     """_ogren — tecrube kayit id hash tabanli."""
     m = __import__("main")
-    m.tecrube_kaydet = MagicMock()
+    mock_kaydet = MagicMock()
+    m.tecrube_kaydet = mock_kaydet
+    _inner = sys.modules.get("_reymen_sistem_main")
+    if _inner:
+        _inner.tecrube_kaydet = mock_kaydet
     agent._ogren("test hedef", ["ADIM"], "sonuc")
-    args = m.tecrube_kaydet.call_args[0]
+    args = mock_kaydet.call_args[0]
     assert args[1].startswith("tecrube-")
 
 

@@ -3,11 +3,10 @@ name: hybrid-memory
 description: Generate a Mem0-shaped three-store memory system (vector + KV + graph) with a fusion scorer, scope taxonomy, and temporal invalidation.
 title: "Hybrid Memory"
 version: 1.0.0
-phase: 14
-lesson: 09
 tags: [memory, mem0, vector, graph, kv, fusion, scope]
 category: hybrid-memory
 audience: user
+---
 ---
 
 Given a target runtime, a vector backend (Qdrant, pgvector, Chroma, sqlite-vec), a KV backend (Postgres, Redis, dict), and a graph backend (Neo4j, in-memory edges), produce a fused memory system.
