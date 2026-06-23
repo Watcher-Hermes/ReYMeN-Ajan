@@ -144,6 +144,7 @@ class IterationBudget:
         anahtarlar = [
             "dosya", "web", "kod", "calistir", "ara", "yaz", "oku",
             "sil", "guncelle", "indir", "yukle", "kur", "tara",
+            "git", "push", "commit", "github", "repo", "branch",
         ]
         sayac = sum(1 for k in anahtarlar if k in hedef)
         if _cok_adim:

@@ -229,8 +229,12 @@ class Motor:
             "kopru",
             # LSP (Language Server Protocol)
             "tools.lsp_tool",
-            # CUA (Computer Use Agent)
+            # CUA (Computer Use Agent) — vision model gerektirir
             "cua_motor_araci",
+            # Windows otomasyon — vision modelsiz, subprocess+pyautogui
+            "reymen.arac.windows_otomasyon",
+            # Windows akıl — kısayol DB, UI element, menü, insan gibi planlama
+            "reymen.arac.windows_akil",
             # MCP (Model Context Protocol)
             "tools.mcp_tool",
             # Personality (kisilik sistemi)
@@ -482,6 +486,8 @@ class Motor:
             "PYTHON_CALISTIR", "WEB_ARA", "TARAYICI_AC", "IC_GOZLEM",
             "HAFIZA_ARA", "PARALLEL_CALISTIR", "SKILL_ARA", "SKILL_AKTIVAT",
             "SKILL_KATEGORILER", "SKILL_SCRIPT", "ARAC_URET", "GUVENLI_CALISTIR",
+            "GIT_COMMIT", "GIT_PUSH", "GIT_PULL", "GIT_DURUM", "GIT_EKLE",
+            "GATEWAY_BASLAT", "GATEWAY_DURDUR", "GATEWAY_DURUM",
         }
         for satir in llm_cikti.splitlines():
             satir_s = satir.strip()
@@ -1450,6 +1456,62 @@ class Motor:
                 return "\n".join(satirlar)
             except Exception as e:
                 return f"[GATEWAY_DURUM] Hata: {e}"
+
+        # ── Git / Versiyon Kontrol Araçları ─────────────────────────────
+        if arac in ("GIT_COMMIT", "GIT_PUSH", "GIT_PULL", "GIT_DURUM", "GIT_EKLE"):
+            import subprocess as _sp
+            import shutil as _sh
+
+            def _git_calistir(komut: list, cwd: str | None = None) -> str:
+                git_bin = _sh.which("git") or "git"
+                try:
+                    sonuc = _sp.run(
+                        [git_bin] + komut,
+                        capture_output=True, text=True, timeout=60,
+                        cwd=cwd or None,
+                    )
+                    cikti = (sonuc.stdout + sonuc.stderr).strip()
+                    return cikti if cikti else "(cikti yok)"
+                except _sp.TimeoutExpired:
+                    return "[Git] Zaman asimi (60s)"
+                except Exception as _e:
+                    return f"[Git] Hata: {_e}"
+
+            if arac == "GIT_DURUM":
+                dizin = params[0] if params else None
+                durum = _git_calistir(["status", "--short"], cwd=dizin)
+                log = _git_calistir(["log", "--oneline", "-5"], cwd=dizin)
+                return f"[GIT_DURUM]\n{durum}\n\n--- Son 5 commit ---\n{log}"
+
+            if arac == "GIT_EKLE":
+                dosya = params[0] if params else "."
+                dizin = params[1] if len(params) > 1 else None
+                return _git_calistir(["add", dosya], cwd=dizin)
+
+            if arac == "GIT_COMMIT":
+                mesaj = params[0] if params else "Otomatik commit (ReYMeN)"
+                dizin = params[1] if len(params) > 1 else None
+                ekle = _git_calistir(["add", "."], cwd=dizin)
+                commit = _git_calistir(["commit", "-m", mesaj], cwd=dizin)
+                return f"[GIT_COMMIT]\nadd: {ekle}\ncommit: {commit}"
+
+            if arac == "GIT_PUSH":
+                branch = params[0] if params else ""
+                remote = params[1] if len(params) > 1 else "origin"
+                dizin = params[2] if len(params) > 2 else None
+                komut = ["push", remote]
+                if branch:
+                    komut.append(branch)
+                return _git_calistir(komut, cwd=dizin)
+
+            if arac == "GIT_PULL":
+                branch = params[0] if params else ""
+                remote = params[1] if len(params) > 1 else "origin"
+                dizin = params[2] if len(params) > 2 else None
+                komut = ["pull", remote]
+                if branch:
+                    komut.append(branch)
+                return _git_calistir(komut, cwd=dizin)
 
         # ALT_AJAN araçları
         if arac in ("ALT_AJAN_GOREVLENDIR", "ALT_AJAN_DURUM", "ALT_AJAN_IPTAL"):
