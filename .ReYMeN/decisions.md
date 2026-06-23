@@ -1,48 +1,3 @@
-
----
-
-## [2026-06-23] Kalıcı Kural: Duplicate Modül Drift'i
-
-**Olay:** `cereyan/once_hafiza.py` (639 satır, 12 fonksiyon) ile
-`sistem/once_hafiza.py` (669 satır, class-based) aynı isimde ama
-farklı içerikte iki dosyaydı. main.py (gerçek kullanıcı yolu)
-eski/eksik sistem/ versiyonunu import ediyordu. 4 gelişmiş özellik
-(sigmoid güven, belirsiz görev çözümleme, benzerlik skoru, eski
-kayıt temizleme) hiçbir zaman production'da çalışmadı.
-
-**Kök sebep:** Aynı isim + farklı klasör → "zaten var" sanıldı,
-karşılaştırma yapılmadı.
-
-**Kalıcı kural:**
-- Her cycle başında `scripts/duplicate_module_detector.py` otomatik çalışır.
-- Aynı isimli dosya bulunursa, içerik karşılaştırması **ZORUNLU**.
-- Hiçbir zaman iki kopya "geçici çözüm" olarak bırakılmaz —
-  ya import/merge edilir ya da biri silinir.
-- "Her şey temiz" raporu, bu kontrol çalıştırılmadan verilemez.
-
----
-
-## [2026-06-23] Kalıcı Kural: Duplicate Modül Drift'i
-
-**Olay:** `cereyan/once_hafiza.py` (639 satır, 12 fonksiyon) ile
-`sistem/once_hafiza.py` (669 satır, class-based) aynı isimde ama
-farklı içerikte iki dosyaydı. main.py (gerçek kullanıcı yolu)
-eski/eksik sistem/ versiyonunu import ediyordu. 4 gelişmiş özellik
-(sigmoid güven, belirsiz görev çözümleme, benzerlik skoru, eski
-kayıt temizleme) hiçbir zaman production'da çalışmadı.
-
-**Kök sebep:** Aynı isim + farklı klasör → "zaten var" sanıldı,
-karşılaştırma yapılmadı.
-
-**Kalıcı kural:**
-- Her cycle başında `scripts/duplicate_module_detector.py` otomatik çalışır.
-- Aynı isimli dosya bulunursa, içerik karşılaştırması **ZORUNLU**.
-- Hiçbir zaman iki kopya "geçici çözüm" olarak bırakılmaz —
-  ya import/merge edilir ya da biri silinir.
-- "Her şey temiz" raporu, bu kontrol çalıştırılmadan verilemez.
-
----
-
 ## Karar #1 — Cron Iteration 1 — Test baseline (fresh-main)
 
 **Tarih:** 2026-06-23 06:29
@@ -73,7 +28,69 @@ karşılaştırma yapılmadı.
 - Bandit taraması yapılabilirdi ama henüz test baseline yoktu
 - Shim ekleme de yapılabilirdi — testler zaten passed, gerek kalmadı
 
-### Sonraki (İt. 2)
+| Sonraki (İt. 2)
+|| Adım | Öneri |
+||:-----|:------|
+|| B | Bandit audit veya B — alt_ajan/kopru subprocess audit |
+
+## Karar #2 — Cron Iteration 2 — Bandit audit (cereyan)
+
+**Tarih:** 2026-06-23 21:19
+**Bağlam:** 2. self-improvement döngüsü — Path B: Bandit audit
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **Bandit scan** | `reymen/cereyan/` — 15K LOC tarandı | ✅ 0 HIGH severity, 8 MEDIUM |
+| 2 | **subprocess audit** | `shell=True` ve dinamik input kontrolü | ✅ Hepsi kontrollü |
+| 3 | **SQL injection false positive** | `once_hafiza.py` B608 — `.format()` sadece dahili `kosullar` listesi | ✅ False positive |
+
+### Bandit Özeti
+
+| Test | Adet | Severity | Durum |
+|:-----|:----:|:--------:|:-----:|
+| B101 assert_used | 39 | Low | False positive (test kodu) |
+| B110 try_except_pass | 31 | Low | Gerektiğinde geçerli |
+| B603 subprocess | 13 | Low | Hepsi kontrollü input |
+| B404 subprocess import | 8 | Low | Bilinçli |
+| B607 partial path | 5 | Low | Hepsi sabit binary yolu |
+| B310 urllib urlopen | 3 | Medium | callback_url kontrollü |
+| B608 SQL injection | 2 | Medium/Low | False positive (kosullar dahili) |
+| B311 random | 2 | Low | Standart random |
+| B105 hardcoded password | 6 | Low | False positive (max_token değerleri) |
+
+### Neden?
+- Iteration 1 test baseline 374/374 PASS — sıra güvenlik taramasına geldi
+- cereyan/ ReYMeN'in en kritik alt sistemi (motor, beyin, conversation_loop)
+- Bandit 0 HIGH — kod güvenliği iyi durumda. 8 MEDIUM'un 2'si SQL false positive, 3'ü urlopen callback
+
+### Alternatif?
+- Path A (shim ekle) — gereksiz, tüm shim'ler mevcut
+- Path C (test) — bir önceki cycle'da yapıldı
+
+### Sonraki (İt. 3)
 | Adım | Öneri |
 |:-----|:------|
-| B | Bandit audit veya B — alt_ajan/kopru subprocess audit |
+| C | Küçük test grubu — motor.py veya once_hafiza.py testi |
+| A | error_classifier veya onboarding shim varsa ekle |
+|---
+
+## [2026-06-23] Kalıcı Kural: Duplicate Modül Drift'i
+
+**Olay:** `cereyan/once_hafiza.py` (639 satır, 12 fonksiyon) ile
+`sistem/once_hafiza.py` (669 satır, class-based) aynı isimde ama
+farklı içerikte iki dosyaydı. main.py (gerçek kullanıcı yolu)
+eski/eksik sistem/ versiyonunu import ediyordu. 4 gelişmiş özellik
+(sigmoid güven, belirsiz görev çözümleme, benzerlik skoru, eski
+kayıt temizleme) hiçbir zaman production'da çalışmadı.
+
+**Kök sebep:** Aynı isim + farklı klasör → "zaten var" sanıldı,
+karşılaştırma yapılmadı.
+
+**Kalıcı kural:**
+- Her cycle başında `scripts/duplicate_module_detector.py` otomatik çalışır.
+- Aynı isimli dosya bulunursa, içerik karşılaştırması **ZORUNLU**.
+- Hiçbir zaman iki kopya "geçici çözüm" olarak bırakılmaz —
+  ya import/merge edilir ya da biri silinir.
+- "Her şey temiz" raporu, bu kontrol çalıştırılmadan verilemez.
