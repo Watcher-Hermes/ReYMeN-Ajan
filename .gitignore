@@ -212,3 +212,9 @@ notion_writer/.env
 
 # Oturum notlari — API key'ler silebilir (hassas)
 .ReYMeN/notes/sessions/
+
+# Runtime artifacts — live agent output, NEVER commit
+**/cokus_raporlari/
+**/beceri_kutuphanesi.json
+**/trajectories/*.jsonl
+**/referanslar.json

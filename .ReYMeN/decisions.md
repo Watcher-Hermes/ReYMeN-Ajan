@@ -222,5 +222,45 @@ karşılaştırma yapılmadı.
 | Adım | Öneri |
 |:-----|:------|
 | B | Hedefli Bandit — cereyan/ dışında kalan kritik modüller (motor, beyin) |
-| A | Import-missing yoksa A atlanabilir |
-| C | Sadece nadiren — 3. ardışık C'ye yaklaşılıyor |
+|| A | Import-missing yoksa A atlanabilir |
+|| C | Sadece nadiren — 3. ardışık C'ye yaklaşılıyor |
+
+## Karar #8 — Cron Iteration 7 (it7) — B: güvenlik AST audit
+
+**Tarih:** 2026-06-24 ~03:00
+**Bağlam:** 7. self-improvement döngüsü — Adım B: AST tabanlı güvenlik taraması
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **Gitignore güncelle** | `cokus_raporlari/`, `beceri_kutuphanesi.json`, `trajectories/*.jsonl`, `referanslar.json` eklendi | ✅ Runtime artifact kirliliği engellendi |
+| 2 | **AST subprocess audit** | motor.py, beyin.py, planlayici.py, once_hafiza.py — shell=True + dynamic cmd | ✅ 0 bulgu (hepsi intentional) |
+| 3 | **Bare except:pass audit** | motor.py: 6 adet, hepsi non-critical path | ✅ Intentional |
+| 4 | **Hardcoded path audit** | motor.py:1052,1287 + screenshot_bot.py:18 — Python 3.14 binary | ✅ Intentional (WONTFIX) |
+| 5 | **Syntax scan** | 4 critical module syntax verified | ✅ clean |
+| 6 | **Commit** | it7: B — gitignore + AST audit | ✅ |
+
+### Audit Detayı
+
+| Modül | AST shell=True | Hardcoded Path | bare except:pass |
+|:------|:--------------:|:--------------:|:----------------:|
+| motor.py | 0 (intentional) | 2 (WONTFIX) | 6 (intentional) |
+| beyin.py | 0 | 0 | 0 |
+| planlayici.py | 0 | 0 | 0 |
+| once_hafiza.py | 0 | 0 | 0 |
+
+### Neden?
+- İt5 (C) ve İt6 (A) yapıldı → sıra B'ye geldi
+- Churn=5, eşikte: son 3 commit'te sadece 1 yeni .py dosyası (__init__.py)
+- AST audit pip gerektirmez, 5sn'de biter — token verimli
+
+### Alternatif?
+- C: 3 ardışık C (it3-5) zaten yapıldı, 4. C yanlış
+- A: İt6'da zaten yapıldı, yeni modül yok
+
+### Sonraki (İt. 8)
+| Adım | Öneri |
+|:-----|:------|
+| C | Farklı test grubu — stabilitenin sağlaması |
+| veya SILENT | 7+ iterasyon stabil, sessiz moda geçilebilir |
