@@ -146,7 +146,7 @@ _API_CACHE_TTL = 300
 
 _API_KONTROL_ENDPOINTS = [
     ("deepseek",   "https://api.deepseek.com/user/balance",   "DEEPSEEK_API_KEY"),
-    ("xiaomi",     "https://api.minimax.chat/v1/models",       "XIAOMI_API_KEY"),
+    ("xiaomi",     "https://api.xiaomimimo.com/v1/models",       "XIAOMI_API_KEY"),
     ("xai",        "https://api.x.ai/v1/models",              "XAI_API_KEY"),
     ("openrouter", "https://openrouter.ai/api/v1/auth/key",   "OPENROUTER_API_KEY"),
 ]
@@ -259,7 +259,7 @@ _MODELLER = [
     ("deepseek",   "deepseek-v4-flash",        "DeepSeek V4 Flash",      "DEEPSEEK_API_KEY",   ""),
     ("deepseek",   "deepseek-chat",             "DeepSeek V3",            "DEEPSEEK_API_KEY",   ""),
     ("deepseek",   "deepseek-reasoner",         "DeepSeek R1",            "DEEPSEEK_API_KEY",   ""),
-    ("xiaomi",     "mimo-v2.5",                 "MiMo V2.5",              "XIAOMI_API_KEY",     "https://api.minimax.chat/v1"),
+    ("xiaomi",     "mimo-v2.5",                 "MiMo V2.5",              "XIAOMI_API_KEY",     "https://api.xiaomimimo.com/v1"),
     ("xai",        "grok-3",                    "xAI Grok 3",             "XAI_API_KEY",        ""),
     ("xai",        "grok-3-mini",               "xAI Grok 3 Mini",        "XAI_API_KEY",        ""),
     ("xai",        "grok-beta",                 "xAI Grok Beta",          "XAI_API_KEY",        ""),

@@ -107,7 +107,7 @@ def _deepseek_sohbet(messages: Any, config: Optional[dict] = None) -> str:
     logger = _get_logger()
 
     # API anahtarı kontrolü
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    api_key = os.environ.get("XIAOMI_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
     if not api_key:
         logger.warning("DeepSeek API anahtarı bulunamadı")
         return "API anahtarı bulunamadı"
@@ -483,6 +483,65 @@ def isleyen_gorev(
         return _agent_loop(task)
     else:
         return _deepseek_sohbet(task)
+
+
+# ═══════════════════════════════════════════════════════════════
+# CLI ARAYÜZÜ — python reymen_agent.py "soru"
+# ═══════════════════════════════════════════════════════════════
+
+if __name__ == "__main__":
+    import io as _io
+    if sys.stdout and hasattr(sys.stdout, "buffer") and not isinstance(sys.stdout, _io.TextIOWrapper):
+        try:
+            sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+    # .env'den key oku
+    try:
+        from dotenv import load_dotenv
+        _env_yolu = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+        load_dotenv(_env_yolu)
+    except ImportError:
+        pass
+
+    # Fallback: .env'yi manuel oku (dotenv calismazsa)
+    if not os.environ.get("DEEPSEEK_API_KEY"):
+        _env_dosyalari = [
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"),
+            os.path.join(os.path.expanduser("~"), "AppData", "Local", "ReYMeN", ".env"),
+            os.path.join(os.path.expanduser("~"), ".config", "reymen", ".env"),
+        ]
+        for _env_yolu in _env_dosyalari:
+            try:
+                with open(_env_yolu, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and "=" in line and not line.startswith("#"):
+                            k, v = line.split("=", 1)
+                            os.environ.setdefault(k.strip(), v.strip())
+                if os.environ.get("DEEPSEEK_API_KEY"):
+                    break
+            except Exception:
+                continue
+
+    if len(sys.argv) > 1:
+        # Tek seferlik soru
+        soru = " ".join(sys.argv[1:])
+        print(_deepseek_sohbet(soru))
+    else:
+        # Interaktif sohbet
+        print("ReYMeN Hizli Mod (DeepSeek) — /cikis ile cik")
+        while True:
+            try:
+                soru = input("\nReYMeN> ").strip()
+                if not soru or soru.lower() in ["/cikis", "/quit", "/exit", "q"]:
+                    break
+                yanit = _deepseek_sohbet(soru)
+                print(f"\n{yanit}")
+            except (KeyboardInterrupt, EOFError):
+                break
+        print("\nGorusuruz!")
 
 
 # ═══════════════════════════════════════════════════════════════

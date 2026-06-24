@@ -65,6 +65,13 @@ from reymen.cereyan.motor import Motor
 from reymen.cereyan.planlayici import Planlayici
 from reymen.cereyan.robust_execution import RobustExecutionEngine
 from reymen.cereyan.insan_arayuzu import InsanArayuzu
+
+# Config Guard - Otomatik konfigürasyon kontrolü
+try:
+    from reymen.sistem.monitoring.config_guard import tam_kontrol_yap as _config_guard_kontrol
+    _CONFIG_GUARD_AKTIF = True
+except ImportError:
+    _CONFIG_GUARD_AKTIF = False
 from reymen.hafiza.vektorel_hafiza import (
     vektorel_hafiza_sistemini_kur,
     tecrube_kaydet,
@@ -262,14 +269,14 @@ def _env_anahtar(anahtar, varsayilan=""):
 
 
 CONFIG = {
-    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "deepseek-v4-flash"),
-    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "deepseek"),
+    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "mimo-v2.5"),
+    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "xiaomi"),
     "secure_binding": True,
     "providers": {
-        # 1. Birincil: deepseek-v4-flash
+        # 1. Birincil: xiaomi / mimo-v2.5 (en ucuz, $3.12 kredi)
+        "xiaomi":       {"base_url": "https://api.xiaomimimo.com/v1", "api_key": _env_anahtar("XIAOMI_API_KEY")},
+        # 2. Ikinci: deepseek-v4-flash (kredi bitmis olabilir)
         "deepseek":     {"base_url": "https://api.deepseek.com",  "api_key": _env_anahtar("DEEPSEEK_API_KEY")},
-        # 2. Ikinci: xiaomi / mimo-v2.5
-        "xiaomi":       {"base_url": "https://api.minimax.chat/v1", "api_key": _env_anahtar("XIAOMI_API_KEY")},
         # 3. Ucuncu: xai / grok (key yoksa fallback'te atlanir)
         "xai":          {"base_url": "https://api.x.ai/v1", "api_key": _env_anahtar("XAI_API_KEY", "")},
         # 4. Diger cloud
@@ -286,10 +293,10 @@ CONFIG = {
         "lmstudio":     {"base_url": _env_anahtar("LMSTUDIO_BASE_URL", "http://localhost:1234"), "api_key": "not-needed"},
     },
     "fallback_model": {
-        "provider": "deepseek", "model": "deepseek-chat",
-        "base_url": "https://api.deepseek.com",
-        "api_key": _env_anahtar("DEEPSEEK_API_KEY"),
-    } if _env_anahtar("DEEPSEEK_API_KEY") else None,
+        "provider": "xiaomi", "model": "mimo-v2.5",
+        "base_url": "https://api.xiaomimimo.com/v1",
+        "api_key": _env_anahtar("XIAOMI_API_KEY"),
+    } if _env_anahtar("XIAOMI_API_KEY") else None,
     "auxiliary": {
         "vision":      {"model": _env_anahtar("LMSTUDIO_MODEL", "llava-v1.6-mistral-7b"),
                         "provider": "lmstudio",
@@ -306,6 +313,20 @@ CONFIG = {
     },
     "skills_dir": ".ReYMeN/skills",
 }
+
+# ── Config Guard: Başlangıçta otomatik kontrol ──────────────────────────────
+if _CONFIG_GUARD_AKTIF:
+    try:
+        _guard_sonuc = _config_guard_kontrol(fix=False)
+        if _guard_sonuc.durum != "OK":
+            import logging
+            _guard_log = logging.getLogger("ReYMeN.ConfigGuard")
+            _guard_log.warning(
+                f"⚠️ Konfigürasyon sorunları tespit edildi: {_guard_sonuc.durum}\n"
+                f"   Düzeltmek için: python reymen/sistem/monitoring/config_guard.py --fix"
+            )
+    except Exception as _guard_hata:
+        pass  # Config guard hatası kritik değil, devam et
 
 
 class AIAgentOrchestrator:

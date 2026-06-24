@@ -35,6 +35,36 @@ TIMEOUT_SANIYE: int = 300
 _VARSAYILAN_MAX_TOKEN: int = 4096
 _VARSAYILAN_SICAKLIK: float = 0.7
 
+# ── Token Tasarrufu ────────────────────────────────────────────────────────
+# Sohbet geçmişinde tutulacak maksimum mesaj sayısı
+# Her mesaj ~1000-3000 token harcar, fazlası maliyeti artırır
+MAX_GECMIS_UZUNLUGU: int = 20  # Son 20 mesajı tut (yaklaşık 20K-60K token)
+
+
+def _gecmisi_kisitla(mesajlar: list[dict], max_uzunluk: int = MAX_GECMIS_UZUNLUGU) -> list[dict]:
+    """Sohbet geçmişini kısıtla — sadece son N mesajı tut.
+    
+    Token tasarrufu için: Her mesaj tüm geçmişi içerir, bu yüzden
+    geçmiş ne kadar uzunsa o kadar pahalı olur.
+    
+    Args:
+        mesajlar: Tüm mesaj listesi
+        max_uzunluk: Maksimum mesaj sayısı (varsayılan: 20)
+    
+    Returns:
+        Kısıtlanmış mesaj listesi
+    """
+    if len(mesajlar) <= max_uzunluk:
+        return mesajlar
+    
+    # İlk mesajı (kullanıcı talimatı) her zaman tut
+    ilk_mesaj = mesajlar[0] if mesajlar else None
+    geri_kalan = mesajlar[-(max_uzunluk - 1):]
+    
+    if ilk_mesaj and ilk_mesaj.get("role") == "user":
+        return [ilk_mesaj] + geri_kalan
+    return geri_kalan
+
 
 # ── Hata sınıflandırıcı (opsiyonel) ─────────────────────────────────────────
 try:
@@ -102,6 +132,7 @@ class LLMYanitMeta:
 # ── Sağlayıcı varsayılan modelleri ──────────────────────────────────────────
 
 _VARSAYILAN_MODELLER: dict[str, str] = {
+    "xiaomi":             "mimo-v2.5-pro",
     "deepseek":           "deepseek-chat",
     "openai":             "gpt-4o-mini",
     "anthropic":          "claude-haiku-4-5-20251001",
@@ -119,6 +150,7 @@ _VARSAYILAN_MODELLER: dict[str, str] = {
 
 # Provider → env değişken adları
 _PROVIDER_ENV: dict[str, str] = {
+    "xiaomi":       "XIAOMI_API_KEY",
     "deepseek":     "DEEPSEEK_API_KEY",
     "openai":       "OPENAI_API_KEY",
     "anthropic":    "ANTHROPIC_API_KEY",
@@ -590,9 +622,12 @@ class Beyin:
         import requests as _req
 
         def _cagri_yap(with_tools: bool) -> dict:
+            # Token tasarrufu: Geçmiş mesajları kısıtla
+            kisitlanmis_mesajlar = _gecmisi_kisitla(mesajlar)
+            
             payload: dict = {
                 "model": model,
-                "messages": [{"role": "system", "content": sistem_prompt}] + mesajlar,
+                "messages": [{"role": "system", "content": sistem_prompt}] + kisitlanmis_mesajlar,
             }
             if with_tools and tools:
                 payload["tools"] = tools
@@ -750,9 +785,12 @@ class Beyin:
             "Content-Type": "application/json",
             "Accept": "text/event-stream",
         }
+        # Token tasarrufu: Geçmiş mesajları kısıtla
+        kisitlanmis_mesajlar = _gecmisi_kisitla(mesajlar)
+        
         payload = {
             "model": model,
-            "messages": [{"role": "system", "content": sistem_prompt}] + mesajlar,
+            "messages": [{"role": "system", "content": sistem_prompt}] + kisitlanmis_mesajlar,
             "stream": True,
             "temperature": _VARSAYILAN_SICAKLIK,
             "max_tokens": _VARSAYILAN_MAX_TOKEN,
@@ -1001,9 +1039,12 @@ class Beyin:
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
         }
+        # Token tasarrufu: Geçmiş mesajları kısıtla
+        kisitlanmis_mesajlar = _gecmisi_kisitla(mesajlar)
+        
         payload = {
             "model": model,
-            "messages": [{"role": "system", "content": sistem_prompt}] + mesajlar,
+            "messages": [{"role": "system", "content": sistem_prompt}] + kisitlanmis_mesajlar,
             "stream": False,
             "temperature": _VARSAYILAN_SICAKLIK,
             "max_tokens": _VARSAYILAN_MAX_TOKEN,
@@ -1069,8 +1110,12 @@ class Beyin:
 
         url = f"{endpoint}/openai/deployments/{model}/chat/completions?api-version={version}"
         headers = {"api-key": api_key, "Content-Type": "application/json"}
+        
+        # Token tasarrufu: Geçmiş mesajları kısıtla
+        kisitlanmis_mesajlar = _gecmisi_kisitla(mesajlar)
+        
         payload = {
-            "messages": [{"role": "system", "content": sistem_prompt}] + mesajlar,
+            "messages": [{"role": "system", "content": sistem_prompt}] + kisitlanmis_mesajlar,
             "temperature": _VARSAYILAN_SICAKLIK,
             "max_tokens": _VARSAYILAN_MAX_TOKEN,
         }
