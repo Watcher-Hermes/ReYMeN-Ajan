@@ -212,3 +212,24 @@ B (Bandit) — cogu false positive, ama rutin kontrol gerekli.
 - grep "default_provider" → "deepseek" ✅
 - grep "default_model" → "deepseek-v4-flash" ✅
 - providers sirasi: deepseek, xiaomi, xai, openrouter, openai, anthropic, moonshot, azure, bedrock, gemini_cloud, groq, lmstudio ✅
+
+## 2026-06-24 19:00 — İt.17: A — error_classifier modülü eklendi
+
+### Ne yapıldı?
+- `reymen/sistem/error_classifier.py` oluşturuldu (183 satır, 6KB)
+- 12 hata kategorisi: bilinmiyor, syntax, import, api, subprocess, hafiza, tor, timeout, yetki, ag, disk, modul_eksik
+- 3 fonksiyon: `siniflandir()`, `syntax_kontrol()`, `topla_syntax()`
+- Regex tabanlı hata sınıflandırma + BOM tespiti + compile()-based syntax kontrolü
+- 9/9 test PASS
+
+### Neden?
+- Önceki iterasyonda oluşturulmuş ama commit edilmemiş (drift)
+- Proje için useful utility: agent hatalarını otomatik sınıflandırma
+- decisions.md'de sık görülen hata kategorilerini kapsıyor
+
+### Alternatif?
+- Bandit ile security scan (B adımı) — ama error_classifier daha küçük/güvenli
+- onboarding modülü — ama error_classifier daha acil实用
+
+### Commit
+- `3f51f211` — `feat: error_classifier modulu eklendi`
