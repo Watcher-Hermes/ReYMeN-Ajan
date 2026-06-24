@@ -255,8 +255,8 @@ class FileEditToolCallContent:
 
 @dataclass
 class AllowedOutcome:
-    action: str = ""
-    description: str = ""
+    option_id: str = ""
+    outcome: str = ""
 @dataclass
 class BlobResourceContents:
     uri: str = ""
@@ -286,7 +286,7 @@ class EmbeddedResourceContentBlock:
 
 @dataclass
 class DeniedOutcome:
-    action: str = ""
+    outcome: str = ""
     reason: str = ""
 
 
@@ -296,6 +296,12 @@ class PermissionOption:
     option_id: str = ''
     kind: str = 'allow_once'
     name: str = ''
+
+
+@dataclass
+class RequestPermissionResponse:
+    """ACP izin isteği yanıtı."""
+    outcome: object = None
 
 
 @dataclass

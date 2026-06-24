@@ -6,10 +6,13 @@ Kullanici onayi gerektiren islemleri yonetir.
 """
 
 import json
+import logging
 import os
 import time
 import uuid
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 
 def _pending_klasoru() -> Path:
@@ -234,3 +237,44 @@ def yolo_kapat(session_key: str = "") -> None:
 def check_all_command_guards(command: str, cwd: str = "", **kwargs) -> dict:
     """Tum komut guardslarini kontrol et - ReYMeN uyumluluk stubu."""
     return {"allowed": True, "command": command, "guards_passed": []}
+
+
+def prompt_dangerous_approval(command: str, description: str,
+                              timeout_seconds=None,
+                              allow_permanent: bool = True,
+                              approval_callback=None) -> str:
+    """Prompt user to approve dangerous command (CLI only).
+
+    Hermes uyumluluk bridge'i. approval_callback varsa onu kullanir,
+    yoksa basit input() fallback'i.
+
+    Returns: 'once', 'session', 'always', or 'deny'
+    """
+    if approval_callback is not None:
+        try:
+            return approval_callback(command, description,
+                                     allow_permanent=allow_permanent)
+        except Exception as e:
+            logger.error("Approval callback failed: %s", e, exc_info=True)
+            return "deny"
+
+    # Basit input fallback
+    print(f"\n  ⚠️  Tehlikeli komut: {description}")
+    print(f"      {command}\n")
+    if allow_permanent:
+        print("  [o]nce  [s]ession  [a]lways  [d]eny: ", end="")
+    else:
+        print("  [o]nce  [s]ession  [d]eny: ", end="")
+
+    try:
+        choice = input().strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        return "deny"
+
+    if choice in ("o", "once"):
+        return "once"
+    elif choice in ("s", "session"):
+        return "session"
+    elif choice in ("a", "always") and allow_permanent:
+        return "always"
+    return "deny"
