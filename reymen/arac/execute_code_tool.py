@@ -151,9 +151,6 @@ def run(
         except (ValueError, TypeError):
             pass  # geçersizse varsayılan kalır
 
-    if not kod or not kod.strip():
-        return "[Hata] Boş kod çalıştırılamaz."
-
     # Güvenlik kontrolü
     gecerli, hata = _guvenlik_kontrol(kod)
     if not gecerli:

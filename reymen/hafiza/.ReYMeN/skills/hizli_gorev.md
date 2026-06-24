@@ -8,11 +8,11 @@
 - *(belirtilmedi)*
 
 ## Oluşturulma Tarihi
-2026-06-24 12:44:00
+2026-06-24 12:50:31
 
 ## Ek Bilgiler
 | **Özellik** | **Değer** |
 |---|---|
-| Sure Sn | 0.23 |
+| Sure Sn | 0.22 |
 | Tur Sayisi | 1 |
-| Task Id | 7e571a8e |
+| Task Id | 408ffa61 |

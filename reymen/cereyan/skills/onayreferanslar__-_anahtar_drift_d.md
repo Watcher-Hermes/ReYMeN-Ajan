@@ -10,7 +10,7 @@ Planın tüm adımları tek tek doğrulandı:
 ### Adım 1: Mevcut referansların okunması ve doğrulanması
 - **drift_duzeltme_onayi (İngilizce
 created: 2026-06-24
-usage_count: 98
+usage_count: 108
 last_used: 2026-06-24
 ---
 
@@ -743,3 +743,96 @@ FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafı
 ## Ek Adimlar / Varyasyon (2026-06-24T09:40:55Z)
 
 FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:48:26Z)
+
+FC/DOSYA_OKU: [Hata]: drift_duzeltme_onayi.md bulunamadi.
+FC/DOSYA_OKU: [Hata]: drift_duzeltme_raporu_20260621.md bulunamadi.
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\AppData\Local\Temp\pytest-of-mark
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\AppData\Local\Temp\pytest-of-mark
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_ARA: []
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_ARA: []
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:54:09Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:02:52Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:05:04Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:16:44Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme durumu nedir? mev
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'oku:drift_duzeltme'
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\AppData\Local\Temp\pytest-of-mark
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz:drift_duzeltme_onay_20260623
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onay_raporu_20260623, deger: ReYMeN hafiza
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:21:50Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:31:14Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:37:49Z)
+
+FC/HAFIZA_ARA: [
+  {
+    "id": 3574,
+    "session_id": "gorev_5c85a40c",
+    "koleksiyon": "bec
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:42:13Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T10:46:32Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: []
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme durumu kontrol'
+FC/HAFIZA_ARA: [
+  {
+    "id": 3574,
+    "session_id": "gorev_5c85a40c",
+    "koleksiyon": "bec
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'oku koleksiyon=beceriler'
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 

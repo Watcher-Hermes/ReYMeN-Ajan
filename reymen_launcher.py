@@ -67,10 +67,10 @@ def _mevcut_model():
     try:
         import yaml
         cfg = yaml.safe_load(_PROFILE_CFG.read_text(encoding="utf-8"))
-        return cfg.get("model", {}).get("default", "deepseek-chat"), \
+        return cfg.get("model", {}).get("default", "deepseek-v4-flash"), \
                cfg.get("model", {}).get("provider", "deepseek")
     except Exception:
-        return "deepseek-chat", "deepseek"
+        return "deepseek-v4-flash", "deepseek"
 
 def _gateway_hazir_mi(deneme=10, aralik=0.7):
     """hermes gateway list çıktısında reymen ✓ görünene kadar bekle."""

@@ -15,6 +15,11 @@ from typing import Any, Dict, Optional
 from tool_registry import ToolRegistry
 from tool_executor import ToolExecutor
 
+try:
+    from tool_guardrails import ToolGuardrails
+except ImportError:
+    ToolGuardrails = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -24,6 +29,7 @@ class ToolDispatcher:
     def __init__(self, varsayilan_timeout: int = 30):
         self.registry = ToolRegistry()
         self.executor = ToolExecutor()
+        self.guardrails = ToolGuardrails() if ToolGuardrails is not None else None
         self._varsayilan_timeout = varsayilan_timeout
 
     def dispatch(
@@ -41,6 +47,17 @@ class ToolDispatcher:
 
         module_name = kayit["module"]
         callable_adi = kayit["callable"]
+
+        # Guardrails kontrolü
+        if self.guardrails is not None:
+            guard = self.guardrails.kontrolet(module_name)
+            if isinstance(guard, dict) and not guard.get("guvenli", True):
+                return {
+                    "ok": False,
+                    "tool": name,
+                    "error": guard.get("sebep", "Guardrails reddetti"),
+                    "guard": guard,
+                }
 
         if callable_adi == "run":
             return self.executor.calistir_tool(module_name, timeout=timeout, **args)

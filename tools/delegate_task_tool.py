@@ -34,9 +34,9 @@ def run(
             [sys.executable, str(_MAIN_PY), "--gorev", gorev],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=zaman_asimi,
-            # Çocuk process ana process'in env'ini miras alır;
-            # güvenlik gereği kısıtlama: env={"PATH": os.environ["PATH"]}
         )
     except subprocess.TimeoutExpired:
         return f"[Hata]: Görev {zaman_asimi}s içinde tamamlanamadı."
@@ -53,7 +53,7 @@ def run(
             f"Stderr: {stderr}"
         )
 
-    cikti = proc.stdout.strip()
+    cikti = (proc.stdout or "").strip()
     if not cikti:
         return "[Tamam] Process tamamlandı; çıktı yok."
 

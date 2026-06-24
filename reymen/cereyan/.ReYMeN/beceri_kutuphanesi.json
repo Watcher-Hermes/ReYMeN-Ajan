@@ -978,172 +978,42 @@
       "FC/REFERANS_OZET"
     ],
     "basari_kriteri": "\"✅ **DRİFT DÜZELTMESİ ONAYLANDI**\n\nAdım adım doğrulama yapıldı:\n\n1. **drift_duze",
-    "kullanim_sayisi": 17,
+    "kullanim_sayisi": 16,
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
     "son_basari": "2026-06-24"
   },
-  "____duplicate_module_detector_py_aynı_isimli_ama_f": {
-    "ad": "\"\"\"\nduplicate_module_detector.py\nAynı isimli ama f",
-    "aciklama": "\"\"\"\nduplicate_module_detector.py\nAynı isimli ama f",
+  "onay___referanslar_________anahtar______onay_islem": {
+    "ad": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"onay_islem",
+    "aciklama": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"onay_islem",
     "tetikleyiciler": [
-      "aynı",
-      "farklı",
-      "\"\"\"",
-      "duplicate_module_detector.py",
-      "isimli",
-      "ama"
-    ],
-    "adimlar": [
-      "FC/EXECUTE_CODE",
-      "FC/EXECUTE_CODE",
-      "FC/EXECUTE_CODE",
-      "FC/DOSYA_OKU",
-      "FC/EXECUTE_CODE",
-      "FC/DOSYA_OKU"
-    ],
-    "basari_kriteri": "duplicate_module_detector.py kodunu detaylıca inceledim. Script 5 fonksiyondan o",
-    "kullanim_sayisi": 1,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "onay___referanslar______anahtar__drift_duzeltme_on": {
-    "ad": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
-    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
-    "tetikleyiciler": [
-      "anahtar:",
-      "drift_duzeltme_onayi_20260621,",
-      "[referanslar]",
       "-",
-      "onay",
-      "deger:"
-    ],
-    "adimlar": [
-      "FC/REFERANS_ARA",
-      "FC/HAFIZA_ARA",
-      "FC/REFERANS_EKLE",
-      "FC/MEMORY_PROVIDER",
-      "FC/TELEGRAM_GONDER",
-      "FC/DOSYA_YAZ",
-      "FC/CRON_EKLE",
-      "FC/CRON_LISTELE",
-      "FC/REFERANS_OZET",
-      "FC/MEMORY",
-      "FC/TODO",
-      "FC/INJECTION_KONTROL",
-      "FC/WEB_ICERIK",
-      "FC/MESAJ_TEMIZLE",
-      "FC/HA_DURUM",
-      "FC/CONTEXT"
-    ],
-    "basari_kriteri": "Kullanıcının \\\"onay\\\" talebi üzerine ReYMeN hafıza sisteminin mevcut durumu ince",
-    "kullanim_sayisi": 8,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "hangi_modelsin___referanslar______anahtar__onay_ta": {
-    "ad": "hangi modelsin\n\n[Referanslar]\n  - anahtar: onay_ta",
-    "aciklama": "hangi modelsin\n\n[Referanslar]\n  - anahtar: onay_ta",
-    "tetikleyiciler": [
-      "onay_tamam_20260624,",
-      "anahtar:",
-      "modelsin",
-      "-",
+      "\\\"onay_islemi_20260624\\\",",
       "[referanslar]",
-      "hangi"
-    ],
-    "adimlar": [
-      "FC/MEMORY"
-    ],
-    "basari_kriteri": "\"Hafızamdan tam sorgu alamadım, ama bildiğim kadarıyla:\n\n**Ben ReYMeN'im.** Bir ",
-    "kullanim_sayisi": 1,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "altin_ons_fiyati_nedir___referanslar______anahtar_": {
-    "ad": "altin ons fiyati nedir\n\n[Referanslar]\n  - anahtar:",
-    "aciklama": "altin ons fiyati nedir\n\n[Referanslar]\n  - anahtar:",
-    "tetikleyiciler": [
-      "nedir",
-      "fiyati",
-      "ons",
-      "-",
-      "altin",
-      "[referanslar]"
-    ],
-    "adimlar": [
-      "FC/WEB_ARA",
-      "FC/WEB_ICERIK",
-      "FC/WEB_ARA",
-      "FC/WEB_ICERIK"
-    ],
-    "basari_kriteri": "Kullanıcının \\\"altın ons fiyatı nedir\\\" sorusu yanıtlandı. Güncel verilere göre:",
-    "kullanim_sayisi": 1,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "tarıza_ve_kaynaktan_bilgisi_verildi_mi_kontrol_et": {
-    "ad": "tarıza ve kaynaktan bilgisi verildi mi kontrol et\n",
-    "aciklama": "tarıza ve kaynaktan bilgisi verildi mi kontrol et\n",
-    "tetikleyiciler": [
-      "bilgisi",
-      "tarıza",
-      "kaynaktan",
-      "verildi",
-      "mi",
-      "ve"
-    ],
-    "adimlar": [
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_ARA"
-    ],
-    "basari_kriteri": "\\\"Tarıza\\\" ve \\\"kaynaktan\\\" ifadeleri kontrol edildi. Mevcut 3 referansta (onay_",
-    "kullanim_sayisi": 1,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "_parcalanmis_gorev__4_adim__onay___referanslar_": {
-    "ad": "[PARCALANMIS GOREV: 4 adim]\nonay\n\n[Referanslar]\n  ",
-    "aciklama": "[PARCALANMIS GOREV: 4 adim]\nonay\n\n[Referanslar]\n  ",
-    "tetikleyiciler": [
-      "4",
-      "[referanslar]",
-      "gorev:",
-      "[parcalanmis",
-      "adim]",
+      "\\\"deger\\\":",
+      "{\\\"anahtar\\\":",
       "onay"
     ],
     "adimlar": [
       "FC/REFERANS_ARA",
-      "FC/REFERANS_EKLE",
-      "FC/TODO",
-      "FC/CRON_EKLE",
-      "FC/CRON_DURUM",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
       "FC/MEMORY",
-      "FC/EXECUTE_CODE",
-      "FC/GUVENLIK_OZET",
-      "FC/GUVENLIK_RISKLI",
-      "FC/CRON_LISTELE",
+      "FC/REFERANS_EKLE",
       "FC/REFERANS_OZET",
-      "FC/CLARIFY",
       "FC/CONTEXT",
-      "FC/HAFIZA_ARA",
-      "FC/MEMORY_PROVIDER",
-      "FC/DUSUN",
-      "FC/GOREV_DEVRET",
-      "FC/SISTEM_KAYNAK",
-      "FC/BATCH_EKLE"
+      "FC/GUVENLIK_OZET",
+      "FC/HA_DURUM",
+      "FC/DOSYA_OKU",
+      "FC/WEB_ARAMA",
+      "FC/WEB_ICERIK",
+      "FC/MEMORY_PROVIDER"
     ],
-    "basari_kriteri": "Parçalanmış görevin ilk adımı (1/4) tamamlandı. İzleme planının Grup A (TEKRAR_E",
-    "kullanim_sayisi": 27,
+    "basari_kriteri": "✅ ONAY SÜRECİ BAŞARIYLA TAMAMLANDI\n\nTüm onay adımları doğrulandı:\n\n1. **drift_du",
+    "kullanim_sayisi": 28,
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
     "son_basari": "2026-06-24"

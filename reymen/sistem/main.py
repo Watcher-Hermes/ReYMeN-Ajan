@@ -506,6 +506,30 @@ class AIAgentOrchestrator:
             _gozlemci = None
             _gozlem_task_id = "default"
 
+        # ── HIZLI SINIFLANDIRMA (context genişletmeden önce — orijinal sorgu üzerinde)
+        _gorev_tipi_hizli = self._gorev_siniflandir(hedef)
+        # FC modu aktifse sohbet/bilgi hızlı yolunu devre dışı bırak
+        if _gorev_tipi_hizli in ("sohbet", "bilgi") and self._fc_mod is not False and hasattr(self.provider, "uret_v2"):
+            _gorev_tipi_hizli = "karmasik"
+
+        # ── HIZLI YOL: selam/sohbet/bilgi → direkt API (tüm ReAct aşamaları atlanır)
+        if _gorev_tipi_hizli in ("selam", "sohbet", "bilgi"):
+            try:
+                _m = (
+                    getattr(self.provider, "model", None)
+                    or self.config.get("default_model", "deepseek-v4-flash")
+                )
+                yanit = self.provider.uret(
+                    "Kisa ve oz cevap ver. Turkce konus.",
+                    [{"role": "user", "content": hedef}],
+                )
+                if yanit and yanit.strip():
+                    print(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
+                    print(yanit.strip())
+                    return {"output": yanit.strip(), "exit_code": 0}
+            except Exception:
+                pass  # hata olursa ağır ReAct döngüsüne devam
+
         hedef = self._giris_temizle(hedef)
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
@@ -524,7 +548,7 @@ class AIAgentOrchestrator:
             }
         # ──────────────────────────────────────────────────────────────────
 
-        # ── GOREV SINIFLANDIRMA + AKILLI ROUTING ────────────────────
+        # ── GOREV SINIFLANDIRMA (context genişletilmiş query üzerinde, karmaşık görevler için)
         _gorev_tipi = self._gorev_siniflandir(hedef)
 
         # ── UZUN MESAJ PARCALAMA (chunking) ─────────────────────────
@@ -557,27 +581,6 @@ class AIAgentOrchestrator:
             hedef = f"[PARCALANMIS GOREV: {len(_parcalar)} adim]\n{_parcalar[0]}\n\n[DEVAMI SONRAKI ADIMDA VERILECEK - {len(_parcalar)-1} parca kaldi]"
             _parcalandi = True
             _gorev_tipi = "karmasik"
-        # ─────────────────────────────────────────────────────────────
-        # Selam/sohbet/bilgi → direkt API (ReAct döngüsü atlanır)
-        # ANCAK: FC modu aktif veya denenmediyse FC döngüsüne bırak
-        _fc_kapali = self._fc_mod is False or not hasattr(self.provider, "uret_v2")
-        if _gorev_tipi in ("selam", "sohbet", "bilgi") and _fc_kapali:
-            try:
-                hizli_prompt = "Kisa ve oz cevap ver. Turkce konus."
-                yanit = self.provider.uret(
-                    hizli_prompt,
-                    [{"role": "user", "content": hedef}],
-                )
-                if yanit and yanit.strip():
-                    _m = (
-                        getattr(self.provider, "model", None)
-                        or self.config.get("default_model", "deepseek-v4-flash")
-                    )
-                    print(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
-                    print(yanit.strip())
-                    return {"output": yanit.strip(), "exit_code": 0}
-            except Exception:
-                pass  # hata olursa ReAct döngüsüne devam
 
         # Iteration budget — once karmasiklik belirle, sonra goruntu karar ver
         if self.budget:

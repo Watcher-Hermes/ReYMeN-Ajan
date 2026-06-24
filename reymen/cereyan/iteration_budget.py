@@ -26,14 +26,16 @@ class IterationBudget:
     Geriye uyumluluk: max_tur parametresi de calisir (max_total ile ayni).
     """
 
-    def __init__(self, max_total: int = None, max_tur: int = None):
+    def __init__(self, max_total: int = None, max_tur: int = None, max_hata: int = None):
         # max_tur eski API uyumlulugu
         if max_total is None and max_tur is not None:
             max_total = max_tur
         if max_total is None:
             max_total = 90
         self.max_total = max_total
+        self.max_hata = max_hata  # circuit breaker: None = sınırsız
         self._used = 0
+        self._hata_sayisi = 0
         self._lock = threading.Lock()
 
     def consume(self) -> bool:
@@ -146,11 +148,17 @@ class IterationBudget:
     def tur_bitir(self, basarili: bool = True, sonuc: str = "",
                   hata_tipi: str = "") -> bool:
         """Eski API: tur sonu kontrolu. True = devam et, False = dur."""
-        return self.remaining > 0
+        if not basarili:
+            with self._lock:
+                self._hata_sayisi += 1
+        return self.devam_etmeli_mi()
 
     def devam_etmeli_mi(self) -> bool:
-        """Eski API: kalan butce var mi?"""
-        return self.remaining > 0
+        """Kalan bütçe var mı VE hata sınırı aşılmadı mı?"""
+        with self._lock:
+            if self.max_hata is not None and self._hata_sayisi >= self.max_hata:
+                return False
+            return self._used < self.max_total
 
     def durum_raporu(self) -> str:
         """Eski API: butce durumunu okunabilir string olarak dondur."""

@@ -204,3 +204,73 @@ Proje kökünde duran modüllerle `reymen/`, `agent/`, `plugins/`, `tools/`, `te
 ### Status
 1 yeni dosya, 1 guncellenen dosya, 0 test FAIL. Karar #17
 
+---
+
+## 2026-06-24 13:12 — cron-it18: Adim C — 3 test suite dogrulama (it17 sonrasi)
+
+### Ne yapildi?
+1. **Syntax check**: 13 degisen .py dosyasi — 13/13 OK
+2. **Test run #1** `tests/test_beyin.py`**: 62 PASS, 0 FAIL (6.02s)
+3. **Test run #2** `tests/test_motor.py`**: 60 PASS, 0 FAIL (1.60s)
+4. **Test run #3** `tests/test_agent_core.py`**: 29 PASS, 0 FAIL (5.83s)
+
+### Neden?
+- it17 (B — hardcoded model fix) sonrasi degisen dosyalarda syntax hatasi olmadigi dogrulandi
+- 3 ana test suite bagimsiz calistirildi — hic regression yok
+
+### Status
+151 PASS, 0 FAIL, 0 ERROR | 13/13 syntax OK | Karar #18
+
+
+## Karar #30 — once_hafiza Twin Module Drift Düzeltmesi
+
+**Tarih:** 2026-06-24 13:37
+**Bağlam:** cereyan/once_hafiza.py ↔ sistem/once_hafiza.py arasındaki 4 fonksiyon drifti
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **Import doğrulama** | 4 fonksiyon cereyan'dan import edilmiş, modül seviyesinde alias'lanmış | ✅ mevcut |
+| 2 | **Sigmoid güven testi** | 3 başarı 0 hata → 0.7311, 1 başarı 3 hata → 0.1824 | ✅ doğru |
+| 3 | **Class override** | OnceHafiza._kademeli_guven = staticmethod(_cereyan_kademeli_guven) | ✅ mevcut |
+| 4 | **Modül alias** | belirsiz_gorev_cozumle, _benzerlik_skoru, eski_kayitlari_temizle | ✅ mevcut |
+
+### Neden?
+- Twin module drift kuralı (Karar #14): kopyalama YASAK, import et
+- 4 fonksiyon aynı mantığı 2 yerde tekrarlıyordu
+
+### Alternatif?
+- Kopyaları senkronize etmek — import çözümü daha temiz
+- Ortak bir `core/` modülü — gereksiz soyutlama
+
+### Test Çıktısı
+```
+3 basari, 0 hata: 0.7311 (beklenen: ~0.73)
+1 basari, 3 hata: 0.1824 (beklenen: ~0.18)
+Oh._kademeli_guven: 0.8176
+✅ Tum fonksiyonlar calisiyor
+```
+
+### Cron Durumu
+- `duplicate-module-drift-detect` → her 6 saatte bir çalışıyor ✅
+- `Kendini Geliştirme Döngüsü` → her 15 dk'da bir, drift taramasını içerir ✅
+
+## [2026-06-23] Kalıcı Kural: Duplicate Modül Drift'i
+
+Olay: cereyan/once_hafiza.py (639 satır, 12 fonksiyon) ile 
+sistem/once_hafiza.py (669 satır, class-based) aynı isimde ama 
+farklı içerikte iki dosyaydı. main.py (gerçek kullanıcı yolu) 
+eski/eksik sistem/ versiyonunu import ediyordu. 4 gelişmiş özellik 
+(sigmoid güven, belirsiz görev çözümleme, benzerlik skoru, eski 
+kayıt temizleme) hiçbir zaman production'da çalışmadı.
+
+Kök sebep: Aynı isim + farklı klasör → "zaten var" sanıldı, 
+karşılaştırma yapılmadı.
+
+Kalıcı kural: 
+- Her cycle başında duplicate_module_detector.py otomatik çalışır.
+- Aynı isimli dosya bulunursa, içerik karşılaştırması ZORUNLU.
+- Hiçbir zaman iki kopya "geçici çözüm" olarak bırakılmaz — 
+  ya import/merge edilir ya da biri silinir.
+- "Her şey temiz" raporu, bu kontrol çalıştırılmadan verilemez.

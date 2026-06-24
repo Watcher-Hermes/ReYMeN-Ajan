@@ -215,7 +215,7 @@ class TestBeyin:
         cfg = {"default_provider": "lmstudio", "default_model": "test",
                "providers": {"lmstudio": {"base_url": "http://localhost:1234", "api_key": "not-needed"}}}
         b = Beyin(cfg)
-        assert b._varsayilan_model("deepseek") == "deepseek-chat"
+        assert b._varsayilan_model("deepseek") == "deepseek-v4-flash"
         assert b._varsayilan_model("openai") == "gpt-4o-mini"
         assert b._varsayilan_model("anthropic") == "claude-haiku-4-5-20251001"
         assert b._varsayilan_model("bilinmeyen") == "default"

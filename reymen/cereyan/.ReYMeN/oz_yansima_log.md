@@ -411,3 +411,63 @@
 2. Hata oranını azaltarak performans iyileştirin.
 3. DOSYA\_YAZ aracındaki hataları tamamladık.
 4. Bellek kullanımını düşükleştirin
+
+## 2026-06-24 12:49 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %35.1, Bellek %91.4
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Bellek doluluk oranını %70 altına düşürmek için gereksiz verileri temizle ve DOSYA_YAZ işlemi öncesinde buffer'ları boşalt.
+3. DOSYA_YAZ hatalarını azaltmak için yazma işlemini küçük parçalara böl ve hata durumunda yeniden deneme mantığı ekle.
+4. Bellek kullanımını optimize etmek için sık kullanılan verileri önbellekte tut, seyrek kullanılanları diske taşı.
+
+## 2026-06-24 12:59 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %19.8, Bellek %87.4
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Bellek sızıntısını engellemek için PYTHON_CALISTIR araçlarında her çalıştırma sonrası Python ortamını temizleyin veya yeniden başlatın.
+3. Hata oranını düşürmek için PYTHON_CALISTIR girişlerinde veri doğrulama ve hata yakalama katmanları ekleyin.
+4. %87.4 bellek kullanımını azaltmak için ajanın kaynakları periyodik olarak serbest bırakmasını sağlayacak bir zamanlayıcı veya sınırlayıcı uygulayın.
+
+## 2026-06-24 13:06 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %23.1, Bellek %89.7
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. PYTHON_CALISTIR aracındaki hataları azaltmak için kod yürütme öncesi giriş doğrulama ve hata yakalama mekanizmalarını güçlendirin.
+3. Bellek kullanımını %89.7'den düşürmek için kullanılmayan değişkenleri temizleyin ve büyük veri kümelerini parçalara bölerek işleyin.
+4. Genel hata oranını düşürmek için en sık hata alan işlemler için özel test senaryoları oluşturun ve modeli bu senaryolarla ince ayar yapın.
+
+## 2026-06-24 13:09 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %19.8, Bellek %87.9
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. PYTHON_CALISTIR aracındaki hataları analiz ederek kod hata yönetimini ve girdi doğrulamayı iyileştirin.
+3. Bellek kullanımını azaltmak için çalıştırma sonrası kaynakları serbest bırakan bir temizleme rutini ekleyin.
+4. En sık hata veren işlemleri önceliklendirip hata ayıklama loglarını detaylandırarak tekrarını önleyin.
+
+## 2026-06-24 13:10 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %18.6, Bellek %89.2
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. PYTHON_CALISTIR aracındaki hata kaynaklarını analiz edip kod kalitesini iyileştirin.
+3. Bellek kullanımını %70 altına düşürmek için gereksiz süreçleri sonlandırın ve bellek sızıntılarını giderin.
+4. Kritik işlemlerde doğrulama adımları ekleyerek hata oranını kademeli olarak %20'ye indirin.
+
+## 2026-06-24 13:12 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %12.8, Bellek %85.1
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. PYTHON_CALISTIR aracındaki hataları azaltmak için kodun girdi kontrollerini ve hata yakalama mekanizmalarını güçlendirin.
+3. Bellek kullanımını %85'in altına düşürmek için gereksiz değişkenleri temizleyin ve büyük veri işlemlerini parçalara bölün.
+4. Genel hata oranını düşürmek için en sık hata alan işlemler için otomatik test senaryoları ekleyin.

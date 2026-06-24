@@ -32,6 +32,8 @@ def run(
             [sys.executable, str(_MAIN_PY), "--gorev", gorev],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=zaman_asimi,
         )
     except subprocess.TimeoutExpired:
