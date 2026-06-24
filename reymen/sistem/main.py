@@ -1374,9 +1374,22 @@ if __name__ == "__main__":
         with _contextlib.redirect_stdout(_buf), _contextlib.redirect_stderr(_buf):
             # 1. Config yükle
             try:
-                from setup import config_yukle
-                kayitli = config_yukle()
-            except Exception:
+                # ReYMeN projesi setup.py'deki config_yukle (varsa)
+                # Hermes setup.py importi SystemExit firlatir — engelle
+                _setup_yolu = os.path.join(_proje_kok, "setup.py")
+                if os.path.exists(_setup_yolu) and _proje_kok not in sys.path[:3]:
+                    sys.path.insert(0, _proje_kok)
+                if os.path.exists(_setup_yolu):
+                    import importlib.util as _iu
+                    _spec = _iu.spec_from_file_location("_reymen_setup", _setup_yolu)
+                    _mod = _iu.module_from_spec(_spec)
+                    sys.modules["_reymen_setup"] = _mod
+                    _spec.loader.exec_module(_mod)
+                    _fn = getattr(_mod, "config_yukle", None)
+                    kayitli = _fn() if _fn else None
+                else:
+                    kayitli = None
+            except BaseException:
                 kayitli = None
             aktif_config = kayitli or CONFIG
 

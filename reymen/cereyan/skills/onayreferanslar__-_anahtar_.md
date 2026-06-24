@@ -5,7 +5,7 @@ name: onay
   - {\"anahtar\": \"
 description: Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE) başarıyla uygulandı. example_com_verisi referansı kaydedildi ve tekrarları temizlendi. Kalıcı 24 saatlik izleme mekanizması aktif. Sistem durumu STABİL. Tüm adımlar hatasız tamamlandı.
 created: 2026-06-23
-usage_count: 44
+usage_count: 55
 last_used: 2026-06-24
 ---
 
@@ -453,3 +453,110 @@ FC/WEB_ICERIK: [Sayfa:urllib] URL: https://iana.org/domains/example
 
 Example Domains Domains Pr
 FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T01:44:55Z)
+
+FC/REFERANS_ARA: []
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T01:49:36Z)
+
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'durum'
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/CONTEXT: [Hata]: eylem 'durum' veya 'sikistir' olmalı, alındı: 'görev: onay. durum: reyme
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T01:54:12Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T01:58:39Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme'
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:03:36Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/MEMORY_PROVIDER: [Hata]: Bilinmeyen tür 'hafizada example_com_verisi ile ilgili tekrar eden kayit
+FC/REFERANS_OZET: [Referanslar]
+  - {\"anahtar\": \"drift_duzeltme_raporu_20260621\", \"deger\": \
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:09:05Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:24:11Z)
+
+FC/WEB_ARAMA: [Sonuc] Bulunamadi.
+FC/WEB_ARA: [Web Arama — DDG-HTML]:
+- Example Domains - Internet Assigned Numbers Authority
+
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://en.wikipedia.org/wiki/Example.com
+
+example.com - Wik
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://www.iana.org/help/example-domains
+
+Example Domains D
+FC/WEB_ICERIK: [Sayfa:urllib] URL: http://example.com
+
+Example Domain Example Domain This domai
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:28:53Z)
+
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'durum_kontrol'
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/HA_DURUM: [HA]: HA_TOKEN ayarlanmamış.
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:33:02Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay: reymen hafıza drift düzelt
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:33:44Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'hedef: onay - tüm referanslar ba
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: hedef_onay_20260624 - tüm r
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:35:43Z)
+
+FC/HAFIZA_ARA: []
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/MEMORY_PROVIDER: [Hata]: Bilinmeyen tür 'temizlik baslatiliyor: tekrar_eden_grs, asiri_tekrar, ta
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\onay_kontrol.py
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ✅]
+--- ÇIKTI ---
+Example.com verisi dogrulandi
+Baslik: Example Dom

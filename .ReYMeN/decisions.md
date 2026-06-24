@@ -293,3 +293,46 @@ karşılaştırma yapılmadı.
 | Adım | Öneri |
 |:-----|:------|
 | **SILENT** | Proje stabil. 670 PASS, 0 bulgu, 0 yeni dosya. Sessiz mod. |
+
+## Karar #10 — Drift Tespiti (cron)
+
+**Tarih:** 2026-06-24 05:28
+**Bağlam:** Periyodik duplicate module drift taraması — `scripts/duplicate_module_detector.py`
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **Duplicate module scan** | Proje kökünde 282 drift tespit edildi | ⚠️ **282 drift** (exit code 1) |
+| 2 | **Belirgin copy kümeleri** | `cli.py`, `adapter.py`, `provider.py`, `backup.py` en çok kopya barındıranlar | 4-7 farklı copy/clone |
+| 3 | **Test drift** | `test_context_*.py`, `test_session.py`, `test_*.py` → ReYMeN_reference/ altında kopyaları mevcut | 20+ test drift |
+
+### Öne Çıkan Kritik Driftler
+
+| Modül | Kopya Sayısı | Risk |
+|:------|:------------:|:----:|
+| `cli.py` | 7 kopya | 🔴 Yüksek — import chain karışıklığı |
+| `adapter.py` | 11 kopya | 🔴 Yüksek — platform adapter drift |
+| `provider.py` | 12 kopya | 🔴 Yüksek — LLM sağlayıcı drift |
+| `test_session.py` | 2 kopya | 🟡 Orta — test güvenilirliği |
+| `backup.py` | 4 kopya | 🟡 Orta — backup katmanı drift |
+
+### Çözüm Önerileri
+
+| Kategori | Eylem | Öncelik |
+|:---------|:------|:-------:|
+| A — Drift temizleme | `scripts/duplicate_module_detector.py --clean` ile temizle | İterasyon 10+ |
+| B — Module dedup | En yüksek count'lu modüller (cli.py, provider.py) merge et | Orta vadede |
+| C — Test dedup | ReYMeN_reference altındaki test kopyalarını tekilleştir | Düşük |
+
+### Neden?
+- Kalıcı kural (Karar 2026-06-23): Her cycle başında drift kontrolü ZORUNLU
+- 282 drift var → sessiz geçilemez, uyarı gerekli
+
+### Alternatif?
+- SILENT: Drift yok varsayılıp geçilirdi — ama kural ihlali olurdu
+- Auto-clean: `--clean` ile otomatik temizleme — riskli, önce insan onayı gerek
+
+### ⚠️ UYARI: 282 modül drift tespit edildi
+Kök dizindeki dosyalar ile alt klasörlerdeki kopyaları arasında ciddi farklılıklar var.
+`scripts/duplicate_module_detector.py --hedef <modul>` ile hedefli temizlik önerilir.

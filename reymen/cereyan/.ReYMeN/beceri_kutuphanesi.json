@@ -921,8 +921,8 @@
       "\\\"example_com_verisi\\\",",
       "[referanslar]",
       "{\\\"anahtar\\\":",
-      "-",
       "onay",
+      "-",
       "\\\"deger\\\":"
     ],
     "adimlar": [
@@ -950,7 +950,7 @@
       "FC/WEB_ARAMA"
     ],
     "basari_kriteri": "Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE)",
-    "kullanim_sayisi": 44,
+    "kullanim_sayisi": 53,
     "basari_orani": 1.0,
     "olusturma": "2026-06-23",
     "son_basari": "2026-06-24"

@@ -22,12 +22,15 @@ import pytest
 def fresh_main():
     """main.py'yi sessizce import et, mock'lamaya hazirla."""
     old_out, old_err = sys.stdout, sys.stderr
+    old_argv = sys.argv
     sys.stdout = io.StringIO()
     sys.stderr = io.StringIO()
+    sys.argv = ["main.py"]  # setup.py parse hatasini onle
     sys.modules.pop("main", None)
     try:
         import main as m
     finally:
+        sys.argv = old_argv
         sys.stdout = old_out
         sys.stderr = old_err
 

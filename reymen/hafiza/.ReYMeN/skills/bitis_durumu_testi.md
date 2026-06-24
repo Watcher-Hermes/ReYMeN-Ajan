@@ -2,17 +2,17 @@
 
 ## Açıklama
 # ✅ Başarılı: bitiş durumu testi
-- Süre: 0.0s, Tur: 1
+- Süre: 0.2s, Tur: 1
 
 ## Kullanılan Araçlar
 - *(belirtilmedi)*
 
 ## Oluşturulma Tarihi
-2026-06-23 20:45:04
+2026-06-24 05:19:22
 
 ## Ek Bilgiler
 | **Özellik** | **Değer** |
 |---|---|
-| Sure Sn | 0.03 |
+| Sure Sn | 0.2 |
 | Tur Sayisi | 1 |
-| Task Id | f85fa577 |
+| Task Id | c42c5d80 |
