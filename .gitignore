@@ -198,3 +198,10 @@ reymen/cereyan/.ReYMeN/ogrenmeler.db
 **/*.db
 **/*.sqlite3
 **/*.zip
+
+# ReYMeN runtime artifacts — trajectory logs, reports, skill index
+**/trajectories/*.json
+**/trajectories/*.jsonl
+**/cokus_raporlari/*
+reymen/cereyan/.ReYMeN/beceri_kutuphanesi.json
+reymen/cereyan/skills/*.md
