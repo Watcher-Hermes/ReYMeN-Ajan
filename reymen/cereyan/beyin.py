@@ -180,7 +180,7 @@ class Beyin:
             "default_model",
             config.get("general", {}).get(
                 "default_model",
-                "cognitivecomputations.dolphin3.0-llama3.1-8b",
+                "deepseek-v4-flash",
             ),
         )
 
@@ -641,10 +641,13 @@ class Beyin:
                             )
                             openrouter_eklendi = True
 
-                if self._rate_limit_mi(e):
-                    logger.warning(
-                        "[Beyin] Rate limit (%s) — sonraki sağlayıcıya geçiliyor.", adim.provider
-                    )
+                _sessiz = (
+                    "401" in hata_str or "Unauthorized" in hata_str
+                    or "429" in hata_str or "Too Many Requests" in hata_str
+                    or self._rate_limit_mi(e)
+                )
+                if _sessiz:
+                    logger.debug("[Beyin] %s atlandı → %s", adim.provider, hata_str[:60])
                 else:
                     logger.error("[Beyin] %s", turkce_hata)
 

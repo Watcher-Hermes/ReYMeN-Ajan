@@ -5,7 +5,7 @@ name: onay
   - anahtar: gorev_t
 description: Drift düzeltme planı başarıyla onaylandı. 3 adet drift duyarı belirlendi ve kritiklik seviyelerine göre sıralandı: 1) TEKRAR_EDEN_GRS (Yüksek), 2) TAMAMLANMAMIS_GOREV (Yüksek), 3) ASIRI_TEKRAR (Orta). Her biri için temizleme görevleri oluşturuldu, gerekli kaynaklar tahsis edildi ve 24 saatlik izleme
 created: 2026-06-24
-usage_count: 24
+usage_count: 27
 last_used: 2026-06-24
 ---
 
@@ -269,3 +269,29 @@ FC/EXECUTE_CODE: [GUVENLIK_REDDI] Güvenlik: 'open(' içeren kod çalıştırıl
 FC/TODO: {"durum": "hata", "hata": "Geçersiz işlem: 'drift duzeltme onayi alindi. yapilac
 FC/TODO: {"durum": "hata", "hata": "Geçersiz işlem: 'ekle: drift duzeltme - onay alindi. 
 FC/TODO: {"durum": "basarili", "mesaj": "Hiç görev yok.", "gorevler": []}
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:20:55Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'oku drift_duzeltme'
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:33:41Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:33:52Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/MEMORY: [Kanca]: [KANCA] Çok hızlı: 0.00s < 0.5s
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'list all'
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/MEMORY: [Kanca]: [KANCA] 'MEMORY' 4 kere art arda çağrıldı. Muhtemel döngü — task bloke 
+FC/CRON_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda

@@ -188,7 +188,7 @@ class TestBeyinBaslatma:
             "providers": {"lmstudio": {"base_url": "http://localhost:1234", "api_key": "not-needed"}},
         }
         beyin = Beyin(cfg)
-        assert beyin.model == "cognitivecomputations.dolphin3.0-llama3.1-8b"
+        assert beyin.model == "deepseek-v4-flash"
 
     def test_var_olan_anahtar_os_environ(self, minimal_config):
         """OS environ'dan anahtar bulunabilmeli."""
@@ -654,7 +654,7 @@ class TestSabitler:
         assert "deepseek" in _VARSAYILAN_MODELLER
         assert "openai" in _VARSAYILAN_MODELLER
         assert "anthropic" in _VARSAYILAN_MODELLER
-        assert _VARSAYILAN_MODELLER["deepseek"] == "deepseek-chat"
+        assert _VARSAYILAN_MODELLER['deepseek'] == 'deepseek-v4-flash'
 
     def test_provider_env(self):
         assert _PROVIDER_ENV["deepseek"] == "DEEPSEEK_API_KEY"

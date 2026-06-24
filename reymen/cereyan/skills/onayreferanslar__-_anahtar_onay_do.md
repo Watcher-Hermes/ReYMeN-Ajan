@@ -5,7 +5,7 @@ name: onay
   - anahtar: onay_do
 description: Onay işlemi başarıyla tamamlandı. Drift düzeltmesi zaten 3 kez onaylanmış durumda (21, 23, 24 Haziran 2026). Tüm sorunlar (TEKRAR_EDEN_GRS, ASIRI_TEKRAR, TAMAMLANMAMIS_GOREV) çözülmüş, tekrarlar temizlenmiş ve 24 saatlik izleme mekanizması aktif. Kullanıcı tercihlerine göre gerçek kopya/tekrar olduğ
 created: 2026-06-24
-usage_count: 48
+usage_count: 54
 last_used: 2026-06-24
 ---
 
@@ -350,3 +350,43 @@ FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafı
 ## Ek Adimlar / Varyasyon (2026-06-24T09:11:01Z)
 
 FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay_bilgisi: reymen hafıza drif
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:18:22Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: onay_durumu_20260623\ndeğer: ONAY SÜRECİ TAMAMLANDI. Durum
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'sistem_durumu'
+FC/HA_DURUM: [HA]: HA_TOKEN ayarlanmamış.
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:18:54Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/EXECUTE_CODE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:26:23Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:37:24Z)
+
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/CRON_LISTELE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:41:28Z)
+
+FC/MEMORY_PROVIDER: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:42:56Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_EKLE: [Referans]: Eklendi

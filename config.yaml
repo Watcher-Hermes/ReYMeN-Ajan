@@ -5,8 +5,8 @@
 # ── Genel ───────────────────────────────────────────────────────────────────
 general:
   agent_name: "ReYMeN"
-  default_model: "deepseek/deepseek-v4-flash"
-  default_provider: "openrouter"
+  default_model: "deepseek-v4-flash"
+  default_provider: "deepseek"
   max_turns: 15
   secure_binding: true
 
@@ -114,7 +114,7 @@ providers:
 # ── Fallback Model (ana model başarısız olursa) ──────────────────────────────
 fallback_model:
   provider: "deepseek"
-  model: "deepseek-chat"
+  model: "deepseek-v4-flash"
   base_url: "https://api.deepseek.com"
   api_key_env: "DEEPSEEK_API_KEY"
 

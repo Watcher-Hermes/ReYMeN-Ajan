@@ -176,56 +176,46 @@ def baslangic_kontrolu(config: dict) -> dict:
     """
     # (baslangiç banner startup_ekrani.py tarafindan gosterilir)
 
-    # 0. Kaydedilmis bulut tercihi var mi? → LM Studio'yu gecersiz kilma
-    _BULUT_ENV_MAP = {
-        "deepseek":   "DEEPSEEK_API_KEY",
-        "openai":     "OPENAI_API_KEY",
-        "anthropic":  "ANTHROPIC_API_KEY",
-        "groq":       "GROQ_API_KEY",
-        "openrouter": "OPENROUTER_API_KEY",
-        "xai":        "XAI_API_KEY",
-        "xiaomi":     "XIAOMI_API_KEY",
-    }
-    try:
-        _setup_dosya = Path(__file__).parent / ".ReYMeN" / "setup.json"
-        if _setup_dosya.exists():
-            _saved = json.loads(_setup_dosya.read_text(encoding="utf-8"))
-            _tercih_prov  = _saved.get("tercih_provider", "")
-            _tercih_model = _saved.get("tercih_model", "")
-            if _tercih_prov and _tercih_prov not in ("lmstudio", "ollama") and _tercih_model:
-                _env_key = _BULUT_ENV_MAP.get(_tercih_prov, "")
-                # Önce env değişkenini, sonra .env dosyasını kontrol et
-                _key_deger = os.environ.get(_env_key, "").strip()
-                if not _key_deger and _env_key:
-                    # Proje .env dosyasından oku
-                    try:
-                        _proje_env = Path(__file__).resolve().parent.parent / ".env"
-                        if _proje_env.exists():
-                            for _satir in _proje_env.read_text(encoding="utf-8").splitlines():
-                                if _satir.startswith(f"{_env_key}="):
-                                    _key_deger = _satir.split("=", 1)[1].strip().strip("\"'")
-                                    break
-                    except Exception:
-                        pass
-                if _key_deger:
-                    config["default_provider"] = _tercih_prov
-                    config["default_model"]    = _tercih_model
-                    return config
-    except Exception as _baslangi_e186:
-        print(f"[UYARI] baslangic_kontrol.py:187 - {_baslangi_e186}")
+    # ── KEYSİN KURAL: bulut provider öncelik sırası ───────────────────────────
+    # deepseek-v4-flash her zaman 1. sıra; key yoksa sıradakine geç.
+    # setup.json / LM Studio varlığı bu sırayı ASLA geçersiz kılamaz.
+    _ONCELIK = [
+        ("deepseek",    "deepseek-v4-flash",                "DEEPSEEK_API_KEY"),
+        ("xiaomi",      "mimo-v2.5",                        "XIAOMI_API_KEY"),
+        ("xai",         "grok-2-latest",                    "XAI_API_KEY"),
+        ("openrouter",  "deepseek/deepseek-chat",           "OPENROUTER_API_KEY"),
+        ("openai",      "gpt-4o-mini",                      "OPENAI_API_KEY"),
+        ("anthropic",   "claude-haiku-4-5-20251001",        "ANTHROPIC_API_KEY"),
+        ("groq",        "llama-3.3-70b-versatile",          "GROQ_API_KEY"),
+    ]
+    for _prov, _model, _env_adi in _ONCELIK:
+        if _env_deger(_env_adi):
+            config["default_provider"] = _prov
+            config["default_model"]    = _model
+            # Auxiliary vision modelini kur (sadece ek amaçlı, default'u etkilemez)
+            try:
+                ls_url = config.get("providers", {}).get("lmstudio", {}).get("base_url", LMSTUDIO_BASE)
+                ls_mods = lmstudio_modeller(ls_url)
+                if ls_mods:
+                    vizyon_m = next(
+                        (m for m in ls_mods if "llava" in m.lower() or "vision" in m.lower()), None
+                    )
+                    if vizyon_m:
+                        config.setdefault("auxiliary", {}).setdefault("vision", {})["model"] = vizyon_m
+            except Exception:
+                pass
+            return config
+    # ─────────────────────────────────────────────────────────────────────────
 
-    # 1. LM Studio kontrolü (API anahtarına gerek yok)
+    # 1. LM Studio kontrolü (hiçbir cloud key yoksa)
     ls_url = config.get("providers", {}).get("lmstudio", {}).get("base_url", LMSTUDIO_BASE)
     ls_modeller = lmstudio_modeller(ls_url)
     if ls_modeller:
         vizyon_m = next((m for m in ls_modeller if "llava" in m.lower() or "vision" in m.lower()), None)
         if vizyon_m:
             config.setdefault("auxiliary", {}).setdefault("vision", {})["model"] = vizyon_m
-        # SADECE setup.json'da kayitli tercih yoksa LM Studio'yu default yap
-        # (yoksa baslangicta surekli LM Studio'ya atlar)
-        if config.get("default_provider", "") in ("", "lmstudio"):
-            config["default_model"]    = ls_modeller[0]
-            config["default_provider"] = "lmstudio"
+        config["default_model"]    = ls_modeller[0]
+        config["default_provider"] = "lmstudio"
         return config
 
     # 2. Harici API anahtarı kontrolü

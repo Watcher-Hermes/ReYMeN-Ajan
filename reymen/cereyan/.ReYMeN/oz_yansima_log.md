@@ -381,3 +381,33 @@
 2. DOSYA_YAZ için hata orani düşürün.
 3. Bellek kullanımını düşürelim.
 4. Ajan performansını artırın.
+
+## 2026-06-24 12:18 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %17.0, Bellek %86.7
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını düşürün ve en fazla hata veren aracıyı belirleyin.
+3. DOSYA_YAZ aracında kullanımızı düşürebilirsiniz.
+4. Bellek kullanımını azaltabilirsiniz.
+
+## 2026-06-24 12:26 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %12.6, Bellek %89.3
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını düşün: İlk öncelikle hata oranını düşünmeliyiz. Hatalar genellikle performansa zayı olan bir yapay sistemde sadece problemler olarak görünür ve bu durumda performans düsük olur.
+3. En cok hata veren aracları belirlemeliyiz: DOSYA_YAZ'a olan hataların sebebi belirlemeliyiz veya böylece belli edilen aracları değiştirmek için kullanabileceğimiz araçları belirlemeliyiz.
+4. Bellek kullanımı: Belirli hata oranlarını düşünmeliyiz veya bu durumda performansa zayı olan bir yapay sistemde bellek kullanımını kontrol edebileceğimiz araçları belirlemeliyiz.
+
+## 2026-06-24 12:34 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %20.1, Bellek %93.7
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını azaltarak performans iyileştirin.
+3. DOSYA\_YAZ aracındaki hataları tamamladık.
+4. Bellek kullanımını düşükleştirin

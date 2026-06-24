@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin ilk adımı (1/4) tamamlandı. İzleme planının Grup A (TEKRAR_EDEN_GRS) ve Grup B (AŞIRI_TEKRAR) sorunlarının çözüldüğü onaylandı. Grup C (TAMAMLANMAMIS_GÖREV) için çözüm planlandı ancak uygulama için planın devamı (3 parça) bekleniyor. İlgili referans kaydı oluşturuldu. Bir sonraki
 created: 2026-06-24
-usage_count: 25
+usage_count: 31
 last_used: 2026-06-24
 ---
 
@@ -250,3 +250,49 @@ FC/GUVENLIK_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art ard
 FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
 FC/MEMORY_PROVIDER: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
 FC/EXECUTE_CODE: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:17:16Z)
+
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CRON_DURUM: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CLARIFY: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:24:59Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CRON_DURUM: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CRON_LISTELE: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/GUVENLIK_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/GOREV_DEVRET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:31:05Z)
+
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/DUSUN: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:36:44Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:41:56Z)
+
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:46:57Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/MEMORY_PROVIDER: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda
+FC/CLARIFY: [Kanca]: [KANCA] Task default bloke: 'CRON_EKLE' 4kere art arda

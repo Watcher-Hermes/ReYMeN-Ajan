@@ -259,7 +259,7 @@ CONFIG = {
         "gemini_cloud": {"base_url": "", "api_key": _env_anahtar("GOOGLE_CLOUD_PROJECT")},
     },
     "fallback_model": {
-        "provider": "deepseek", "model": "deepseek-chat",
+        "provider": "deepseek", "model": "deepseek-v4-flash",
         "base_url": "https://api.deepseek.com",
         "api_key": _env_anahtar("DEEPSEEK_API_KEY"),
     } if _env_anahtar("DEEPSEEK_API_KEY") else None,
@@ -462,9 +462,10 @@ class AIAgentOrchestrator:
     # ── Gorev siniflandirici ───────────────────────────────────────────────
     _SELAM_KELIMELER = {"slm", "selam", "merhaba", "hey", "hi", "hello", "sa", "sea", "selamun aleyküm"}
     _SOHBET_KELIMELER = {"nasılsın", "naber", "nbr", "iyi", "kötü", "teşekkür", "tesekkur", "sağol", "sagol", "bye", "görüşürüz", "gorusuruz"}
-    _BILGI_KELIMELER = {"nedir", "kimdir", "nerede", "ne zaman", "nasıl yapılır", "ara", "bul", "sorgula", "kaç", "ne kadar", "fiyat"}
+    _BILGI_KELIMELER = {"nedir", "kimdir", "nerede", "ne zaman", "nasıl", "nasil", "ara", "bul", "sorgula", "kaç", "ne kadar", "fiyat", "hangisi", "neden", "niçin", "açıkla", "anlat"}
     _SKILL_KELIMELER = {"skill", "beceri", "yetenek", "katalog", "ne yapabilirsin", "yeteneğin"}
-    _DOSYA_KELIMELER = {"dosya", "klasör", "kaydet", "oluştur", "sil", "kopyala", "taşı", "oku", "yaz"}
+    # "yaz", "oku", "oluştur" çıkarıldı — çok genel, bilgi sorularını yanlış sınıflandırıyordu
+    _DOSYA_KELIMELER = {"dosya", "klasör", "kaydet", "sil", "kopyala", "taşı"}
 
     def _gorev_siniflandir(self, hedef: str) -> str:
         """Hedef metnini siniflandir: selam, sohbet, bilgi, skill, dosya, karmasik."""
@@ -472,6 +473,9 @@ class AIAgentOrchestrator:
         # Selam (en kisa)
         if h in self._SELAM_KELIMELER or h.rstrip("!?.,") in self._SELAM_KELIMELER:
             return "selam"
+        # Soru işareti → her zaman bilgi (araç gerektirmez)
+        if "?" in h:
+            return "bilgi"
         # Sohbet (kisa, kisisel)
         if any(k in h for k in self._SOHBET_KELIMELER) and len(h) < 30:
             return "sohbet"
@@ -481,7 +485,7 @@ class AIAgentOrchestrator:
         # Bilgi sorgu
         if any(k in h for k in self._BILGI_KELIMELER):
             return "bilgi"
-        # Dosya islemi
+        # Gerçek dosya/sistem işlemi (komut niteliğinde, soru değil)
         if any(k in h for k in self._DOSYA_KELIMELER):
             return "dosya"
         # Varsayilan: chat/konusma (hizli mod)
@@ -554,10 +558,10 @@ class AIAgentOrchestrator:
             _parcalandi = True
             _gorev_tipi = "karmasik"
         # ─────────────────────────────────────────────────────────────
-        # Selam/sohbet → direkt API (prompt assembly + tool zinciri atlanir)
+        # Selam/sohbet/bilgi → direkt API (ReAct döngüsü atlanır)
         # ANCAK: FC modu aktif veya denenmediyse FC döngüsüne bırak
         _fc_kapali = self._fc_mod is False or not hasattr(self.provider, "uret_v2")
-        if _gorev_tipi in ("selam", "sohbet") and _fc_kapali:
+        if _gorev_tipi in ("selam", "sohbet", "bilgi") and _fc_kapali:
             try:
                 hizli_prompt = "Kisa ve oz cevap ver. Turkce konus."
                 yanit = self.provider.uret(
@@ -565,11 +569,15 @@ class AIAgentOrchestrator:
                     [{"role": "user", "content": hedef}],
                 )
                 if yanit and yanit.strip():
-                    print("\n\x1b[92m❯ ReYMeN\x1b[0m")
+                    _m = (
+                        getattr(self.provider, "model", None)
+                        or self.config.get("default_model", "deepseek-v4-flash")
+                    )
+                    print(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
                     print(yanit.strip())
                     return {"output": yanit.strip(), "exit_code": 0}
             except Exception:
-                pass  # hata olursa normal akisa devam
+                pass  # hata olursa ReAct döngüsüne devam
 
         # Iteration budget — once karmasiklik belirle, sonra goruntu karar ver
         if self.budget:
