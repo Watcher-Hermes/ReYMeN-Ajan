@@ -217,4 +217,5 @@ notion_writer/.env
 **/cokus_raporlari/
 **/beceri_kutuphanesi.json
 **/trajectories/*.jsonl
+**/trajectories/*.json
 **/referanslar.json

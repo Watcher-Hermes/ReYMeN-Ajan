@@ -921,8 +921,8 @@
       "\\\"example_com_verisi\\\",",
       "[referanslar]",
       "{\\\"anahtar\\\":",
-      "onay",
       "-",
+      "onay",
       "\\\"deger\\\":"
     ],
     "adimlar": [
@@ -936,10 +936,21 @@
       "FC/Browser",
       "FC/HAFIZA_ARA",
       "FC/WEB_ARA",
-      "FC/CRON_EKLE"
+      "FC/CRON_EKLE",
+      "FC/TODO",
+      "FC/EXECUTE_CODE",
+      "FC/SKILL",
+      "FC/MEMORY_PROVIDER",
+      "FC/CLARIFY",
+      "FC/DOSYA_YAZ",
+      "FC/EKRAN_OKU",
+      "FC/EKRAN_TIKLA",
+      "FC/SISTEM_KAYNAK",
+      "FC/CONTEXT",
+      "FC/WEB_ARAMA"
     ],
     "basari_kriteri": "Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE)",
-    "kullanim_sayisi": 17,
+    "kullanim_sayisi": 44,
     "basari_orani": 1.0,
     "olusturma": "2026-06-23",
     "son_basari": "2026-06-24"

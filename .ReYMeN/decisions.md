@@ -264,3 +264,32 @@ karşılaştırma yapılmadı.
 |:-----|:------|
 | C | Farklı test grubu — stabilitenin sağlaması |
 | veya SILENT | 7+ iterasyon stabil, sessiz moda geçilebilir |
+
+---
+
+## Karar #9 — Cron Iteration 8 (it8) — B: stale import fix
+
+**Tarih:** 2026-06-24
+**Bağlam:** 8. self-improvement döngüsü — gitignore trajectory fix + hafiza __init__ stale import cleanup
+
+### Ne yapıldı?
+
+| # | İşlem | Detay | Sonuç |
+|:-:|-------|-------|:-----:|
+| 1 | **Gitignore trajectory fix** | `**/trajectories/*.jsonl` → `*.json` eklendi | ✅ 115 untracked trajectory file gitti |
+| 2 | **hafiza/__init__.py fix** | `Hafiza`, `HafizaBudama`, `SessionDB` gibi var olmayan 6 class import kaldırıldı. Gerçek class adları (GelismisHafiza, AdvancedSessionStorage, ReferansYoneticisi vb.) yazıldı | ✅ Import chain OK |
+| 3 | **Full test suite** | 21 core test dosyası | ✅ **670 PASS, 16 SKIP** (0 FAIL, 32.30s) |
+
+### Neden?
+- İt7 (B) yapıldı, sıra C'ydi ama testler import hatası veriyordu
+- 115 trajectory `.json` untracked — gitignore sadece `.jsonl` desenini kapsıyordu
+- it6'da eklenen hafiza `__init__.py`'de var olmayan class import'ları vardı
+
+### Alternatif?
+- SILENT: 115 trajectory file kirliliği büyümeye devam eder, git status kullanılamaz olur
+- C: import hatası yüzünden hiçbir test çalışmazdı
+
+### Sonraki (İt. 9)
+| Adım | Öneri |
+|:-----|:------|
+| **SILENT** | Proje stabil. 670 PASS, 0 bulgu, 0 yeni dosya. Sessiz mod. |

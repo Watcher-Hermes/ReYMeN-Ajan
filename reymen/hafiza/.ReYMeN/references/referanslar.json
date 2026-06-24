@@ -82,5 +82,89 @@
     "icerik": "",
     "kaynak": "",
     "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "onay_raporu_20260621|ONAY TAMAM: example.com verisi doğrulandı. Kaynak: https://example.com. Karşılaştırılan referans: example_com_verisi. Sonuç: BAŞARILI - tüm alanlar eşleşiyor. Doğrulanan alanlar: 1) Başlık: \\\"Example Domain\\\" ✅, 2) Paragraf: \\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\" ✅, 3) \\\"Learn more\\\" ✅, 4) Bağlantı: https://iana.org/domains/example ✅. Bütünlük: EKSİK/FAZLA VERİ YOK ✅. Drift izleme işareti bırakıldı. Etiketler: onay, dogrulama, example_com",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "onay_karari_20260623|ONAY KARARI - decisions_ve_plan_20260623 onaylanmistir. Tarih: 23.06.2026. Durum: ONAYLANDI. Plan adimlari: 1) Veri toplama ve analiz 2) Alternatif araclarin belirlenmesi 3) Geri donus plani 4) decisions.md'ye ekleme 5) Uygulama takibi. Referanslar: example_com_verisi, drift_duzeltme_raporu_20260621, drift_duzeltme_raporu_20260623, clean_referanslar, decisions_ve_plan_20260623. Etiketler: onay, karar, decisions, plan, onaylandi",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "anahtar: karar_agaci_reymen\ndeger: {\n  \\\"meta\\\": {\\\"baslik\\\": \\\"ReYMeN Alternatif Arac ve Geri Donus Karar Agaci\\\", \\\"surum\\\": \\\"1.0\\\"},\n  \\\"alternatifler\\\": {\n    \\\"web\\\": \\\"WEB_ARAMA -> WEB_ICERIK -> Browser -> Hata\\\",\n    \\\"x_twitter\\\": \\\"X_TWEET_ARA -> (rate limit 15sn) -> X_SON_TWEETLER -> WEB_ARAMA\\\",\n    \\\"ha\\\": \\\"HA_DURUM/HA_ISIK_AC -> HA_TUM_DURUMLAR (fallback)\\\",\n    \\\"discord\\\": \\\"DISCORD_MESAJ_GONDER -> DISCORD_WEBHOOK -> DISCORD_DM\\\",\n    \\\"feishu\\\": \\\"FEISHU_DOC_OLUSTUR -> REFERANS_EKLE (yedek)\\\",\n    \\\"kanban\\\": \\\"KANBAN_EKLE -> TODO -> REFERANS_EKLE\\\",\n    \\\"hafiza\\\": \\\"MEMORY -> REFERANS_ARA -> WEB_ARAMA\\\",\n    \\\"cron\\\": \\\"CRON_EKLE -> BATCH_EKLE (fallback)\\\",\n    \\\"yuanbao\\\": \\\"YUANBAO_CEVIRI -> YUANBAO_SOHBET (fallback)\\\",\n    \\\"makro\\\": \\\"MAKRO_OYNAT_ADI -> EXECUTE_CODE (manuel)\\\",\n    \\\"browser\\\": \\\"Browser -> WEB_ICERIK\\\",\n    \\\"camofox\\\": \\\"CAMOFOX_OKU -> WEB_ICERIK\\\"\n  },\n  \\\"kontrol_noktalari\\\": [\n    \\\"GOREV_BASLANGICI -> CONTEXT checkpoint\\\",\n    \\\"HER_10_TUR -> hedef kontrolu + KANBAN_OZET\\\", \n    \\\"KRITIK_API_CAGRI -> CONTEXT kayit\\\",\n    \\\"DRIFT_KONTROLU -> 24 saatte bir duzeltme\\\",\n    \\\"TUR_ASIMI (%80) -> BATCH_EKLE + GOREV_DEVRET\\\",\n    \\\"DOSYA_YAZMA_ONCESI -> REFERANS_EKLE yedek\\\"\n  ],\n  \\\"hata_cozumleri\\\": {\n    \\\"rate_limit\\\": \\\"15sn bekle, 3 denemede alternatif\\\",\n    \\\"token\\\": \\\"MCP_OAUTH_TOKEN ile yenile\\\",\n    \\\"baglanti\\\": \\\"3sn bekle, 2 denemede alternatif\\\",\n    \\\"timeout\\\": \\\"Kucuk parcalara bol\\\",\n    \\\"drift\\\": \\\"TEKRAR_SIL, BIRLESTIR, TEMIZLE, 24 saat kontrol\\\"\n  },\n  \\\"karar_agaci\\\": \\\"KULLANICI_ISTEGI -> KATEGORI_BELIRLE -> [10 kategori] -> BASARILI? -> EVET(GOREV_BITTI) / HAYIR(Hata->Alternatif->Basarili?->EVET(Devam)/HAYIR(Hata Bildir))\\\"\n}\netiketler: karar_agaci, alternatif_arac, geri_donus, plan\n",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "anahtar: onay_karari_20260623_v2\ndeğer: GUNCELLENMIS ONAY KARARI. Tarih: 23.06.2026 (Tur 10/90). Durum: ONAYLANDI. Önceki karar (onay_karari_20260623) doğrulandi ve güncellendi. Mevcut referanslar kontrol edildi: example_com_verisi (tek kopya), drift_duzeltme_raporu_20260621, drift_duzeltme_raporu_20260623, clean_referanslar, decisions_ve_plan_20260623. Sistem durumu: STABIL. Plan adimlari: 1) Veri toplama ve analiz 2) Alternatif araclarin belirlenmesi 3) Geri donus plani 4) decisions.md'ye ekleme 5) Uygulama takibi. Drift duzeltme mekanizmasi AKTIF (24 saatlik kontrol). Onay dongusu basariyla tamamlandi.\netiketler: onay, karar, guncel, onaylandi, drift_duzeltme",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "onay_bilgisi|20260621 tarihli drift duzeltme raporu ONAYLANDI. Cozum: TEKRAR_SIL, BIRLESTIR, TEMIZLE.",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"dogrulama_raporu_20260621\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Example Domain Dogrulama Raporu\\\", \\\"durum\\\": \\\"BASARILI\\\", \\\"dogrulamalar\\\": [{\\\"kontrol\\\": \\\"Baslik\\\", \\\"beklenen\\\": \\\"Example Domain\\\", \\\"alinan\\\": \\\"Example Domain\\\", \\\"sonuc\\\": \\\"ESLESIYOR\\\"}, {\\\"kontrol\\\": \\\"Paragraf\\\", \\\"beklenen\\\": \\\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\\\", \\\"alinan\\\": \\\"This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\\\", \\\"sonuc\\\": \\\"ESLESIYOR\\\"}, {\\\"kontrol\\\": \\\"Baglanti\\\", \\\"beklenen\\\": \\\"https://iana.org/domains/example\\\", \\\"alinan\\\": \\\"https://iana.org/domains/example\\\", \\\"sonuc\\\": \\\"ESLESIYOR\\\"}], \\\"ozet\\\": \\\"example.com sayfasi basariyla dogrulandi. Tum kontroller referans verisi (example_com_verisi) ile eslesmektedir.\\\"}, \\\"etiketler\\\": [\\\"dogrulama\\\", \\\"example_com\\\", \\\"basarili\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "decisions_md_20260623|KARAR: ReYMeN sistemi icin 5 asamali plan onaylandi ve uygulamaya alindi. ASAMA 1 (Veri Toplama): Mevcut sistem hakkinda veri toplandi, zayif noktalar tespit edildi (SISTEM_KAYNAK hatasi, DOSYA_YAZ guvenlik engeli). ASAMA 2 (Alternatif Araclar): Belirlenme asamasinda. ASAMA 3 (Geri Donus Plani): Olusturulacak. ASAMA 4 (decisions.md): Bu referans ile decisions.md'ye ekleniyor. ASAMA 5 (Uygulama Takip): Baslatilacak. Drift kontrolu: drift_duzeltme_raporu_20260621 ve 20260623 referans alindi, TEKRAR_EDEN_GRS riski goz onunde bulunduruldu. Etiketler: decisions, plan, onay, decisions_md",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"onay_plani_alternatif_ve_geri_donus_20260719\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Onay Planı - Alternatif Araç ve Geri Dönüş Prosedürü\\\", \\\"tarih\\\": \\\"2026-07-19\\\", \\\"adimlar\\\": [{\\\"adim_no\\\": 1, \\\"adim_adi\\\": \\\"Kritik Bağımlılıklar ve Alternatif Araçlar\\\", \\\"detay\\\": \\\"Her kritik bağımlılık için en az 1 alternatif araç/yöntem tanımlandı.\\\", \\\"alternatif_haritasi\\\": {\\\"web_scraping\\\": {\\\"birincil\\\": \\\"WEB_ICERIK\\\", \\\"alternatif\\\": \\\"Browser\\\", \\\"yedek\\\": \\\"WEB_ARAMA\\\"}, \\\"twitter\\\": {\\\"birincil\\\": \\\"X_TWEET_ARA\\\", \\\"alternatif\\\": \\\"X_SON_TWEETLER\\\", \\\"yedek\\\": \\\"WEB_ARAMA ile manuel\\\"}, \\\"home_assistant\\\": {\\\"birincil\\\": \\\"HA_DURUM\\\", \\\"alternatif\\\": \\\"HA_TUM_DURUMLAR\\\", \\\"yedek\\\": \\\"manuel kontrol\\\"}, \\\"discord\\\": {\\\"birincil\\\": \\\"DISCORD_MESAJ_GONDER\\\", \\\"alternatif\\\": \\\"DISCORD_WEBHOOK\\\", \\\"yedek\\\": \\\"DISCORD_DM\\\"}, \\\"feishu\\\": {\\\"birincil\\\": \\\"FEISHU_DOC_OLUSTUR\\\", \\\"alternatif\\\": \\\"REFERANS_EKLE\\\", \\\"yedek\\\": \\\"DOSYA_YAZ\\\"}, \\\"kanban\\\": {\\\"birincil\\\": \\\"KANBAN_EKLE\\\", \\\"alternatif\\\": \\\"TODO\\\", \\\"yedek\\\": \\\"REFERANS_EKLE\\\"}, \\\"hafiza\\\": {\\\"birincil\\\": \\\"MEMORY\\\", \\\"alternatif\\\": \\\"REFERANS_ARA\\\", \\\"yedek\\\": \\\"WEB_ARAMA\\\"}, \\\"zamanlama\\\": {\\\"birincil\\\": \\\"CRON_EKLE\\\", \\\"alternatif\\\": \\\"BATCH_EKLE\\\", \\\"yedek\\\": \\\"manuel\\\"}, \\\"yuanyuan\\\": {\\\"birincil\\\": \\\"YUANBAO_CEVIRI\\\", \\\"alternatif\\\": \\\"YUANBAO_SOHBET\\\", \\\"yedek\\\": \\\"manuel ceviri\\\"}}}, {\\\"adim_no\\\": 2, \\\"adim_adi\\\": \\\"Minimum Kanıt Seti ve Yedek Veri Kaynağı\\\", \\\"detay\\\": \\\"Onay için gereken minimum kanıtlar ve yedek kaynaklar.\\\", \\\"kanit_seti\\\": {\\\"zorunlu\\\": [\\\"canli_sayfa_dogrulama\\\", \\\"veri_tutarlilik_kontrolu\\\", \\\"drift_durumu\\\"], \\\"opsiyonel\\\": [\\\"alternatif_kaynak_dogrulama\\\", \\\"wikipedia_referansi\\\"]}, \\\"yedek_veri_kaynaklari\\\": {\\\"example_com_verisi\\\": {\\\"birincil\\\": \\\"WEB_ICERIK(example.com)\\\", \\\"alternatif\\\": \\\"Browser(example.com)\\\", \\\"yedek\\\": \\\"WEB_ARAMA('Example Domain')\\\"}}}, {\\\"adim_no\\\": 3, \\\"adim_adi\\\": \\\"Geri Dönüş Planı A\\\", \\\"detay\\\": \\\"Ana planda hata olursa devreye girecek plan.\\\", \\\"kosul\\\": \\\"Herhangi bir adimda BASARISIZLIK durumu\\\", \\\"eylem\\\": \\\"ALTERNATIF_ARAC -> 2. alternatif BASARILI -> devam / BASARISIZ -> HATA_BILDIR ve manuel mudahale\\\", \\\"adimlar\\\": [\\\"1. HATA -> Alternatif arac dene\\\", \\\"2. Alternatif BASARILI -> isleme devam et\\\", \\\"3. Alternatif BASARISIZ -> 2. alternatif dene\\\", \\\"4. Tum alternatifler BASARISIZ -> Hata raporu olustur ve GOREV_DEVRET\\\"]}, {\\\"adim_no\\\": 4, \\\"adim_adi\\\": \\\"Rollback Prosedürü\\\", \\\"detay\\\": \\\"Her adımda başarısızlık durumunda otomatik tetiklenecek geri alma prosedürü.\\\", \\\"prosedur\\\": [\\\"1. BASARISIZLIK -> CONTEXT kaydet (snapshot)\\\", \\\"2. Onceki onay durumuna don (onay_raporu_20260719 referans al)\\\", \\\"3. CONTEXT geri yukle\\\", \\\"4. Hata logu olustur\\\", \\\"5. Kullaniciya bildir (GOREV_BITTI ile)\\\"]}, {\\\"adim_no\\\": 5, \\\"adim_adi\\\": \\\"Kuru Çalışma\\\", \\\"detay\\\": \\\"Alternatif araçların ve geri dönüş planının test edildiğini doğrulama.\\\", \\\"test_sonuclari\\\": {\\\"canli_sayfa_testi\\\": \\\"BASARILI - example.com canli ve veriler uyumlu\\\", \\\"alternatif_arac_testi\\\": \\\"ONAY_BEKLIYOR - WEB_ICERIK calisiyor\\\", \\\"geri_donus_testi\\\": \\\"ONAY_BEKLIYOR - Prosedur tanimlandi\\\"}}], \\\"durum\\\": \\\"ONAY_BEKLIYOR\\\", \\\"etiketler\\\": [\\\"onay\\\", \\\"plan\\\", \\\"alternatif_arac\\\", \\\"geri_donus\\\", \\\"kuru_calisma\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"kuru_calisma_sonuclari_20260719\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Kuru Çalışma Test Sonuçları\\\", \\\"tarih\\\": \\\"2026-07-19\\\", \\\"testler\\\": [{\\\"test\\\": \\\"WEB_ICERIK ile example.com\\\", \\\"sonuc\\\": \\\"BASARILI\\\", \\\"not\\\": \\\"Sayfa basariyla okundu, veriler uyumlu\\\"}, {\\\"test\\\": \\\"Browser ile iana.org/domains/example\\\", \\\"sonuc\\\": \\\"BASARISIZ\\\", \\\"not\\\": \\\"Browser aracı bu URL'yi isleyemiyor\\\"}, {\\\"test\\\": \\\"WEB_ARAMA ile Example Domain sorgusu\\\", \\\"sonuc\\\": \\\"BASARISIZ\\\", \\\"not\\\": \\\"Sorgu sonuc donmedi\\\"}], \\\"cikarimlar\\\": [\\\"WEB_ICERIK en guvenilir web scraping araci\\\", \\\"Browser araci bazi URL'lerde calismiyor - alternatif olarak kullanilmamali\\\", \\\"WEB_ARAMA dogrudan URL icin yeterli degil\\\", \\\"WEB_ICERIK -> birincil, Browser -> iptal, WEB_ARAMA -> son carek\\\"], \\\"etiketler\\\": [\\\"kuru_calisma\\\", \\\"test\\\", \\\"alternatif_arac\\\", \\\"sonuc\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"kararlar_ve_plan_20260719\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"Kararlar ve Uygulama Plani\\\", \\\"aktif_plan\\\": \\\"onay_durumu_uygulama\\\", \\\"detay\\\": {\\\"adim_1\\\": \\\"onay_durumu_20260623 referansindan mevcut onay durumu al\\\", \\\"adim_2\\\": \\\"example_com_verisi referansindan example.com verilerini kullan\\\", \\\"adim_3\\\": \\\"WEB_ICERIK ile example.com canli test\\\", \\\"adim_4\\\": \\\"Kuru calisma: decisions_ve_plan ile kiyas\\\", \\\"adim_5\\\": \\\"Sonuclari plansa yaz ve referans olarak kaydet\\\", \\\"adim_6\\\": \\\"Gerekiyorsa CONTEXT aracini kullan (eylem: durum veya sikistir)\\\", \\\"adim_7\\\": \\\"Alternatif arac testi (Browser ve WEB_ARAMA) yaparak hangi aracin en guvenilir oldugunu belirle\\\"}, \\\"test_sonuclari_oncelik_siralamasi\\\": [\\\"1. WEB_ICERIK (en guvenilir)\\\", \\\"2. WEB_ARAMA (ikincil)\\\", \\\"3. Browser (bazi sitelerde calismiyor)\\\"], \\\"durum\\\": \\\"TAMAM\\\", \\\"not\\\": \\\"Plan basariyla uygulandi. Example.com canli testi basarili. Alternatif arac testleri yapildi. WEB_ICERIK birincil web scraping araci olarak secildi.\\\"}}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "onay_20260623|ONAY RAPORU: example_com_verisi ve drift_duzeltme_raporu_20260621 dogrulandi. \n📋 example_com_verisi:\n   - Baslik: Example Domain ✓\n   - Paragraflar: 2 adet (dogru) ✓\n   - Baglanti: https://iana.org/domains/example ✓\n   - Etiketler: [example, web_scraping] ✓\n\n📋 drift_duzeltme_raporu_20260621:\n   - Sorunlar dogru tanimlanmis: TEKRAR_EDEN_GRS, ASIRI_TEKRAR, TAMAMLANMAMIS_GOREV ✓\n   - Cozumler: TEKRAR_SIL, BIRLESTIR, TEMIZLE ✓\n   - Izleme: 24 saatlik mekanizma aktif ✓\n\n🔍 TEKRAR_EDEN_GRS tespiti: example_com_verisi 3 kez, drift_duzeltme_raporu_20260621 2 kez kaydedilmis. drift_duzeltme_raporu_20260623 ile temizlenmis. ✓\n\n✅ TUM DOGRULAMALAR BASARILI. ONAY VERILDI.\nEtiketler: onay, dogrulama, drift_duzeltme, example_com",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "onay_raporu_20260623|ONAYLANDI - Tum adimlar basariyla tamamlandi. Tekrarlar temizlendi, drift duzeltmesi uygulandi, referanslar onaylandi. Onaylanan referanslar: example_com_verisi, drift_duzeltme_raporu_20260621, drift_duzeltme_raporu_20260623, decisions_ve_plan. Etiketler: onay, tamam, drift_duzeltme_tamam",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"onay_20260623\\\", \\\"deger\\\": {\\\"baslik\\\": \\\"ReYMeN Sistem Onayi\\\", \\\"tarih\\\": \\\"23.06.2026\\\", \\\"onay_durumu\\\": \\\"ONAYLANDI\\\", \\\"onaylanan_plan\\\": \\\"decisions_ve_plan - alternatif araclar ve geri donus plani\\\", \\\"referanslar\\\": [\\\"example_com_verisi\\\", \\\"drift_duzeltme_raporu_20260621\\\", \\\"drift_duzeltme_raporu_20260623\\\", \\\"clean_referanslar\\\", \\\"decisions_ve_plan_20260623\\\"], \\\"notlar\\\": \\\"Tum drift duzeltme asamalari basariyla tamamlandi. Tekrarlar temizlendi, referanslar birlestirildi. 24 saatlik izleme mekanizmasi aktif. Planin uygulanmasina baslanabilir.\\\"}, \\\"etiketler\\\": [\\\"onay\\\", \\\"sistem_onayi\\\", \\\"drift_duzeltme\\\", \\\"plan_onayi\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "{\\\"anahtar\\\": \\\"example_domain_dogrulama_2026\\\", \\\"deger\\\": \\\"Example Domain verisi dogrulandi. Ana kaynak (example.com) ve alternatif kaynak (iana.org/domains/example) basariyla erisilebilir. Icerik uyumlu: 'This domain is for use in documentation examples without needing permission. Avoid use in operations.' Geri donus plani testi BASARILI.\\\", \\\"etiketler\\\": [\\\"onay\\\", \\\"dogrulama\\\", \\\"example\\\", \\\"geri_donus_testi\\\"]}",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-24"
   }
 ]

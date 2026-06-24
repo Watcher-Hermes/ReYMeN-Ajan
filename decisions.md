@@ -152,3 +152,29 @@ Proje standardı: skills .md dosyaları ile DB arasında kopukluk vardı — DB'
 
 ### Sonuç
 İlk çalıştırma: 6,287 yeni + 296 güncellendi. İkinci çalıştırma (1.6sn): 0 yeni, 554 güncelleme (çakışan name'lerden). Cron: her 6 saatte bir otomatik.
+
+
+## Karar #16 — Cron İt. 6 — Alan 3 Kod kalitesi (8. tur)
+
+**Tarih:** 24 Haziran 2026
+
+### 1. Ne yaptın?
+| # | İşlem | Sonuç |
+|:-:|-------|:-----:|
+| 1 | **AST security audit** — 197 .py dosyası | ✅ 2 shell=True (both nosec: cli.py:8901 user quick-commands, mcp_serve.py:210 shell helper), 1 bare-except (3rd party skill) |
+| 2 | **`hafiza/` __init__.py eksik** — 15 modül, package marker yok | ✅ Created + staged + committed |
+| 3 | **Syntax doğrulama** — compile() ile 197/197 files | ✅ All clean |
+| 4 | **Core module __init__.py check** — 7 core modül | ✅ All have __init__.py now |
+
+### 2. Neden?
+- `hafiza/` modülleri `from hafiza.hafiza import Hafiza` ile import ediliyor — __init__.py olmayan bir klasör Python 3.3+ için implicit namespace package olsa da, `__all__` ve explicit export eksikliği IDE autocomplete + linter uyarılarına yol açar
+- Aynı sorun geçmiş cron'larda diğer core modüller için çözülmüştü, hafiza/ atlanmış
+
+### 3. Alternatif düşündün mü?
+- Implicit namespace package olarak bırakmak — Python 3.3+ çalışır ama __all__ ve IDE desteği eksik
+- Sadece boş __init__.py koymak — export'ları explicit listelemek daha kullanışlı
+
+### Sonraki (İt. 7)
+| Alan | Öneri |
+|:-----|:------|
+| Alan 4 Hız — 8. tur | Pycache temizliği + session.db size kontrolü |
