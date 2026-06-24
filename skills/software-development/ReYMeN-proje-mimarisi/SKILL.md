@@ -20,11 +20,13 @@ ReYMeN Agent'a alternatif degil, tamamlayici — ReYMeN'te olmayan ozelliklerde 
 ## Kritik Noktalar
 - .env → 16 degisken, cift yonlu senkronizasyon (kendi .env'si + ReYMeN .env fallback)
 - FileLock → JSON yazma yarisi korumasi
-- Fallback zinciri → otomatik provider siralamasi (LM Studio > DeepSeek > OpenAI...)
+- Fallback zinciri → otomatik provider siralamasi (DeepSeek > Xiaomi > LM Studio). `_zincir_insa_et()` sirasi: birincil → tercihli cloud (xiaomi) → diger cloud → LM Studio (son care). `provider_degistir()` ile runtime'da degistirilir, zincir yeniden insa edilir.
 - Tekrar korumasi → ayni eylem 2. kez loop keser
 - **init siralamasi**: `self.learning` gibi attribute'ler once tanimlanmali, sonra kullanilmali. Aksi halde AttributeError.
 - **Side-by-side mimari**: ReYMeN ve ReYMeN Agent ic ice gecmez, yan yana calisir. Her bilesen kendine ozgu (kendi CLI, kendi motor, kendi dashboard).
 - **Graceful degrade**: Opsiyonel kutuphaneler try/except ile import edilir, yoksa "kurulu degil" der.
+- **Beyin provider switch**: `beyin.py`'ye `provider_degistir()` ve `model_dogrula()` metodlari eklendi. `provider_degistir()` fallback zincirini yeniden insa eder. `model_dogrula()` aktif provider/model/url bilgisini dondurur.
+- **startup_ekrani.py import bug**: `from beyin import Beyin` import'i `beyin.py` reymen/cereyan/ icinde oldugu icin coker. Dogrusu: `from reymen.cereyan.beyin import Beyin`. Ayrica ekcepten sonra fallback olarak `agent.provider.provider_degistir()` cagrilmalidir.
 
 ## Calisma Durumu (2026-06-16 — 28 yeni dosya ile genisletildi)
 - ReAct dongusu: Calisiyor ✅
@@ -447,3 +449,4 @@ python reyment.py skill list             # Becerileri listele
 - `references/batch-runner-pattern.md` — Batch runner deseni
 - `references/mass-test-generation.md` — 5.000+ test programatik uretme teknigi
 - `references/module-quality-assessment.md` — Modül kalite skorlama ve stub tespit metodolojisi
+- `references/model-switch-diagnostics.md` — Model degistirme teshis ve cozumleri (Beyin provider switch, startup_ekrani import bug, fallback zinciri)

@@ -72,8 +72,11 @@ class RuntimeHelpers:
 
     @staticmethod
     def hedef_analiz_et(hedef: str) -> dict:
-        """Hedefin karmasikligini ve turunu tahmin et."""
+        """Hedefin karmasikligini ve turunu tahmin et (gercekci)."""
         hedef_lower = hedef.lower()
+        kelime_sayisi = len(hedef.split())
+        satir_sayisi = len(hedef.splitlines())
+
         ipuclari = {
             "dosya_islemi": any(k in hedef_lower for k in
                                ["dosya", "yaz", "oku", "kaydet", "olustur"]),
@@ -87,12 +90,24 @@ class RuntimeHelpers:
                                ["komut", "terminal", "powershell", "sistem"]),
         }
         aktif = [k for k, v in ipuclari.items() if v]
-        # Karmasiklik tahmini (1-5)
-        karmasiklik = min(5, max(1, len(hedef.split()) // 8 + len(aktif)))
+
+        # Gercekci karmasiklik:
+        # - Kisa soru=1, Tek islem=2, 2-3 islem=3, Cok islem=4, Karmasik=5
+        if kelime_sayisi < 5 and satir_sayisi <= 1:
+            karmasiklik = 1
+        elif kelime_sayisi < 15 and len(aktif) <= 1:
+            karmasiklik = 2
+        elif len(aktif) <= 2 and kelime_sayisi < 50:
+            karmasiklik = 3
+        elif satir_sayisi > 15 or kelime_sayisi > 150:
+            karmasiklik = 4  # uzun mesaj
+        else:
+            karmasiklik = min(5, max(1, len(aktif) + kelime_sayisi // 20))
+
         return {
             "hedef_tur": aktif[0] if aktif else "genel",
             "karmasiklik": karmasiklik,
-            "onerilen_max_tur": karmasiklik * 6,
+            "onerilen_max_tur": karmasiklik * 6,  # 6,12,18,24,30
             "ipuclari": aktif,
         }
 

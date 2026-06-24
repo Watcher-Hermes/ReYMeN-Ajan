@@ -341,22 +341,26 @@ def model_sec(agent=None) -> bool:
     oll_mods = _ollama_modeller()
     tum_modeller: list[tuple[str, str, str]] = []  # (provider, model, goruntuleme_adi)
 
-    for m in ls_mods:
-        tum_modeller.append(("lmstudio", m, "LM Studio"))
-    for m in oll_mods:
-        tum_modeller.append(("ollama", m, "Ollama"))
-
     # Bulut providerlar — env_degiskeni, gercek_model_adi, goster_adi
+    # SİRALAMA: DeepSeek → Xiaomi → xAI → OpenRouter → OpenAI → Anthropic → Groq → Yerel
     _BULUT_ENV = {
-        "deepseek":    ("DEEPSEEK_API_KEY",    "deepseek-chat",              "DeepSeek"),
+        "deepseek":    ("DEEPSEEK_API_KEY",    "deepseek-v4-flash",           "DeepSeek"),
+        "xiaomi":      ("XIAOMI_API_KEY",      "mimo-v2.5",                   "Xiaomi"),
+        "xai":         ("XAI_API_KEY",         "grok-2-latest",               "xAI / Grok"),
+        "openrouter":  ("OPENROUTER_API_KEY",   "deepseek/deepseek-chat",     "OpenRouter"),
         "openai":      ("OPENAI_API_KEY",       "gpt-4o-mini",                "OpenAI"),
         "anthropic":   ("ANTHROPIC_API_KEY",    "claude-3-5-haiku-latest",    "Anthropic"),
         "groq":        ("GROQ_API_KEY",         "llama-3.1-8b-instant",       "Groq"),
-        "openrouter":  ("OPENROUTER_API_KEY",   "deepseek/deepseek-chat",     "OpenRouter"),
     }
     for prov_key, (env_adi, model_adi, goster_adi) in _BULUT_ENV.items():
         if _os.environ.get(env_adi, "").strip():
             tum_modeller.append((prov_key, model_adi, goster_adi))
+
+    # YEREL MODELLER (API key olmayanlar) — en sona
+    for m in ls_mods:
+        tum_modeller.append(("lmstudio", m, "LM Studio"))
+    for m in oll_mods:
+        tum_modeller.append(("ollama", m, "Ollama"))
 
     while True:
         # Tek model var ve zaten aktif → otomatik sec
@@ -409,10 +413,26 @@ def model_sec(agent=None) -> bool:
                 # Dogrulama basarili, Beyin'i yenile
                 if agent:
                     try:
-                        from beyin import Beyin
-                        agent.provider = Beyin(cfg)
-                    except Exception:
-                        pass
+                        from reymen.cereyan.beyin import Beyin
+                        yeni_beyin = Beyin(cfg)
+                        if hasattr(yeni_beyin, 'provider_degistir'):
+                            sonuc = yeni_beyin.provider_degistir(yeni_prov, yeni_mod)
+                        agent.provider = yeni_beyin
+                        info = yeni_beyin.model_dogrula() if hasattr(yeni_beyin, 'model_dogrula') else {}
+                        p_adi = info.get('aktif_provider', yeni_prov)
+                        print(f"  {_d('Beyin yenilendi:')} {_g(p_adi)} / {_g(yeni_mod)}")
+                    except Exception as e:
+                        if hasattr(agent, 'provider') and hasattr(agent.provider, 'provider_degistir'):
+                            try:
+                                s = agent.provider.provider_degistir(yeni_prov, yeni_mod)
+                                p = s.get('provider', '?')
+                                print(f"  {_d('Beyin guncellendi:')} {_g(p)} / {_g(yeni_mod)}")
+                            except Exception as e2:
+                                print(f"  {_d('Beyin guncellenemedi: ' + str(e2))}")
+                        else:
+                            cfg["default_provider"] = yeni_prov
+                            cfg["default_model"] = yeni_mod
+                            print(f"  {_d('Config guncellendi (Beyin import edilemedi).')}")
                 # Tercihi kalici kaydet
                 _model_tercihini_kaydet(yeni_prov, yeni_mod)
                 print(f"  {_g('OK')} Model degistirildi: {yeni_mod}  {_d('(' + yeni_prov + ')')}")
@@ -465,6 +485,7 @@ def gorkem_ekranu(
         "anthropic": "Anthropic",
         "deepseek":  "DeepSeek",
         "xai":       "xAI / Grok",
+        "xiaomi":    "Xiaomi / MiMo",
         "openrouter":"OpenRouter",
     }.get(provider, provider or "Yerel")
 

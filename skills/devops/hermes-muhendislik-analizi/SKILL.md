@@ -28,6 +28,7 @@ Kullanıcı hangi konuda soru sorduysa ilgili reference dosyasını yükle:
 | Bölüm 6 | Kritik Eksikler ve Güvenlik Açıkları | `references/06-kritik-eksikler.md` |
 | Bölüm 7 | 007 Ajan Mimarisi (güven piramidi, GraphRAG, benchmark) | `references/07-007-ajani.md` |
 | Bölüm 8 | Yerel ReYMeN Projeleri Envanteri (4 kod tabanı, konum, durum) | `references/08-yerel-hermes-projeleri.md` |
+| Bölüm 9 | Başlangıç ve Model Yönetimi (startup akışı, Beyin, hata çözümleri) | `references/09-baslangic-ve-model-yonetimi.md` |
 
 ## Kullanım
 

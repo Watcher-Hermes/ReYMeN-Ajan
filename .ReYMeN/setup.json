@@ -5,6 +5,6 @@
   "telegram_aktif": true,
   "versiyon": "1.0",
   "tercih_provider": "deepseek",
-  "tercih_model": "deepseek-chat",
+  "tercih_model": "deepseek-v4-flash",
   "telegram_bot_adi": "ReYMeN_ReYMeNbot"
 }

@@ -1,1 +1,9 @@
-{}
+{
+  "skills_sync": {
+    "komut": "cd /c/Users/marko/Desktop/Reymen\\ Proje/hermes_projesi && python3 reymen/cereyan/skills_sync.py",
+    "zaman": "0 */6 * * *",
+    "aktif": true,
+    "olusturma": "2026-06-24T12:09:01.196937",
+    "aciklama": "Her 6 saatte bir skills/ klasörünü OnceHafiza DB'sine senkronize eder"
+  }
+}

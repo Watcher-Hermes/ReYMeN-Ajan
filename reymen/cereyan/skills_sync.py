@@ -1,200 +1,202 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-skills_sync.py — Skill .md dosyalarını OnceHafiza DB'sine senkronize eder.
-Her 6 saatte bir cron ile çalışması için tasarlanmıştır.
-Sadece _SKILL.md dosyalarını işler, reference/other dosyaları atlar.
+skills_sync.py — reymen/cereyan/skills/ klasörünü OnceHafiza DB'sine senkronize eder.
+
+Çalışma:
+  1. skills/ altındaki tüm .md dosyalarını tara
+  2. Her dosya için (hedef, kategori, icerik) belirle
+  3. DB'de aynı hedef+kategori var mı kontrol et
+     - YOKSA → INSERT (yeni)
+     - VARSA, icerik farklıysa → UPDATE (güncel)
+  4. Özet döndür: kaç yeni, kaç güncel, kaç atlandı
+
+Kullanım:
+  python3 reymen/cereyan/skills_sync.py
 """
 
-import os
-import sys
 import hashlib
+import logging
+import sqlite3
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
-# Proje kökü
-PROJE_KOK = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(PROJE_KOK))
-
-from reymen.cereyan.once_hafiza import kaydet, DB_YOLU
-import sqlite3
-
 # ── Yapılandırma ──────────────────────────────────────────────────────────
+ROOT = Path(__file__).parent.parent.resolve()  # reymen/
+SKILLS_DIR = ROOT / "cereyan" / "skills"
+DB_PATH = ROOT / "cereyan" / ".ReYMeN" / "ogrenmeler.db"
 
-SKILLS_DIRS = [
-    PROJE_KOK / "reymen" / "cereyan" / "skills" / "Skiller",
-    PROJE_KOK / "reymen" / "cereyan" / "skills_yeni",
-]
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+logger = logging.getLogger("skills_sync")
 
-# Kategori eşleme: alt dizin adı → DB kategorisi
-KATEGORI_MAP = {
-    "AI_ML": "skill/ai-ml",
-    "tor": "skill/tor",
-    "voice": "skill/voice",
-    "Windows": "skill/windows",
-    "windows": "skill/windows",
-    "DevOps": "skill/devops",
-    "Github": "skill/github",
-    "Gaming": "skill/gaming",
-    "Guvenlik": "skill/security",
-    "Kod": "skill/code",
-    "Medya": "skill/media",
-    "Research": "skill/research",
-    "Test": "skill/test",
-    "Verimlilik": "skill/productivity",
-    "Egitim": "skill/education",
-    "Yaratici": "skill/creative",
-    "Ag": "skill/router",
-    "Kullanici": "skill/user-preferences",
-    "apple": "skill/apple",
-    "android": "skill/android",
-    "cross-platform": "skill/cross-platform",
-    "smart-home": "skill/smart-home",
-}
 
-def _kategori_bul(dizin_adi: str) -> str:
-    """Alt dizin adından kategori belirle."""
-    return KATEGORI_MAP.get(dizin_adi, f"skill/{dizin_adi.lower()}")
+def icerik_hash(icerik: str) -> str:
+    """İçerik için MD5 hash — değişiklik kontrolü için."""
+    return hashlib.md5(icerik.encode("utf-8")).hexdigest()
 
-def _hedef_bul(fname: str) -> str:
-    """Dosya adından hedef (benzersiz anahtar) belirle."""
-    name = fname
-    if name.endswith("_SKILL.md"):
-        name = name[:-len("_SKILL.md")]
-    elif name.endswith(".md"):
-        name = name[:-len(".md")]
-    return name.strip()
 
-def _icerik_hash(icerik: str) -> str:
-    """İçerik için MD5 hash (değişiklik tespiti için)."""
-    return hashlib.md5(icerik.encode("utf-8"), usedforsecurity=False).hexdigest()
+def kategori_bul(dosya_yolu: Path) -> str:
+    """Dosya yolundan kategori çıkar.
+    
+    Örnek:
+      Skiller/AI_ML/agents/file.md → "skill/agents"
+      altin_ons_fiyati.md           → "skill"
+      Skiller/Windows/file.md       → "skill/Windows"
+    """
+    rel = dosya_yolu.relative_to(SKILLS_DIR)
+    parts = list(rel.parts[:-1])  # dosya adını çıkar
+    
+    # "Skiller/" prefix'ini temizle ve normalize et
+    normalized = []
+    for p in parts:
+        p = p.replace("_", "/")
+        normalized.append(p)
+    
+    if not normalized:
+        return "skill"
+    return "skill/" + "/".join(normalized)
 
-def _db_icerik_hash(hedef: str, kategori: str) -> str | None:
-    """DB'deki mevcut kaydın içerik hash'ini al."""
+
+def hedef_bul(dosya_yolu: Path) -> str:
+    """Dosya adından hedef (başlık) çıkar - .md uzantısını kaldır."""
+    return dosya_yolu.stem
+
+
+def tarama_yap() -> dict:
+    """
+    Tüm .md dosyalarını tara ve DB ile karşılaştır.
+    
+    Returns:
+        {"eklenen": int, "guncellenen": int, "atlanan": int, "toplam": int}
+    """
+    # DB'yi aç
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    con = sqlite3.connect(str(DB_PATH), timeout=15)
+    con.execute("PRAGMA journal_mode=WAL")
+    con.execute("PRAGMA synchronous=NORMAL")
+    
+    # Tablo yoksa oluştur
+    con.executescript("""
+        CREATE TABLE IF NOT EXISTS ogrenmeler (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            hedef           TEXT NOT NULL,
+            kategori        TEXT NOT NULL DEFAULT 'genel',
+            icerik          TEXT NOT NULL,
+            guven_skoru     REAL NOT NULL DEFAULT 1.0,
+            basari_sayisi   INTEGER NOT NULL DEFAULT 1,
+            hata_sayisi     INTEGER NOT NULL DEFAULT 0,
+            son_kullanim    TEXT NOT NULL DEFAULT (date('now')),
+            gecerlilik_tarihi TEXT NOT NULL DEFAULT (date('now', '+180 days')),
+            kaynak_url      TEXT DEFAULT NULL,
+            olusturulma     TEXT NOT NULL DEFAULT (datetime('now')),
+            guncelleme      TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_ogrenmeler_kategori ON ogrenmeler(kategori);
+        CREATE INDEX IF NOT EXISTS idx_ogrenmeler_hedef   ON ogrenmeler(hedef);
+    """)
+    
+    # Mevcut kayıtları yükle: (hedef, kategori) → (id, icerik_hash)
+    mevcut = {}
     try:
-        con = sqlite3.connect(str(DB_YOLU), timeout=5)
         cur = con.execute(
-            "SELECT icerik FROM ogrenmeler WHERE hedef = ? AND kategori = ?",
-            (hedef, kategori)
+            "SELECT id, hedef, kategori, icerik FROM ogrenmeler"
         )
-        row = cur.fetchone()
-        con.close()
-        if row:
-            return _icerik_hash(row[0])
-        return None
-    except Exception:
-        return None
-
-def _tarama_yap() -> list:
-    """Tüm skill dizinlerini tara, _SKILL.md dosyalarını bul."""
-    sonuclar = []
-    for skills_dir in SKILLS_DIRS:
-        if not skills_dir.exists():
-            print(f"  [UYARI] Dizin mevcut değil: {skills_dir}")
-            continue
-        
-        for dirpath, dirnames, filenames in os.walk(skills_dir):
-            for fname in filenames:
-                if not fname.endswith("_SKILL.md"):
-                    continue
-                
-                full_path = Path(dirpath) / fname
-                rel_path = full_path.relative_to(skills_dir)
-                
-                # Alt dizin adını al (ilk seviye)
-                parts = rel_path.parts
-                alt_dizin = parts[0] if len(parts) > 0 else ""
-                
-                kategori = _kategori_bul(alt_dizin)
-                hedef = _hedef_bul(fname)
-                
-                # Dosya içeriğini oku
-                try:
-                    icerik = full_path.read_text(encoding="utf-8", errors="replace")
-                except Exception as e:
-                    print(f"  [HATA] Okunamadı: {full_path} — {e}")
-                    icerik = ""
-                
-                sonuclar.append((str(rel_path), hedef, kategori, str(full_path), fname, icerik))
+        for row in cur.fetchall():
+            key = (row[1], row[2])  # (hedef, kategori)
+            mevcut[key] = (row[0], icerik_hash(row[3]))
+    except Exception as e:
+        logger.error("DB okuma hatası: %s", e)
+        mevcut = {}
     
-    return sonuclar
-
-def _senkronize(sonuclar: list) -> dict:
-    """Bulunan skill dosyalarını DB'ye senkronize et."""
     sayac = {"eklenen": 0, "guncellenen": 0, "atlanan": 0, "hata": 0}
+    toplam_dosya = 0
     
-    for rel_path, hedef, kategori, full_path, fname, icerik in sonuclar:
+    # Tüm .md dosyalarını tara (sembolik linkleri takip etme)
+    md_dosyalar = sorted(SKILLS_DIR.rglob("*.md"))
+    toplam_dosya = len(md_dosyalar)
+    
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    bugun = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    
+    for dosya in md_dosyalar:
         try:
-            # İçeriği kısalt (ilk 5000 karakter)
-            icerik_kisa = icerik[:5000]
+            hedef = hedef_bul(dosya)
+            kategori = kategori_bul(dosya)
             
-            # Önce DB'de var mı kontrol et
-            mevcut_hash = _db_icerik_hash(hedef, kategori)
+            # İçeriği oku
+            icerik = dosya.read_text(encoding="utf-8", errors="replace")
+            yeni_hash = icerik_hash(icerik)
             
-            if mevcut_hash is None:
-                # Yeni kayıt
-                kaydet(
-                    hedef=hedef,
-                    kategori=kategori,
-                    icerik=icerik_kisa,
-                    basari=True,
-                    kaynak_url=f"file://skills/Skiller/{rel_path.replace(os.sep, '/')}"
-                )
-                sayac["eklenen"] += 1
-                print(f"  + {kategori}/{hedef}")
-            else:
-                # Var, içerik değişmiş mi kontrol et
-                yeni_hash = _icerik_hash(icerik_kisa)
-                if yeni_hash != mevcut_hash:
-                    kaydet(
-                        hedef=hedef,
-                        kategori=kategori,
-                        icerik=icerik_kisa,
-                        basari=True,
-                        kaynak_url=f"file://skills/Skiller/{rel_path.replace(os.sep, '/')}"
+            key = (hedef, kategori)
+            
+            if key in mevcut:
+                kayit_id, eski_hash = mevcut[key]
+                if yeni_hash != eski_hash:
+                    # İçerik değişmiş → güncelle
+                    con.execute(
+                        """UPDATE ogrenmeler SET
+                            icerik = ?,
+                            son_kullanim = ?,
+                            guncelleme = ?
+                        WHERE id = ?""",
+                        (icerik, bugun, now, kayit_id),
                     )
                     sayac["guncellenen"] += 1
-                    print(f"  ~ {kategori}/{hedef}")
+                    logger.debug("GÜNCELLENDİ: %s / %s", kategori, hedef[:50])
                 else:
-                    sayac["atlanan"] += 1
+                    sayac["atlanan"] += 1  # aynı, atla
+            else:
+                # Yeni kayıt
+                con.execute(
+                    """INSERT INTO ogrenmeler
+                       (hedef, kategori, icerik, guven_skoru, basari_sayisi,
+                        son_kullanim, gecerlilik_tarihi, kaynak_url,
+                        olusturulma, guncelleme)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (hedef, kategori, icerik, 0.7, 1,
+                     bugun, bugun, "skill",
+                     now, now),
+                )
+                sayac["eklenen"] += 1
+                logger.debug("EKLENDİ: %s / %s", kategori, hedef[:50])
+        
         except Exception as e:
-            print(f"  ! HATA: {kategori}/{hedef} — {e}")
             sayac["hata"] += 1
+            logger.warning("HATA (%s): %s", dosya.name, e)
     
+    con.commit()
+    con.close()
+    
+    sayac["toplam"] = toplam_dosya
     return sayac
 
 
-def calistir() -> dict:
-    """Ana çalıştırma fonksiyonu - cron tarafından çağrılır."""
-    print("=" * 60)
-    print("  SKILL → HAFIZA SENKRONİZASYONU")
-    print("=" * 60)
-    print(f"  DB: {DB_YOLU}")
-    print(f"  Zaman: {__import__('datetime').datetime.now().isoformat()}")
-    print()
+def ana():
+    logger.info("=== Skills → OnceHafiza Sync Basliyor ===")
+    logger.info("Klasor: %s", SKILLS_DIR)
+    logger.info("DB: %s", DB_PATH)
     
-    # 1. Tara
-    print("[1/2] Skill dosyaları taranıyor...")
-    sonuclar = _tarama_yap()
-    print(f"  Bulunan _SKILL.md dosyası: {len(sonuclar)}")
-    print()
+    if not SKILLS_DIR.exists():
+        logger.error("Klasor bulunamadi: %s", SKILLS_DIR)
+        sys.exit(1)
     
-    # 2. Senkronize et
-    print("[2/2] DB senkronize ediliyor...")
-    sonuc = _senkronize(sonuclar)
-    print()
+    sonuc = tarama_yap()
     
-    # 3. Rapor
-    print("-" * 60)
-    print("  ÖZET")
-    print("-" * 60)
-    print(f"  Toplam skill dosyası: {len(sonuclar)}")
-    print(f"  Yeni eklenen:         {sonuc['eklenen']}")
-    print(f"  Güncellenen:          {sonuc['guncellenen']}")
-    print(f"  Atlanan (değişmeyen): {sonuc['atlanan']}")
-    print(f"  Hata:                 {sonuc['hata']}")
-    print("=" * 60)
+    logger.info("=== Sync Tamam ===")
+    logger.info("Toplam dosya: %d", sonuc["toplam"])
+    logger.info("Yeni eklenen: %d", sonuc["eklenen"])
+    logger.info("Guncellenen:  %d", sonuc["guncellenen"])
+    logger.info("Atlanan (ayni): %d", sonuc["atlanan"])
+    logger.info("Hata:          %d", sonuc["hata"])
     
-    return sonuc
+    # Özet stdout'a yaz (cron log'u için)
+    print(f"SKILLS_SYNC|{sonuc['toplam']}|{sonuc['eklenen']}|{sonuc['guncellenen']}|{sonuc['atlanan']}|{sonuc['hata']}")
 
 
 if __name__ == "__main__":
-    calistir()
+    ana()

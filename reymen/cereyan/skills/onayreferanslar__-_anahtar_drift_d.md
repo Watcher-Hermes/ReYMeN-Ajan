@@ -10,7 +10,7 @@ Planın tüm adımları tek tek doğrulandı:
 ### Adım 1: Mevcut referansların okunması ve doğrulanması
 - **drift_duzeltme_onayi (İngilizce
 created: 2026-06-24
-usage_count: 60
+usage_count: 95
 last_used: 2026-06-24
 ---
 
@@ -503,3 +503,227 @@ FC/REFERANS_EKLE: [Referans]: Eklendi
 ## Ek Adimlar / Varyasyon (2026-06-24T05:48:13Z)
 
 FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T05:55:59Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T05:58:24Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'sorgu: drift_duzeltme_onayi anah
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: [drift_duzeltme_onayi] reym
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\AppData\Local\Temp\pytest-of-mark
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:03:45Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/WEB_ICERIK: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/MESAJ_TEMIZLE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/INJECTION_KONTROL: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/HA_DURUM: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/EXECUTE_CODE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/TODO: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+FC/GUVENLIK_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:08:43Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'sorgu: onay_dogrulama_raporu_202
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: onay_dogrulama_raporu_20260
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: onay_dogrulama_20260627'
+FC/MEMORY: [Kanca]: [KANCA] 'MEMORY' 4 kere art arda çağrıldı. Muhtemel döngü — task bloke
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:08:48Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:11:31Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_EKLE' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:17:45Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:20:15Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:26:18Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:35:59Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/GUVENLIK_OZET: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:39:45Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:45:19Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:50:22Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T06:54:06Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:01:55Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:03:29Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:11:30Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:12:29Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:13:16Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:21:12Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift düzeltme onayı başarıyla k
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:23:28Z)
+
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:32:02Z)
+
+FC/REFERANS_ARA: []
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay drift_duzeltme'
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:33:05Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:33:45Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T07:36:09Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/HAFIZA_ARA: [Kanca]: [KANCA] Çok hızlı: 0.00s < 0.5s
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:15:51Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:17:50Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:27:07Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:31:58Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:37:26Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:48:08Z)
+
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T08:59:59Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:01:43Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:09:38Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'MEMORY' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T09:12:15Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 

@@ -24,9 +24,15 @@ from dotenv import load_dotenv
 # runpy.run_path + __init__ circular import nedeniyle wrapper iki kez olusur,
 # birinci wrapper GC'lenince ortak buffer kapanir → ValueError: I/O on closed file.
 
-DOT_ENV = Path(__file__).parent / ".env"
-if DOT_ENV.exists():
-    load_dotenv(DOT_ENV, override=True)
+# Ana proje kokundeki .env (reymen/sistem/.env degil, root/.env)
+_PROJE_KOK_ENV = Path(__file__).resolve().parent.parent.parent / ".env"
+if _PROJE_KOK_ENV.exists():
+    load_dotenv(_PROJE_KOK_ENV, override=True)
+    DOT_ENV = _PROJE_KOK_ENV
+else:
+    DOT_ENV = Path(__file__).parent / ".env"
+    if DOT_ENV.exists():
+        load_dotenv(DOT_ENV, override=True)
 
 # ── ERKEN LOG SUSTURMA: tüm import'lardan ÖNCE ──────────────────────────────
 # Hem standart logging hem loguru, modül importu sırasında plugin logları üretir.
@@ -236,12 +242,14 @@ def _env_anahtar(anahtar, varsayilan=""):
 
 
 CONFIG = {
-    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "cognitivecomputations.dolphin3.0-llama3.1-8b"),
-    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "lmstudio"),
+    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "deepseek-v4-flash"),
+    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "deepseek"),
     "secure_binding": True,
     "providers": {
         "lmstudio":     {"base_url": _env_anahtar("LMSTUDIO_BASE_URL", "http://localhost:1234"), "api_key": "not-needed"},
         "deepseek":     {"base_url": "https://api.deepseek.com",  "api_key": _env_anahtar("DEEPSEEK_API_KEY")},
+        "xai":          {"base_url": "https://api.x.ai",          "api_key": _env_anahtar("XAI_API_KEY")},
+        "xiaomi":       {"base_url": _env_anahtar("XIAOMI_BASE_URL", "https://api.minimax.chat/v1"), "api_key": _env_anahtar("XIAOMI_API_KEY")},
         "anthropic":    {"base_url": "https://api.anthropic.com", "api_key": _env_anahtar("ANTHROPIC_API_KEY")},
         "openai":       {"base_url": "https://api.openai.com",    "api_key": _env_anahtar("OPENAI_API_KEY")},
         "groq":         {"base_url": "https://api.groq.com/openai/v1", "api_key": _env_anahtar("GROQ_API_KEY")},
@@ -514,6 +522,38 @@ class AIAgentOrchestrator:
 
         # ── GOREV SINIFLANDIRMA + AKILLI ROUTING ────────────────────
         _gorev_tipi = self._gorev_siniflandir(hedef)
+
+        # ── UZUN MESAJ PARCALAMA (chunking) ─────────────────────────
+        # Kullanici uzun metin kopyaladiginda adim adim ilerle
+        _satir_sayisi = len(hedef.splitlines())
+        _kelime_sayisi = len(hedef.split())
+        _parcalandi = False
+
+        if _satir_sayisi > 15 or _kelime_sayisi > 200:
+            print(f"[Chunk] Uzun mesaj tespit edildi ({_satir_sayisi} satir, {_kelime_sayisi} kelime). Parcalaniyor...")
+            _satirlar = hedef.splitlines()
+            _parcalar = []
+            _mevcut = []
+            _mevcut_kelime = 0
+
+            for _satir in _satirlar:
+                _satir_kelime = len(_satir.split())
+                if _mevcut_kelime + _satir_kelime > 100:  # max 100 kelime/parca
+                    _parcalar.append("\n".join(_mevcut))
+                    _mevcut = [_satir]
+                    _mevcut_kelime = _satir_kelime
+                else:
+                    _mevcut.append(_satir)
+                    _mevcut_kelime += _satir_kelime
+
+            if _mevcut:
+                _parcalar.append("\n".join(_mevcut))
+
+            print(f"[Chunk] {len(_parcalar)} parcaya bolundu. Adim adim ilerleniyor...")
+            hedef = f"[PARCALANMIS GOREV: {len(_parcalar)} adim]\n{_parcalar[0]}\n\n[DEVAMI SONRAKI ADIMDA VERILECEK - {len(_parcalar)-1} parca kaldi]"
+            _parcalandi = True
+            _gorev_tipi = "karmasik"
+        # ─────────────────────────────────────────────────────────────
         # Selam/sohbet → direkt API (prompt assembly + tool zinciri atlanir)
         # ANCAK: FC modu aktif veya denenmediyse FC döngüsüne bırak
         _fc_kapali = self._fc_mod is False or not hasattr(self.provider, "uret_v2")
@@ -602,10 +642,10 @@ class AIAgentOrchestrator:
         else:
             kb_rehber = ""
 
-        # FAZ 6 — Swarm: karmasiklik >= 4 ise coklu ajan devreye gir
-        suru_kullan = analiz.get("karmasiklik", 1) >= 4 and self.ajan_suru
+        # FAZ 6 — Swarm: karmasiklik >= 5 ise coklu ajan devreye gir (sadece en karmasik)
+        suru_kullan = analiz.get("karmasiklik", 1) >= 5 and self.ajan_suru
         if suru_kullan:
-            print("[AjanSuru] Karmasiklik >= 4 — swarm aktive ediliyor...")
+            print("[AjanSuru] Karmasiklik >= 5 — swarm aktive ediliyor...")
             try:
                 suru_sonuc = self.ajan_suru.calistir(hedef)
                 print(f"[AjanSuru]\n{suru_sonuc[:600]}")
@@ -1461,7 +1501,13 @@ if __name__ == "__main__":
 
         if hedef.lower().startswith("/model"):
             try:
-                model_degistir(agent)
+                from startup_ekrani import model_sec
+                model_sec(agent)
+                # Yenilenen provider bilgisini goster
+                if hasattr(agent, 'provider') and hasattr(agent.provider, 'model_dogrula'):
+                    durum = agent.provider.model_dogrula()
+                    print(f"  {durum.get('aktif_provider','?')} / {durum.get('aktif_model','?')}  "
+                          f"({durum.get('base_url','?')})")
             except Exception as e:
                 print(f"[/model] Hata: {e}")
             continue

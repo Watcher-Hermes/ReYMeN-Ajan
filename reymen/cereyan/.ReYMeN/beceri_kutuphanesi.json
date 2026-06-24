@@ -1001,55 +1001,12 @@
       "FC/MEMORY",
       "FC/CRON_LISTELE",
       "FC/MEMORY_PROVIDER",
-      "FC/WEB_ARA"
+      "FC/WEB_ARA",
+      "FC/DOSYA_YAZ",
+      "FC/REFERANS_OZET"
     ],
     "basari_kriteri": "\"## ✅ Drift Düzeltme Onay Süreci — BAŞARIYLA TAMAMLANDI\n\nPlanın tüm adımları tek",
-    "kullanim_sayisi": 10,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "onay___referanslar______anahtar__onay_dogrulama_ra": {
-    "ad": "onay\n\n[Referanslar]\n  - anahtar: onay_dogrulama_ra",
-    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: onay_dogrulama_ra",
-    "tetikleyiciler": [
-      "onay",
-      "-",
-      "deger:",
-      "[referanslar]",
-      "onay_dogrulama_raporu_20260624,",
-      "anahtar:"
-    ],
-    "adimlar": [
-      "FC/REFERANS_ARA",
-      "FC/HAFIZA_ARA",
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_EKLE"
-    ],
-    "basari_kriteri": "Onay işlemi başarıyla tamamlandı. Drift düzeltmesi zaten 3 kez onaylanmış durumd",
-    "kullanim_sayisi": 1,
-    "basari_orani": 1.0,
-    "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
-  },
-  "onay___referanslar______anahtar__drift_duzeltme_on": {
-    "ad": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
-    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
-    "tetikleyiciler": [
-      "[referanslar]",
-      "anahtar:",
-      "drift_duzeltme_onay_20260621,",
-      "deger:",
-      "onay",
-      "-"
-    ],
-    "adimlar": [
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_ARA",
-      "FC/REFERANS_EKLE"
-    ],
-    "basari_kriteri": "Onay talebi değerlendirildi. Mevcut referanslar incelendiğinde onay sürecinin da",
-    "kullanim_sayisi": 3,
+    "kullanim_sayisi": 25,
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
     "son_basari": "2026-06-24"

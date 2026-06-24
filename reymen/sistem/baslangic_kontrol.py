@@ -50,6 +50,7 @@ def _env_deger(anahtar: str) -> str:
     deger = os.environ.get(anahtar, "").strip()
     if deger:
         return deger
+    # ReYMeN .env (Windows: ~/AppData/Local/ReYMeN/.env)
     env_dosya = _reymen_env_yolu()
     if env_dosya.exists():
         try:
@@ -60,6 +61,17 @@ def _env_deger(anahtar: str) -> str:
                         return val
         except OSError as _baslangi_e60:
             print(f"[UYARI] baslangic_kontrol.py:61 - {_baslangi_e60}")
+    # Proje root .env (main.py ile ayni)
+    try:
+        _proje_env = Path(__file__).resolve().parent.parent.parent / ".env"
+        if _proje_env.exists():
+            for satir in _proje_env.read_text(encoding="utf-8").splitlines():
+                if satir.startswith(f"{anahtar}="):
+                    val = satir.split("=", 1)[1].strip().strip("\"'")
+                    if val and not val.startswith("***"):
+                        return val
+    except Exception:
+        pass
     return ""
 
 
@@ -171,6 +183,8 @@ def baslangic_kontrolu(config: dict) -> dict:
         "anthropic":  "ANTHROPIC_API_KEY",
         "groq":       "GROQ_API_KEY",
         "openrouter": "OPENROUTER_API_KEY",
+        "xai":        "XAI_API_KEY",
+        "xiaomi":     "XIAOMI_API_KEY",
     }
     try:
         _setup_dosya = Path(__file__).parent / ".ReYMeN" / "setup.json"
@@ -180,7 +194,20 @@ def baslangic_kontrolu(config: dict) -> dict:
             _tercih_model = _saved.get("tercih_model", "")
             if _tercih_prov and _tercih_prov not in ("lmstudio", "ollama") and _tercih_model:
                 _env_key = _BULUT_ENV_MAP.get(_tercih_prov, "")
-                if _env_key and os.environ.get(_env_key, "").strip():
+                # Önce env değişkenini, sonra .env dosyasını kontrol et
+                _key_deger = os.environ.get(_env_key, "").strip()
+                if not _key_deger and _env_key:
+                    # Proje .env dosyasından oku
+                    try:
+                        _proje_env = Path(__file__).resolve().parent.parent / ".env"
+                        if _proje_env.exists():
+                            for _satir in _proje_env.read_text(encoding="utf-8").splitlines():
+                                if _satir.startswith(f"{_env_key}="):
+                                    _key_deger = _satir.split("=", 1)[1].strip().strip("\"'")
+                                    break
+                    except Exception:
+                        pass
+                if _key_deger:
                     config["default_provider"] = _tercih_prov
                     config["default_model"]    = _tercih_model
                     return config
@@ -194,8 +221,11 @@ def baslangic_kontrolu(config: dict) -> dict:
         vizyon_m = next((m for m in ls_modeller if "llava" in m.lower() or "vision" in m.lower()), None)
         if vizyon_m:
             config.setdefault("auxiliary", {}).setdefault("vision", {})["model"] = vizyon_m
-        config["default_model"]    = ls_modeller[0]
-        config["default_provider"] = "lmstudio"
+        # SADECE setup.json'da kayitli tercih yoksa LM Studio'yu default yap
+        # (yoksa baslangicta surekli LM Studio'ya atlar)
+        if config.get("default_provider", "") in ("", "lmstudio"):
+            config["default_model"]    = ls_modeller[0]
+            config["default_provider"] = "lmstudio"
         return config
 
     # 2. Harici API anahtarı kontrolü
@@ -291,6 +321,8 @@ def baslangic_kontrolu(config: dict) -> dict:
 # Bulut sağlayıcı → (model_adi, aciklama) listesi
 _BULUT_MODELLER = {
     "deepseek":  [("deepseek-chat", "DeepSeek Chat"), ("deepseek-reasoner", "DeepSeek Reasoner")],
+    "xai":       [("grok-2-latest", "Grok 2 Latest"), ("grok-beta", "Grok Beta")],
+    "xiaomi":    [("mimo-v2.5", "MiMo V2.5"), ("minimax-text-01", "MiniMax Text")],
     "openai":    [("gpt-4o", "GPT-4o"), ("gpt-4o-mini", "GPT-4o Mini")],
     "anthropic": [("claude-haiku-4-5-20251001", "Claude Haiku 4.5"), ("claude-sonnet-4-6", "Claude Sonnet 4.6")],
     "groq":      [("llama-3.1-70b-versatile", "LLaMA 3.1 70B (Groq)"), ("mixtral-8x7b-32768", "Mixtral 8x7B")],
@@ -301,7 +333,8 @@ _BULUT_MODELLER = {
 _BULUT_ENV = {
     "deepseek": "DEEPSEEK_API_KEY", "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY", "groq": "GROQ_API_KEY",
-    "moonshot": "MOONSHOT_API_KEY",
+    "moonshot": "MOONSHOT_API_KEY", "xai": "XAI_API_KEY",
+    "xiaomi": "XIAOMI_API_KEY",
 }
 
 

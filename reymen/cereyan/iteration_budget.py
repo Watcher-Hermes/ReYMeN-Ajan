@@ -65,6 +65,63 @@ class IterationBudget:
         with self._lock:
             self._used = 0
 
+    def analiz_et(self, hedef: str) -> dict:
+        """Hedefin karmasikligini analiz et.
+
+        Gercekci puanlama:
+        - Basit sohbet/selam → 1
+        - Tek islemli gorev → 2
+        - 2-3 adimli gorev → 3
+        - Cok adimli gorev → 4
+        - Coklu araclar/karmaşik → 5
+        """
+        hedef_lower = hedef.lower()
+        kelime_sayisi = len(hedef.split())
+        satir_sayisi = len(hedef.splitlines())
+
+        # Selam/sohbet kontrolu
+        selam_kelimeler = {"selam", "merhaba", "hey", "hi", "hello", "sa", "nasılsın", "naber", "nbr"}
+        if hedef_lower.strip().rstrip("!?.,") in selam_kelimeler:
+            return {"karmasiklik": 1, "ipuclari": ["selam"], "aciklama": "Basit selam"}
+
+        # Kisa sorular
+        if kelime_sayisi < 5 and satir_sayisi == 1:
+            return {"karmasiklik": 1, "ipuclari": ["kisa_soru"], "aciklama": "Kisa soru"}
+
+        # Uzun mesaj / cok satirli → otomatik olarak karmasik
+        if satir_sayisi > 10 or kelime_sayisi > 100:
+            return {"karmasiklik": 4, "ipuclari": ["uzun_mesaj"], "aciklama": "Uzun mesaj — parcalanmali"}
+
+        # Ipucu bazli puanlama
+        ipuclari = []
+        puan = 1
+
+        # Her ek ipucu puani artirir
+        kontroller = {
+            "kod": ["kod", "python", "script", "calistir", "debug", "hata"],
+            "dosya": ["dosya", "yaz", "oku", "kaydet", "olustur", "sil", "klasör"],
+            "web": ["web", "ara", "internet", "indir", "site"],
+            "sistem": ["terminal", "komut", "powershell", "sistem", "kontrol"],
+            "analiz": ["analiz", "karsilastir", "incele", "rapor", "özet"],
+            "kurulum": ["kur", "yukle", "install", "setup", "docker"],
+        }
+
+        for ipucu_adi, kelimeler in kontroller.items():
+            if any(k in hedef_lower for k in kelimeler):
+                ipuclari.append(ipucu_adi)
+                puan += 1
+
+        # Karmaşıklık 1-5 arası
+        puan = min(5, max(1, puan))
+
+        return {
+            "karmasiklik": puan,
+            "ipuclari": ipuclari,
+            "kelime_sayisi": kelime_sayisi,
+            "satir_sayisi": satir_sayisi,
+            "aciklama": f"{len(ipuclari)} ipucu bulundu"
+        }
+
     def __repr__(self) -> str:
         return f"IterationBudget({self.used}/{self.max_total})"
 
@@ -105,48 +162,3 @@ class IterationBudget:
 
     # Takma adlar
     gorev_tamami = gorev_tamamla
-
-    def eylem_kaydet(self, eylem: str) -> None:
-        """Eski API: eylem logla (no-op)."""
-        pass
-
-    def ozet_dict(self) -> dict:
-        """Eski API: dict'e cevir."""
-        return {"tur": self._used, "max_tur": self.max_total}
-
-    def analiz_et(self, gorev: str) -> dict:
-        """Eski API: gorev karmasikligini analiz et.
-
-        Heuristic: bulk/toplu gorevlere karmasiklik=5 ver, digerleri keyword sayisi.
-        """
-        hedef = gorev.lower()
-
-        # Toplu görev tespiti: "hepsini", "tüm", "bütün" + eylem → karmaşıklık=5
-        _toplu = any(k in hedef for k in [
-            "hepsini", "hepsin", "hepsını", "hepsi",
-            "tümünü", "tümü", "tüm", "tumu", "tumunu",
-            "bütün", "butun", "toplu",
-            "tum ", "tum\t",  # "tum " (tam kelime)
-        ]) or hedef.startswith("tum ")
-        _islem = any(k in hedef for k in [
-            "kontrol", "gider", "düzelt", "duzelt", "onar", "temizle",
-            "tara", "düzenle", "duzenle", "yap", "calistir", "incele",
-        ])
-        if _toplu and _islem:
-            return {"karmasiklik": 5}
-        if _toplu:
-            return {"karmasiklik": 4}
-
-        # Çok adımlı karmaşık görevler
-        _cok_adim = any(k in hedef for k in [
-            "ve", "sonra", "ardindan", "ardından", "daha sonra", "once", "önce",
-        ])
-        anahtarlar = [
-            "dosya", "web", "kod", "calistir", "ara", "yaz", "oku",
-            "sil", "guncelle", "indir", "yukle", "kur", "tara",
-            "git", "push", "commit", "github", "repo", "branch",
-        ]
-        sayac = sum(1 for k in anahtarlar if k in hedef)
-        if _cok_adim:
-            sayac += 1
-        return {"karmasiklik": max(1, min(sayac, 5))}

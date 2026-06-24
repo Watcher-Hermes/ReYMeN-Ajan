@@ -102,10 +102,12 @@ class LLMYanitMeta:
 # ── Sağlayıcı varsayılan modelleri ──────────────────────────────────────────
 
 _VARSAYILAN_MODELLER: dict[str, str] = {
-    "deepseek":           "deepseek-chat",
+    "deepseek":           "deepseek-v4-flash",
+    "xai":                "grok-2-latest",
+    "groq":               "llama-3.3-70b-versatile",
+    "xiaomi":             "mimo-v2.5",
     "openai":             "gpt-4o-mini",
     "anthropic":          "claude-haiku-4-5-20251001",
-    "groq":               "llama-3.1-8b-instant",
     "ollama":             "llama3.1:8b",
     "moonshot":           "moonshot-v1-8k",
     "azure":              "",          # env'den okunur
@@ -120,12 +122,14 @@ _VARSAYILAN_MODELLER: dict[str, str] = {
 # Provider → env değişken adları
 _PROVIDER_ENV: dict[str, str] = {
     "deepseek":     "DEEPSEEK_API_KEY",
+    "xai":          "XAI_API_KEY",
+    "xiaomi":       "XIAOMI_API_KEY",
     "openai":       "OPENAI_API_KEY",
     "anthropic":    "ANTHROPIC_API_KEY",
     "groq":         "GROQ_API_KEY",
     "moonshot":     "MOONSHOT_API_KEY",
     "azure":        "AZURE_OPENAI_API_KEY",
-    "bedrock":      "AWS_ACCESS_KEY_ID",
+    "bedrock":      "AWS_ACCESS_ID",
     "gemini":       "GEMINI_API_KEY",
     "gemini_cloud": "GEMINI_API_KEY",
     "openrouter":   "OPENROUTER_API_KEY",
@@ -187,6 +191,68 @@ class Beyin:
         self._fallback_zinciri: list[SaglayCiAdim] = self._zincir_insa_et()
         # Instance-level FC cache (class attr'dan bağımsız — test izolasyonu)
         self._fc_desteklenmeyen: set = set()
+
+    def provider_degistir(self, provider: str, model: str = None) -> dict:
+        """Provider/model değiştir ve fallback zincirini yeniden inşa et.
+
+        Args:
+            provider: Yeni sağlayıcı adı (deepseek, openrouter, vb.)
+            model: Yeni model adı (None = varsayılan)
+
+        Returns:
+            {"basarili": bool, "provider": str, "model": str, "base_url": str}
+        """
+        eski_provider = self.provider
+        self.provider = provider
+        self.base_url, self.api_key = self._saglayici_baglantisi_kur(provider)
+
+        if model:
+            self.model = model
+        else:
+            # Provider varsayılan modelini bul
+            self.model = self._varsayilan_model(provider)
+
+        # Fallback zincirini yeniden inşa et
+        self._fallback_zinciri = self._zincir_insa_et()
+
+        logger.info(
+            "[Beyin] Provider değişti: %s → %s (model: %s, url: %s)",
+            eski_provider, self.provider, self.model, self.base_url,
+        )
+        return {
+            "basarili": True,
+            "provider": self.provider,
+            "model": self.model,
+            "base_url": self.base_url,
+        }
+
+    def model_dogrula(self) -> dict:
+        """Şu anki model/provider durumunu raporla.
+
+        Returns:
+            {
+                "aktif_provider": ...,
+                "aktif_model": ...,
+                "base_url": ...,
+                "fallback_sayisi": ...,
+                "fallback_listesi": [...]
+            }
+        """
+        fb_list = [
+            {"provider": a.provider, "model": a.model, "url": a.base_url}
+            for a in self._fallback_zinciri
+        ]
+        return {
+            "aktif_provider": self.provider,
+            "aktif_model": self.model,
+            "base_url": self.base_url,
+            "api_key_var": bool(self.api_key and self.api_key != "not-needed"),
+            "fallback_sayisi": len(self._fallback_zinciri),
+            "fallback_listesi": fb_list,
+        }
+
+    def __str__(self) -> str:
+        return f"Beyin[provider={self.provider}, model={self.model}, url={self.base_url}]"
 
     # ────────────────────────────────────────────────────────────────────────
     # Başlatma yardımcıları
@@ -252,7 +318,7 @@ class Beyin:
     def _zincir_insa_et(self) -> list[SaglayCiAdim]:
         """Fallback sağlayıcı zincirini oluşturur.
 
-        Sıra: birincil → fallback_model → anahtarı geçerli diğer sağlayıcılar.
+        Sıra: birincil → tercihli cloud (xiaomi) → anahtarı geçerli diğer cloud → LM Studio (son çare).
         """
         zincir: list[SaglayCiAdim] = [
             SaglayCiAdim(
@@ -277,20 +343,54 @@ class Beyin:
                     )
                 )
 
-        # Yapılandırmadaki diğer sağlayıcılar
+        # Tercih sırası: xai/groq önce → xiaomi → diğer cloud → LM Studio en son
+        cloud_providers = []
+        lmstudio_provider = None
+
         for pname, pconf in self.config.get("providers", {}).items():
             if pname == self.provider:
                 continue
             key = self._anahtar_bul(pname, pconf)
-            if key and not key.startswith("***") and key != "not-needed":
-                zincir.append(
-                    SaglayCiAdim(
-                        provider=pname,
-                        model=self._varsayilan_model(pname),
-                        base_url=pconf.get("base_url", ""),
-                        api_key=key,
-                    )
-                )
+            if not key or key.startswith("***"):
+                continue
+
+            adim = SaglayCiAdim(
+                provider=pname,
+                model=self._varsayilan_model(pname),
+                base_url=pconf.get("base_url", ""),
+                api_key=key,
+            )
+
+            if pname == "lmstudio":
+                lmstudio_provider = adim  # LM Studio her zaman sona
+            else:
+                cloud_providers.append(adim)  # Cloud provider'lar
+
+        # Cloud'ları sırala: xiaomi → xai → diğer cloud → groq → LM Studio
+        xai_adim = None
+        groq_adim = None
+        xiaomi_adim = None
+        other_cloud = []
+        for adim in cloud_providers:
+            if adim.provider == "xiaomi":
+                xiaomi_adim = adim
+            elif adim.provider == "xai":
+                xai_adim = adim
+            elif adim.provider == "groq":
+                groq_adim = adim  # groq en sona, lmstudio'dan önce
+            else:
+                other_cloud.append(adim)
+
+        if xiaomi_adim:
+            zincir.append(xiaomi_adim)
+        if xai_adim:
+            zincir.append(xai_adim)
+        zincir.extend(other_cloud)     # openrouter, openai, anthropic, vs.
+        if groq_adim:
+            zincir.append(groq_adim)   # groq sondan bir önce
+        # LM Studio en son (her zaman çalışır)
+        if lmstudio_provider:
+            zincir.append(lmstudio_provider)
 
         # ProviderRouter: circuit breaker bilgisine göre yeniden sırala
         try:
@@ -443,6 +543,15 @@ class Beyin:
         for i, adim in enumerate(self._fallback_zinciri):
             try:
                 t0 = time.monotonic()
+
+                # ── MODEL DOĞRULAMA: her adımda hangi provider/model kullanılıyor göster ──
+                if i == 0:
+                    logger.info("[Beyin] ▶ Çağrı: provider=%s model=%s url=%s",
+                                adim.provider, adim.model, adim.base_url)
+                else:
+                    logger.info("[Beyin] ⚠ Fallback #%d: provider=%s model=%s url=%s",
+                                i, adim.provider, adim.model, adim.base_url)
+                # ────────────────────────────────────────────────────────────────────────
 
                 # Rate guard — izin kontrolü
                 if _GUARD_AKTIF:
