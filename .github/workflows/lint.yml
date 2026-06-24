@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+# ReYMeN — GitHub Actions Lint Pipeline
+# • ruff format check (biçim denetimi)
+# • py_compile kontrolü (tüm .py dosyaları)
+
+name: ReYMeN Lint
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
+          pip install ruff
+
+      - name: Ruff format check
+        run: |
+          ruff format --check .
+
+      - name: py_compile check (tüm .py dosyaları)
+        run: |
+          echo "Tüm Python dosyaları derleniyor..."
+          find . -name "*.py" \
+            -not -path "./venv/*" \
+            -not -path "./.venv/*" \
+            -not -path "./bot_venv/*" \
+            -not -path "./node_modules/*" \
+            -not -path "./__pycache__/*" \
+            -not -path "./.hermes/*" \
+            -print0 | xargs -0 -P"$(nproc)" python -m py_compile
+          echo "✅ Tüm dosyalar başarıyla derlendi."

@@ -1,0 +1,1 @@
+["DÜŞÜN: Encoding sorunu yaşıyorum. ASCII dışı karakterler (İ, ğ gibi) sorun çıkarıyor. Sadece ASCII karakterler kullanarak deneyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; print('Sayi:', len(items)); print('Ilk:', items[0] if items else 'yok')\")", 1782016032.8315566]

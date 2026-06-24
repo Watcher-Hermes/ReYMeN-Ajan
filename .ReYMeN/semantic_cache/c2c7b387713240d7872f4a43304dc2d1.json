@@ -1,0 +1,1 @@
+["DÜŞÜN: Şimdi her bir skill'in SKILL.md dosyasını okuyup içeriğini inceleyeyim. Çok fazla skill var, hepsini tek seferde okumak yerine gruplar halinde ilerleyeyim. Önce ilk 10 skill'in tam içeriğini okuyayım.\n\nEYLEM:\nPYTHON_CALISTIR(\"with open('skills/3d-pipeline/SKILL.md','r',encoding='utf-8') as f: print(f.read())\")", 1782016061.1527045]

@@ -1,0 +1,60 @@
+# -*- coding: utf-8 -*-
+# ReYMeN — GitHub Actions CI Pipeline
+# • Python 3.11 ve 3.12'de test
+# • pip install -r requirements.txt
+# • ruff check ile lint
+# • pytest ile test çalıştır
+# • Her push ve PR'da çalışır
+
+name: ReYMeN CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install project dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install dev/test dependencies
+        run: |
+          pip install ruff pytest pytest-cov pytest-asyncio
+
+      - name: Lint with ruff
+        run: |
+          ruff check .
+
+      - name: Run tests with pytest
+        run: |
+          python -m pytest -v --tb=short --import-mode=importlib

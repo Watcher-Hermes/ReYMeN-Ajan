@@ -1,0 +1,119 @@
+============================================================
+🚨 [OTONOM SISTEM COKUS / TAHLIYE RAPORU] 🚨
+============================================================
+Kritik Zaman Dilimi    : 2026-06-17 12:59:24
+Basarisiz Olunan Gorev : 2 + 2 kac eder?
+Toplam Tuketilen Dongu : 30 Tur
+
+Sistem, otonom problem cozme sinirlarina ulasmis ve
+kritik kilitlenme yasamistir. Donem icinde devreye alinan
+tum uzman yapay zeka personalari basarisiz olmustur.
+
+------------------------------------------------------------
+🔍 [KRONOLOJIK HATA VE ADAPTASYON GECMISI]
+------------------------------------------------------------
+  [1] PYTHON_CALISTIR: "python 'print(2+2)'\")
+Gözleme: Her zaman tek bir eylem yap. Eylemi net formatta yaz.
+
+Kullanabileceğim Araçlar:
+- KOMUT_CALISTIR("kabuk komutu")
+- PYTHON_CALISTIR("python kodu")
+- DOSYA_YAZ("dosya", "icerik")
+- DOSYA_OKU("dosya")
+- WEB_ARA("sorgu")
+- TARAYICI_AC("url")
+- EKRAN_TIKLA("yazi")
+- EKRAN_OKU()
+- HAFIZA_ARA("sorgu")
+- TELEGRAM_GONDER("mesaj")
+- MAKRO_OYNAT("makro_adi")
+- GOREV_BITTI("sonuc_ozeti")
+
+Geçmiş Deneyimler:
+[Gecmis]:
+- [HATA] docker calistir: Docker kurulu degil
+- [BASARILI] web arama: WEB_ARA ile Python dokumanina ulasildi
+- [BASARILI] dosya olustur: DOSYA_YAZ ile test.txt olusturuldu
+
+Geçmiş Görevler:
+test gorevi: 2 adım
+
+Hedef: 2 + 2 kac eder?
+
+Kullanılabilir Yetenekler:
+- apple/apple-notes
+- apple/apple-reminders
+- apple/findmy
+- apple/imessage
+- apple/macos-computer-use
+- autonomous-ai-agents/claude-code
+
+Çalışma Döngüsü (ReAct):
+Her turda şu sırayı takip et:
+1. DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+2. EYLEM: Yalnızca bir araç çağır.
+3. GÖZLEM: Araç sonucunu değerlendir, bir sonraki adıma geç.
+
+Eylem formatı: PYTHON_CALISTIR("python 'print(2+2)'\")
+
+Özel durumlar:
+1. DUSUN("...") — sadece düşünce, eylem yok
+2. YARDIM_ISTE("ne bilmediğin") — belirsizlik varsa
+3. GOREV_BITTI("sonuç özeti") — tamamlandığında
+
+Kurallar:
+1. Her cevapta tam olarak BİR eylem veya GOREV_BITTI yaz.
+2. Türkçe yanıt ver.
+3. Asla: rm -rf, del /f, format, ../../ gibi yıkıcı/traversal işlem yapma.
+== ILGILI BECERILER ==
+1. LM Studio v0.4.16.0 — API kabul edilen parametreler:
+
+== KULLANICI TERCİHLERİ (bunlara uy) ==
+1. Hayır, her zaman UTF-8 kullan.
+2. Buna dahil olmak istemediğimizde yapma lütfen.
+3. API key'i asla yazdırmamak istemediğimizde bildirin.
+== Hafıza: ChromaDB Vektörel aktif — 1 giriş ==
+Anlamsal arama için VEKTOR_ARA, kaydetmek için VEKTOR_KAYDET kullan.
+
+== [PYTHON CALISTIRMA KURALLAR] ==
+1. 30 saniyeden uzun surecek kodlari parcalara böle.
+2. Buyuk veri setlerini direkt islemek yerine dosya ya da düşüne yazın.
+3. Her PYTHON_CALISTIR oncesinde timeout riskini değerlendirin.
+== REFLEXION: ONCEKI DERSLER ==
+1. [HATA] docker calistir: Docker kurulu degil
+2. [BASARILI] web arama: WEB_ARA ile Python dokumanina ulasıldı
+== /REFLEXION ==
+
+Eğer 2+2 4 olarak cevaplanmasını istiyorsanız, PYTHON_CALISTIR("python 'print(4)'\") yerine PYTHON_CALISTIR("python 'print(2+2)'\"
+
+------------------------------------------------------------
+🧠 [GOREV SURESINCE DENENEN AJANLAR]
+------------------------------------------------------------
+genel_cozucu
+
+------------------------------------------------------------
+⚠️  [OLUMCUL KILITLENME NOKTASI (KOK NEDEN)]
+------------------------------------------------------------
+Son gozlem: [Self-correction]: 1 denemede düzeltilemedi.
+Son hata: [ÇIKTI]
+
+[HATA]
+  File "C:\Users\marko\OneDrive\Desktop\Reymen Proje\hermes_projesi\_ReYMeN_9d7ff5db.py", line 9
+    komut_calistir('python -c 
+ 
+
+============================================================
+🚨 KULLANICI ACIL MUDAHALE VE GOREV DEVRİ PROTOKOLU
+============================================================
+Otonom dongunun tiklanma noktasi yukarida teshis edilmistir.
+Sistemin kendini guncelleyerek genisleyebilmesi adina:
+
+  1. Yukaridaki verileri inceleyin
+  2. Bir COZUM ONERISI hazirlayin
+  3. Cozum onerisini sisteme YENI BIR GOREV olarak iletin
+  4. Ornek: "Su adimlari izle, su bagimliligi duzelt ve tekrar dene"
+
+Iletilen bu girdi, 'Yetenek Fabrikasi' tarafindan kalici bir
+sablon beceriye donusturulecek ve gelecekte benzer hatalarla
+karsilasildiginda otonom olarak kullanilacaktir.
+============================================================

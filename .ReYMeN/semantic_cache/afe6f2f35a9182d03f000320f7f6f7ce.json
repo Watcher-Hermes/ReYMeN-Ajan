@@ -1,0 +1,1 @@
+["DÜŞÜN: Python çalışıyor. Şimdi skills dizinini listeleyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; items = [d for d in os.listdir('skills') if os.path.isdir(os.path.join('skills', d))]; print(f'{len(items)} skill bulundu'); print(items[:5])\")", 1782016021.318066]

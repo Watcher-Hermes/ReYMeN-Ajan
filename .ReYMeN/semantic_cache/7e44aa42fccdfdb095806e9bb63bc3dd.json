@@ -1,0 +1,1 @@
+["DÜŞÜN: Python çalışmadı. Doğrudan komut satırından deneyelim.\n\nEYLEM:\nKOMUT_CALISTIR(\"ls -la logs/ 2>/dev/null; ls -la .reymen/ 2>/dev/null; ls -la memory/ 2>/dev/null\")", 1781984568.5998843]

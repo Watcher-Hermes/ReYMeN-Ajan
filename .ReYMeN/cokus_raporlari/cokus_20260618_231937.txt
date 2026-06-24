@@ -1,0 +1,52 @@
+============================================================
+🚨 [OTONOM SISTEM COKUS / TAHLIYE RAPORU] 🚨
+============================================================
+Kritik Zaman Dilimi    : 2026-06-18 23:19:37
+Basarisiz Olunan Gorev : Projedeki Python dosyalarini say, kanbana gorev ekle, sonra GOREV_BITTI ile bitir.
+Toplam Tuketilen Dongu : 8 Tur
+
+Sistem, otonom problem cozme sinirlarina ulasmis ve
+kritik kilitlenme yasamistir. Donem icinde devreye alinan
+tum uzman yapay zeka personalari basarisiz olmustur.
+
+------------------------------------------------------------
+🔍 [KRONOLOJIK HATA VE ADAPTASYON GECMISI]
+------------------------------------------------------------
+  [1] ARAC_ADI: "dosya_say_acma")
+```python
+import os
+
+def dosya_say_acma(path):
+    return len([name for name in os.listdir(path) if name.endswith(".py")])
+
+kanban_gorev_ekle(dosya_say_acma(path="/path/to/your/project")
+  [2] PYTHON_CALISTIR: "import os; print(len([f for f in os.listdir('.') if f.endswith('.py')]))"
+  [3] KANBAN_EKLE: "Python dosya sayısı", "Dosyaların sayısı: 168")
+```python
+kanban_gorev_ekle("Python dosya sayısı", "Dosyaların sayısı: 168"
+
+------------------------------------------------------------
+🧠 [GOREV SURESINCE DENENEN AJANLAR]
+------------------------------------------------------------
+genel_cozucu
+
+------------------------------------------------------------
+⚠️  [OLUMCUL KILITLENME NOKTASI (KOK NEDEN)]
+------------------------------------------------------------
+Son gozlem: [Hata]: motor_kaydet.<locals>.<lambda>() takes from 0 to 3 positional arguments but 4 were given
+
+============================================================
+🚨 KULLANICI ACIL MUDAHALE VE GOREV DEVRİ PROTOKOLU
+============================================================
+Otonom dongunun tiklanma noktasi yukarida teshis edilmistir.
+Sistemin kendini guncelleyerek genisleyebilmesi adina:
+
+  1. Yukaridaki verileri inceleyin
+  2. Bir COZUM ONERISI hazirlayin
+  3. Cozum onerisini sisteme YENI BIR GOREV olarak iletin
+  4. Ornek: "Su adimlari izle, su bagimliligi duzelt ve tekrar dene"
+
+Iletilen bu girdi, 'Yetenek Fabrikasi' tarafindan kalici bir
+sablon beceriye donusturulecek ve gelecekte benzer hatalarla
+karsilasildiginda otonom olarak kullanilacaktir.
+============================================================

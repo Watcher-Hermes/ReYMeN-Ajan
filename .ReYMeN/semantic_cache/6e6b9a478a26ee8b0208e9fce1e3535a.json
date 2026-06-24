@@ -1,0 +1,1 @@
+["Dusunce: Kullanici projedeki Python dosyalarinin sayisini soruyor. Bunu ogrenmek icin proje dizininde .py uzantili dosyalari saymam lazim. KOMUT_CALISTIR ile find komutunu kullanabilirim.\n\nEylem: KOMUT_CALISTIR(\"find . -name '*.py' -type f | wc -l\")", 1781814732.793451]

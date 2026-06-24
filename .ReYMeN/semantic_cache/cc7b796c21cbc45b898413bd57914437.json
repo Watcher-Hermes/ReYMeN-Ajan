@@ -1,0 +1,1 @@
+["DÜŞÜN: Python çalışıyor. Şimdi Alanya hava durumu için basit bir web scraping veya API çağrısı deneyelim. Önce wttr.in kullanmayı deneyelim.\n\nEYLEM:\nKOMUT_CALISTIR(\"curl -s 'wttr.in/Alanya?format=%C+%t'\")", 1782049621.6952758]

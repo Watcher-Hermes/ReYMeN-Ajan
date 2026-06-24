@@ -1,0 +1,1 @@
+["DÜŞÜN: Python kodu çalıştı ancak çıktı alınamadı. Doğrudan shell komutu ile kontrol edeyim.\n\nEYLEM:\nKOMUT_CALISTIR(\"dir /b agent_init.py agent_runtime.py reymen_agent.py main.py .env pytest_result.txt 2>nul & echo --- & python -c \\\"import sys; print('Python:', sys.version[:30])\\\"\")", 1782016261.0321488]

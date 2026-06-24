@@ -1,0 +1,1 @@
+["DÜŞÜN: Terminal aracı çalışmıyor. PYTHON_CALISTIR'ı deneyip dotenv'i yüklemeyi deneyeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import subprocess; subprocess.run(['pip', 'install', 'python-dotenv'], shell=True, capture_output=True, text=True)\")", 1782016470.7750826]

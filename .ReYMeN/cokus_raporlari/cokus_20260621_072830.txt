@@ -1,0 +1,55 @@
+============================================================
+🚨 [OTONOM SISTEM COKUS / TAHLIYE RAPORU] 🚨
+============================================================
+Kritik Zaman Dilimi    : 2026-06-21 07:28:30
+Basarisiz Olunan Gorev : hepsını kontrol et
+Toplam Tuketilen Dongu : 30 Tur
+
+Sistem, otonom problem cozme sinirlarina ulasmis ve
+kritik kilitlenme yasamistir. Donem icinde devreye alinan
+tum uzman yapay zeka personalari basarisiz olmustur.
+
+------------------------------------------------------------
+🔍 [KRONOLOJIK HATA VE ADAPTASYON GECMISI]
+------------------------------------------------------------
+  [1] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(60,90)]"
+  [2] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(90,120)]"
+  [3] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(120,150)]"
+  [4] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(150,180)]"
+  [5] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(180,210)]"
+  [6] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(210,240)]"
+  [7] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(240,270)]"
+  [8] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(270,300)]"
+  [9] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(300,330)]"
+  [10] PYTHON_CALISTIR: "import os; d='skills'; items=sorted([x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x)) and os.path.exists(os.path.join(d,x,'SKILL.md'))]); [print(f'--- {items[i]} ---') or print(open(os.path.join(d,items[i],'SKILL.md'),'r',encoding='utf-8').read()[:150]) for i in range(330,360)]"
+
+------------------------------------------------------------
+🧠 [GOREV SURESINCE DENENEN AJANLAR]
+------------------------------------------------------------
+genel_cozucu
+
+------------------------------------------------------------
+⚠️  [OLUMCUL KILITLENME NOKTASI (KOK NEDEN)]
+------------------------------------------------------------
+Son gozlem: [ÇIKTI]
+--- router-plan ---
+---
+name: router-plan
+description: Design an LLM model-routing plan � pick pattern (pre-route, cascade, ensemble), signals (task, length, embedding, c
+--- routing-config-de
+
+============================================================
+🚨 KULLANICI ACIL MUDAHALE VE GOREV DEVRİ PROTOKOLU
+============================================================
+Otonom dongunun tiklanma noktasi yukarida teshis edilmistir.
+Sistemin kendini guncelleyerek genisleyebilmesi adina:
+
+  1. Yukaridaki verileri inceleyin
+  2. Bir COZUM ONERISI hazirlayin
+  3. Cozum onerisini sisteme YENI BIR GOREV olarak iletin
+  4. Ornek: "Su adimlari izle, su bagimliligi duzelt ve tekrar dene"
+
+Iletilen bu girdi, 'Yetenek Fabrikasi' tarafindan kalici bir
+sablon beceriye donusturulecek ve gelecekte benzer hatalarla
+karsilasildiginda otonom olarak kullanilacaktir.
+============================================================

@@ -1,0 +1,1 @@
+["DÜŞÜN: Kullanıcı Tor Browser açmamı ve Alanya hava durumu bilgisi vermemi istiyor. Tor Browser'ı başlatıp ardından hava durumu bilgisini alıp kullanıcıya sunacağım.\n\nEYLEM:\nKOMUT_CALISTIR(\"tor-browser & sleep 5 && echo 'Tor Browser açıldı'\")", 1782049577.8750443]

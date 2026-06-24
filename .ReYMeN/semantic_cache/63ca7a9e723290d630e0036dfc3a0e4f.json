@@ -1,0 +1,1 @@
+["DÜŞÜN: Çıktı kesildi. Tüm becerileri görmek için farklı bir yöntem denemeliyim. Önce beceri kütüphanesindeki tüm anahtarları (beceri adlarını) alayım.\n\nEYLEM: KOMUT_CALISTIR(\"grep -oP '\\\"[a-zA-Z0-9_ ]+\\\":\\\\s*\\\\{' .ReYMeN/beceri_kutuphanesi.json | head -50\")", 1782048485.2979553]

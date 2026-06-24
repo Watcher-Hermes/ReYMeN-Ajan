@@ -1,0 +1,8 @@
+{
+  "test_sunucu": {
+    "access_token": "test_token_123"
+  },
+  "test_srv": {
+    "access_token": "test_token_xyz"
+  }
+}

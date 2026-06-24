@@ -1,0 +1,674 @@
+{
+  "abf1b9333a7245a7bf1a59a397073af3": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "877603",
+    "zaman": 1781586391.9953184,
+    "dogrulandi": false
+  },
+  "8821566c321248f7a3a77c1b54ee10a1": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "912083",
+    "zaman": 1781586416.9775825,
+    "dogrulandi": false
+  },
+  "27d2bdb655174822abc10b4e6d04b863": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "838064",
+    "zaman": 1781586433.9451036,
+    "dogrulandi": false
+  },
+  "c6b3a8fa85eb4e1e94c4cdb725abc05c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "239804",
+    "zaman": 1781586771.094546,
+    "dogrulandi": false
+  },
+  "18fc172d35914b34960447a785db0137": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "489704",
+    "zaman": 1781586788.771008,
+    "dogrulandi": false
+  },
+  "dd92078de6894f7494e03bbf15646aed": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "837165",
+    "zaman": 1781586901.606112,
+    "dogrulandi": false
+  },
+  "03c5b84832a144beafc9628fc9361966": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "582316",
+    "zaman": 1781587239.5714443,
+    "dogrulandi": false
+  },
+  "882f5c8eed724cb4b620e9165cae6429": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "974336",
+    "zaman": 1781592157.5883503,
+    "dogrulandi": false
+  },
+  "812102bfd8394ef0be95a3e25ce01d4b": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "206294",
+    "zaman": 1781592318.4430296,
+    "dogrulandi": false
+  },
+  "b253a867c89242f58d6971039833ff4f": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "445977",
+    "zaman": 1781594167.4348323,
+    "dogrulandi": false
+  },
+  "507ac959460a4cc59d0bcaddc6a19ee0": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "415799",
+    "zaman": 1781594180.950922,
+    "dogrulandi": false
+  },
+  "f6e97679284441438a2fa2a058212c0f": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "155059",
+    "zaman": 1781594192.2417037,
+    "dogrulandi": false
+  },
+  "34b98bb7879d4cc1871ebb51d688a5a0": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "872207",
+    "zaman": 1781594203.4388366,
+    "dogrulandi": false
+  },
+  "9c0b4d3ac296443fb8716ccf1c99dfbe": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "480714",
+    "zaman": 1781594216.2102218,
+    "dogrulandi": false
+  },
+  "d5b9a8f7bb4b47d8a4358c981554446d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "915603",
+    "zaman": 1781594243.9786925,
+    "dogrulandi": false
+  },
+  "2309e34e644b4ace97041be04e446a2d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "470416",
+    "zaman": 1781594294.6211107,
+    "dogrulandi": false
+  },
+  "b71bbef0409048fdabb04640edef815a": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "294232",
+    "zaman": 1781594305.5251331,
+    "dogrulandi": false
+  },
+  "c3f539713ddd4b9c979bdc3c0df60790": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "643060",
+    "zaman": 1781594550.7899916,
+    "dogrulandi": false
+  },
+  "314bf1f48a424c359f6fe24760ec979d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "759572",
+    "zaman": 1781594686.1883366,
+    "dogrulandi": false
+  },
+  "f2379a3db85448de98287f3ad602247f": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "930681",
+    "zaman": 1781595519.1303623,
+    "dogrulandi": false
+  },
+  "6c27acd3b30b44b090d33cc942e70c98": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "879516",
+    "zaman": 1781595527.4757874,
+    "dogrulandi": false
+  },
+  "a407cc460faf4bd785310f1a933274de": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "869706",
+    "zaman": 1781595567.78649,
+    "dogrulandi": false
+  },
+  "6df7a1827f40497590f8288118b18112": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "687170",
+    "zaman": 1781595781.815212,
+    "dogrulandi": false
+  },
+  "eb186cb329934066b86c3e014e714585": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "864625",
+    "zaman": 1781595819.2262876,
+    "dogrulandi": false
+  },
+  "b54f1ec0eef54c1f99bfb24570423c4b": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "990033",
+    "zaman": 1781595855.9934263,
+    "dogrulandi": false
+  },
+  "fd687527db7b438d830d134a4f39277c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "450605",
+    "zaman": 1781595947.9059095,
+    "dogrulandi": false
+  },
+  "ea5d921fece74032b7906906cc91468a": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "326875",
+    "zaman": 1781595971.547263,
+    "dogrulandi": false
+  },
+  "b722ccc5f23a4fd9ba72de6b859ef029": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "334263",
+    "zaman": 1781600138.5573583,
+    "dogrulandi": false
+  },
+  "8b63277b46a9474da31771b66c6bc8d8": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "629811",
+    "zaman": 1781600176.8920677,
+    "dogrulandi": false
+  },
+  "a6b7443fd7a049f9b6eb36789557c828": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "689275",
+    "zaman": 1781600204.7734156,
+    "dogrulandi": false
+  },
+  "101ca1d02ca4409ead3d0ea08fd02347": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "202323",
+    "zaman": 1781600215.0970092,
+    "dogrulandi": false
+  },
+  "3650131bf31443dcabc50f0354f92141": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "228159",
+    "zaman": 1781600261.4924524,
+    "dogrulandi": false
+  },
+  "508eee3f06de4e8b875d2f0ca2eb0279": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "953553",
+    "zaman": 1781618325.301908,
+    "dogrulandi": false
+  },
+  "6e8c264ff1da40439b7e6cc166e1e15d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "363139",
+    "zaman": 1781618723.787199,
+    "dogrulandi": false
+  },
+  "205a62d5b7844bad8bfa2c5c056ef28b": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "688810",
+    "zaman": 1781618975.6739438,
+    "dogrulandi": false
+  },
+  "f84c1b53bb524416b14c8dbd54b84bbb": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "750341",
+    "zaman": 1781619026.896421,
+    "dogrulandi": false
+  },
+  "7c4fa274fccf4bae8b813ffd404f1050": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "793072",
+    "zaman": 1781619201.6598618,
+    "dogrulandi": false
+  },
+  "29379a38594542f495c3c2d8c4802db4": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "733544",
+    "zaman": 1781670939.5749207,
+    "dogrulandi": false
+  },
+  "36eb349257164e8a8375889595149a6c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "925904",
+    "zaman": 1781671069.598142,
+    "dogrulandi": false
+  },
+  "173b46f36f8f4281b697b37906e52cb6": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "251774",
+    "zaman": 1781694690.8299751,
+    "dogrulandi": false
+  },
+  "8a211d0468084dbe9ef00ea813982b87": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "537251",
+    "zaman": 1781696043.7782054,
+    "dogrulandi": false
+  },
+  "aebaefdcb9cf4d43b0cbdd4644e36075": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "681459",
+    "zaman": 1781703312.6856773,
+    "dogrulandi": false
+  },
+  "e919dcd50f8042ad8a0af400afce06ed": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "533861",
+    "zaman": 1781703367.0456717,
+    "dogrulandi": false
+  },
+  "4aef9ddd5c454a83835eab42a1f60951": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "758866",
+    "zaman": 1781703420.1105473,
+    "dogrulandi": false
+  },
+  "8c0cd6bfab5d47f4bb5d88e092a0de93": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "331653",
+    "zaman": 1781703498.8434944,
+    "dogrulandi": false
+  },
+  "6c64b94801f44d0d97353cc7e2550af1": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "258168",
+    "zaman": 1781703547.2076435,
+    "dogrulandi": false
+  },
+  "fe0ce6a2abdc4e0cbfefaa40dae94db0": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "495121",
+    "zaman": 1781707497.0623744,
+    "dogrulandi": false
+  },
+  "650a03c7ce9b4773bc676353a0e29f25": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "143319",
+    "zaman": 1781707576.0552402,
+    "dogrulandi": false
+  },
+  "040a5815ca494b06ae4de4a0aee18e88": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "816975",
+    "zaman": 1781707653.4764059,
+    "dogrulandi": false
+  },
+  "6f7a22d6ee95438899e7a5d5af99eb6d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "801259",
+    "zaman": 1781707728.5961874,
+    "dogrulandi": false
+  },
+  "a3d98cc1d3604e45856a2c0a282eb3f2": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "188407",
+    "zaman": 1781707805.81467,
+    "dogrulandi": false
+  },
+  "34ea77f17cf54e7f9c379583d9fd8cb6": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "914115",
+    "zaman": 1781707893.143411,
+    "dogrulandi": false
+  },
+  "a4b5f4dd813743f2bcdfb577b3bd5216": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "322380",
+    "zaman": 1781949070.422769,
+    "dogrulandi": false
+  },
+  "4d81311d7a4f437286621c7b1ab77f81": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "567462",
+    "zaman": 1781949147.5644102,
+    "dogrulandi": false
+  },
+  "e824ba613f314306982f70b0bbb4c78d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "474087",
+    "zaman": 1781949770.3860424,
+    "dogrulandi": false
+  },
+  "5613ff6b2164428697c909e38b12968a": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "621150",
+    "zaman": 1781950061.8407242,
+    "dogrulandi": false
+  },
+  "a5e6cd29e4c749ddb54ad8b3f039dcbe": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "380732",
+    "zaman": 1781950320.7459908,
+    "dogrulandi": false
+  },
+  "e11963e56fd8406698421ffe53f6f678": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "730378",
+    "zaman": 1781953151.4628484,
+    "dogrulandi": false
+  },
+  "79a8d05be63d4cd28aa80f4007e2e2f8": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "326784",
+    "zaman": 1781953265.5271866,
+    "dogrulandi": false
+  },
+  "911eb7ab8c5345709b3f48488ce6a49e": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "323612",
+    "zaman": 1781953986.6557705,
+    "dogrulandi": false
+  },
+  "7049443d583240eda7a836f782ce6639": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "965186",
+    "zaman": 1781958482.8181689,
+    "dogrulandi": false
+  },
+  "642c0a4f1cc7481ea69685532312dbe9": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "601001",
+    "zaman": 1781958716.580447,
+    "dogrulandi": false
+  },
+  "7e0727c0fe9b46e3a6f7a1133a7c031c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "835466",
+    "zaman": 1781959249.309544,
+    "dogrulandi": false
+  },
+  "0130f5a8dee841ada19d1385a236c7a3": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "420271",
+    "zaman": 1781959698.4130652,
+    "dogrulandi": false
+  },
+  "0eb899d8819c4a1ebbfb74ded2d7b5d5": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "708500",
+    "zaman": 1781960670.7710848,
+    "dogrulandi": false
+  },
+  "27f8a38badf94d84adefe7e8b7d28337": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "899545",
+    "zaman": 1781960707.0801327,
+    "dogrulandi": false
+  },
+  "23c3ab70a4254fee9cb4ca4d59f03654": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "475297",
+    "zaman": 1781965008.5923753,
+    "dogrulandi": false
+  },
+  "6eff43c6dc424eb59b4574176572c157": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "893636",
+    "zaman": 1781965214.2758336,
+    "dogrulandi": false
+  },
+  "2d7fb876c55a40a9a13e1778bdc766b5": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "879717",
+    "zaman": 1781969906.6112778,
+    "dogrulandi": false
+  },
+  "0380a834422640f5a93c71683a47fb42": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "393904",
+    "zaman": 1781984073.9509847,
+    "dogrulandi": false
+  },
+  "e061104f208a4dd29d727fb4abe9254c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "249423",
+    "zaman": 1782015130.8655558,
+    "dogrulandi": false
+  },
+  "922218126995457c885ecb11e726eeee": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "823023",
+    "zaman": 1782036548.046297,
+    "dogrulandi": false
+  },
+  "7426e7afb62e4d4fb6d60847080ccba3": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "916945",
+    "zaman": 1782050800.6726468,
+    "dogrulandi": false
+  },
+  "61aeaba8ed4749c5867a0c295afe0a2d": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "865040",
+    "zaman": 1782051158.009933,
+    "dogrulandi": false
+  },
+  "8e921eb7f90643b99ac78f1601a6e210": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "788562",
+    "zaman": 1782051272.1460624,
+    "dogrulandi": false
+  },
+  "72291ad7486f49538422442667b42bc9": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "103782",
+    "zaman": 1782051469.2847865,
+    "dogrulandi": false
+  },
+  "95a16367abd642d0a5b6ce4c467ff875": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "876963",
+    "zaman": 1782054479.3978627,
+    "dogrulandi": false
+  },
+  "f79bdd0c205f469496f0c004c02b4310": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "951494",
+    "zaman": 1782055062.0016518,
+    "dogrulandi": false
+  },
+  "b277719c870e43e1af5b8cd6b7186808": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "189262",
+    "zaman": 1782055258.565277,
+    "dogrulandi": false
+  },
+  "fe991400cdda42f99457f91b5fcda719": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "981652",
+    "zaman": 1782055946.2679298,
+    "dogrulandi": false
+  },
+  "5d0d8b24d2614e5ebaf376621d629a41": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "467043",
+    "zaman": 1782056379.7370114,
+    "dogrulandi": false
+  },
+  "decaeea72f7a46f1a51d6f88e3421096": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "480026",
+    "zaman": 1782056848.5881941,
+    "dogrulandi": false
+  },
+  "b5f1b7402b754cd2bfe6981c18fa75cf": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "407069",
+    "zaman": 1782057345.451428,
+    "dogrulandi": false
+  },
+  "0f399855b1c7457c9e5b5551e397d66a": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "420699",
+    "zaman": 1782057678.3041747,
+    "dogrulandi": false
+  },
+  "17277b000f9a4ff99fcdafcad3b3fed2": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "382356",
+    "zaman": 1782057985.4463794,
+    "dogrulandi": false
+  },
+  "1e59f1ea99384389a8fd75c85ef374ee": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "322393",
+    "zaman": 1782058339.197345,
+    "dogrulandi": false
+  },
+  "357d19c98dfd4f27b92cd05283df15bc": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "973849",
+    "zaman": 1782058722.949831,
+    "dogrulandi": false
+  },
+  "1f98f8abdff3410bb523be8663df2b7a": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "893135",
+    "zaman": 1782059465.7551506,
+    "dogrulandi": false
+  },
+  "8b3e4ce1e5b1485daa3b0ef60ac2af4f": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "310902",
+    "zaman": 1782060321.5626016,
+    "dogrulandi": false
+  },
+  "6766e076568f4cc7891f7e847d07ae4b": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "612432",
+    "zaman": 1782068110.4072757,
+    "dogrulandi": false
+  },
+  "d658d2474c3e46b09c6ac4e041453fd6": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "150807",
+    "zaman": 1782068329.2717557,
+    "dogrulandi": false
+  },
+  "f50eea80ad2344bb93d3467ac20d2f83": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "953025",
+    "zaman": 1782068563.6791303,
+    "dogrulandi": false
+  },
+  "bc200c8d423f48fba604d5ba24343448": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "721460",
+    "zaman": 1782072992.6988847,
+    "dogrulandi": false
+  },
+  "1e649ef6c2b0474cb6ede3c312569e3b": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "495066",
+    "zaman": 1782073221.7361028,
+    "dogrulandi": false
+  },
+  "19348e67b0574a41b671b29c2fb287ce": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "947966",
+    "zaman": 1782073489.8902802,
+    "dogrulandi": false
+  },
+  "d544f8ac85774db685f39a2e757b5b5e": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "941809",
+    "zaman": 1782073603.4089217,
+    "dogrulandi": false
+  }
+}

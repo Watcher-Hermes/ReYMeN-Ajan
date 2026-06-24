@@ -1,0 +1,1 @@
+["DÜŞÜN: osascript macOS'a özel bir komut. Windows'ta çalışıyoruz. Windows'ta terminali açmak için \"start\" komutunu kullanabilirim. Ayrıca altın fiyatını almak için Python kullanabilirim.\n\nEYLEM: KOMUT_CALISTIR(\"start cmd /k curl -s https://api.gold-api.com/price/XAU\")", 1782049514.969543]

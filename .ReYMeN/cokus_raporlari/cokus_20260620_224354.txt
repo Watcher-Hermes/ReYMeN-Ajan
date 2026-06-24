@@ -1,0 +1,56 @@
+============================================================
+🚨 [OTONOM SISTEM COKUS / TAHLIYE RAPORU] 🚨
+============================================================
+Kritik Zaman Dilimi    : 2026-06-20 22:43:54
+Basarisiz Olunan Gorev : çöz
+Toplam Tuketilen Dongu : 30 Tur
+
+Sistem, otonom problem cozme sinirlarina ulasmis ve
+kritik kilitlenme yasamistir. Donem icinde devreye alinan
+tum uzman yapay zeka personalari basarisiz olmustur.
+
+------------------------------------------------------------
+🔍 [KRONOLOJIK HATA VE ADAPTASYON GECMISI]
+------------------------------------------------------------
+  [1] PYTHON_CALISTIR: "print(open('agent_init.py').read()[500:1000])"
+  [2] PYTHON_CALISTIR: "print(open('agent_init.py').read()[1000:1500])"
+  [3] PYTHON_CALISTIR: "print(open('alt_ajan.py').read()[:500])"
+  [4] PYTHON_CALISTIR: "import os; print([f for f in os.listdir('.') if f.lower().startswith('coz') or f.lower().startswith('çöz')])"
+  [5] PYTHON_CALISTIR: "import os; print([f for f in os.listdir('.') if 'log' in f.lower()])"
+  [6] PYTHON_CALISTIR: "print(open('bot_errors.log', 'r').read()[:1000])"
+  [7] PYTHON_CALISTIR: "print(open('bot_err.log', 'r').read()[:1000])"
+  [8] PYTHON_CALISTIR: "import os; pyfiles=[f for f in os.listdir('.') if f.endswith('.py')]; print(len(pyfiles), 'python dosyasi var'); print(pyfiles[:10])"
+  [9] YARDIM_ISTE: "'çöz' hedefi çok genel. Ne çözülmesi gerekiyor? Bir hata mı, bir dosya mı, bir problem mi? Lütfen daha spesifik olun."
+  [10] PYTHON_CALISTIR: "print(open('agent_init.py').read()[1500:2000])"
+
+------------------------------------------------------------
+🧠 [GOREV SURESINCE DENENEN AJANLAR]
+------------------------------------------------------------
+genel_cozucu
+
+------------------------------------------------------------
+⚠️  [OLUMCUL KILITLENME NOKTASI (KOK NEDEN)]
+------------------------------------------------------------
+Son gozlem: [ÇIKTI]
+gger.warning(f"Config yuklenemedi: {e}, varsayilan kullaniliyor")
+            return {"debug": False, "timeout": 30, "plugin_dizini": "plugins"}
+
+    def baslat(self) -> bool:
+        """
+    
+
+============================================================
+🚨 KULLANICI ACIL MUDAHALE VE GOREV DEVRİ PROTOKOLU
+============================================================
+Otonom dongunun tiklanma noktasi yukarida teshis edilmistir.
+Sistemin kendini guncelleyerek genisleyebilmesi adina:
+
+  1. Yukaridaki verileri inceleyin
+  2. Bir COZUM ONERISI hazirlayin
+  3. Cozum onerisini sisteme YENI BIR GOREV olarak iletin
+  4. Ornek: "Su adimlari izle, su bagimliligi duzelt ve tekrar dene"
+
+Iletilen bu girdi, 'Yetenek Fabrikasi' tarafindan kalici bir
+sablon beceriye donusturulecek ve gelecekte benzer hatalarla
+karsilasildiginda otonom olarak kullanilacaktir.
+============================================================

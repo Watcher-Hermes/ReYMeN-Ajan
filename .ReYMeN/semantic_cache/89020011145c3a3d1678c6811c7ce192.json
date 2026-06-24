@@ -1,0 +1,1 @@
+["DÜŞÜN: Yol sorunu var. Windows yolunda Türkçe karakter (Proje) sorun çıkarıyor olabilir. Önce geçerli çalışma dizinini ve proje yolunu doğru formatta almalıyım.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; print('Mevcut dizin:', os.getcwd()); print('Dizin içeriği:', os.listdir('.'))\")", 1782016442.1729467]

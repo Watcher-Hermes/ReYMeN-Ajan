@@ -1,0 +1,1 @@
+["DÜŞÜN: Şimdi USER.md içeriğini de hafızama kaydedeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; path = 'C:/Users/marko/ReYMeN-full-backup/Hermes Memor/USER.md'; \\nwith open(path, 'rb') as f:\\n    raw = f.read();\\ntext = raw.decode('utf-8', errors='replace');\\nprint(text)\")", 1782020036.3569412]

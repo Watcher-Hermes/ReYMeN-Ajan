@@ -1,0 +1,1 @@
+["DÜŞÜN: Proje dizininde `telegram_bot.py`, `telegram_bot` klasörü, `bot_direkt.py`, `baslat_bot.py` gibi birden çok bot dosyası var. Ayrıca `.env` dosyası da mevcut. Önce `.env` dosyasındaki Telegram bot token'ını kontrol etmeliyim, ardından `telegram_bot.py` dosyasını inceleyip hatayı bulmalıyım.\n\nEYLEM:\nDOSYA_OKU(\".env\")", 1782016447.9235156]

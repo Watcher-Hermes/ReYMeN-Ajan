@@ -1,0 +1,1 @@
+["DÜŞÜN: Python çalıştırma konusunda tutarsız hatalar alıyorum. Daha basit bir yaklaşım deneyeyim - tek satırlık kod.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; d='skills'; items=[x for x in os.listdir(d) if os.path.isdir(os.path.join(d,x))]; print(f'Sayı: {len(items)}'); print(f'İlk: {items[0] if items else \\\"yok\\\"}')\")", 1782016027.6911435]

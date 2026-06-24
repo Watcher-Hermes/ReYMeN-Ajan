@@ -1,0 +1,1 @@
+["DÜŞÜN: Kullanıcı \"koontrol et\" yazmış, muhtemelen \"kontrol et\" demek istiyor. Sistemin durumunu kontrol etmem gerekiyor. Önce proje dizinindeki temel dosyaları ve agent yapısını hızlıca kontrol edeyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; print('Proje dizini:', os.getcwd()); print('Dosyalar:', os.listdir('.'))\")", 1782016252.1421988]

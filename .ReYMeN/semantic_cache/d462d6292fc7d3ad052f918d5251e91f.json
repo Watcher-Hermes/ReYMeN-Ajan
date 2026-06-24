@@ -1,0 +1,1 @@
+["DÜŞÜN: `C:/Users/marko/ReYMeN-full-backup` yolunu kullanmalıyım. Bu dizine girip skills ve memory klasörlerini bulup içeriklerini hafızama yüklemeliyim.\n\nEYLEM:\nPYTHON_CALISTIR(\"import os; path = 'C:/Users/marko/ReYMeN-full-backup'; print('İçerik:', os.listdir(path))\")", 1782020001.9074101]

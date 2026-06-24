@@ -1,0 +1,1 @@
+["DÜŞÜN: Python kodu çalıştı ancak çıktı tam görünmüyor. Alternatif bir yol deneyelim - doğrudan Telegram API'yi kullanarak mevcut token'ı kontrol edelim.\n\nEYLEM:\nKOMUT_CALISTIR(\"curl -s https://api.telegram.org/bot8774151638:AAFNMVK12XjC-V7TLIM98WGmQgd4KRF72tU/getMe\")", 1782016541.9581285]

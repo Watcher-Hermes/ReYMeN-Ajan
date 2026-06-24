@@ -1,0 +1,2 @@
+# GOOD: Add to .gitignore
+```

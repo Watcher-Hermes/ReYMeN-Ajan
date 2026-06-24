@@ -1,0 +1,1 @@
+["DÜŞÜN: Bir sürü log dosyası var. En son hataları görmek için bot_err.log veya bot_errors.log dosyalarına bakalım.\n\nEYLEM:\nPYTHON_CALISTIR(\"print(open('bot_errors.log', 'r').read()[:1000])\")", 1781984618.2650268]
