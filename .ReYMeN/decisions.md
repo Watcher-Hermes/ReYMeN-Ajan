@@ -133,3 +133,82 @@ Stabil. 436/436 PASS. 4. stabil ardısık iterasyon.
 
 ### Sonraki
 B (Bandit) — cogu false positive, ama rutin kontrol gerekli.
+
+## 2026-06-24 23:XX — It.81 B: Bandit (reymen/ core 188 dosya) + syntax
+
+| Adım | İşlem | Sonuç |
+|:-----|:------|:------|
+| **B** | Bandit (reymen/ core 66K LOC) | 5 High (intentional), 75 Medium (false pos), 461 Low |
+| **B** | Syntax compile() | 188/188 **0 hata** ✅ |
+
+**High (5):**
+- B324 MD5 ×2: `prompt_caching.py:28` (cache key), `migrate_skills.py:28` (checksum) — kriptografik degil, false positive
+- B602 shell=True ×3: `cli.py:8902` (exec_cmd debug), `mcp_serve.py:211` (komut runner), `terminal_backends.py:64` (shell abstraction) — bilinçli kullanım
+
+**Medium (75):** B101 assert (test), B310 urlopen HTTPS, B608 SQLite param, B105 hardcoded literal — hepsi false positive
+
+**Status:** ~2.5K token, ~20sn. Cron bud. next=It.82.
+
+## 2026-06-24 15:45 — It.80: Gorev formati skill olarak kaydedildi
+
+### Ne yapildi?
+- Kullanicinin istedigi 7 maddeli gorev formati `gorev-formati` skill'i olarak kaydedildi
+- Her gorevin basinda bu format kullanilacak: kanit standardi, bitis kriteri, self-check, eksik kalirsa, sure siniri, kalici kayit
+- Skill path: ~/AppData/Local/hermes/skills/gorev-formati/SKILL.md
+
+### Neden?
+- Kullanici spesifik bir format istedi (gorev tanimi, kanit standardi, bitis kriteri, self-check, eksik kalirsa, sure siniri, kalici kayit)
+- Eski usul "✅ tamamlandi" yetmiyor, ham cikti isteniyor
+
+## 2026-06-24 — It.82: Drift Tespiti (duplicate_module_detector)
+
+### Ne yapildi?
+- `scripts/duplicate_module_detector.py` calistirildi
+- **Exit code: 1** — drift tespit edildi
+
+| Metrik | Deger |
+|:-------|:------|
+| Drift sayisi | 145 modul (script raporu) |
+| Dublikasyon sayisi | 253 modul (ham AST karsilastirmasi) |
+| Risk | BELIRSIZ (hepsi) |
+
+### Ornek driftli moduller (ilk 10)
+- account_usage.py (3 kopya, farkli fonksiyon setleri)
+- acp_server.py (2 kopya)
+- anayasa_denetci.py (2 kopya)
+- auxiliary_client.py (2 kopya, cok buyuk fark)
+- bedrock_adapter.py (2 kopya)
+- browser_camofox.py (3 kopya)
+- budget_config.py (3 kopya)
+- chat_completion_helpers.py (2 kopya)
+- checkpoint_manager.py (3 kopya)
+- cli.py (2 kopya, binlerce fonksiyon farki)
+
+### ⚠️ UYARI
+145 modulde drift var. Herbirinin elle incelenmesi ve hangi kopyanin "canli" (live import path) oldugunun tespit edilmesi gerekiyor. ORPHAN kopyalar temizlenmeli veya senkronize edilmeli.
+
+### Neden?
+- Cron gorevi: duplikasyon/drift monitoru
+- Proje buyudukce ayni isimli dosyalar farkli klasorlerde birikiyor
+- Fonksiyon setleri ayrismis durumda (bir kopyada ek fonksiyonlar var, digerinde yok)
+
+### Status
+⚠️ **DRIFT VAR** — temizlik gerekiyor.
+
+## 2026-06-24 15:50 — It.81: Fallback sirasi guncellendi
+
+### Ne yapildi?
+- reymen/sistem/main.py CONFIG guncellendi
+- default_provider: lmstudio → deepseek
+- default_model: cognitivecomputations... → deepseek-v4-flash
+- Providers sirasi: deepseek → xiaomi → xai → openrouter → openai → anthropic → moonshot → azure → bedrock → gemini_cloud → groq → lmstudio
+- fallback_model: deepseek (degismedi)
+
+### Neden?
+- Kullanici fallback sirasi guncelledi: 1.deepseek-v4-flash, 2.xiaomi, 3.xai, 4.diger cloud, 5.groq, 6.lmstudio
+- Eski durum: default_provider=lmstudio, sadece 6 provider vardi (xiaomi, xai, openrouter yoktu)
+
+### Dogrulama (ham kanit)
+- grep "default_provider" → "deepseek" ✅
+- grep "default_model" → "deepseek-v4-flash" ✅
+- providers sirasi: deepseek, xiaomi, xai, openrouter, openai, anthropic, moonshot, azure, bedrock, gemini_cloud, groq, lmstudio ✅

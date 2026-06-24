@@ -14,12 +14,13 @@ def resolve_xai_http_credentials() -> dict | None:
     """xAI HTTP kimlik bilgilerini dondur.
 
     Returns:
-        dict: {'api_key': ...} veya None (anahtar yoksa)
+        dict: {'api_key': ..., 'base_url': ...} veya None (anahtar yoksa)
     """
     key = os.environ.get('XAI_API_KEY', '')
-    if key:
-        return {"api_key": key}
-    return None
+    if not key:
+        return None
+    base_url = os.environ.get('XAI_BASE_URL', _XAI_BASE_URL)
+    return {"api_key": key, "base_url": base_url}
 
 
 def has_xai_credentials() -> bool:

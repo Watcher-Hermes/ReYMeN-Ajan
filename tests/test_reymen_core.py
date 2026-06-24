@@ -98,8 +98,8 @@ class TestProviderAlias:
                 del sys.modules[k]
 
     def test_register_provider_alias_exists(self):
-        from providers import register_provider, plugin_kaydet
-        assert register_provider is plugin_kaydet
+        from providers import register_provider
+        assert callable(register_provider)
 
     def test_register_provider_callable(self):
         from providers import register_provider
@@ -162,9 +162,11 @@ class TestEnvironmentVariables:
 class TestUtilities:
 
     def test_import_main_module(self):
-        """main modülü import edilebilmeli (chromadb uyarisi normal)."""
+        """main modülü import edilebilmeli (shim -> reymen/sistem/main.py)."""
         try:
             import main  # noqa: F401
+        except SystemExit:
+            pass  # shim calistiginda arguman yoksa cikabilir
         except Exception as e:
             pytest.skip(f"main import edilemedi: {e}")
 

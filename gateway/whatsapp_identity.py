@@ -44,6 +44,8 @@ _SAFE_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9@.+\-]+$")
 
 from ReYMeN_constants import get_ReYMeN_home
 
+get_hermes_home = get_ReYMeN_home
+
 
 def normalize_whatsapp_identifier(value: str) -> str:
     """Strip WhatsApp JID/LID syntax down to its stable numeric identifier.
@@ -82,7 +84,7 @@ def expand_whatsapp_aliases(identifier: str) -> Set[str]:
     if not normalized:
         return set()
 
-    session_dir = get_ReYMeN_home() / "whatsapp" / "session"
+    session_dir = get_hermes_home() / "whatsapp" / "session"
     resolved: Set[str] = set()
     queue = [normalized]
 

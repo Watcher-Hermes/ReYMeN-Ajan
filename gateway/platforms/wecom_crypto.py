@@ -28,6 +28,122 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+# ── Exception Hierarchy ───────────────────────────────────────────────────────
+
+class WeComCryptoError(Exception):
+    """WeCom sifreleme/cozme taban hatasi."""
+
+
+class SignatureError(WeComCryptoError):
+    """Imza dogrulama hatasi."""
+
+
+class DecryptError(WeComCryptoError):
+    """Cozme hatasi."""
+
+
+class EncryptError(WeComCryptoError):
+    """Sifreleme hatasi."""
+
+
+# ── PKCS7Encoder ─────────────────────────────────────────────────────────────
+
+class PKCS7Encoder:
+    BLOCK_SIZE = 32
+
+    @classmethod
+    def encode(cls, data: bytes) -> bytes:
+        pad = cls.BLOCK_SIZE - (len(data) % cls.BLOCK_SIZE)
+        return data + bytes([pad] * pad)
+
+    @classmethod
+    def decode(cls, data: bytes) -> bytes:
+        if not data:
+            raise DecryptError("Bos veri")
+        pad = data[-1]
+        if pad < 1 or pad > cls.BLOCK_SIZE:
+            raise DecryptError(f"Gecersiz padding: {pad}")
+        return data[:-pad]
+
+
+# ── SHA1 Signature ────────────────────────────────────────────────────────────
+
+def _sha1_signature(token: str, timestamp: str, nonce: str, encrypted: str) -> str:
+    parts = sorted([token, timestamp, nonce, encrypted])
+    return hashlib.sha1("".join(parts).encode("utf-8")).hexdigest()
+
+
+# ── WXBizMsgCrypt ─────────────────────────────────────────────────────────────
+
+class WXBizMsgCrypt:
+    """WeCom mesaj sifreleme/cozme sinifi."""
+
+    def __init__(self, token: str, encoding_aes_key: str, receive_id: str):
+        if not token:
+            raise ValueError("token is required")
+        if not encoding_aes_key:
+            raise ValueError("encoding_aes_key is required")
+        if len(encoding_aes_key) != 43:
+            raise ValueError("encoding_aes_key must be 43 chars")
+        if not receive_id:
+            raise ValueError("receive_id is required")
+        self.token = token
+        self.receive_id = receive_id
+        self.key = base64.b64decode(encoding_aes_key + "=")
+
+    def encrypt(self, plaintext: str, nonce: str | None = None, timestamp: str | None = None) -> str:
+        import time as _time
+        if nonce is None:
+            nonce = self._random_nonce()
+        if timestamp is None:
+            timestamp = str(int(_time.time()))
+
+        rand_str = "".join(random.choices(string.ascii_letters + string.digits, k=16))
+        msg_bytes = plaintext.encode("utf-8")
+        payload = (
+            rand_str.encode("utf-8")
+            + len(msg_bytes).to_bytes(4, "big")
+            + msg_bytes
+            + self.receive_id.encode("utf-8")
+        )
+        padded = PKCS7Encoder.encode(payload)
+        encrypted_bytes = aes_encrypt(padded, self.key)
+        encrypted_b64 = base64.b64encode(encrypted_bytes).decode("utf-8")
+        sig = _sha1_signature(self.token, timestamp, nonce, encrypted_b64)
+        return (
+            f"<xml>"
+            f"<Encrypt><![CDATA[{encrypted_b64}]]></Encrypt>"
+            f"<MsgSignature><![CDATA[{sig}]]></MsgSignature>"
+            f"<TimeStamp>{timestamp}</TimeStamp>"
+            f"<Nonce><![CDATA[{nonce}]]></Nonce>"
+            f"</xml>"
+        )
+
+    def decrypt(self, msg_signature: str, timestamp: str, nonce: str, encrypted: str) -> str:
+        expected = _sha1_signature(self.token, timestamp, nonce, encrypted)
+        if expected != msg_signature:
+            raise SignatureError("signature mismatch")
+        try:
+            encrypted_bytes = base64.b64decode(encrypted, validate=True)
+        except Exception as e:
+            raise DecryptError(f"bad base64: {e}") from e
+        try:
+            decrypted = aes_decrypt(encrypted_bytes, self.key)
+        except Exception as e:
+            raise DecryptError(f"decrypt failed: {e}") from e
+        msg_len = int.from_bytes(decrypted[16:20], "big")
+        return decrypted[20:20 + msg_len].decode("utf-8")
+
+    def verify_url(self, msg_signature: str, timestamp: str, nonce: str, echostr: str) -> str:
+        return self.decrypt(msg_signature, timestamp, nonce, echostr)
+
+    @staticmethod
+    def _random_nonce() -> str:
+        return "".join(random.choices(string.ascii_letters + string.digits, k=10))
+
+
+# ── Eski fonksiyonlar ─────────────────────────────────────────────────────────
+
 def pkcs7_pad(veri: bytes, blok_boyutu: int = 32) -> bytes:
     """PKCS7 padding uygular.
 

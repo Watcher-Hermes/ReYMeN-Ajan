@@ -3,13 +3,72 @@
 
 from __future__ import annotations
 import json
+import os
 import urllib.request
 import urllib.error
 from typing import Iterator
 
+try:
+    import requests as _requests_mod
+    _REQUESTS_OK = True
+except ImportError:
+    _requests_mod = None
+    _REQUESTS_OK = False
 
 _API_BASE = "https://discord.com/api/v10"
 _TIMEOUT  = 10
+
+
+def _token_al() -> str:
+    return os.environ.get("DISCORD_BOT_TOKEN", "")
+
+
+def send_message(
+    channel_id: str,
+    content: str,
+    *,
+    tts: bool = False,
+    reply_to: str | None = None,
+    embeds: list | None = None,
+) -> dict:
+    """Discord kanalina mesaj gonder."""
+    if not _REQUESTS_OK:
+        return {"durum": "hata", "hata": "requests modulu yok."}
+    token = _token_al()
+    if not token:
+        return {"durum": "hata", "hata": "DISCORD_BOT_TOKEN ayarlanmamis."}
+
+    url = f"{_API_BASE}/channels/{channel_id}/messages"
+    payload: dict = {"content": content[:2000], "tts": tts}
+    if reply_to is not None:
+        payload["message_reference"] = {"message_id": reply_to}
+    if embeds is not None:
+        payload["embeds"] = embeds
+
+    headers = {
+        "Authorization": f"Bot {token}",
+        "Content-Type": "application/json",
+    }
+    try:
+        import requests
+        r = requests.post(url, json=payload, headers=headers, timeout=_TIMEOUT)
+        if r.status_code == 200:
+            return {"durum": "basarili", "mesaj_id": r.json().get("id", "")}
+        return {"durum": "hata", "hata": f"HTTP {r.status_code}: {r.text[:100]}"}
+    except Exception as exc:
+        exc_str = str(exc)
+        if "Timeout" in type(exc).__name__ or "timeout" in exc_str.lower():
+            return {"durum": "hata", "hata": f"Zaman asimi: {exc_str}"}
+        return {"durum": "hata", "hata": exc_str}
+
+
+def mesaj_gonder(channel_id: str, content: str) -> dict:
+    """send_message icin kisa alias."""
+    return send_message(channel_id, content)
+
+
+def test():
+    print("[Discord] test OK")
 
 
 class DiscordPlatform:

@@ -5,7 +5,7 @@ name: onay
   - {\"anahtar\": \"
 description: Onay süreci başarıyla tamamlandı. 1) Drift düzeltme onayı (drift_duzeltme_onayi) alındı ve doğrulandı. 2) Tekrar eden GRS (example_com_verisi) temizlendi, TEKRAR_SIL/BIRLESTIR/TEMIZLE çözümleri uygulandı. 3) Tur aşımı sorunları giderildi. 4) Tüm referanslar (drift_duzeltme_raporu_20260621, example_c
 created: 2026-06-24
-usage_count: 16
+usage_count: 29
 last_used: 2026-06-24
 ---
 
@@ -165,3 +165,88 @@ SyntaxError: unexpected character after line conti
 FC/EXECUTE_CODE: [EXECUTE_CODE ✅]
 --- ÇIKTI ---
 ['makrolar', 'nisanlar', 'prompts', 'semantic_cac
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:02:03Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay: drift_duzeltme_onayi_kontr
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: drift_duzeltme_onayi_kontro
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:02:10Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:05:38Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/WEB_ICERIK: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:14:12Z)
+
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:14:18Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme_onayi'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz:drift_duzeltme_onayi|reymen 
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:20:38Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:23:54Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:24:38Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/CONTEXT: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/EXECUTE_CODE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/DOSYA_YAZ: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/DOSYA_YAZ: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_EKLE: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/DOSYA_YAZ: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:32:46Z)
+
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:36:16Z)
+
+FC/REFERANS_ARA: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/REFERANS_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/MEMORY: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+FC/GUVENLIK_OZET: [Kanca]: [KANCA] Task default bloke: 'REFERANS_ARA' 4kere art arda
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:39:55Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:41:08Z)
+
+DOSYA_OKU: \"drift_duzeltme_sonuc.txt\")"
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T14:44:21Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam

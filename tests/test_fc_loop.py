@@ -307,6 +307,8 @@ def _mock_orchestrator():
         orch._plugin_yukleyici= None
         orch._sistem_talimati_fn = None
         orch.referanslar      = None
+        # FC testlerinde hızlı yol (selam/sohbet fast path) atlanmalı
+        orch._gorev_siniflandir = lambda hedef: "karmasik"
         return orch
 
 
@@ -332,7 +334,7 @@ class TestFcLoopGorevBittiNative:
              patch.object(orch, "_giris_temizle", side_effect=lambda x: x), \
              patch.object(orch, "_gorev_tamamla"):
             _mock_oh.return_value.hafizada_ara.return_value = None
-            sonuc = orch.run_conversation("test görevi")
+            sonuc = orch.run_conversation("fc loop test gorevi: araclari cagiran karmasik senaryo - kapsamli sistem entegrasyon dogrulama testi")
 
         assert sonuc is not None
         assert "Tamamlandı" in str(sonuc)
@@ -359,7 +361,7 @@ class TestFcLoopGorevBittiNative:
              patch.object(orch, "_giris_temizle", side_effect=lambda x: x), \
              patch.object(orch, "_gorev_tamamla"):
             _mock_oh.return_value.hafizada_ara.return_value = None
-            sonuc = orch.run_conversation("dosya oluştur")
+            sonuc = orch.run_conversation("fc loop test gorevi: araclari cagiran karmasik senaryo - kapsamli sistem entegrasyon dogrulama testi")
 
         assert _gb_ozet in str(sonuc)
 
@@ -405,7 +407,7 @@ class TestFcLoopParalelAraclar:
              patch.object(orch, "_gorev_tamamla"):
             _mock_oh.return_value = MagicMock()
             _mock_oh.return_value.hafizada_ara.return_value = None
-            orch.run_conversation("iki aracı kullan")
+            orch.run_conversation("fc loop test gorevi: araclari cagiran karmasik senaryo - kapsamli sistem entegrasyon dogrulama testi")
 
         assert "DOSYA_OKU" in calistirildi
         assert "WEB_ARA"   in calistirildi
@@ -463,7 +465,7 @@ class TestFcLoopFallback:
              patch.object(orch, "_giris_temizle", side_effect=lambda x: x), \
              patch.object(orch, "_gorev_tamamla"):
             _mock_oh.return_value.hafizada_ara.return_value = None
-            sonuc = orch.run_conversation("metin test")
+            sonuc = orch.run_conversation("fc loop test gorevi: araclari cagiran karmasik senaryo - kapsamli sistem entegrasyon dogrulama testi")
 
         orch.provider.uret.assert_called()
         assert orch._fc_mod is False  # devre dışı bırakıldı

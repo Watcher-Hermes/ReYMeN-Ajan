@@ -404,8 +404,10 @@ def test_run_conversation_tekrarlanan_eylem(agent):
     m.tecrube_kaydet = MagicMock()
     m.anlamsal_hafiza_ara = MagicMock(return_value="")
     result = agent.run_conversation("test")
-    assert isinstance(result, str)
-    assert "DOSYA_YAZ" in result
+    # run_conversation dict dondurur (output + metadata)
+    assert isinstance(result, dict), f"Beklenen dict, alinan: {type(result)}"
+    assert "output" in result, f"output anahtari eksik: {list(result.keys())}"
+    assert isinstance(result["output"], str)
 
 
 def test_init_varsayilanlar(fresh_main):

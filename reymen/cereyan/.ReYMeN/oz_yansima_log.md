@@ -22,3 +22,10 @@
 
 ### Oneriler
 1. 'KOMUT_CALISTIR' araci en cok hataya sebep oluyor (oran: 36%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+
+## 2026-06-24 18:06 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %30.0, Bellek %94.5
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.

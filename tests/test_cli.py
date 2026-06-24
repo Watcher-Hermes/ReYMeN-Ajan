@@ -73,18 +73,22 @@ class TestCLIEntegrasyon:
 
     def test_cli_argument_parser(self):
         proje = Path(__file__).parent.parent
-        main_py = proje / "main.py"
-        content = main_py.read_text(encoding="utf-8")
-        # ReYMeN: REPL tarzi — input() ile kullanicidan hedef alir
-        # veya geleneksel ArgumentParser/sys.argv/argparse kullanir
-        assert (
-            "ArgumentParser" in content
-            or "sys.argv" in content
-            or "argparse" in content
-            or 'input(' in content
-            or 'sys.stdin' in content
-            or 'hedef' in content
-        )
+        # main.py bir shim — asil main reymen/sistem/main.py icinde
+        # Her ikisini de kontrol et
+        hedefler = [
+            proje / "main.py",
+            proje / "reymen" / "sistem" / "main.py",
+        ]
+        found = False
+        for path in hedefler:
+            if not path.exists():
+                continue
+            content = path.read_text(encoding="utf-8")
+            if any(x in content for x in ("ArgumentParser", "sys.argv", "argparse",
+                                          "input(", "sys.stdin", "hedef")):
+                found = True
+                break
+        assert found, f"main.py'de arguman cozme patterni bulunamadi (hedefler={hedefler})"
 
     def test_cli_komut_aciklamalari(self):
         """Komut dosyalarinda docstring/aciklama olmali."""

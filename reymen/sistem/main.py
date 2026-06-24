@@ -24,9 +24,19 @@ from dotenv import load_dotenv
 # runpy.run_path + __init__ circular import nedeniyle wrapper iki kez olusur,
 # birinci wrapper GC'lenince ortak buffer kapanir → ValueError: I/O on closed file.
 
-DOT_ENV = Path(__file__).parent / ".env"
-if DOT_ENV.exists():
-    load_dotenv(DOT_ENV, override=True)
+# Proje koku .env (hermes_projesi/.env) - API anahtarlari buradadir
+_PROJE_KOK_ENV = Path(__file__).resolve().parent.parent.parent / ".env"
+if _PROJE_KOK_ENV.exists():
+    load_dotenv(_PROJE_KOK_ENV, override=True)
+    DOT_ENV = _PROJE_KOK_ENV
+else:
+    DOT_ENV = Path(__file__).parent / ".env"
+    if DOT_ENV.exists():
+        load_dotenv(DOT_ENV, override=True)
+# AppData .env'i de yukle (ReYMeN_DEFAULT_MODEL, DEEPSEEK_API_KEY vs.)
+_APPDATA_ENV = Path.home() / "AppData" / "Local" / "ReYMeN" / ".env"
+if _APPDATA_ENV.exists():
+    load_dotenv(_APPDATA_ENV, override=False)
 
 # ── ERKEN LOG SUSTURMA: tüm import'lardan ÖNCE ──────────────────────────────
 # Hem standart logging hem loguru, modül importu sırasında plugin logları üretir.
@@ -252,19 +262,28 @@ def _env_anahtar(anahtar, varsayilan=""):
 
 
 CONFIG = {
-    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "cognitivecomputations.dolphin3.0-llama3.1-8b"),
-    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "lmstudio"),
+    "default_model":    _env_anahtar("ReYMeN_DEFAULT_MODEL", "deepseek-v4-flash"),
+    "default_provider": _env_anahtar("ReYMeN_DEFAULT_PROVIDER", "deepseek"),
     "secure_binding": True,
     "providers": {
-        "lmstudio":     {"base_url": _env_anahtar("LMSTUDIO_BASE_URL", "http://localhost:1234"), "api_key": "not-needed"},
+        # 1. Birincil: deepseek-v4-flash
         "deepseek":     {"base_url": "https://api.deepseek.com",  "api_key": _env_anahtar("DEEPSEEK_API_KEY")},
-        "anthropic":    {"base_url": "https://api.anthropic.com", "api_key": _env_anahtar("ANTHROPIC_API_KEY")},
+        # 2. Ikinci: xiaomi / mimo-v2.5
+        "xiaomi":       {"base_url": "https://api.minimax.chat/v1", "api_key": _env_anahtar("XIAOMI_API_KEY")},
+        # 3. Ucuncu: xai / grok (key yoksa fallback'te atlanir)
+        "xai":          {"base_url": "https://api.x.ai/v1", "api_key": _env_anahtar("XAI_API_KEY", "")},
+        # 4. Diger cloud
+        "openrouter":   {"base_url": "https://openrouter.ai/api/v1", "api_key": _env_anahtar("OPENROUTER_API_KEY", "")},
         "openai":       {"base_url": "https://api.openai.com",    "api_key": _env_anahtar("OPENAI_API_KEY")},
-        "groq":         {"base_url": "https://api.groq.com/openai/v1", "api_key": _env_anahtar("GROQ_API_KEY")},
+        "anthropic":    {"base_url": "https://api.anthropic.com", "api_key": _env_anahtar("ANTHROPIC_API_KEY")},
         "moonshot":     {"base_url": _env_anahtar("MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1"), "api_key": _env_anahtar("MOONSHOT_API_KEY")},
         "azure":        {"base_url": _env_anahtar("AZURE_OPENAI_ENDPOINT", ""),   "api_key": _env_anahtar("AZURE_OPENAI_API_KEY")},
         "bedrock":      {"base_url": "", "api_key": _env_anahtar("AWS_ACCESS_KEY_ID")},
         "gemini_cloud": {"base_url": "", "api_key": _env_anahtar("GOOGLE_CLOUD_PROJECT")},
+        # 5. Son bir once: groq / llama
+        "groq":         {"base_url": "https://api.groq.com/openai/v1", "api_key": _env_anahtar("GROQ_API_KEY")},
+        # 6. Son care: lmstudio (local)
+        "lmstudio":     {"base_url": _env_anahtar("LMSTUDIO_BASE_URL", "http://localhost:1234"), "api_key": "not-needed"},
     },
     "fallback_model": {
         "provider": "deepseek", "model": "deepseek-chat",
@@ -494,6 +513,34 @@ class AIAgentOrchestrator:
     def run_conversation(self, hedef):
         import time as _time
         _t_baslat = _time.time()
+
+        # ── HIZLI YOL: selam/sohbet/bilgi → direkt API (ReAct atlanır)
+        _h = hedef.lower().strip()
+        _SELAM = {"slm", "selam", "merhaba", "hey", "hi", "hello", "sa"}
+        _SOHBET = {"nasılsın", "naber", "nbr", "iyi", "kötü", "teşekkür", "tesekkur", "bye"}
+        _BILGI = {"nedir", "kimdir", "nerede", "nasıl", "nasil", "hangisi", "neden", "açıkla", "anlat"}
+        if _h in _SELAM or _h.rstrip("!?.,") in _SELAM:
+            _tip_hizli = "selam"
+        elif "?" in _h:
+            _tip_hizli = "bilgi"
+        elif any(k in _h for k in _SOHBET) and len(_h) < 30:
+            _tip_hizli = "sohbet"
+        elif any(k in _h for k in _BILGI):
+            _tip_hizli = "bilgi"
+        elif len(_h) < 100:
+            _tip_hizli = "sohbet"
+        else:
+            _tip_hizli = "karmasik"
+        if _tip_hizli in ("selam", "sohbet", "bilgi"):
+            try:
+                _m = getattr(self.provider, "model", None) or self.config.get("default_model", "deepseek-v4-flash")
+                yanit = self.provider.uret("Kisa ve oz cevap ver. Turkce konus.", [{"role": "user", "content": hedef}])
+                if yanit and yanit.strip():
+                    print(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
+                    print(yanit.strip())
+                    return {"output": yanit.strip(), "exit_code": 0}
+            except Exception:
+                pass
 
         hedef = self._giris_temizle(hedef)
 
