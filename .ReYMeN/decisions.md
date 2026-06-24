@@ -117,3 +117,90 @@ Test: 691 PASS, 16 SKIP, 1 FAIL (test_motor_provider_ref — kronik, yeni degil)
 
 ### Status
 513 PASS, 0 FAIL, 0 ERROR, 1 test fix | **5. stabil iterasyon — Bakim Modu** | Karar #15
+## 2026-06-24 12:08 — skills_sync: Skills → OnceHafiza DB cron job
+
+### Ne yapildi?
+1. **`reymen/cereyan/skills_sync.py`** yazildi — skills/ altindaki .md dosyalarini OnceHafiza DB'sine senkronize eder
+2. **6.959 .md dosyasi tarandi**, tamami OnceHafiza DB'sine (`ogrenmeler.db`) eklendi
+   - Yeni: 6.959 | Guncellenen: 0 | Atlanan: 0 | Hata: 0
+   - DB toplami: 9.159 → **16.118** kayit
+3. **Cron job** eklendi: `.ReYMeN/cron/jobs.json` → `0 */6 * * *` (her 6 saatte bir)
+4. Script: her dosya icin (hedef, kategori) key'i kullanir, icerik hash'ine bakar, degisiklik varsa update eder
+
+### Neden?
+- Skills dosyalari OnceHafiza DB'sine indekslenmemisti (kategorisiz / farkli semayla eklenmislerdi)
+- Her 6 saatte bir yeni/degisen skill'leri oto-senkronize etmek gerekiyor
+- Mevcut cron altyapisi (jobs.json) kullanildi
+
+### Alternatifler
+- **Inline DB direkt yazma** (tercih edildi) vs cereyan/once_hafiza.py kaydet() API'si — direkt SQLite daha hizli (6.959 dosya ~2sn)
+- **sadece yeni dosyalar** vs her seferinde tum tarama (her 6 saatte bir full tarama ~2sn, asiri yuk yok)
+
+### Status
+6.959 yeni | 0 guncel | Cron: `0 */6 * * *` | DB: 16.118 kayit | Karar #16
+
+---
+
+## 🔴 Drift Tespiti — 2026-06-24 11:30
+
+**Script:** `scripts/duplicate_module_detector.py`
+**Durum:** 279 duplicate/kopya dosyada drift var (exit code 1)
+
+### Özet
+
+Proje kökünde duran modüllerle `reymen/`, `agent/`, `plugins/`, `tools/`, `tests/` altındaki kopyaları arasında fonksiyon/metot bazında farklılıklar tespit edildi. En yoğun drift:
+
+| Bölge | Tür |
+|---|---|
+| `cli.py` | 7+ kopya, 400+ satır eksik/fazla |
+| `adapter.py` | 6+ kopya, 300-400+ satır fark |
+| `conversation_loop.py` | 2 kopya, birçok metot eksik |
+| `credential_pool.py` | 50+ metot eksik/fazla |
+| `display.py` | 30+ metot farkı |
+| `context_compressor.py` | 40+ metot farkı |
+| `terminal_tool.py` | 30+ metot farkı |
+| `backup.py` | 4 kopya, içerikler uyumsuz |
+| `browser_camofox.py` | 2 kopya, metotlar ayrışmış |
+| `plugin_api.py` | 3 kopya, 50-100 metot fark |
+| `test_session.py` | 2 kopya, 120-166 metot fark |
+| `provider.py` | 10+ kopya, 30-40 metot fark |
+| `registry.py` | 2 kopya, tamamen farklı arayüz |
+| `check_parity_vs_main.py` | 3 kopya, içerik ayrışmış |
+| Geri kalan ~90 dosya | 2-15 metot farkı ile minör drift |
+
+### Öneri
+- Drift oranı kritik seviyede (`cli.py` gibi ana modüllerde 400+ satır).
+- Tekil kaynak (`reymen/`) referans alınıp kopyalar temizlenmeli veya senkronize edilmeli.
+- Özellikle `agent/` → `reymen/`, `tools/` → `reymen/` geçişi yarıda kalmış görünüyor.
+
+---
+
+## 2026-06-24 12:05 — cron-it16: Adim A — error_classifier modulu eklendi
+
+### Ne yapildi?
+1. `reymen/sistem/error_classifier.py` — 12 kategorili hata siniflandirma modulu
+2. `reymen/sistem/__init__.py` — error_classifier export'u eklendi (__all__)
+3. Import dogrulama + test: tum 7 kategorili assertion gecti
+
+### Neden?
+- Projede error_classifier modulu yoktu (onboarding gibi diger A adaylari da eksik)
+- Kucuk, bagimsiz, hemen eklenebilir bir modul — 15dk'lik donguye uygun
+- decisions.md'de "itzaman asimi", "api", "syntax" gibi hata kategorileri sikca geciliyor — bu modul dogrudan kullanilabilir
+
+### Modul icerigi
+| Bilesen | Aciklama |
+|---------|----------|
+| `HataKategori` | 12 enum (BILINMEYEN, SYNTAX, IMPORT, API, SUBPROCESS, MEMORY, TOR, ZAMAN_ASIMI, IZIN, AG, DISK, MODUL_EKSIK) |
+| `HataBilgisi` | Dataclass: kategori + kaynak + mesaj + cozum + etiketler |
+| `siniflandir()` | Regex ile hata mesajindan kategori tespiti |
+| `syntax_kontrol()` | Dosya bazinda Python syntax + BOM kontrolu (compile ile) |
+| `topla_syntax()` | Rekursif dizin taramasi |
+
+### Alternatifler
+- Onboarding modulu eklemek — daha buyuk, bir sonraki A'ya
+- error_classifier'da tüm regex'lere yeni pattern'ler eklemek — basit bir baslangic yeterli
+- __init__.py'ye eklememek — kullanici elle import edebilir, ama standart pattern daha iyi
+
+### Status
+1 yeni dosya, 1 guncellenen dosya, 0 test FAIL. Karar #17
+
