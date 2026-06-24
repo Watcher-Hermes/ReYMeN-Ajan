@@ -194,7 +194,7 @@ PROVIDER_LIMITS = {
 PROVIDER_LIMIT_VARSAYILAN = int(os.environ.get("PROVIDER_LIMIT_DEFAULT", "128000"))
 
 # Yanıttaki "gorev bitti" tetikleyicileri
-GOREV_BITTI_TETIK = ("GOREV_BITTI", "görev bitti", "tamamlandi", "TASK_DONE")
+GOREV_BITTI_TETIK = ("GOREV_BITTI", "GÖREV_BİTTİ", "görev bitti", "tamamlandi", "TASK_DONE", "TASK_COMPLETE")
 
 
 def motor_tools_schema_al(motor, maks_arac: int = 64) -> list:
@@ -454,6 +454,24 @@ class ConversationLoop:
 
         # Budget olustur
         budget = self._budget_olustur(hedef)
+
+        # ── 1b. Intent Recognition ──────────────────────────────────
+        # 4 katmanlı niyet tanıma: pattern + synonym + context + embedding
+        _intent = None
+        try:
+            from reymen.sistem.intent_recognition import tanila as _intent_tanila
+            _intent = _intent_tanila(hedef)
+            sonuc["intent"] = _intent.tip
+            sonuc["intent_guven"] = _intent.guven
+            sonuc["intent_hedef"] = _intent.hedef
+            log.info(
+                "[%s] Intent: %s (guven=%.2f, hedef=%s)",
+                task_id, _intent.tip, _intent.guven, _intent.hedef,
+            )
+        except ImportError:
+            log.info("[%s] intent_recognition modulu bulunamadi, atlandi", task_id)
+        except Exception as _ie:
+            log.warning("[%s] Intent tanima hatasi: %s", task_id, _ie)
 
         # ── 2a. Görev öncesi hafıza kontrolü ─────────────────────────
         # İyileştirme #1: OnceHafiza ile zorunlu kontrol

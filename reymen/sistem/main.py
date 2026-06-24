@@ -677,7 +677,7 @@ class AIAgentOrchestrator:
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
         # OnceHafiza: daha önce çözülmüş mü?
-        _oh = _get_once_hafiza()
+        _oh = _get_once_hafiza_class()["get"]()
         _hafiza_kayit = _oh.hafizada_ara(hedef)
         if _hafiza_kayit:
             cozum = _hafiza_kayit["cozum"]
