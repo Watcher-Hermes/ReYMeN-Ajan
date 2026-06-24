@@ -205,15 +205,26 @@ def _dosya_yaz(dosya: str, icerik: str) -> str:
 
 
 def _shell_calistir(komut: str) -> str:
-    import subprocess
+    """Komutu shell=False ile calistirir — command injection riskini azaltir."""
+    import subprocess, shlex
     try:
+        parcalar = shlex.split(komut)
+        if not parcalar:
+            return "Bos komut"
+        _yasakli = ('rm -rf', 'mkfs', '> /dev', 'dd if=', 'chmod 777')
+        komut_kucuk = komut.lower().strip()
+        for yasak in _yasakli:
+            if yasak in komut_kucuk:
+                return f"ENGELLENDI: Tehlikeli komut kalibi ({yasak})"
         r = subprocess.run(
-            komut, shell=True, capture_output=True, text=True,
+            parcalar, shell=False, capture_output=True, text=True,
             cwd=str(ROOT), timeout=60
         )
         return (r.stdout + r.stderr)[:4000]
     except subprocess.TimeoutExpired:
         return "Zaman asimi (60s)"
+    except ValueError as e:
+        return f"Komut parse hatasi: {e}. Tırnak isareti kontrol edin."
     except Exception as e:
         return f"Hata: {e}"
 
