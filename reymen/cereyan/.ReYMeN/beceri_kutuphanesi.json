@@ -921,8 +921,8 @@
       "\\\"example_com_verisi\\\",",
       "[referanslar]",
       "{\\\"anahtar\\\":",
-      "onay",
       "-",
+      "onay",
       "\\\"deger\\\":"
     ],
     "adimlar": [
@@ -950,7 +950,7 @@
       "FC/WEB_ARAMA"
     ],
     "basari_kriteri": "Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE)",
-    "kullanim_sayisi": 51,
+    "kullanim_sayisi": 52,
     "basari_orani": 1.0,
     "olusturma": "2026-06-23",
     "son_basari": "2026-06-24"
@@ -959,63 +959,72 @@
     "ad": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"drift_duze",
     "aciklama": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"drift_duze",
     "tetikleyiciler": [
-      "{\\\"anahtar\\\":",
       "\\\"deger\\\":",
       "-",
       "\\\"drift_duzeltme_raporu_20260621\\\",",
       "onay",
-      "[referanslar]"
+      "[referanslar]",
+      "{\\\"anahtar\\\":"
     ],
     "adimlar": [
       "FC/REFERANS_ARA",
       "FC/REFERANS_ARA",
       "FC/REFERANS_ARA",
       "FC/MEMORY",
-      "FC/MEMORY",
+      "FC/WEB_ICERIK",
       "FC/REFERANS_EKLE",
-      "FC/EXECUTE_CODE",
-      "FC/HA_DURUM"
+      "FC/CRON_LISTELE",
+      "FC/CRON_EKLE",
+      "FC/REFERANS_OZET"
     ],
-    "basari_kriteri": "\"✅ **Hedef: ONAY** başarıyla tamamlandı.\n\n1. **drift_duzeltme_raporu_20260621** ",
-    "kullanim_sayisi": 6,
+    "basari_kriteri": "\"✅ **DRİFT DÜZELTMESİ ONAYLANDI**\n\nAdım adım doğrulama yapıldı:\n\n1. **drift_duze",
+    "kullanim_sayisi": 16,
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
     "son_basari": "2026-06-24"
   },
-  "onay___referanslar______anahtar__drift_duzeltme_ra": {
-    "ad": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_ra",
-    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_ra",
+  "onay___referanslar_________anahtar______onay_islem": {
+    "ad": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"onay_islem",
+    "aciklama": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"onay_islem",
     "tetikleyiciler": [
-      "[referanslar]",
       "-",
-      "deger:",
-      "onay",
-      "drift_duzeltme_raporu_20260621,",
-      "anahtar:"
+      "\\\"onay_islemi_20260624\\\",",
+      "[referanslar]",
+      "\\\"deger\\\":",
+      "{\\\"anahtar\\\":",
+      "onay"
     ],
     "adimlar": [
       "FC/REFERANS_ARA",
       "FC/REFERANS_ARA",
       "FC/REFERANS_ARA",
-      "FC/REFERANS_EKLE",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
       "FC/MEMORY",
-      "FC/CRON_LISTELE",
-      "FC/MEMORY_PROVIDER",
-      "FC/WEB_ARA",
-      "FC/DOSYA_YAZ",
+      "FC/REFERANS_EKLE",
       "FC/REFERANS_OZET",
+      "FC/CONTEXT",
+      "FC/GUVENLIK_OZET",
+      "FC/HA_DURUM",
       "FC/DOSYA_OKU",
-      "FC/CRON_EKLE",
+      "FC/WEB_ARAMA",
+      "FC/WEB_ICERIK",
+      "FC/MEMORY_PROVIDER",
+      "FC/CAMOFOX_OKU",
+      "FC/EXECUTE_CODE",
+      "FC/DOSYA_YAZ",
       "FC/HAFIZA_ARA",
-      "HAFIZA_ARA",
-      "DOSYA_OKU",
-      "PYTHON_CALISTIR",
-      "DOSYA_YAZ"
+      "FC/WEB_ARA",
+      "FC/SISTEM_KAYNAK",
+      "FC/TODO",
+      "KOMUT_CALISTIR",
+      "PYTHON_CALISTIR"
     ],
-    "basari_kriteri": "\"## ✅ Drift Düzeltme Onay Süreci — BAŞARIYLA TAMAMLANDI\n\nPlanın tüm adımları tek",
-    "kullanim_sayisi": 41,
+    "basari_kriteri": "✅ ONAY SÜRECİ BAŞARIYLA TAMAMLANDI\n\nTüm onay adımları doğrulandı:\n\n1. **drift_du",
+    "kullanim_sayisi": 52,
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
-    "son_basari": "2026-06-24"
+    "son_basari": "2026-06-25"
   }
 }

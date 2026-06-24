@@ -268,10 +268,14 @@ class TestOnKosulKontrol:
         pytest.importorskip("PIL", reason="Pillow gerekli")
         from cua_motor_araci import _on_kosul_kontrol
         import cua_motor_araci as cua
+        import reymen.arac.cua_motor_araci as _inner_cua
+        # Hem shim hem inner modül sıfırlanmalı (test izolasyonu)
         cua._on_kosul_kontrolu_yapildi = False
         cua._on_kosul_sonuc = None
+        _inner_cua._on_kosul_kontrolu_yapildi = False
+        _inner_cua._on_kosul_sonuc = None
 
-        with patch("cua_motor_araci.requests.get") as mock_get:
+        with patch("reymen.arac.cua_motor_araci.requests.get") as mock_get:
             mock_response = MagicMock()
             mock_response.status_code = 200
             mock_response.json.return_value = [{"id": "llava"}]

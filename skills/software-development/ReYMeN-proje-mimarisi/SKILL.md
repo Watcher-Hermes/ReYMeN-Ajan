@@ -441,6 +441,9 @@ python reyment.py doctor                 # Sistem teshisi
 python reyment.py skill list             # Becerileri listele
 ```
 
+## Provider Yonetimi
+Provider ekleme/kaldirma icin: `references/provider-management.md` — 4+ dosya koordineli degisiklik, Xiaomi MiMo API dogrulari, pitfall'lar.
+
 ## Referanslar
 - `references/hermes-feature-porting.md` — ReYMeN'ten ozellik ekleme deseni (PARALEL BATCH)
 - `references/full-comparison-commands.md` — Kapsamli karsilastirma komutlari

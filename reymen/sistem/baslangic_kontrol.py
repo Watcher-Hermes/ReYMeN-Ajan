@@ -23,6 +23,7 @@ _HTTP_TIMEOUT = 3
 # Kontrol edilecek harici API anahtarları (env değişken adı → provider adı)
 HARICI_API_ENV = {
     "DEEPSEEK_API_KEY":  "DeepSeek",
+    "XIAOMI_API_KEY":    "Xiaomi",
     "ANTHROPIC_API_KEY": "Anthropic",
     "OPENAI_API_KEY":    "OpenAI",
     "GROQ_API_KEY":      "Groq",
@@ -171,6 +172,7 @@ def baslangic_kontrolu(config: dict) -> dict:
         "anthropic":  "ANTHROPIC_API_KEY",
         "groq":       "GROQ_API_KEY",
         "openrouter": "OPENROUTER_API_KEY",
+        "xiaomi":     "XIAOMI_API_KEY",
     }
     try:
         _setup_dosya = Path(__file__).parent / ".ReYMeN" / "setup.json"
@@ -187,7 +189,13 @@ def baslangic_kontrolu(config: dict) -> dict:
     except Exception as _baslangi_e186:
         print(f"[UYARI] baslangic_kontrol.py:187 - {_baslangi_e186}")
 
-    # 1. LM Studio kontrolü (API anahtarına gerek yok)
+    # 1. Harici API anahtarı kontrolü — API varsa LM Studio'yu ATLA
+    aktif_api = api_anahtari_var_mi()
+    if aktif_api:
+        provider_listesi = ", ".join(aktif_api.keys())
+        return config   # Ollama'ya gerek yok
+
+    # 2. API yok → LM Studio dene
     ls_url = config.get("providers", {}).get("lmstudio", {}).get("base_url", LMSTUDIO_BASE)
     ls_modeller = lmstudio_modeller(ls_url)
     if ls_modeller:
@@ -197,12 +205,6 @@ def baslangic_kontrolu(config: dict) -> dict:
         config["default_model"]    = ls_modeller[0]
         config["default_provider"] = "lmstudio"
         return config
-
-    # 2. Harici API anahtarı kontrolü
-    aktif_api = api_anahtari_var_mi()
-    if aktif_api:
-        provider_listesi = ", ".join(aktif_api.keys())
-        return config   # Ollama'ya gerek yok
 
     # 3. API yok → Ollama zorunlu
     print("\n  LM Studio ve harici API anahtarı bulunamadı.")
@@ -291,6 +293,7 @@ def baslangic_kontrolu(config: dict) -> dict:
 # Bulut sağlayıcı → (model_adi, aciklama) listesi
 _BULUT_MODELLER = {
     "deepseek":  [("deepseek-chat", "DeepSeek Chat"), ("deepseek-reasoner", "DeepSeek Reasoner")],
+    "xiaomi":    [("mimo-v2.5", "MiMo V2 Pro (ucuz)"), ("mimo-v2-flash", "MiMo V2 Flash")],
     "openai":    [("gpt-4o", "GPT-4o"), ("gpt-4o-mini", "GPT-4o Mini")],
     "anthropic": [("claude-haiku-4-5-20251001", "Claude Haiku 4.5"), ("claude-sonnet-4-6", "Claude Sonnet 4.6")],
     "groq":      [("llama-3.1-70b-versatile", "LLaMA 3.1 70B (Groq)"), ("mixtral-8x7b-32768", "Mixtral 8x7B")],
@@ -302,6 +305,7 @@ _BULUT_ENV = {
     "deepseek": "DEEPSEEK_API_KEY", "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY", "groq": "GROQ_API_KEY",
     "moonshot": "MOONSHOT_API_KEY",
+    "xiaomi": "XIAOMI_API_KEY",
 }
 
 
@@ -409,8 +413,13 @@ def model_degistir(agent) -> bool:
                 print(f"  [HATA] API anahtari bulunamadi ({yeni_provider})")
                 return False
 
+            # base_url zaten /v1 iceriyorsa /models ekle, icermiyorsa /v1/models
+            if base_url.rstrip('/').endswith('/v1'):
+                _models_url = f"{base_url.rstrip('/')}/models"
+            else:
+                _models_url = f"{base_url.rstrip('/')}/v1/models"
             req = _ureq.Request(
-                f"{base_url.rstrip('/')}/v1/models",
+                _models_url,
                 headers={"Authorization": f"Bearer {api_key}"},
                 method="GET",
             )

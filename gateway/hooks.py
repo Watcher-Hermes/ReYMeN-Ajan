@@ -157,6 +157,7 @@ class Hooks:
 
 
 # Global instance
+HookRegistry = Hooks  # geriye uyumluluk alias
 hooklar = Hooks()
 
 

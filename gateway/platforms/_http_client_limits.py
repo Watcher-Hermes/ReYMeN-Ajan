@@ -25,10 +25,10 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 # Varsayilan session (paylasilan)
-_session: Optional[requests.Session] = None
+_session: Optional[object] = None  # requests.Session veya None
 
 
-def _get_session() -> Optional[requests.Session]:
+def _get_session() -> Optional[object]:
     """Paylasilan requests.Session ornegini dondurur.
 
     Returns:

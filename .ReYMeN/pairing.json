@@ -754,5 +754,19 @@
     "kod": "998468",
     "zaman": 1782336408.05807,
     "dogrulandi": false
+  },
+  "5ec03ce777734bafb5d8d9c15cc56f0e": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "331933",
+    "zaman": 1782336824.1262426,
+    "dogrulandi": false
+  },
+  "3f1fe667f49048b298cd8c7aea674316": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "307779",
+    "zaman": 1782337147.5531979,
+    "dogrulandi": false
   }
 }

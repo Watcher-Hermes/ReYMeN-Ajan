@@ -130,6 +130,8 @@ def _tempdir_ile_calistir(kod: str, timeout: int) -> str:
             return f"[Hata]: Gecici dosya yazılamadi — {e}"
 
         try:
+            env = os.environ.copy()
+            env["PYTHONIOENCODING"] = "utf-8"
             proc = subprocess.run(
                 [sys.executable, dosya],
                 capture_output=True,
@@ -138,6 +140,7 @@ def _tempdir_ile_calistir(kod: str, timeout: int) -> str:
                 cwd=tmpdir,
                 encoding="utf-8",
                 errors="replace",
+                env=env,
             )
             cikti = proc.stdout.strip()
             hata = proc.stderr.strip()

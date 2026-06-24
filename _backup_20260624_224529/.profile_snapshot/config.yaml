@@ -1,0 +1,61 @@
+model:
+  default: mimo-v2.5
+  provider: xiaomi
+  base_url: ''
+  api_mode: chat_completions
+providers: {}
+fallback_providers:
+  - provider: xiaomi
+    model: deepseek/deepseek-v4-flash
+    base_url: https://openrouter.ai/api/v1
+    api_mode: chat_completions
+credential_pool_strategies: {}
+max_concurrent_sessions:
+agent:
+  max_turns: 90
+  gateway_timeout: 1800
+  api_max_retries: 3
+  tool_use_enforcement: auto
+  task_completion_guidance: true
+  parallel_tool_call_guidance: true
+  environment_probe: true
+terminal:
+  backend: local
+  timeout: 180
+web:
+  backend: firecrawl
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+display:
+  compact: false
+  language: tr
+  interface: gateway
+  streaming: false
+  final_response_markdown: strip
+  skin: default
+telegram:
+  reactions: false
+  channel_prompts: {}
+  allowed_chats: ''
+gateway:
+  strict: false
+approvals:
+  mode: off
+onboarding:
+  seen:
+    profile_build_offered: true
+    busy_input_prompt: true
+skills:
+  external_dirs:
+    - C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\skills
+
+mcp_servers:
+  powerbi:
+    command: powerbi-modeling-mcp
+    args: ["--start"]
+
+memory_char_limit: 50000
+
+# memory_char_limit: max characters for memory tool (default: mimo-v2.5

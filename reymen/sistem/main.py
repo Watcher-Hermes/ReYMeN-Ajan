@@ -70,6 +70,13 @@ _lazy_imports = {
 
 def _lazy_import(name):
     """Modülü lazy olarak yükle."""
+    import sys as _sys
+    _this = _sys.modules.get(__name__)
+    if _this is not None:
+        _, _cls = _lazy_imports[name]
+        # Test patchleri için: modül dict'inde override varsa onu kullan
+        if _cls in _this.__dict__:
+            return _this.__dict__[_cls]
     if name not in _lazy_modules:
         mod_path, class_name = _lazy_imports[name]
         import importlib
@@ -89,6 +96,16 @@ try:
     _CONFIG_GUARD_AKTIF = True
 except ImportError:
     _CONFIG_GUARD_AKTIF = False
+
+# Vektörel hafıza module-level sentinel'leri — patch("reymen.sistem.main.X") için
+try:
+    from reymen.hafiza.vektorel_hafiza import (  # noqa: E402
+        tecrube_kaydet,
+        anlamsal_hafiza_ara,
+    )
+except ImportError:
+    def tecrube_kaydet(*a, **kw): pass  # noqa: E301
+    def anlamsal_hafiza_ara(*a, **kw): return ""  # noqa: E301
 
 # Vektörel hafıza (lazy)
 _vektorel_hafiza = None
@@ -112,9 +129,13 @@ _once_hafiza = None
 def _get_once_hafiza_class():
     global _once_hafiza
     if _once_hafiza is None:
-        from reymen.sistem.once_hafiza import OnceHafiza, _get_once_hafiza
-        _once_hafiza = {"cls": OnceHafiza, "get": _get_once_hafiza}
+        from reymen.sistem.once_hafiza import OnceHafiza, _get_once_hafiza as _ohf
+        _once_hafiza = {"cls": OnceHafiza, "get": _ohf}
     return _once_hafiza
+
+def _get_once_hafiza():
+    """Module-level proxy — patch('reymen.sistem.main._get_once_hafiza') için."""
+    return _get_once_hafiza_class()["get"]()
 
 # --- OPSIYONEL MODULLER ---
 try:
@@ -677,7 +698,7 @@ class AIAgentOrchestrator:
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
         # OnceHafiza: daha önce çözülmüş mü?
-        _oh = _get_once_hafiza_class()["get"]()
+        _oh = _get_once_hafiza()
         _hafiza_kayit = _oh.hafizada_ara(hedef)
         if _hafiza_kayit:
             cozum = _hafiza_kayit["cozum"]

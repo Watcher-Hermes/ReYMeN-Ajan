@@ -44,3 +44,33 @@ def rate_guard_bitir(provider: str) -> None:
     """İstek bittikten sonra kaydı temizle."""
     with _kilit:
         _aktif_istekler.pop(provider, None)
+
+
+class RateGuard:
+    """Basit hız sınırı koruyucusu — test ve üretim için."""
+
+    def __init__(self, max_per_second: float = 10.0, max_concurrent: int = 5):
+        self._max_per_second = max_per_second
+        self._max_concurrent = max_concurrent
+        self._kilit = _threading.Lock()
+        self._aktif: dict = {}
+        self._son_istek: float = 0.0
+
+    def izin_ver(self, provider: str) -> bool:
+        with self._kilit:
+            simdi = _time.monotonic()
+            aralik = 1.0 / self._max_per_second if self._max_per_second > 0 else 0
+            if simdi - self._son_istek < aralik:
+                return False
+            if len(self._aktif) >= self._max_concurrent:
+                return False
+            return True
+
+    def istek_basla(self, provider: str) -> None:
+        with self._kilit:
+            self._aktif[provider] = _time.monotonic()
+            self._son_istek = _time.monotonic()
+
+    def istek_bitir(self, provider: str) -> None:
+        with self._kilit:
+            self._aktif.pop(provider, None)

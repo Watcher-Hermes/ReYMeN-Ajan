@@ -91,5 +91,8 @@ class PairingManager:
             ]
 
 
+# Geriye uyumluluk alias
+PairingStore = PairingManager
+
 # Global instance
 eslestirici = PairingManager()

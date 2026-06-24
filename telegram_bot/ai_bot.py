@@ -39,8 +39,8 @@ AYAR_DOSYASI = PROJE_KOK / ".ReYMeN" / "ai_bot_ayarlari.json"
 # Varsayılan ayarlar
 VARSAYILAN_AYARLAR = {
     "offset": 0,
-    "model": "deepseek-chat",
-    "provider": "deepseek",
+    "model": "mimo-v2.5-pro",
+    "provider": "xiaomi",
     "sistem_prompt": (
         "Sen ReYMeN adinda yardimsever bir AI asistanisin. "
         "Kisa ve oz cevap ver. Turkce konus. Sohbet et, sorulari yanitla."
@@ -162,6 +162,10 @@ def ai_yanit_uret(mesaj: str, ayarlar: AyarYoneticisi) -> str:
             "default_provider": provider,
             "default_model": model,
             "providers": {
+                "xiaomi": {
+                    "base_url": os.environ.get("XIAOMI_BASE_URL", "https://api.xiaomimimo.com"),
+                    "api_key": os.environ.get("XIAOMI_API_KEY", ""),
+                },
                 "deepseek": {
                     "base_url": "https://api.deepseek.com",
                     "api_key": os.environ.get("DEEPSEEK_API_KEY", ""),

@@ -280,9 +280,13 @@ def _provider_kontrol_et(provider: str, model: str, cfg: dict) -> tuple[bool, st
     if not api_key:
         return False, f"API anahtari bulunamadi ({provider})"
 
-    # Her provider icin /v1/models sorgula (hafif, hizli)
+    # Her provider icin /models sorgula (base_url durumuna gore)
     try:
-        url = f"{base_url.rstrip('/')}/v1/models" if base_url else ""
+        # base_url zaten /v1 iceriyorsa /models ekle, icermiyorsa /v1/models
+        if base_url.rstrip('/').endswith('/v1'):
+            url = f"{base_url.rstrip('/')}/models"
+        else:
+            url = f"{base_url.rstrip('/')}/v1/models"
         if not url:
             return False, f"Base URL tanimli degil ({provider})"
         
@@ -341,22 +345,24 @@ def model_sec(agent=None) -> bool:
     oll_mods = _ollama_modeller()
     tum_modeller: list[tuple[str, str, str]] = []  # (provider, model, goruntuleme_adi)
 
-    for m in ls_mods:
-        tum_modeller.append(("lmstudio", m, "LM Studio"))
-    for m in oll_mods:
-        tum_modeller.append(("ollama", m, "Ollama"))
-
-    # Bulut providerlar — env_degiskeni, gercek_model_adi, goster_adi
+    # Bulut providerlar — SİRALAMA: Xiaomi (en ucuz) → DeepSeek → LM Studio
     _BULUT_ENV = {
-        "deepseek":    ("DEEPSEEK_API_KEY",    "deepseek-chat",              "DeepSeek"),
+        "xiaomi":      ("XIAOMI_API_KEY",      "mimo-v2.5",                  "Xiaomi (en ucuz)"),
+        "deepseek":    ("DEEPSEEK_API_KEY",    "deepseek-v4-flash",           "DeepSeek"),
+        "openrouter":  ("OPENROUTER_API_KEY",   "deepseek/deepseek-chat",     "OpenRouter"),
         "openai":      ("OPENAI_API_KEY",       "gpt-4o-mini",                "OpenAI"),
         "anthropic":   ("ANTHROPIC_API_KEY",    "claude-3-5-haiku-latest",    "Anthropic"),
         "groq":        ("GROQ_API_KEY",         "llama-3.1-8b-instant",       "Groq"),
-        "openrouter":  ("OPENROUTER_API_KEY",   "deepseek/deepseek-chat",     "OpenRouter"),
     }
     for prov_key, (env_adi, model_adi, goster_adi) in _BULUT_ENV.items():
         if _os.environ.get(env_adi, "").strip():
             tum_modeller.append((prov_key, model_adi, goster_adi))
+
+    # YEREL MODELLER (API key olmayanlar) — en sona
+    for m in ls_mods:
+        tum_modeller.append(("lmstudio", m, "LM Studio"))
+    for m in oll_mods:
+        tum_modeller.append(("ollama", m, "Ollama"))
 
     while True:
         # Tek model var ve zaten aktif → otomatik sec
@@ -464,7 +470,7 @@ def gorkem_ekranu(
         "openai":    "OpenAI",
         "anthropic": "Anthropic",
         "deepseek":  "DeepSeek",
-        "xai":       "xAI / Grok",
+        "xiaomi":    "Xiaomi (ucuz)",
         "openrouter":"OpenRouter",
     }.get(provider, provider or "Yerel")
 

@@ -119,10 +119,12 @@ def _gateway_durum_yaz(state: str = "running", hata: str = "") -> None:
 
 
 class Motor:
-    def __init__(self, backend_mode: str = "local", hafiza_collection: Any = None, config: Optional[dict] = None) -> None:
+    def __init__(self, backend_mode: str = "local", hafiza_collection: Any = None, 
+                 config: Optional[dict] = None, basit_mod: bool = False) -> None:
         self.terminal = TerminalBackendDispatcher(mode=backend_mode) if TerminalBackendDispatcher else None
         self.hafiza = hafiza_collection
         self.config = config or {}
+        self.basit_mod = basit_mod  # Basit mod: sadece temel tool'ları yükle
         self._ekran = None
         self._provider_ref = None  # FAZ 6: ARAC_URET icin provider referansi
         # Skill allowed-tools: aktif skill'in bildirdigi araclara gecici HITL muafiyeti
@@ -148,8 +150,18 @@ class Motor:
         if self._hooks:
             self._hooks.kaydet(olay, fn)
 
+    def _temel_araclari_yukle(self) -> None:
+        """BASIT MOD: Sadece temel tool gruplarını yükle."""
+        # Basit modda sadece temel ve web gruplarını yükle
+        self.aktif_toolsetler = {"temel", "web"}
+
     def _plugin_moduller_yukle(self) -> None:
         """Bilinen tüm plugin modüllerinin araçlarını otomatik kaydet."""
+        # ── BASIT MOD: Sadece temel tool'ları yükle ──────────────────────
+        if self.basit_mod:
+            self._temel_araclari_yukle()
+            return
+
         import importlib
         moduller = [
             "persistence", "message_sanitization",
@@ -1533,3 +1545,106 @@ if __name__ == "__main__":
     m = Motor(backend_mode="local")
     arac, ham = m.eylemi_ayristir("Eylem: DOSYA_OKU(\"test.txt\")")
     print(f"{arac} -> {m.calistir(arac, ham)[:60]}")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# OPTIMIZED TOOL REGISTRY — Sadece gerekli tool'lar
+# ══════════════════════════════════════════════════════════════════════════════
+
+CORE_TOOLS = [
+    "web_search",
+    "terminal",
+    "file_read",
+    "file_write",
+    "file_edit",
+    "memory",
+    "session_search",
+    "skill_view",
+    "skills_list"
+]
+
+OPTIONAL_TOOLS = {
+    "browser": [
+        "web_extract",
+        "browser_navigate",
+        "browser_click",
+        "browser_type"
+    ],
+    "vision": [
+        "vision_analyze",
+        "image_generate"
+    ],
+    "code": [
+        "execute_code",
+        "delegate_task"
+    ],
+    "media": [
+        "text_to_speech",
+        "audio_transcribe"
+    ]
+}
+
+def get_active_tools(context=None):
+    """Aktif tool'ları döndür — context'e göre filtrele."""
+    tools = CORE_TOOLS.copy()
+    
+    if context:
+        if context.get("web_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("browser", []))
+        if context.get("vision_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("vision", []))
+        if context.get("code_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("code", []))
+    
+    return tools
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# OPTIMIZED TOOL REGISTRY
+# ══════════════════════════════════════════════════════════════════════════════
+
+CORE_TOOLS = [
+    "web_search",
+    "terminal",
+    "file_read",
+    "file_write",
+    "file_edit",
+    "memory",
+    "session_search",
+    "skill_view",
+    "skills_list"
+]
+
+OPTIONAL_TOOLS = {
+    "browser": [
+        "web_extract",
+        "browser_navigate",
+        "browser_click",
+        "browser_type"
+    ],
+    "vision": [
+        "vision_analyze",
+        "image_generate"
+    ],
+    "code": [
+        "execute_code",
+        "delegate_task"
+    ],
+    "media": [
+        "text_to_speech",
+        "audio_transcribe"
+    ]
+}
+
+def get_active_tools(context=None):
+    """Aktif tool'ları döndür."""
+    tools = CORE_TOOLS.copy()
+    if context:
+        if context.get("web"):
+            tools.extend(OPTIONAL_TOOLS.get("browser", []))
+        if context.get("vision"):
+            tools.extend(OPTIONAL_TOOLS.get("vision", []))
+        if context.get("code"):
+            tools.extend(OPTIONAL_TOOLS.get("code", []))
+    return tools
+

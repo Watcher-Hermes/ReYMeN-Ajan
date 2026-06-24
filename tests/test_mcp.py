@@ -19,10 +19,17 @@ class TestMCPManager:
 
     def test_config_yukle_bos(self):
         from tools.mcp_manager import MCPManager
-        mgr = MCPManager()
-        cfg = mgr._config_yukle()
+        import tools.mcp_manager as _mm
+        from unittest.mock import patch
+        import tempfile, yaml
+        # Gerçek config.yaml'ı dışarıda bırak — boş config ile test
+        with tempfile.NamedTemporaryFile(suffix='.yaml', mode='w', delete=False, encoding='utf-8') as f:
+            yaml.dump({}, f)
+            tmp_path = Path(f.name)
+        with patch.object(_mm, 'CONFIG_PATH', tmp_path):
+            mgr = MCPManager()
+            cfg = mgr._config_yukle()
         assert isinstance(cfg, dict)
-        # config.yaml'daki mcp_servers: {} -> {}
         assert cfg == {}
 
     def test_config_yukle_yok(self):
@@ -50,8 +57,13 @@ class TestMCPTool:
 
     def test_check_fn_bos_config(self):
         from tools.mcp_tool import check_fn
-        # config'te mcp_servers: {} oldugu icin False
-        assert check_fn() is False
+        from unittest.mock import patch, mock_open
+        import yaml
+        # Boş mcp_servers ile check_fn() False dönmeli
+        bos_cfg = yaml.dump({"mcp_servers": {}})
+        with patch("builtins.open", mock_open(read_data=bos_cfg)), \
+             patch("pathlib.Path.exists", return_value=True):
+            assert check_fn() is False
 
     def test_TOOL_META(self):
         from tools.mcp_tool import TOOL_META

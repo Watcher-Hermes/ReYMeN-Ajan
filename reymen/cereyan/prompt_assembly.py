@@ -40,7 +40,7 @@ class PromptAssembly:
     # ── Ana metot: eksiksiz sistem promptu ─────────────────────────────
 
     def insa_et(self, hedef, son_gozlem="", tur=1, toplam_tur=15,
-                ic_gozlem_modu=False):
+                ic_gozlem_modu=False, basit_mod=False):
         """SOUL + MEMORY + beceri + ReAct kurallarindan sistem promptu olustur.
 
         Args:
@@ -49,10 +49,16 @@ class PromptAssembly:
             tur:            Mevcut tur numarasi
             toplam_tur:     Maksimum tur sayisi
             ic_gozlem_modu: True ise oz-degerlendirme talimatini ekle
+            basit_mod:      True ise sadece basit talimatı kullan
 
         Returns:
             str: Birlestirilmis sistem promptu
         """
+        # ── BASIT MOD: Sadece basit talimat ──────────────────────────────
+        if basit_mod:
+            from reymen.sistem.main import BASIT_MOD_TALIMAT
+            return BASIT_MOD_TALIMAT
+
         parcalar = []
 
         # 1. Kimlik katmani (SOUL.md)

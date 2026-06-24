@@ -380,6 +380,11 @@ class ClosedLearningLoop:
                 logger.error("[Beceri] LIKE fallback hatasi: %s", e)
                 return []
 
+    def ara(self, sorgu: str, adet: int = 5) -> list:
+        """FTS5 sorgusu yaparak eşleşen becerileri dict listesi olarak döndürür."""
+        rows = self._ilgili_becerileri_skorlu(sorgu, adet)
+        return [{"ad": r[0], "aciklama": r[1], "icerik": r[2]} for r in rows]
+
     def beceri_baglamini_al(self, sorgu: str, adet: int = 3) -> str:
         """
         Prompt enjeksiyonu icin formatli beceri blogu doner.

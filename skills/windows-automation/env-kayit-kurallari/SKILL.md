@@ -178,8 +178,9 @@ RUNWAYML_API_KEY      → RunwayML video (key_ + 128 hex = 132 char)
 
 ## Common Pitfalls
 
-1. **env_watcher.py çalışmıyor** — Docstring'de `\\U` escape hatası; `env_watcher.py` update edildi.
-2. **Yanlış vault yolu** — `OBSIDIAN_VAULT_PATH` her zaman `OneDrive\\Belgeler\\Obsidian Vault`.
+1. **config_guard.py scripti yok** — `~/.hermes/scripts/config_guard.py` dosyası oluşturulmalı. İçeriği: env dosyalarını tarar, placeholder/boş değerleri bulur, tutarlılık kontrolü yapar. `--fix` ile otomatik düzeltme, `--report` ile detaylı rapor. Script yoksa cron job başarısız olur.
+2. **env_watcher.py çalışmıyor** — Docstring'de `\\\\\\\\U` escape hatası; `env_watcher.py` update edildi.
+2. **Yanlış vault yolu** — `OBSIDIAN_VAULT_PATH` her zaman `OneDrive\\\\Belgeler\\\\Obsidian Vault`.
 3. **ReYMeN maskeleme + env_watcher token bozma** — ReYMeN `read_file`, `cat` gibi araçlarla `.env` okunduğunda değerleri maskeler (`***`). Eğer bu maskelenmiş içerik `env_watcher.py` tarafından `.env`'ye geri yazılırsa, tüm token'lar bozulur. **Belirti**: `.env`'de `TELEGRAM_BOT_TOKEN=851817***9aM` gibi satırlar olması. **Çözüm**:
    - Token değişikliği sonrası env_watcher'ı çalıştırma
    - `.env` okumak için `Path(env_path).read_bytes()` (binary mode) kullan, `read_file` veya `cat` kullanma
@@ -207,6 +208,175 @@ RUNWAYML_API_KEY      → RunwayML video (key_ + 128 hex = 132 char)
     PYEOF
     ```
 
+11. **KRİTİK: Key Drift — Farklı .env Dosyalarında Farklı Key'ler:**
+    - **Sorun:** Gateway `~/.hermes/.env`'yi okur, ReYMeN proje `.env`'yi okur. Farklı key'ler kullanılırsa kredi boşa harcanır!
+    - **Belirti:** Platform'da kredi hızlı düşer ama siz sadece birkaç test yapmışsınızdır.
+    - **Çözüm:** `config_guard.py` ile periyodik kontrol:
+      ```bash
+      python ~/.hermes/scripts/config_guard.py --fix
+      ```
+    - **Önleme:** Tüm .env dosyalarındaki XIAOMI_API_KEY aynı olmalı.
+
+12. **Xiaomi MiMo API Doğru Yapılandırma (2026-06-24 güncellendi):**
+    - **Base URL:** `https://api.xiaomimimo.com` (token-plan-sgp değil!)
+    - **Header (pay-as-you-go):** `Authorization: Bearer $KEY`
+    - **Header (token-plan):** `api-key: $KEY`
+    - **DOĞRU Model adı:** `mimo-v2-pro` ✅ (API'de böyle görünür)
+    - **YANLIŞ Model adı:** `mimo-v2.5` ❌ (API'de YOK, 404 hatası verir!)
+    - **Key formatı:** `sk-...` (51 karakter)
+    - **Ucuz model:** `mimo-v2-pro` ($0.14/M input, $0.28/M output)
+    - **Pahalı model:** `mimo-v2.5-pro` ($0.435/M input, $0.87/M output)
+    - **Doğrulama:** `curl https://api.xiaomimimo.com/v1/models` ile listede var mı kontrol et
+
+13. **Token Tasarrufu — Sohbet Geçmişini Kısıtla:**
+    - **Sorun:** Her mesaj tüm geçmişi içerir → 50 mesaj = 75K token
+    - **Çözüm:** `MAX_GECMIS_UZUNLUGU = 20` ile son 20 mesaj
+    - **Tasarruf:** ~%60 token tasarrufu
+    - **Yapılandırma:** `~/.hermes/config.yaml`'a compression ekle:
+      ```yaml
+      compression:
+        enabled: true
+        threshold: 0.85
+        summary_model: "deepseek-chat"
+      ```
+
+## KURAL 6 — .env Doğrulama ve Denetim
+
+Her `.env` değişikliği sonrası veya periyodik olarak doğrulama yap:
+
+### Adım 1: Dosya Konumlarını Tara
+```bash
+# Hermes profilleri
+find /c/Users/marko/AppData/Local/hermes -name "*.env" -type f
+
+# Proje içi .env'ler
+find /c/Users/marko/Desktop/Reymen\ Proje/hermes_projesi -name "*.env" -type f
+```
+
+### Adım 2: Her Dosyayı Kontrol Et
+```python
+import os
+from pathlib import Path
+
+def validate_env(env_path: str) -> list[str]:
+    """ .env dosyasını doğrula, sorunları listele """
+    issues = []
+    p = Path(env_path)
+    
+    if not p.exists():
+        return [f"Dosya bulunamadı: {env_path}"]
+    
+    content = p.read_text(encoding="utf-8")
+    lines = content.strip().split("\n")
+    
+    for i, line in enumerate(lines, 1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        
+        if "=" not in line:
+            issues.append(f"Satır {i}: Eşittir işareti eksik: {line}")
+            continue
+        
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        
+        # Boş değer kontrolü
+        if not value:
+            issues.append(f"Satır {i}: Boş değer: {key}")
+        
+        # Bozuk format kontrolü (yanlış escape, eksik tırnak)
+        if value.count("'") % 2 != 0 or value.count('"') % 2 != 0:
+            issues.append(f"Satır {i}: Eksik tırnak: {key}={value}")
+        
+        # Placeholder kontrolü
+        if value in ["***", "xxx", "your_key_here", "secret...xxxx"]:
+            issues.append(f"Satır {i}: Yer tutucu değer: {key}={value}")
+    
+    return issues
+```
+
+### Adım 3: .env.example ile Karşılaştır
+```python
+def compare_with_example(env_path: str, example_path: str) -> list[str]:
+    """ .env ile .env.example'ı karşılaştır, eksik anahtarları bul """
+    missing = []
+    
+    def extract_keys(path: Path) -> set[str]:
+        if not path.exists():
+            return set()
+        keys = set()
+        for line in path.read_text(encoding="utf-8").split("\n"):
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key = line.split("=", 1)[0].strip()
+                keys.add(key)
+        return keys
+    
+    env_keys = extract_keys(Path(env_path))
+    example_keys = extract_keys(Path(example_path))
+    
+    for key in example_keys - env_keys:
+        missing.append(f"Eksik anahtar: {key}")
+    
+    return missing
+```
+
+### Adım 4: Çoklu Konum Tutarlılığı
+```python
+def check_consistency(base_env: str, profile_envs: list[str]) -> list[str]:
+    """ Ana .env ile profillerdeki .env'ler arasındaki tutarsızlıkları bul """
+    inconsistencies = []
+    
+    def read_keys(path: str) -> dict[str, str]:
+        result = {}
+        p = Path(path)
+        if not p.exists():
+            return result
+        for line in p.read_text(encoding="utf-8").split("\n"):
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, _, value = line.partition("=")
+                result[key.strip()] = value.strip()
+        return result
+    
+    base_keys = read_keys(base_env)
+    
+    for profile_env in profile_envs:
+        profile_keys = read_keys(profile_env)
+        for key in base_keys:
+            if key in profile_keys and base_keys[key] != profile_keys[key]:
+                if base_keys[key] != "***" and profile_keys[key] != "***":
+                    inconsistencies.append(
+                        f"{Path(profile_env).name}: {key} "
+                        f"farklı değer ('{base_keys[key]}' vs '{profile_keys[key]}')"
+                    )
+    
+    return inconsistencies
+```
+
+### Doğrulama Komutları
+```bash
+# Tüm .env'leri listele
+find /c/Users/marko -name "*.env" -type f 2>/dev/null
+
+# Belirli bir .env'yi doğrula
+python -c "
+from pathlib import Path
+p = Path('C:/Users/marko/AppData/Local/hermes/.env')
+for i, line in enumerate(p.read_text().split('\n'), 1):
+    if '=' in line and not line.startswith('#'):
+        key, _, val = line.partition('=')
+        status = '✅' if val.strip() else '❌ BOŞ'
+        print(f'{i:2d}. {status} {key.strip()}')
+"
+
+# Hızlı tutarsızlık kontrolü
+diff <(grep -E "^[A-Z_]+=" /c/Users/marko/AppData/Local/hermes/.env | sort) \
+     <(grep -E "^[A-Z_]+=" /c/Users/marko/AppData/Local/hermes/profiles/kiral38/.env | sort)
+```
+
 ## Verification Checklist
 
 - [ ] `C:\Users\marko\AppData\Local\hermes\.env` okunabildi
@@ -214,3 +384,6 @@ RUNWAYML_API_KEY      → RunwayML video (key_ + 128 hex = 132 char)
 - [ ] `OBSIDIAN_VAULT_PATH` doğru yolu gösteriyor
 - [ ] Obsidian'da `env-hermes-agent.md` güncel timestamp'e sahip
 - [ ] `env_watcher.py` arka planda çalışıyor (veya elle tetiklendi)
+- [ ] Tüm .env dosyalarında bozuk satır yok
+- [ ] Eksik anahtarlar (.env.example ile karşılaştırıldı)
+- [ ] Farklı profillerdeki değerler tutarlı
