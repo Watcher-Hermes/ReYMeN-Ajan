@@ -95,3 +95,25 @@ Test: 691 PASS, 16 SKIP, 1 FAIL (test_motor_provider_ref — kronik, yeni degil)
 
 ### Status
 513 PASS, 0 FAIL, 0 ERROR, 0 fix | 4. stabil iterasyon | Karar #14
+
+---
+
+## 2026-06-24 07:53 — cron-it14: Adim B — test Kanca isolation fix (5. stabil iterasyon)
+
+### Ne yapildi?
+1. **`test_motor_gorev_bitti` fix**: Motor sinifinin `Kanca` rate limiter (0.5s threshold) icin `time.sleep(0.6)` eklendi
+   - Önceki test (`test_motor_bilinmeyen_arac`) `calistir()` cagirinca Kanca sifirlaniyor
+   - Sonraki test 0.25sn icinde tekrar `calistir()` cagirinca Kanca `"[Kanca]: Çok hızlı: 0.25s < 0.5s"` donduruyor
+2. **Test dogrulama**: 15 test suite calistirildi — **513 PASS, 0 FAIL, 0 ERROR** (15.39s)
+
+### Neden?
+- it10 (A), it11 (B), it12 (C), it13 (C) — 5. ardışık stabil iterasyon
+- Kronik test-hang fix'i uygulandi (Pitfall #16 — Kanca rate limiter isolation)
+- Proje bakim moduna gecti: her sey stabil, 0 yeni dosya, 0 bulgu
+
+### Alternatifler
+- Kanca's delay threshold'u `@pytest.fixture(autouse)` ile resetlemek — daha kapsamli ama gereksiz
+- `time.sleep()` — basit, anlasilir, test mantigini degistirmez
+
+### Status
+513 PASS, 0 FAIL, 0 ERROR, 1 test fix | **5. stabil iterasyon — Bakim Modu** | Karar #15

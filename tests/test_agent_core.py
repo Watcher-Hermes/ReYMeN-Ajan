@@ -185,6 +185,8 @@ class TestMotor:
 
     def test_motor_gorev_bitti(self):
         """GOREV_BITTI aracinin dogru calismasi."""
+        import time
+        time.sleep(0.6)  # Kanca rate limiter (0.5s) icin bekle
         m = Motor(backend_mode="local")
         sonuc = m.calistir("GOREV_BITTI", "")
         assert sonuc == "__GOREV_BITTI__"
