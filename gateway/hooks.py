@@ -159,6 +159,9 @@ class Hooks:
 # Global instance
 hooklar = Hooks()
 
+# Alias for compatibility with gateway/run.py
+HookRegistry = Hooks
+
 
 if __name__ == "__main__":
     h = Hooks()

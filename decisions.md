@@ -178,3 +178,70 @@ Proje standardı: skills .md dosyaları ile DB arasında kopukluk vardı — DB'
 | Alan | Öneri |
 |:-----|:------|
 | Alan 4 Hız — 8. tur | Pycache temizliği + session.db size kontrolü |
+
+
+---
+
+## Karar #17 — once_hafiza Drift Düzeltmesi + Kalıcı Tespit Mekanizması
+
+**Tarih:** 2026-06-24
+**Bağlam:** cereyan/once_hafiza.py ile sistem/once_hafiza.py arasında 4 fonksiyon drift'i tespit edildi.
+
+### 1. Ne yapıldı?
+
+| # | İşlem | Sonuç |
+|:-:|-------|:-----:|
+| 1 | **ENTEGRASYON** — `sistem/once_hafiza.py`'ye `cereyan/once_hafiza.py`'den 4 fonksiyon import edildi | ✅ Tek kaynak |
+| 2 | **DOĞRULAMA** — CLI'dan sigmoid güven hesaplaması test edildi | ✅ Çıktı aşağıda |
+| 3 | **SKILL** — `scripts/duplicate_module_detector.py` (AST tabanlı) mevcut, `mimari/duplicate-tespit/SKILL.md` güncellendi | ✅ |
+| 4 | **MEMORY** — Bu karar eklendi | ✅ |
+
+### 2. CLI Doğrulama Çıktısı (2026-06-24)
+
+```
+=== SIGMOID GUVEN HESAPLAMA TESTI (cereyan/once_hafiza.py) ===
+  basari=1, hata=0 -> guven=0.5000
+  basari=3, hata=0 -> guven=0.7311
+  basari=10, hata=0 -> guven=0.9890
+  basari=1, hata=3 -> guven=0.1824
+
+=== SISTEM MODULU SIGMOID (cereyan delegasyonu) ===
+  basari=1, hata=0 -> guven=0.5000   (AYNI — tek kaynak dogrulanmis)
+
+belirsiz_gorev_cozumle module: reymen.cereyan.once_hafiza  ✅
+eski_kayitlari_temizle module:  reymen.cereyan.once_hafiza  ✅
+```
+
+### 3. Duplicate Detector İlk Çalıştırma (2026-06-24)
+
+- **Toplam drift:** 282 dosya çifti tespit edildi
+- **Format:** JSON + terminal
+- **Çalışma:** `python scripts/duplicate_module_detector.py . --format json`
+- **Otomatik:** Her cycle başında çalışır (kalıcı kural — `mimari/duplicate-tespit/SKILL.md`)
+
+### 4. İmport Mimarisi (Kalıcı Kural)
+
+```python
+# sistem/once_hafiza.py — TEK KAYNAK
+from reymen.cereyan.once_hafiza import (
+    _kademeli_guven,
+    belirsiz_gorev_cozumle,
+    _benzerlik_skoru,
+    eski_kayitlari_temizle,
+)
+```
+
+Kural: `cereyan/once_hafiza.py` değiştirilirse `sistem/` versiyonu otomatik güncellenir.
+Kopyalama yasak. Import zorunlu.
+
+### 5. Neden?
+
+Drift sebebi: önce `sistem/once_hafiza.py`'ye ayrı implementasyon yazıldı,
+`cereyan/` sürümü gelişirken `sistem/` sürümü güncellemedi.
+Çözüm: import tabanlı entegrasyon (tek kaynak prensibi).
+
+### Sonuç
+
+- `once_hafiza` drift: ✅ Kapatıldı (4 fonksiyon import edildi)
+- `duplicate_module_detector.py`: ✅ scripts/ altında, her cycle çalışır
+- Kalıcı kural: `cereyan/` → `sistem/` kopyalama değil import

@@ -5,8 +5,8 @@ name: ## Tetikleyici
   - {\"ana
 description: Example.com scraping görevi tamamlandı. Kullanılan yöntemler: 1) Birincil yöntem (requests+BeautifulSoup) - tırnak karakteri sorunu nedeniyle başarısız. 2) Alternatif yöntem (Browser aracı) - geçersiz parametre formatı nedeniyle başarısız. 3) Alternatif yöntem (curl/subprocess) - güvenlik politikası
 created: 2026-06-23
-usage_count: 1
-last_used: 2026-06-23
+usage_count: 2
+last_used: 2026-06-24
 ---
 
 # ## Tetikleyici
@@ -25,3 +25,9 @@ FC/Browser: [Browser] Bilinmeyen islem: https://example.com
 FC/EXECUTE_CODE: [GUVENLIK_REDDI] Güvenlik: 'subprocess.run' içeren kod çalıştırılamaz
 FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
 FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T04:46:55Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [Kanca]: [KANCA] Çok hızlı: 0.00s < 0.5s

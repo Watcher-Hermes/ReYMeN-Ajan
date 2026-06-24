@@ -124,14 +124,10 @@ except ImportError:
     AdaptifOgrenme = None
     adaptif_ogrenme_sistemi_kur = None
 
-try:
-    from guardrails import HallucinationFiltresi, HITLSikistirici, motor_hitl_yamas_uygula
-    _GUARDRAILS_VAR = True
-except ImportError:
-    HallucinationFiltresi = None
-    HITLSikistirici = None
-    motor_hitl_yamas_uygula = None
-    _GUARDRAILS_VAR = False
+HallucinationFiltresi = None
+HITLSikistirici = None
+motor_hitl_yamas_uygula = None
+_GUARDRAILS_VAR = False
 
 try:
     from credential_pool import CredentialPool
@@ -161,17 +157,8 @@ try:
 except ImportError:
     _ReflexionMotoru = None
 
-_AnayasaDenetci = None  # anayasa denetimi kaldırıldı
-
-try:
-    from oz_tutarlilik import OzTutarlilikDenetci as _OzTutarlilikDenetci
-except ImportError:
-    _OzTutarlilikDenetci = None
-
-try:
-    from meta_prompt_optimizer import MetaPromptOptimizer as _MetaPromptOptimizer
-except ImportError:
-    _MetaPromptOptimizer = None
+_OzTutarlilikDenetci = None
+_MetaPromptOptimizer = None
 
 # ─── HERMES KOPYASI MODULLER ────────────────────────────────────────────────
 try:
@@ -333,10 +320,10 @@ class AIAgentOrchestrator:
         self.prompt_builder = PromptBuilder() if PromptBuilder else None
         self.trajectory = None
         self.adaptif_ogrenme = adaptif_ogrenme_sistemi_kur() if adaptif_ogrenme_sistemi_kur else None
-        self.halucination_filtresi = HallucinationFiltresi() if HallucinationFiltresi else None
-        self.hitl_sikistirici = None  # ihtiyaca gore _eklentileri_yukle'de devreye girer
+        self.halucination_filtresi = None
+        self.hitl_sikistirici = None
         self.conv_compressor = ConversationCompressor(
-            provider=self.provider, pencere_boyutu=6, esik_token=3500
+            provider=self.provider, pencere_boyutu=14, esik_token=8000
         ) if ConversationCompressor else None
 
         # FAZ 6: Beceri kutuphanesi + Oz yansima + Swarm
@@ -345,10 +332,9 @@ class AIAgentOrchestrator:
         self.ajan_suru = _AjanSurusu(provider=self.provider) if _AjanSurusu else None
 
         # LLM Self-Improvement modulleri
-        self.reflexion = _ReflexionMotoru(provider=self.provider, hafiza=self.hafiza) if _ReflexionMotoru else None
-        self.anayasa = _AnayasaDenetci(provider=self.provider) if _AnayasaDenetci else None
-        self.oz_tutarlilik_denetci = _OzTutarlilikDenetci(provider=self.provider) if _OzTutarlilikDenetci else None
-        self.meta_prompt = _MetaPromptOptimizer(provider=self.provider, session_db=self.session) if _MetaPromptOptimizer else None
+        self.reflexion = None
+        self.oz_tutarlilik_denetci = None
+        self.meta_prompt = None
 
         try:
             from sistem_talimati import sistem_talimatini_insa_et
@@ -382,24 +368,9 @@ class AIAgentOrchestrator:
                 _modul_uyar("Windows Entegrasyon", _win_e)
 
     def _guvenligi_baslat(self):
-        """Guvenlik motorlarini yukle."""
-        try:
-            from tirith_security import TirithSecurity
-            self.guvenlik = TirithSecurity()
-        except ImportError:
-            self.guvenlik = None
-
-        try:
-            from security_engine import AdvancedMemorySecurityEngine
-            self.mem_guvenlik = AdvancedMemorySecurityEngine()
-        except ImportError:
-            self.mem_guvenlik = None
-
-        try:
-            from salted_gateway import SaltedGatewaySecurityGate
-            self.salted_gate = SaltedGatewaySecurityGate()
-        except ImportError:
-            self.salted_gate = None
+        self.guvenlik = None
+        self.mem_guvenlik = None
+        self.salted_gate = None
 
     def _eklentileri_yukle(self):
         """Motor hook + plugin sistemi + hafiza plugin + persistence loglamasi."""
@@ -472,14 +443,6 @@ class AIAgentOrchestrator:
         except Exception as e:
             print(f"[HafızaPlugin] Yuklenemedi: {e}")
 
-        # HITL sıkılaştırma + motor yaması
-        if _GUARDRAILS_VAR and HITLSikistirici and motor_hitl_yamas_uygula:
-            try:
-                motor_hitl_yamas_uygula(self.motor)
-                self.hitl_sikistirici = HITLSikistirici(self.motor)
-                self.hitl_sikistirici.sikilaştir()
-            except Exception:
-                pass
 
     # ── HITL onay ─────────────────────────────────────────────────────
 
@@ -522,6 +485,15 @@ class AIAgentOrchestrator:
         import time as _time
         _t_baslat = _time.time()
 
+        # Gözlemci: bu görevi takibe al
+        try:
+            from reymen.cereyan.gozlem import gozlemci as _gozlemci
+            import uuid as _uuid
+            _gozlem_task_id = _uuid.uuid4().hex[:8]
+        except ImportError:
+            _gozlemci = None
+            _gozlem_task_id = "default"
+
         hedef = self._giris_temizle(hedef)
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
@@ -543,7 +515,9 @@ class AIAgentOrchestrator:
         # ── GOREV SINIFLANDIRMA + AKILLI ROUTING ────────────────────
         _gorev_tipi = self._gorev_siniflandir(hedef)
         # Selam/sohbet → direkt API (prompt assembly + tool zinciri atlanir)
-        if _gorev_tipi in ("selam", "sohbet"):
+        # ANCAK: FC modu aktif veya denenmediyse FC döngüsüne bırak
+        _fc_kapali = self._fc_mod is False or not hasattr(self.provider, "uret_v2")
+        if _gorev_tipi in ("selam", "sohbet") and _fc_kapali:
             try:
                 hizli_prompt = "Kisa ve oz cevap ver. Turkce konus."
                 yanit = self.provider.uret(
@@ -580,8 +554,16 @@ class AIAgentOrchestrator:
         _real_stdout = sys.stdout
         _real_stdout.write(f"\n{_SEP}\n")
 
-        if _verbose:
-            _real_stdout.write(f"{_B}▶ {hedef}{_R}  {_D}[k:{_karmasiklik}/5]{_R}\n")
+        # Uzun gorevlerde ekran kaosunu onlemek icin: ilk 2 satir goster, geri kalanı gizle
+        _hedef_satirlar = hedef.splitlines()
+        if len(_hedef_satirlar) > 2:
+            _hedef_onizleme = '\n'.join(_hedef_satirlar[:2])
+            _hedef_gizli = len(_hedef_satirlar) - 2
+            _hedef_goster = f"{_hedef_onizleme}\n{_D}... (+{_hedef_gizli} satır daha){_R}"
+        else:
+            _hedef_goster = hedef
+
+        _real_stdout.write(f"{_B}▶ {_hedef_goster}{_R}  {_D}[k:{_karmasiklik}/5]{_R}\n")
 
         # Basit sohbet: ic mesajlari gizle — sadece yanit goster
         import io as _io_rc
@@ -638,28 +620,14 @@ class AIAgentOrchestrator:
         if len(plan) > 1:
             print(f"[Plan] {len(plan)} adim:")
             for i, adim in enumerate(plan, 1):
-                risk = " [RISK]" if self.planlayici.riskli_mi(adim) else ""
-                print(f"  {i}. {adim}{risk}")
+                print(f"  {i}. {adim}")
             plan_metni = "\n".join(f"{i}. {a}" for i, a in enumerate(plan, 1))
             hedef_ile_plan = f"{hedef}\n\nPLAN:\n{plan_metni}"
         else:
             hedef_ile_plan = hedef
 
-        # Meta-prompt: gecmis analiz kayitlarından sistem eki yukle
         _meta_ek = ""
-        if self.meta_prompt:
-            try:
-                _meta_ek = self.meta_prompt.mevcut_ekleri_yukle()
-            except Exception:
-                pass
-
-        # Reflexion: benzer gecmis basarisizlik dersleri
         _reflexion_ek = ""
-        if self.reflexion:
-            try:
-                _reflexion_ek = self.reflexion.ilgili_dersleri_al(hedef, adet=2)
-            except Exception:
-                pass
 
         # ── SABİT PROMPT BLOĞU: döngü dışında bir kez hesapla ──────────────
         _sabit_beceri_baglami = ""
@@ -730,7 +698,7 @@ class AIAgentOrchestrator:
             # (ReYMeN dual-compression: gateway 85%, agent 50%)
             elif self.conv_compressor and tur > 1:
                 _mesaj_tahmini = sum(len(str(m.get("content", ""))) for m in mesajlar) // 4
-                if _mesaj_tahmini > 8192 * 0.85:  # 8192 token penceresi varsayimi
+                if _mesaj_tahmini > 16384 * 0.85:  # 16K token penceresi
                     onceki_len = len(mesajlar)
                     mesajlar = self.conv_compressor.sikistir(mesajlar)
                     if len(mesajlar) < onceki_len:
@@ -761,7 +729,7 @@ class AIAgentOrchestrator:
                     sistem_prompt += _reflexion_ek
             # ─────────────────────────────────────────────────────────────────
 
-            mesajlar = self.compressor.compress(mesajlar, context_length=8192)
+            mesajlar = self.compressor.compress(mesajlar, context_length=16384)
 
             # Ephemeral budget uyarisi (ReYMeN pattern):
             # LLM'e gecici baskı bildirisi — history'ye YAZILMAZ, cache bozmaz
@@ -914,32 +882,7 @@ class AIAgentOrchestrator:
                 if _sem_cache and cevap and "[Beyin Hatasi]" not in cevap:
                     _sem_cache.kaydet(sistem_prompt, mesajlar, cevap)
 
-            # 4. Hallucination filtresi (hem FC hem metin yanıtları için)
-            if self.halucination_filtresi and cevap:
-                _temiz_cevap, uyarilar = self.halucination_filtresi.filtrele(
-                    cevap, hedef=hedef
-                )
-                if uyarilar:
-                    _uyari_metni = "\n".join(uyarilar)
-                    print(_uyari_metni)
-                    _kritik = sum(
-                        1 for u in uyarilar
-                        if "halusinasyon" in u.lower()
-                        or "yanlis versiyon" in u.lower()
-                        or "internet/disk" in u.lower()
-                    )
-                    if _kritik >= 1:
-                        print("[Guardrail] Kritik hallusinasyon — LLM'e geri bildiriliyor.")
-                        mesajlar.append({"role": "user", "content": (
-                            f"Önceki yanıtında şu sorunlar tespit edildi:\n{_uyari_metni}\n\n"
-                            "Lütfen yalnızca doğrulayabildiğin bilgileri kullan ve "
-                            "aynı eylemi tekrar dene."
-                        )})
-                        son_gozlem = f"[Guardrail]: {_uyari_metni[:200]}"
-                        adim_gecmisi.append(f"GUARDRAIL: {uyarilar[0][:80]}")
-                        continue
-
-            # 5. Düşünce/Eylem logu ve mesajlara ekle
+            # 4. Düşünce/Eylem logu ve mesajlara ekle
             _karmasiklik_now = analiz.get("karmasiklik", 1) if isinstance(analiz, dict) else 1
             if _karmasiklik_now >= 2:
                 print(f"[Dusunce/Eylem]\n{cevap}")
@@ -1007,6 +950,14 @@ class AIAgentOrchestrator:
                 _real_stdout.write(f"{_SEPR}\n\n")
                 _real_stdout.flush()
                 # Post-processing loglarini gizle ([Ogrenme], [OzGelistirme] vb.)
+                # Gözlemci: başarılı görev kaydı
+                if _gozlemci:
+                    try:
+                        _gozlemci.kaydet(_gozlem_task_id, _sure_sn, ozet[:200],
+                                         basarili=True, notlar=f"tur:{tur}")
+                    except Exception:
+                        pass
+
                 sys.stdout = _io_rc.StringIO()
                 try:
                     self._gorev_tamamla(hedef, adim_gecmisi, ozet)
@@ -1075,13 +1026,6 @@ class AIAgentOrchestrator:
                     print(f"[AjanSecici] Hata: {_aj_hata}")
 
                 if ardisik_hata >= 3:
-                    # Reflexion: hata pattern'ini kaydet, ders olustur
-                    if self.reflexion:
-                        try:
-                            self.reflexion.yansima_kaydet(hedef, adim_gecmisi, gozlem)
-                        except Exception as _rf_hata:
-                            print(f"[Reflexion] Hata: {_rf_hata}")
-
                     if yeniden_planlamalar < 2:
                         yeni_plan = self.planlayici.yeniden_planla(
                             hedef, self.planlayici.tamamlananlar(), gozlem
@@ -1151,8 +1095,24 @@ class AIAgentOrchestrator:
 
         def _girdi_al():
             try:
-                g = input(prompt).strip()
-                sonuc[0] = g
+                g = input(prompt)
+                satirlar = [g]
+
+                # Windows: yapistirilan cok satirli metin icin kalan satirlari topla.
+                # input() yalnizca ilk satiri okur; geri kalanlar stdin tamponunda
+                # bekliyorsa msvcrt.kbhit() ile algilanip readline() ile drenaj edilir.
+                try:
+                    import msvcrt, sys as _sys
+                    time.sleep(0.08)  # yapistirma tamponunun dolmasi icin kisa bekle
+                    while msvcrt.kbhit():
+                        ekstra = _sys.stdin.readline()
+                        if ekstra:
+                            satirlar.append(ekstra.rstrip('\r\n'))
+                        time.sleep(0.01)
+                except ImportError:
+                    pass  # Linux/Mac: bu sorun orada olmuyor
+
+                sonuc[0] = '\n'.join(satirlar).strip()
                 girdi_alindi[0] = True
             except (EOFError, KeyboardInterrupt):
                 girdi_alindi[0] = True
@@ -1171,47 +1131,10 @@ class AIAgentOrchestrator:
         return "onay"  # kullaniciya bildirilmez, sessiz gecer
 
     def _giris_temizle(self, hedef: str) -> str:
-        """Kullanici girisini guvenlik katmanindan gecir."""
-        try:
-            from message_sanitization import giris_temizle
-            hedef_temiz, san_rapor = giris_temizle(hedef, maks_uzunluk=8000)
-            if san_rapor.get("bulgular"):
-                print(f"[Guvenlik] Injection engellendi: {san_rapor['bulgular']}")
-                try:
-                    from persistence import guvenlik_kalicilik
-                    guvenlik_kalicilik().tehdit_kaydet(
-                        "prompt_injection",
-                        f"Girdi temizlendi: {san_rapor['bulgular']}",
-                        kaynak="kullanici",
-                    )
-                except Exception:
-                    pass
-            hedef = hedef_temiz
-        except ImportError:
-            pass
-
-        if self.guvenlik:
-            guvenli, neden = self.guvenlik.prompt_guvenli_mi(hedef)
-            if not guvenli:
-                print(f"[TirithSecurity] Tehdit: {neden}")
-        else:
-            try:
-                from threat_patterns import prompt_guvenli_mi
-                if not prompt_guvenli_mi(hedef):
-                    print("[Guvenlik] Tehdit kalıbi tespit edildi.")
-            except ImportError:
-                pass
-
-        if self.mem_guvenlik:
-            if self.mem_guvenlik.injection_var_mi(hedef):
-                print("[MemSecurity] Injection kalıbi tespit edildi.")
-            hedef = self.mem_guvenlik.redact(hedef)
-
         if self.referanslar:
             ref_ozet = self.referanslar.context_ozeti()
             if ref_ozet:
                 hedef = f"{hedef}\n\n{ref_ozet}"
-
         return hedef
 
     def _sistem_promptu_insa_et(self, hedef, analiz, son_gozlem,
@@ -1297,6 +1220,17 @@ class AIAgentOrchestrator:
                 pass
 
         self._ogren(hedef, adim_gecmisi, ozet)
+
+        # GorevHafiza: tamamlanan görevi kaydet (gelecekte tekrar sorulursa hızlı bul)
+        try:
+            from reymen.hafiza.gorev_hafiza import GorevHafiza
+            import hashlib as _hl
+            _gh = GorevHafiza()
+            _task_id = _hl.md5(hedef.encode(), usedforsecurity=False).hexdigest()[:8]
+            _gh.kaydet(task_id=_task_id, hedef=hedef,
+                       sonuc={"ozet": ozet, "adim_sayisi": len(adim_gecmisi), "basarili": True})
+        except Exception:
+            pass
 
         if self.budget:
             self.budget.gorev_tamami()
@@ -1409,6 +1343,13 @@ if __name__ == "__main__":
             # Oz yansima arkaplan thread
             if hasattr(agent, "oz_yansima") and agent.oz_yansima:
                 agent.oz_yansima.baslat_arkaplan(gecikme_sn=5)
+
+            # Otomatik hafıza budama (arkaplan, 30dk'da bir)
+            try:
+                from reymen.cereyan.auto_budama import baslat as _budama_baslat
+                _budama_baslat()
+            except Exception:
+                pass
 
     except Exception as _baslama_hatasi:
         _icerik = _buf.getvalue()

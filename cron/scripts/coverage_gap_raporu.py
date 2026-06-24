@@ -7,7 +7,7 @@ PROJE = Path(r"C:\Users\marko\OneDrive\Desktop\Reymen Proje\hermes_projesi")
 
 # Sadece ReYMeN-native modüller (agent/ gateway/ hariç ReYMeN kopyaları)
 ONCELIKLI = [
-    "akilli_yonlendirici.py", "anayasa_denetci.py", "anayasa_denetcisi.py",
+    "akilli_yonlendirici.py",
     "beyin.py", "closed_learning_loop.py", "cokus_raporlayici.py",
     "cua_motor_araci.py", "kopru.py", "motor.py",
     "reymen_agent.py", "sistem_talimati.py",

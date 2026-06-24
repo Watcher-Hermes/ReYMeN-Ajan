@@ -950,9 +950,108 @@
       "FC/WEB_ARAMA"
     ],
     "basari_kriteri": "Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE)",
-    "kullanim_sayisi": 53,
+    "kullanim_sayisi": 51,
     "basari_orani": 1.0,
     "olusturma": "2026-06-23",
+    "son_basari": "2026-06-24"
+  },
+  "onay___referanslar_________anahtar______drift_duze": {
+    "ad": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"drift_duze",
+    "aciklama": "onay\n\n[Referanslar]\n  - {\\\"anahtar\\\": \\\"drift_duze",
+    "tetikleyiciler": [
+      "{\\\"anahtar\\\":",
+      "\\\"deger\\\":",
+      "-",
+      "\\\"drift_duzeltme_raporu_20260621\\\",",
+      "onay",
+      "[referanslar]"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/MEMORY",
+      "FC/MEMORY",
+      "FC/REFERANS_EKLE",
+      "FC/EXECUTE_CODE",
+      "FC/HA_DURUM"
+    ],
+    "basari_kriteri": "\"✅ **Hedef: ONAY** başarıyla tamamlandı.\n\n1. **drift_duzeltme_raporu_20260621** ",
+    "kullanim_sayisi": 6,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-24",
+    "son_basari": "2026-06-24"
+  },
+  "onay___referanslar______anahtar__drift_duzeltme_ra": {
+    "ad": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_ra",
+    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_ra",
+    "tetikleyiciler": [
+      "[referanslar]",
+      "-",
+      "deger:",
+      "onay",
+      "drift_duzeltme_raporu_20260621,",
+      "anahtar:"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_EKLE",
+      "FC/MEMORY",
+      "FC/CRON_LISTELE",
+      "FC/MEMORY_PROVIDER",
+      "FC/WEB_ARA"
+    ],
+    "basari_kriteri": "\"## ✅ Drift Düzeltme Onay Süreci — BAŞARIYLA TAMAMLANDI\n\nPlanın tüm adımları tek",
+    "kullanim_sayisi": 10,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-24",
+    "son_basari": "2026-06-24"
+  },
+  "onay___referanslar______anahtar__onay_dogrulama_ra": {
+    "ad": "onay\n\n[Referanslar]\n  - anahtar: onay_dogrulama_ra",
+    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: onay_dogrulama_ra",
+    "tetikleyiciler": [
+      "onay",
+      "-",
+      "deger:",
+      "[referanslar]",
+      "onay_dogrulama_raporu_20260624,",
+      "anahtar:"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/HAFIZA_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_EKLE"
+    ],
+    "basari_kriteri": "Onay işlemi başarıyla tamamlandı. Drift düzeltmesi zaten 3 kez onaylanmış durumd",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-24",
+    "son_basari": "2026-06-24"
+  },
+  "onay___referanslar______anahtar__drift_duzeltme_on": {
+    "ad": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
+    "aciklama": "onay\n\n[Referanslar]\n  - anahtar: drift_duzeltme_on",
+    "tetikleyiciler": [
+      "[referanslar]",
+      "anahtar:",
+      "drift_duzeltme_onay_20260621,",
+      "deger:",
+      "onay",
+      "-"
+    ],
+    "adimlar": [
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_ARA",
+      "FC/REFERANS_EKLE"
+    ],
+    "basari_kriteri": "Onay talebi değerlendirildi. Mevcut referanslar incelendiğinde onay sürecinin da",
+    "kullanim_sayisi": 3,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-24",
     "son_basari": "2026-06-24"
   }
 }

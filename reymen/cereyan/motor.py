@@ -152,12 +152,11 @@ class Motor:
         """Bilinen tüm plugin modüllerinin araçlarını otomatik kaydet."""
         import importlib
         moduller = [
-            "persistence", "message_sanitization",
+            "persistence",
             "x_search_tool", "homeassistant_tool", "feishu_doc_tool",
             "yuanbao_tools", "model_tools", "mcp_tool",
             "rate_limiter", "araclar_web", "araclar_gelismis",
             "tools.discord_tool", "tools.browser_camofox",
-            "tools.threat_patterns",
             # Batch 8 - Yeni araclar
             "tools.delegate_tool", "tools.kanban_tools", "tools.voice_mode",
             "tools.clarify_tool", "tools.blueprints",
@@ -166,7 +165,6 @@ class Motor:
             "tools.skills_hub", "tools.skills_sync",
             "tools.feishu_doc_tool", "tools.feishu_drive_tool",
             "tools.homeassistant_tool", "tools.session_search_tool",
-            "tools.approval", "tools.write_approval",
             # Memory plugin
             "plugins.memory",
             # Batch 9 - Yeni 25 araç
@@ -214,7 +212,7 @@ class Motor:
             # Entegrasyon 4 — kök modüller
             "kanban_orchestrator", "context_references",
             "araclar_makro", "araclar_ses", "araclar_telegram",
-            "mcp_oauth", "batch_engine", "security_engine",
+            "mcp_oauth", "batch_engine",
             "yetenek_fabrikasi", "sistem_sinyalleri",
             # Entegrasyon 5 — ek modüller
             "mcp_oauth_manager", "reymen_batch_runner", "models_dev",
@@ -235,6 +233,26 @@ class Motor:
             "reymen.arac.windows_otomasyon",
             # Windows akıl — kısayol DB, UI element, menü, insan gibi planlama
             "reymen.arac.windows_akil",
+            # Sahipsiz tools/ araçları — run() arayüzü var, motor'a bağlandı
+            "tools.mcp_health", "tools.sistem_bilgi", "tools.unit_converter",
+            "tools.zamanlayici_gorev", "tools.youtube_tool", "tools.random_generator",
+            "tools.date_tool", "tools.slack_tool", "tools.memory_info",
+            "tools.disk_usage", "tools.dosya_karsilastir", "tools.url_kesfet",
+            "tools.diff_tool", "tools.process_list", "tools.whois_tool",
+            "tools.json_dogrusallik", "tools.dns_lookup", "tools.uptime_tool",
+            "tools.python_code_linter", "tools.csv_analyzer", "tools.string_case_converter",
+            "tools.ip_info", "tools.url_status", "tools.base64_tool",
+            "tools.text_search", "tools.reymen_ajan", "tools.yaml_validator",
+            "tools.hash_tool", "tools.url_fetcher", "tools.json_transformer",
+            "tools.json_validator",
+            # Ek tools/ — run()/motor_kaydet arayüzlü, motor dışında kalmış
+            "tools.tool_guardrails", "tools.reflexion_motoru", "tools.mcp_catalog",
+            "tools.tool_dispatch_helpers", "tools.skills_guard", "tools.oz_yansima",
+            "tools.tool_cache", "tools.skills_ast_audit", "tools.tool_executor",
+            "tools.tirith_security", "tools.slash_confirm", "tools.url_safety",
+            "tools.sistem_bilgisi", "tools.shell", "tools.python_exec",
+            "tools.path_security", "tools.dizin_listele", "tools.budget_config",
+            "tools.browser_cdp_tool", "tools.spotify_tool",
             # MCP (Model Context Protocol)
             "tools.mcp_tool",
             # Personality (kisilik sistemi)
@@ -730,6 +748,16 @@ class Motor:
             ozet = (params[0] if params else "")[:120]
             if not self.onay_fonksiyonu(arac, ozet):
                 return f"[İptal]: Kullanıcı '{arac}' eylemini reddetti."
+
+        # KANCA: eylem öncesi kural denetimi (sonsuz döngü / rate-limit / yasaklı araç)
+        try:
+            from kancalar import kanca_motoru as _km
+            _task_id = getattr(self, "_aktif_task_id", "default")
+            _kanca_hata = _km.denetle(_task_id, arac)
+            if _kanca_hata:
+                return f"[Kanca]: {_kanca_hata}"
+        except ImportError:
+            pass
 
         # HATA_COZUCU araçları — Registry/Plugin öncesi erken kontrol
         if arac in ("HATA_WATCH_BASLAT", "HATA_WATCH_DURDUR", "HATA_KOD_AL",

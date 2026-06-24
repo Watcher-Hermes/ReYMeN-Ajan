@@ -93,3 +93,6 @@ class PairingManager:
 
 # Global instance
 eslestirici = PairingManager()
+
+# Alias for compatibility with gateway/run.py
+PairingStore = PairingManager

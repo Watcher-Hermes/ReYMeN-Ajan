@@ -169,3 +169,116 @@
 2. DOSYA_YAZ aracındaki hataları azaltmak için dosya yazma işlemini çağırmadan önce hedef dizinin var olduğunu ve yazma izinlerini kontrol eden bir ön doğrulama adımı ekleyin.
 3. Bellek kullanımını %84'ün altına düşürmek için işlem sonrası büyük veri yapılarını temizleyen ve referansları null atayan bir bellek yönetim rutini uygulayın.
 4. Genel hata oranını düşürmek için DOSYA_YAZ aracına özel hata yakalama ve loglama mekanizması ekleyerek sorunların kaynağını daha hızlı tespit edin.
+
+## 2026-06-24 07:24 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %28.4, Bellek %78.0
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. PYTHON_CALISTIR aracındaki hataları azaltmak için giriş doğrulama ve hata yönetimi mantığını güçlendirin.
+3. Bellek kullanımını %70'in altına düşürmek için kullanılmayan değişkenleri temizleyin ve bellek sızıntılarını tespit edin.
+4. Hata oranını %20'ye indirmek amacıyla PYTHON_CALISTIR çağrılarını daha küçük alt görevlere bölün.
+
+## 2026-06-24 07:38 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %15.2, Bellek %78.8
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını azaltmak için DOSYA\_YAZ aracında hata nedenlerini bulun ve gidermekle çalışın.
+3. Bellek kullanimi, ajan performansını düşürecek bir faktör olduğunu belirttikte, bu sebepte verilen bellek limitlerini artırın veya yapay zeka modellerini değiştirmek gerekir.
+4. Ajan performansını daha iyi kontrol etmek için ajan yapısını inceleyerek uygulanan algoritmaları ve parametreleri optimize edebilirsiniz.
+
+## 2026-06-24 07:43 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %14.2, Bellek %96.7
+
+### Oneriler
+1. Hata oranını düşürmek için yapay zeka ajanın yapay zeka modellerini değiştirme ve eğitim planlarına ulaşılması gerekir.
+2. En cok hata veren aracın bellek kullanımını düşürmek için ajan performansını değiştirebilir yapay zeka algoritmaları ve bu algoritmaların parametrelerini özelleştirmek gerekir.
+3. Bellek kullanımını düşürmek için ajan performansını değiştirebilir yapay zeka algoritmaları ve bu algoritmaların parametrelerini özelleştirmek gerekir.
+
+## 2026-06-24 07:45 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %16.2, Bellek %96.4
+
+### Oneriler
+1. Hata oranını düşürmek için, ajan performansını geliştirmek veya hata nedenlerini tespit ederek gidermek gibi yaklaşmalar yapabilirsiniz.
+2. En cok hata veren aracı belirlemek için, ajan performansını veya hata nedenlerini tespit ederek gidermek gibi yaklaşmalar yapabilirsiniz.
+3. Bellek kullanımını azaltmak için, ajan performansını geliştirmek veya bellek kullanımını düşürmek gibi yaklaşmalar yapabilirsiniz.
+
+## 2026-06-24 07:47 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %11.3, Bellek %96.3
+
+### Oneriler
+1. Hata orani: 0%'ye açık, hataları sadece etkilemeyen birisi olduğunu anlamak veya daha az hatalar oluşturucu kodları kullanmak zorunlu.
+2. En cok hata veren arac: Bu araca ihtiyaç duyulması gereken bir şey veya bu arada yapılan bir işlemdeki hataları düzeltmek zorunlu.
+3. Bellek kullanımı: 96.3%'ye açık, bu sayede belleği sadece bu arada kullanılması gereken veya daha az belleğini kullanabilirsiniz.
+
+## 2026-06-24 07:48 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %20.0, Bellek %94.4
+
+### Oneriler
+1. Sorunların tam taramanı ve giderek gelişimi için, ajan performansını bize yansıtmayı sağlayan veri kaynaklarını kullanmak.
+2. Ajan performansını önemli hale getirmek için, en çok hata veren aracını zaten bilmiş ve bu arada sorunlar olduğunu anlamak.
+3. Ajan performansını daha iyi takip etmek için, yeni gelişimler ve güncel bazılarda taramalar yapmayı ve bu bilgileri depolamak.
+
+## 2026-06-24 07:51 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %21.5, Bellek %92.0
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını azaltmak (66%)
+3. En cok hata veren aracın (DOSYA\_YAZ) yapısını düşünecek veya değiştirecek (veya: yeni bir şema geliştirmek)
+4. Bellek kullanımını azaltmak (92.0%)
+
+## 2026-06-24 08:07 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %16.1, Bellek %90.8
+
+### Oneriler
+1. Veri setini daha güçlü ve genişletin veya değerlendirme işlemlerini optimize edin.
+2. Modeli geliştirin veya eğitim ajanını düşünerek performansı artırın.
+3. Bellek kullanımını azaltın veya verileri depolamaya gereken birkaçını daha verimli bir şekilde yönetin.
+
+## 2026-06-24 08:10 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %20.5, Bellek %93.4
+
+### Oneriler
+1. Aracın hata oranı 0'a düşürün.
+2. En daha uzun sürede çalışan aracın bellek kullanımını azaltın.
+3. Hata veren aracağın bellek kullanımını düşürün.
+
+## 2026-06-24 08:17 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %19.6, Bellek %95.0
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ değişkenini düzenleyin veya silin.
+3. Bellek kullanımını azaltın veya yavaşlık sorununa çözmeyi deneyin.
+4. Hata orani düşün veya sorunu gidermek için araçları veya yöntemleri değiştirin.
+
+## 2026-06-24 08:20 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %13.7, Bellek %93.7
+
+### Oneriler
+1. Daha iyi bir yapay zeka modeli geliştirmek.
+2. Verilerin daha doğru ve etkili olarak kullanmak.
+3. Modeldeki hata oranını düşürmek.
+
+## 2026-06-24 08:46 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %36.5, Bellek %87.8
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata oranını azaltmak için, DOSYA\_YAZ aracında bulunan hataları gidermek veya daha iyi bir yöntem kullanmaktır.
+3. Bellek kullanımını azaltmak için, bu veriye göre bellek kullanımın en fazla olan aracında bulunan hataları gidermek veya daha iyi bir yöntem kullanmaktır.
+4. Ajan performansını artırmak için, yüksek hata oranlarını azaltmaları gerçekleştirmek veya bu verileri temel alındağını belirlemek ve daha iyi bir çözme yöntemi kullanmaktır.

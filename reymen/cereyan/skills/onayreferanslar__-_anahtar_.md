@@ -5,7 +5,7 @@ name: onay
   - {\"anahtar\": \"
 description: Onay süreci tamamlandı. Hafıza drift düzeltmesi (TEKRAR_SIL, BIRLESTIR, TEMIZLE) başarıyla uygulandı. example_com_verisi referansı kaydedildi ve tekrarları temizlendi. Kalıcı 24 saatlik izleme mekanizması aktif. Sistem durumu STABİL. Tüm adımlar hatasız tamamlandı.
 created: 2026-06-23
-usage_count: 55
+usage_count: 88
 last_used: 2026-06-24
 ---
 
@@ -560,3 +560,282 @@ FC/EXECUTE_CODE: [EXECUTE_CODE ✅]
 --- ÇIKTI ---
 Example.com verisi dogrulandi
 Baslik: Example Dom
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:43:48Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'üç referans anahtarı doğrulandı:
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:44:15Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:49:10Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:49:21Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:49:40Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:49:54Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:54:20Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:54:30Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay_kontrol_20260624|plan adim
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:54:57Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:55:16Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'onay: drift_duzeltme_onayi basar
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz: drift_duzeltme_onayi: reyme
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:59:21Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme_onayi'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme_raporu_20260621'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'example_com_verisi'
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T02:59:37Z)
+
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/HAFIZA_ARA: []
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:01:57Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/CRON_LISTELE: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was 
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:02:23Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'liste'
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz|drift_duzeltme_islemi_202606
+FC/MEMORY: # ReYMeN Hafıza
+> Temizleme: 2026-06-21 — 58 adet '[Hafıza]: İlgili tecrübe bulu
+FC/MEMORY: [Hata]: yaz eylemi icin icerik parametresi gerekli.
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'yaz|drift_duzeltme_raporu|reymen
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/KOMUT_CALISTIR: [Tamam]:
+Drift duzeltmesi basarili
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\AppData\Local\Temp\pytest-of-mark
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:04:29Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/DOSYA_YAZ: [Hata]: yaz() missing 1 required positional argument: 'icerik'
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:07:10Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:09:43Z)
+
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:10:02Z)
+
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme_onayi'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'example_com_verisi'
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'drift_duzeltme_raporu_20260621'
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:13:56Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:15:02Z)
+
+FC/CLARIFY: [NETLESTIR] ⚠️ **NETLEŞTİRME GEREKİYOR**
+
+Kullanıcı \"onay\" dedi ve bir PLAN li
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:15:24Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/CRON_LISTELE: {"durum": "basarili", "cron_jobs": [], "sayi": 0}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/CRON_EKLE: {"durum": "hata", "mesaj": "ad, zaman ve komut parametreleri gerekli"}
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:19:50Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:20:20Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:20:38Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_OZET: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:20:49Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/HA_DURUM: [HA]: HA_TOKEN ayarlanmamış.
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'hafıza drift düzeltmesi - adım a
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:24:42Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:24:55Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:25:21Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:25:43Z)
+
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://example.com
+
+Example Domain Example Domain This doma
+FC/WEB_ICERIK: [Sayfa:urllib] URL: https://iana.org/domains/example
+
+Example Domains Domains Pr
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/MEMORY: [Hata]: eylem 'oku' veya 'yaz' olmali, alindi: 'example.com dogrulama ve onay ta
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:29:52Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/CRON_LISTELE: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:30:31Z)
+
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_EKLE: [Referans]: Eklendi
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:30:44Z)
+
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/REFERANS_ARA: [{'etiket': 'anahtar: drift_duzeltme_onayi, deger: ReYMeN hafıza drift düzeltmes
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_EKLE: [Referans]: Eklendi
+FC/CRON_LISTELE: [Hata]: motor_kaydet.<locals>.<lambda>() takes 0 positional arguments but 1 was
+
+---
+## Ek Adimlar / Varyasyon (2026-06-24T03:31:12Z)
+
+FC/REFERANS_ARA: [{'etiket': '{\\"anahtar\\": \\"example_com_verisi\\", \\"deger\\": {\\"baslik\\
+FC/REFERANS_ARA: [{'etiket': 'drift_duzeltme_raporu_20260621|ReYMeN hafiza drift duzeltmesi tamam
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\onay_raporu.log
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/EXECUTE_CODE: [EXECUTE_CODE ❌]
+--- HATA ---
+SyntaxError: unexpected character after line conti
+FC/DOSYA_YAZ: [Guvenlik]: Guvenli bolge disi: C:\Users\marko\onay_raporu.log

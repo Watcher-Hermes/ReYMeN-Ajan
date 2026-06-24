@@ -3,5 +3,10 @@
     "metin": "# Hiç fark yoksa atla (gerçek duplikasyon değil, gerçek kopya)",
     "kaynak": "kullanici_duzeltme",
     "zaman": "2026-06-24 03:02"
+  },
+  {
+    "metin": "\"\"\"\nduplicate_module_detector.py\nAynı isimli ama farklı klasörlerdeki .py dosyalarını bulur,\nfonksiyon setlerini AST ile karşılaştırır, drift varsa raporlar.\nAyrıca hangi dosyanın gerçekten import edildiğini (canlı yol) tespit eder.\n\"\"\"\n\nimport ast\nimport os\nimport sys\nfrom collections import defaul",
+    "kaynak": "kullanici_duzeltme",
+    "zaman": "2026-06-24 07:51"
   }
 ]

@@ -1,7 +1,7 @@
 ---
 skill_id: multi-profil-gateway-zombie
-usage_count: 1
-last_used: 2026-06-23
+usage_count: 2
+last_used: 2026-06-24
 ---
 
 ## Multi-Profil Gateway Zombie Teşhisi
@@ -69,18 +69,75 @@ Bu **bir zombie değildir** — gateway sağlıklı çalışıyordur. Çözümle
 - Çözüm: Tam Python yolu kullan: `python -m hermes_cli.main gateway run --profile <profil>`
 - Veya `hermes gateway status` ile gateway'in zaten çalıştığını doğrula
 
-### Bu Oturumda Tespit Edilen (Kiral38 - 23 Haziran 2026)
+### DNS/Network Hatası → Zombie Chain (24 Haziran 2026)
+
+Saat **04:11**'de bir DNS çözümleme hatası zinciri başladı:
+
+```
+04:11:59 — httpx.ReadError: getaddrinfo failed (api.telegram.org çözülemedi)
+04:11:59 — Fallback IP 149.154.166.110 da başarısız
+04:12:08 — Reconnect attempt 2/10 başarısız
+04:12:18 — Telegram polling resumed (attempt 2 başarılı)
+07:41:02 — Gateway restart (yeni instance)
+07:41:04 — ✓ telegram connected
+```
+
+**Sorun:** 07:41 restart'ından sonra gateway_state.json **güncellenmedi** — eski PID (162364) ve "running" state'i kaldı. PID ölmüştü ama state güncel kalmadı.
+
+**Tespit:** `tasklist //FI "PID eq <PID>"` ile PID 162364 bulunamadı → zombie.
+
+### Bu Oturumda Tespit Edilen (Kiral38 - 24 Haziran 2026)
 
 | Kontrol | Bulgu |
 |:--------|:------|
 | Profil dizini | ✅ `profiles/kiral38/` var |
-| Config | ✅ DeepSeek V4 Flash, aynı ayarlar |
 | Bot token | ✅ `.env` içinde, geçerli |
 | **gateway_state.json** | ⚠️ `"gateway_state": "running"`, `"platforms.telegram.state": "connected"` |
-| **PID (139328)** | ❌ `ps -p` → `PID_NOT_FOUND`, `tasklist` → yok → **process ölmüş** |
-| **updated_at** | ❌ `2026-06-23T10:10:23` → **6+ saat önce** |
-| **Loglar** | ❌ Sadece PowerBI MCP tools/list — **Telegram aktivitesi 0** |
-| Karar | **ZOMBIE** — state "running" ama process yok |
+| **PID (162364)** | ❌ `tasklist` → yok → **process ölmüş** |
+| **updated_at** | ❌ `2026-06-24T04:41:04` → **3+ saat önce** |
+| **Loglar** | ✅ 07:41'de restart + bağlantı var — gateway aslında çalışıyor! |
+| **Karar** | **ZOMBIE** — gateway canlı ama state.json eski PID'yi tutuyor |
+
+## DNS Hatası Tetikleyicisi
+
+Telegram gateway **DNS çözümleme hatası** alırsa, auto-reconnect mekanizması devreye girer. Çoğu zaman kendi kendine düzelir, ancak restart sonrası PID state güncellenmeyebilir:
+
+```
+httpx.ReadError: getaddrinfo failed            → DNS çözülemedi (internet/dns kesintisi)
+Fallback IP 149.154.166.110 failed             → Fallback de çalışmadı
+Telegram polling resumed after network error   → Auto-reconnect başarılı
+```
+
+**Risk:** Gateway restart olur ama state.json eski PID ile kalır → zombie.
+
+### State.json Edit Fix (Hızlı Çözüm)
+
+Scheduled task çalışmazsa veya acil çözüm gerekirse:
+
+```bash
+# 1. Zombi PID'yi doğrula
+tasklist //FI "PID eq <PID>"    # Yoksa zombie
+
+# 2. State.json'a doğrudan müdahale
+python -c "
+import json
+s = json.load(open('~/AppData/Local/hermes/profiles/<profil>/gateway_state.json'))
+s['gateway_state'] = 'stopped'
+s['pid'] = None
+s['platforms']['telegram']['state'] = 'disconnected'
+json.dump(s, open('~/AppData/Local/hermes/profiles/<profil>/gateway_state.json','w'), indent=2)
+"
+
+# 3. Gateway'i yeniden başlat
+hermes gateway run --profile <profil>
+
+# 4. Doğrula
+sleep 10
+cat ~/AppData/Local/hermes/profiles/<profil>/gateway_state.json
+# Beklenen: yeni PID, running, connected
+```
+
+**Not:** Bu yöntem scheduled task'ten **daha hızlı** ve scheduled task yoksa da çalışır.
 
 ### Zombie vs Diğer Arıza Modları
 

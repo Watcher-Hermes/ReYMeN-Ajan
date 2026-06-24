@@ -848,6 +848,52 @@ class AdvancedSessionStorage:
             log.error("session_temizle hatasi: %s", e)
             return 0
 
+    def konsolide_et(self, max_gun: int = 90, max_session: int = 1000,
+                     max_toplam_karakter: int = 500000) -> dict:
+        """Session DB'yi konsolide et: eski/asiri session'lari temizle.
+
+        Args:
+            max_gun: Bu gun sayisindan eski tamamlanmis session'lari sil.
+            max_session: Toplam session sayisi bu siniri asarsa en eskileri sil.
+            max_toplam_karakter: Toplam mesaj icerigi bu siniri asarsa eski session'lari sil.
+
+        Returns:
+            {"silinen_session": N, "toplam_session": N}
+        """
+        sonuc = {"silinen_session": 0, "toplam_session": 0}
+        try:
+            silinen = self.session_temizle(days=max_gun)
+            sonuc["silinen_session"] = silinen
+
+            # Ek: max_session sinirini kontrol et
+            with self._lock:
+                conn = self._baglan()
+                try:
+                    toplam = conn.execute("SELECT COUNT(*) FROM sessions").fetchone()[0]
+                    sonuc["toplam_session"] = toplam
+                    if toplam > max_session:
+                        fazla = toplam - max_session
+                        silinecek = conn.execute(
+                            "SELECT id FROM sessions ORDER BY started_at ASC LIMIT ?",
+                            (fazla,),
+                        ).fetchall()
+                        if silinecek:
+                            ids = [r[0] for r in silinecek]
+                            placeholders = ",".join("?" * len(ids))
+                            conn.execute(
+                                f"DELETE FROM session_messages WHERE session_id IN ({placeholders})", ids
+                            )
+                            conn.execute(
+                                f"DELETE FROM sessions WHERE id IN ({placeholders})", ids
+                            )
+                            conn.commit()
+                            sonuc["silinen_session"] += len(ids)
+                finally:
+                    conn.close()
+        except Exception as e:
+            log.error("konsolide_et hatasi: %s", e)
+        return sonuc
+
     # ── Geriye uyumluluk: FTS5 ajan_gunlugu ───────────────────────────
 
     def gunluge_yaz(self, hedef: str, eylem: str, sonuc: str):

@@ -52,10 +52,15 @@ def fresh_main():
 
     # Ic modulu de patch'le (AIAgentOrchestrator metotlari ic modul namespace'ini kullanir)
     _inner = sys.modules.get("_reymen_sistem_main")
+    _inner_saved = {}
     if _inner:
         for _name in _mock_names:
             if hasattr(_inner, _name):
+                _inner_saved[_name] = getattr(_inner, _name)
                 setattr(_inner, _name, getattr(m, _name))
+        for _fn in ("tecrube_kaydet", "anlamsal_hafiza_ara", "vektorel_hafiza_sistemini_kur"):
+            if hasattr(_inner, _fn):
+                _inner_saved[_fn] = getattr(_inner, _fn)
         _inner.tecrube_kaydet = m.tecrube_kaydet
         _inner.anlamsal_hafiza_ara = m.anlamsal_hafiza_ara
         _inner.vektorel_hafiza_sistemini_kur = m.vektorel_hafiza_sistemini_kur
@@ -68,7 +73,7 @@ def fresh_main():
         "cache_ile_uret", "_sem_cache", "AdaptifOgrenme",
         "adaptif_ogrenme_sistemi_kur",
         "_BeceriKutuphanesi", "_AjanSurusu", "_OzYansima",
-        "_ReflexionMotoru", "_AnayasaDenetci", "_OzTutarlilikDenetci",
+        "_ReflexionMotoru",
         "_MetaPromptOptimizer", "_cred_pool",
         "_REYMEN_CLI", "_GATEWAY", "_PLUGINS", "_CRON",
         "_TUI_GATEWAY", "_ACP_ADAPTER", "_LLM_PROVIDER",
@@ -79,20 +84,18 @@ def fresh_main():
     if _inner:
         for _attr in _optional_attrs:
             if hasattr(_inner, _attr):
+                _inner_saved[_attr] = getattr(_inner, _attr)
                 setattr(_inner, _attr, None)
 
     yield m
 
-    # Teardown: ic modulu restore et
+    # Teardown: ic modulu kayitli orijinal degerlerle restore et (re-import YOK)
     if _inner:
-        try:
-            import importlib as _il
-            _orig = _il.import_module("reymen.sistem.main")
-            for _name in _mock_names:
-                if hasattr(_orig, _name):
-                    setattr(_inner, _name, getattr(_orig, _name))
-        except Exception:
-            pass
+        for _key, _val in _inner_saved.items():
+            try:
+                setattr(_inner, _key, _val)
+            except Exception:
+                pass
     sys.modules.pop("main", None)
 
 

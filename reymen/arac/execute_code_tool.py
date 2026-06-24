@@ -105,7 +105,7 @@ def _kod_calistir(kod: str, timeout: int = 30, calisma_dizini: str = "") -> dict
         temiz_globals["print"] = print
 
         # Kodu çalıştır (timeout manuel olarak exec içinde kontrol edilmez)
-        exec(duzgun_kod, temiz_globals)
+        exec(duzgun_kod, temiz_globals)  # nosec — B102: tool bilinçli olarak kod çalıştırır
 
         cikti = yeni_stdout.getvalue()
         hata = yeni_stderr.getvalue()
@@ -132,6 +132,7 @@ def run(
     kod: str,
     timeout: int = 30,
     calisma_dizini: str = "",
+    zaman_asimi=None,
 ) -> str:
     """Python kodunu çalıştır ve sonucu döndür.
 
@@ -143,6 +144,16 @@ def run(
     Returns:
         str: Çıktı + hata bilgisi içeren metin
     """
+    # zaman_asimi alias -> timeout (geçersiz değer varsa varsayılanı kullan)
+    if zaman_asimi is not None:
+        try:
+            timeout = int(zaman_asimi)
+        except (ValueError, TypeError):
+            pass  # geçersizse varsayılan kalır
+
+    if not kod or not kod.strip():
+        return "[Hata] Boş kod çalıştırılamaz."
+
     # Güvenlik kontrolü
     gecerli, hata = _guvenlik_kontrol(kod)
     if not gecerli:

@@ -292,6 +292,14 @@ class Beyin:
                     )
                 )
 
+        # ProviderRouter: circuit breaker bilgisine göre yeniden sırala
+        try:
+            from reymen.ag.provider_router import yonlendirici_al as _pr_al
+            _router = _pr_al()
+            zincir = _router.sirala(zincir, ad_al=lambda a: a.provider)
+        except Exception:
+            pass
+
         return zincir
 
     # ────────────────────────────────────────────────────────────────────────
@@ -469,9 +477,21 @@ class Beyin:
                     )
 
                 self._kullanim_kaydet(adim, sistem_prompt, mesajlar, sonuc)
+                # ProviderRouter: başarı bildir
+                try:
+                    from reymen.ag.provider_router import yonlendirici_al as _pr_al
+                    _pr_al().basari_bildir(adim.provider)
+                except Exception:
+                    pass
                 return sonuc
 
             except Exception as e:
+                # ProviderRouter: hata bildir (circuit breaker devreye girebilir)
+                try:
+                    from reymen.ag.provider_router import yonlendirici_al as _pr_al
+                    _pr_al().hata_bildir(adim.provider)
+                except Exception:
+                    pass
                 son_hata = str(e)
                 # ── Türkçe hata mesajı çevirisi ──
                 hata_str = str(e)

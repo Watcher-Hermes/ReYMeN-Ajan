@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-ROOT = Path(__file__).parent.resolve()
+ROOT = Path(__file__).resolve().parent.parent.parent  # proje koku
 
 # Tum skill kaynak klasorleri (oncelik sirasinda)
 # NOT: .agents/skills/ resmi agentskills.io standart dizini (VS Code, Copilot, vb. burada arar)

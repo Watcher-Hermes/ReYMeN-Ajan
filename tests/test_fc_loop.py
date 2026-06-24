@@ -399,9 +399,11 @@ class TestFcLoopParalelAraclar:
 
         with patch("reymen.sistem.main.anlamsal_hafiza_ara", return_value=""), \
              patch("reymen.sistem.main.tecrube_kaydet"), \
+             patch("reymen.sistem.main._get_once_hafiza") as _mock_oh2, \
              patch.object(orch, "_sistem_promptu_insa_et", return_value=SISTEM), \
              patch.object(orch, "_giris_temizle", side_effect=lambda x: x), \
              patch.object(orch, "_gorev_tamamla"):
+            _mock_oh2.return_value.hafizada_ara.return_value = None
             orch.run_conversation("iki aracı kullan")
 
         assert "DOSYA_OKU" in calistirildi

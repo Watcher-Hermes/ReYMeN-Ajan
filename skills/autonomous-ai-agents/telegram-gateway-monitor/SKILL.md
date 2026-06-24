@@ -5,7 +5,7 @@ description: >
   hata alınırsa otomatik onarım adımları uygulanır ve sonuç kaydedilir.
   Hedef listeleme ve gönderme için `hermes send --list` + `hermes send --to <target>` kullanılır.
 title: "Telegram Gateway Monitor"
-version: 1.2.0
+version: 1.3.0
 author: marko
 metadata:
   hermes:
