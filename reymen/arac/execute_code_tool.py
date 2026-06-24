@@ -50,7 +50,7 @@ _YASAKLI_KALIPLAR = [
     "os.system", "subprocess.run", "subprocess.Popen",
     "shutil.rmtree", "shutil.move",
     "eval(", "exec(", "__import__(",
-    "open(", "open(\"",
+    "open(", 'open("',
     "import os; os.", "from os import",
     "import subprocess", "from subprocess import",
 ]
