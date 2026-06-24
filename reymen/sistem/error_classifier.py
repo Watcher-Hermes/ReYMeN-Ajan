@@ -86,6 +86,20 @@ _KATEGORI_KALIPLARI: dict[HataKategori, list[re.Pattern]] = {
         re.compile(r"AccessDenied", re.I),
         re.compile(r"permission denied", re.I),
     ],
+    HataKategori.AG: [
+        re.compile(r"ConnectionRefused", re.I),
+        re.compile(r"Connection refused", re.I),
+        re.compile(r"Network unreachable", re.I),
+        re.compile(r"ENETUNREACH", re.I),
+        re.compile(r"Name or service not known", re.I),
+        re.compile(r"getaddrinfo", re.I),
+    ],
+    HataKategori.DISK: [
+        re.compile(r"No space left on device", re.I),
+        re.compile(r"ENOSPC", re.I),
+        re.compile(r"Disk full", re.I),
+        re.compile(r"Quota exceeded", re.I),
+    ],
     HataKategori.MODUL_EKSIK: [
         re.compile(r"No module named", re.I),
         re.compile(r"cannot import name", re.I),

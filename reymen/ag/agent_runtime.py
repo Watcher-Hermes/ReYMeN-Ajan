@@ -21,6 +21,13 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
+from reymen.sistem.error_classifier import (
+    HataKategori as _HataKategori,
+    HataBilgisi as _HataBilgisi,
+    siniflandir as _ec_siniflandir,
+    syntax_kontrol as _ec_syntax_kontrol,
+    topla_syntax as _ec_topla_syntax,
+)
 
 logger = logging.getLogger("ReYMeN.runtime")
 
@@ -52,6 +59,16 @@ class HataSiniflandirici:
         return "basarili"
 
     @classmethod
+    def siniflandir_zengin(cls, gozlem: str) -> "_HataBilgisi":
+        """12 kategorili zengin hata siniflandirmasi (error_classifier modulu)."""
+        return _ec_siniflandir(gozlem)
+
+    @classmethod
+    def syntax_dogrula(cls, dosya_yolu: str) -> bool:
+        """Dosyanin syntax'inin dogru olup olmadigini kontrol eder."""
+        return _ec_syntax_kontrol(dosya_yolu)
+
+    @classmethod
     def kurtarma_onerisi(cls, kategori: str) -> str:
         oneriler = {
             "ag":         "Ag baglantisini kontrol et veya WEB_ARA yerine DOSYA_OKU dene.",
@@ -64,6 +81,15 @@ class HataSiniflandirici:
         }
         return oneriler.get(kategori, "Devam et.")
 
+
+def syntax_dogrula(dosya_yolu: str) -> bool:
+    """Dosyanin syntax'inin dogru olup olmadigini kontrol eder."""
+    return _ec_syntax_kontrol(dosya_yolu) is None
+
+
+def klasor_syntax_tara(dizin: str) -> list:
+    """Dizindeki tum .py dosyalarinin syntax'ini tarar."""
+    return _ec_topla_syntax(dizin)
 
 # ── Runtime Helpers ──────────────────────────────────────────────────────────
 
