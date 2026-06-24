@@ -11,8 +11,23 @@ import asyncio
 import os
 import sys
 from pathlib import Path
+from unittest.mock import MagicMock
 
 import pytest
+
+# ── Modul temizligi: test_alt_ajan.py modul-seviyesinde mock enjekte eder
+# sys.modules'ta "motor" veya "beyin" varsa ve gercek degilse temizle
+for _mod_name in ('motor', 'beyin'):
+    if _mod_name in sys.modules:
+        _mod = sys.modules[_mod_name]
+        # Gercek motor.py'de _REGISTRY yok ama ToolRegistry var, gercek beyin.py'de Beyin var
+        _is_real = (
+            (_mod_name == 'motor' and hasattr(_mod, 'ToolRegistry')) or
+            (_mod_name == 'motor' and hasattr(_mod, 'ROOT')) or
+            (_mod_name == 'beyin' and hasattr(_mod, 'Beyin'))
+        )
+        if not _is_real:
+            del sys.modules[_mod_name]
 
 # Proje kokunu ekle
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -69,9 +84,29 @@ if 'pty' not in sys.modules:
 collect_ignore = [str(PROJECT_ROOT / 'tests' / 'run_interrupt_test.py')]
 
 
+def pytest_collection_modifyitems(items):
+    """test_alt_ajan.py'yi sona tasi — sys.modules mock temizligi sorununu onle."""
+    alt_ajan_items = [i for i in items if 'test_alt_ajan' in str(i.fspath)]
+    other_items = [i for i in items if 'test_alt_ajan' not in str(i.fspath)]
+    items[:] = other_items + alt_ajan_items
+
+
 @pytest.fixture(autouse=True)
 def _hermetic_environment(tmp_path, monkeypatch):
     """Test ortamini izole et: env var'larini temizle, temp dizin kullan."""
+
+    # 0. Modul temizligi: test_alt_ajan.py mock'ladigi motor/beyin modullerini temizle
+    for _mod_name in ('motor', 'beyin', 'dotenv', 'yaml'):
+        if _mod_name in sys.modules:
+            _mod = sys.modules[_mod_name]
+            _is_real = (
+                (_mod_name == 'motor' and (hasattr(_mod, 'ROOT') or hasattr(_mod, 'ToolRegistry'))) or
+                (_mod_name == 'beyin' and hasattr(_mod, 'Beyin')) or
+                (_mod_name == 'dotenv' and hasattr(_mod, 'load_dotenv') and not isinstance(_mod.load_dotenv, MagicMock)) or
+                (_mod_name == 'yaml' and hasattr(_mod, 'safe_load') and not isinstance(_mod.safe_load, MagicMock))
+            )
+            if not _is_real:
+                del sys.modules[_mod_name]
 
     # 1. Credential env var'larini temizle
     _credential_suffixes = (

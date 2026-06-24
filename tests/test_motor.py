@@ -61,9 +61,12 @@ class TestMotorImport:
     def test_motor_global_sabitler_var(self):
         """motor.py'de beklenen global sabitler mevcut."""
         import motor
-        beklenen = ['_REGISTRY', '_CACHE', '_COMPRESSOR', 'ROOT']
+        beklenen = ['_CACHE', '_COMPRESSOR', 'ROOT']
         for b in beklenen:
             assert hasattr(motor, b), f"{b} eksik"
+        # _REGISTRY ToolRegistry class olarak yeniden yapilandirildi
+        assert hasattr(motor, 'ToolRegistry') or hasattr(motor, '_ToolRegistry'), \
+            "ToolRegistry class eksik"
 
 
 class TestMotorRegex:

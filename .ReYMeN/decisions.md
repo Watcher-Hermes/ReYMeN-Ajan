@@ -240,7 +240,31 @@ Sonraki: B (drift temizligi — It.82'de 145 modul tespit edilmisti)
 213|- grep "default_model" → "deepseek-v4-flash" ✅
 214|- providers sirasi: deepseek, xiaomi, xai, openrouter, openai, anthropic, moonshot, azure, bedrock, gemini_cloud, groq, lmstudio ✅
 215|
-216|## 2026-06-24 19:00 — İt.17: A — error_classifier modülü eklendi
+## 2026-06-25 — It.84: B — sys.modules pollution fix + stale test fix
+
+### Ne yapıldı?
+- `tests/test_motor.py`: `_REGISTRY` → `ToolRegistry` (motor.py refactored, test stale)
+- `tests/test_alt_ajan.py`: Mock modüller `finally` bloğu ile temizleniyor (sys.modules cleanup)
+- `tests/conftest.py`: `MagicMock` import eklendi, autouse fixture'da modül temizliği + `pytest_collection_modifyitems` hook
+- 3 dosya, 2 kök neden düzeltildi
+
+### Neden?
+- `test_alt_ajan.py` module-level code `sys.modules["motor"]` ve `sys.modules["beyin"]` içine mock enjekte ediyordu, temizlemiyordu
+- Diğer test dosyaları (`test_motor.py`, `test_beyin.py`) `import motor` / `from beyin import ...` yaptığından sahte modülleri alıyordu
+- `_REGISTRY` globali motor.py'de ToolRegistry class olarak yeniden yapılandırılmış ama test güncellenmemiş
+
+### Doğrulama
+- `test_alt_ajan + test_motor + test_beyin + test_hafiza + test_session_db`: **191/191 PASS** (7.5s)
+- Geniş test (26 dosya): **808 PASS, 1 fail** (pre-existing argparse conflict)
+
+### Alternatif?
+- conftest.py'de collection hook yerine pytest plugin ile test sıralaması — daha karmaşık
+- test_core.py::test_agent_creation düzeltilmeli ama bu farklı bir sorun (argparse vs pytest)
+
+### Commit
+- pending (değişiklikler staged edilmeli)
+
+## 2026-06-24 — İt.17: A — error_classifier modülü eklendi
 217|
 218|### Ne yapıldı?
 219|- `reymen/sistem/error_classifier.py` oluşturuldu (183 satır, 6KB)

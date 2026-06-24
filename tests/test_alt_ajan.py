@@ -51,24 +51,36 @@ def _mock_alt_ajan_module():
         "compression": {"enabled": False},
     })
 
-    # sys.modules'a ekle
+    # sys.modules'a ekle (orijinalleri sakla)
+    _orijinal_moduller = {}
     for name, mod in [
         ("beyin", mock_beyin_mod),
         ("motor", mock_motor_mod),
         ("dotenv", mock_dotenv),
         ("yaml", mock_yaml),
     ]:
-        sys.modules.setdefault(name, mod)
+        _orijinal_moduller[name] = sys.modules.get(name)
+        sys.modules[name] = mod  # setdefault degil, direkt ata
 
     # config.yaml okuma ve alt_ajan import
-    with patch("builtins.open", MagicMock(return_value=MagicMock(
-        __enter__=MagicMock(return_value=MagicMock(read=MagicMock(return_value="{}"))),
-        __exit__=MagicMock(return_value=False)
-    ))):
-        if "alt_ajan" in sys.modules:
-            return sys.modules["alt_ajan"]
-        import importlib
-        return importlib.import_module("alt_ajan")
+    try:
+        with patch("builtins.open", MagicMock(return_value=MagicMock(
+            __enter__=MagicMock(return_value=MagicMock(read=MagicMock(return_value="{}"))),
+            __exit__=MagicMock(return_value=False)
+        ))):
+            if "alt_ajan" in sys.modules:
+                result = sys.modules["alt_ajan"]
+            else:
+                import importlib
+                result = importlib.import_module("alt_ajan")
+        return result
+    finally:
+        # Mock modulleri temizle — gercek modulleri geri yukle
+        for name, orijinal in _orijinal_moduller.items():
+            if orijinal is not None:
+                sys.modules[name] = orijinal
+            else:
+                sys.modules.pop(name, None)
 
 
 # Alt_ajan modülünü bir kez yükle
