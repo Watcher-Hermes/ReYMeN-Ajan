@@ -1,10 +1,5 @@
 {
-  "kurulum_tamam": true,
-  "kurulum_tarihi": "2026-06-20T23:26:23.208566",
-  "ai_motor": "deepseek",
-  "telegram_aktif": true,
-  "versiyon": "1.0",
-  "tercih_provider": "deepseek",
-  "tercih_model": "deepseek-chat",
-  "telegram_bot_adi": "ReYMeN_ReYMeNbot"
+  "tercih_provider": "xiaomi",
+  "tercih_model": "mimo-v2.5",
+  "SETUP_COMPLETED": true
 }

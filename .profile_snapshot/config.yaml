@@ -1,61 +1,130 @@
+## ReYMeN profil — tam standalone config (root hermes/config.yaml'a bağımlı değil)
+
+# ── Model ────────────────────────────────────────────────────────────────────
 model:
+  api_mode: chat_completions
+  base_url: https://api.deepseek.com
   default: deepseek-v4-flash
   provider: deepseek
-  base_url: ''
-  api_mode: chat_completions
-providers: {}
+
+# ── Fallback zinciri (öncelik sırasıyla) ────────────────────────────────────
 fallback_providers:
-  - provider: openrouter
-    model: deepseek/deepseek-v4-flash
-    base_url: https://openrouter.ai/api/v1
-    api_mode: chat_completions
-credential_pool_strategies: {}
-max_concurrent_sessions:
-agent:
-  max_turns: 90
-  gateway_timeout: 1800
-  api_max_retries: 3
-  tool_use_enforcement: auto
-  task_completion_guidance: true
-  parallel_tool_call_guidance: true
-  environment_probe: true
-terminal:
-  backend: local
-  timeout: 180
-web:
-  backend: firecrawl
-compression:
-  enabled: true
-  threshold: 0.5
-  target_ratio: 0.2
+- api_mode: chat_completions
+  base_url: https://api.xiaomi.com/v1
+  model: mimo-v2.5
+  provider: xiaomi
+- api_mode: chat_completions
+  base_url: https://api.x.ai/v1
+  model: grok-2-latest
+  provider: xai
+- api_mode: chat_completions
+  base_url: https://openrouter.ai/api/v1
+  model: deepseek/deepseek-v4-flash
+  provider: openrouter
+- api_mode: chat_completions
+  model: gpt-4o-mini
+  provider: openai-api
+- api_mode: chat_completions
+  model: claude-haiku-4-5-20251001
+  provider: anthropic
+- api_mode: chat_completions
+  base_url: https://api.groq.com/openai/v1
+  model: llama-3.1-8b-instant
+  provider: groq
+- api_mode: chat_completions
+  base_url: http://127.0.0.1:1234/v1
+  model: local-model
+  provider: lmstudio
+
+# ── Görünüm ──────────────────────────────────────────────────────────────────
 display:
   compact: false
-  language: tr
+  final_response_markdown: raw
   interface: gateway
+  language: tr
+  skin: reymen
   streaming: false
-  final_response_markdown: strip
-  skin: default
-telegram:
-  reactions: false
-  channel_prompts: {}
-  allowed_chats: ''
+
+# ── Ajan ─────────────────────────────────────────────────────────────────────
+agent:
+  api_max_retries: 1
+  api_timeout: 60
+  environment_probe: true
+  gateway_timeout: 1800
+  max_turns: 90
+  parallel_tool_call_guidance: true
+  task_completion_guidance: true
+  tool_use_enforcement: auto
+  disabled_toolsets:
+  - browser
+  - browser-cdp
+  - computer_use
+
+# ── Terminal ─────────────────────────────────────────────────────────────────
+terminal:
+  backend: local
+  cwd: C:\Users\marko\Desktop\Reymen Proje\hermes_projesi
+  timeout: 180
+
+# ── Gateway ──────────────────────────────────────────────────────────────────
 gateway:
   strict: false
-approvals:
-  mode: off
-onboarding:
-  seen:
-    profile_build_offered: true
-    busy_input_prompt: true
-skills:
-  external_dirs:
-    - C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\skills
 
-mcp_servers:
-  powerbi:
-    command: powerbi-modeling-mcp
-    args: ["--start"]
-
+# ── Hafıza ───────────────────────────────────────────────────────────────────
+memory:
+  max_chars: 6000
+  memory_enabled: true
+  user_profile_enabled: true
+  write_approval: false
 memory_char_limit: 50000
 
-# memory_char_limit: max characters for memory tool (default: 15000)
+# ── Skills ───────────────────────────────────────────────────────────────────
+skills:
+  external_dirs:
+  - C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\skills
+  template_vars: true
+  inline_shell: false
+  write_approval: false
+
+# ── Sıkıştırma ───────────────────────────────────────────────────────────────
+compression:
+  enabled: true
+  target_ratio: 0.2
+  threshold: 0.5
+
+# ── Onay ─────────────────────────────────────────────────────────────────────
+approvals:
+  mode: false
+
+# ── Web ──────────────────────────────────────────────────────────────────────
+web:
+  backend: firecrawl
+
+# ── Telegram ─────────────────────────────────────────────────────────────────
+telegram:
+  allowed_chats: ''
+  channel_prompts: {}
+  reactions: false
+
+# ── MCP ──────────────────────────────────────────────────────────────────────
+mcp_servers:
+  powerbi:
+    args:
+    - --start
+    command: powerbi-modeling-mcp
+  playwright:
+    command: npx
+    args:
+    - -y
+    - "@playwright/mcp@latest"
+    - --headless
+
+# ── Diğer ────────────────────────────────────────────────────────────────────
+credential_pool_strategies: {}
+max_concurrent_sessions: null
+providers: {}
+onboarding:
+  seen:
+    busy_input_prompt: true
+    build_offered: true
+    tool_progress_prompt: true

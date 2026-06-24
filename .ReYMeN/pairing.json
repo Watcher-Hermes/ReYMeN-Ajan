@@ -712,5 +712,47 @@
     "kod": "918821",
     "zaman": 1782314160.3648071,
     "dogrulandi": false
+  },
+  "9db3f0b5f6b6499aa0b29ea8701866f3": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "596073",
+    "zaman": 1782330282.2136064,
+    "dogrulandi": false
+  },
+  "d63fe7b59dc34c1da8b455424b8f2e77": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "560848",
+    "zaman": 1782333133.236666,
+    "dogrulandi": false
+  },
+  "04ac7743e1e0400dad900c24e8ceebc4": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "114102",
+    "zaman": 1782333822.6701558,
+    "dogrulandi": false
+  },
+  "1c28b6f506d546d7b744637c0c0c6700": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "834343",
+    "zaman": 1782334289.014528,
+    "dogrulandi": false
+  },
+  "289e6e8dcf254991b6cd219809c2f065": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "117336",
+    "zaman": 1782334915.5430152,
+    "dogrulandi": false
+  },
+  "58540d0dca784c428d0019c979b14d25": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "998468",
+    "zaman": 1782336408.05807,
+    "dogrulandi": false
   }
 }

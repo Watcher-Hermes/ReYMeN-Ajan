@@ -133,3 +133,37 @@ Root shim'ler `from reymen.X.Y import *` yaparken, `reymen/__init__.py` de aynı
 
 
 
+
+---
+
+## 🔍 Drift Tespiti Raporu — $(date +%Y-%m-%d\ %H:%M)
+
+### Sonuç: 151 MODÜL DRİFT TESPİT EDİLDİ
+
+Script: `scripts/duplicate_module_detector.py`
+Exit Code: 1 (Drift mevcut)
+
+### Kritik Bulgular
+
+| Kategori | Adet | Açıklama |
+|:---------|:-----|:---------|
+| Kök ↔ Alt Modül Çakışması | ~40+ | `./mod.py` vs `./agent/mod.py` vs `./reymen/*/mod.py` |
+| Eksik Fonksiyonlar | 150+ | Bir versiyonda olan fonksiyon, diğerinde yok |
+| Test Dosyası Çoğaltımları | ~30+ | `tests/ReYMeN_reference/` alt çoğaltımları |
+
+### Örnek Kritik Driftler
+
+1. **auxiliary_client.py**: 100+ eksik fonksiyon (kök vs agent vs reymen)
+2. **cli.py**: `agent/lsp/cli.py` ve `plugins/google_meet/cli.py` arasında massif fark
+3. **bedrock_adapter.py**: 3 farklı versiyon, herbirinde eksik fonksiyonlar
+4. **budget_config.py**: 3 farklı versiyon
+5. **checkpoint_manager.py**: 3 farklı versiyon
+
+### Öneri
+- Eski kök-düzey stub dosyaları temizlenmeli
+- Tek kaynak versiyon belirlenmeli (muhtemelen `reymen/` altındaki güncel versiyonlar)
+- Kök-düzey dosyalar deprecated标记 konulmalı veya silinmeli
+
+### Risk Seviyesi
+**ORTA-YÜKSEK** — Import çakışmaları, beklenmeyen davranış, bakım yükü
+
