@@ -1045,7 +1045,7 @@ class AIAgentOrchestrator:
                                 _fc_araclari_calistirildi = True
 
                         else:
-                            # tool_calls yok → LLM görevi bitirdi (Hermes davranışı)
+                            # tool_calls yok → LLM görevi bitirdi (ReYMeN davranışı)
                             if _fc_metin:
                                 _fc_esc = _fc_metin.replace("\\", "\\\\").replace('"', '\\"')
                                 cevap = f'GOREV_BITTI("{_fc_esc}")'

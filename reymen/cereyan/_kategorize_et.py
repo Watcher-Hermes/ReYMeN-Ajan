@@ -63,7 +63,7 @@ def kategoribul(ad):
 def main():
     toplam = 0
     hata = 0
-    kaynaklar = {"Hermes": HERMES, "Profil": PROFIL}
+    kaynaklar = {"ReYMeN": REYMEN, "Profil": PROFIL}
     
     for kaynak_ad, kaynak_yol in kaynaklar.items():
         if not os.path.isdir(kaynak_yol):

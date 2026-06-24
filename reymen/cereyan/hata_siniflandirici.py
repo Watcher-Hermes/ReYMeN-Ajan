@@ -110,7 +110,7 @@ class SiniflandirilmisHata:
     def is_auth(self) -> bool:
         return self.neden in {FailoverReason.auth, FailoverReason.auth_permanent}
 
-    # Hermes API uyumluluğu için property'ler
+    # ReYMeN API uyumluluğu için property'ler
     @property
     def reason(self) -> FailoverReason:
         return self.neden
@@ -132,7 +132,7 @@ class SiniflandirilmisHata:
         return self.fallback_olmali
 
 
-# Hermes uyumluluğu için alias
+# ReYMeN uyumluluğu için alias
 ClassifiedError = SiniflandirilmisHata
 
 
@@ -399,7 +399,7 @@ def api_hatasini_siniflandir(
     return _sonuc(FailoverReason.unknown, yeniden_denenebilir=True)
 
 
-# Hermes uyumluluğu için İngilizce alias
+# ReYMeN uyumluluğu için İngilizce alias
 classify_api_error = api_hatasini_siniflandir
 
 

@@ -102,7 +102,7 @@ def hook_cagir(olay: str, **kwargs: Any) -> List[Any]:
     return sonuclar
 
 
-# Hermes uyumluluğu için alias
+# ReYMeN uyumluluğu için alias
 invoke_hook = hook_cagir
 register_hook = hook_kaydet
 
