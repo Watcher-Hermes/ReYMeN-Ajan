@@ -52,19 +52,36 @@ except Exception:
     pass
 # ─────────────────────────────────────────────────────────────────────────────
 
-# --- CORE ---
-# DOGRUDAN paket ici yollardan import et (root-level shim'ler
-# cirkuler import'a sebep olur)
-from reymen.cereyan.beyin import Beyin as RuntimeProvider
-from reymen.hafiza.context_manager import AdvancedContextCompressor as ContextCompressor
-from reymen.cereyan.prompt_assembly import PromptAssemblyEngine
-from reymen.hafiza.bounded_memory import BoundedMemory
-from reymen.hafiza.session_db import AdvancedSessionStorage
-from reymen.cereyan.closed_learning_loop import ClosedLearningLoop
-from reymen.cereyan.motor import Motor
-from reymen.cereyan.planlayici import Planlayici
-from reymen.cereyan.robust_execution import RobustExecutionEngine
-from reymen.cereyan.insan_arayuzu import InsanArayuzu
+# --- CORE (Lazy Import) ---
+# Modüller sadece ihtiyaç anında yüklenir — başlangıç hızını artırır
+_lazy_modules = {}
+_lazy_imports = {
+    "RuntimeProvider": ("reymen.cereyan.beyin", "Beyin"),
+    "ContextCompressor": ("reymen.hafiza.context_manager", "AdvancedContextCompressor"),
+    "PromptAssembly": ("reymen.cereyan.prompt_assembly", "PromptAssemblyEngine"),
+    "BoundedMemory": ("reymen.hafiza.bounded_memory", "BoundedMemory"),
+    "SessionStorage": ("reymen.hafiza.session_db", "AdvancedSessionStorage"),
+    "LearningLoop": ("reymen.cereyan.closed_learning_loop", "ClosedLearningLoop"),
+    "Motor": ("reymen.cereyan.motor", "Motor"),
+    "Planlayici": ("reymen.cereyan.planlayici", "Planlayici"),
+    "RobustExecution": ("reymen.cereyan.robust_execution", "RobustExecutionEngine"),
+    "InsanArayuzu": ("reymen.cereyan.insan_arayuzu", "InsanArayuzu"),
+}
+
+def _lazy_import(name):
+    """Modülü lazy olarak yükle."""
+    if name not in _lazy_modules:
+        mod_path, class_name = _lazy_imports[name]
+        import importlib
+        mod = importlib.import_module(mod_path)
+        _lazy_modules[name] = getattr(mod, class_name)
+    return _lazy_modules[name]
+
+# Geriye uyumluluk — eski kodlar hala çalışsın
+def __getattr__(name):
+    if name in _lazy_imports:
+        return _lazy_import(name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # Config Guard - Otomatik konfigürasyon kontrolü
 try:
@@ -72,12 +89,32 @@ try:
     _CONFIG_GUARD_AKTIF = True
 except ImportError:
     _CONFIG_GUARD_AKTIF = False
-from reymen.hafiza.vektorel_hafiza import (
-    vektorel_hafiza_sistemini_kur,
-    tecrube_kaydet,
-    anlamsal_hafiza_ara,
-)
-from reymen.sistem.once_hafiza import OnceHafiza, _get_once_hafiza
+
+# Vektörel hafıza (lazy)
+_vektorel_hafiza = None
+def _get_vektorel_hafiza():
+    global _vektorel_hafiza
+    if _vektorel_hafiza is None:
+        from reymen.hafiza.vektorel_hafiza import (
+            vektorel_hafiza_sistemini_kur,
+            tecrube_kaydet,
+            anlamsal_hafiza_ara,
+        )
+        _vektorel_hafiza = {
+            "kur": vektorel_hafiza_sistemini_kur,
+            "kaydet": tecrube_kaydet,
+            "ara": anlamsal_hafiza_ara,
+        }
+    return _vektorel_hafiza
+
+# OnceHafiza (lazy)
+_once_hafiza = None
+def _get_once_hafiza_class():
+    global _once_hafiza
+    if _once_hafiza is None:
+        from reymen.sistem.once_hafiza import OnceHafiza, _get_once_hafiza
+        _once_hafiza = {"cls": OnceHafiza, "get": _get_once_hafiza}
+    return _once_hafiza
 
 # --- OPSIYONEL MODULLER ---
 try:
@@ -232,6 +269,43 @@ except Exception:
 
 IC_GOZLEM_ARALIK = 5
 
+# ── BASIT MOD: Prompt basitleştirme ──────────────────────────────────────────
+# BASIT_MOD=True iken: SOUL.md, MEMORY, Skills eklenmez, tool listesi 8'e düşür
+# Basit sorularda (selam, bilgi) kullanılır — model doğrudan metin üretir
+BASIT_MOD = os.environ.get("ReYMeN_BASIT_MOD", "false").lower() == "true"
+
+BASIT_MOD_ARACLAR = {
+    "WEB_ARA": "Web'de arama yapar",
+    "DOSYA_OKU": "Dosya içeriğini okur",
+    "DOSYA_YAZ": "Dosyaya yazar",
+    "PYTHON_CALISTIR": "Python kodu çalıştırır",
+    "TELEGRAM_GONDER": "Telegram mesajı gönderir",
+    "WATCHDOG_KONTROL": "Sistem durumunu izler",
+    "CUA": "Bilgisayar UI otomasyonu yapar",
+    "KANBAN": "Görev panosunu günceller",
+}
+
+BASIT_MOD_TALIMAT = """Sen ReYMeN'sin — Türkçe konuşan otonom bir asistansın.
+Kullanıcının sorularına doğrudan, kısa ve öz cevap ver.
+Tool kullanma — sadece metin üret.
+
+## KURALLAR
+1. Kısa ve öz cevap ver (maksimum 3-4 cümle)
+2. Tablo kullanabilirsin (Markdown formatında)
+3. Emoji kullanabilirsin
+4. Teknik terimler İngilizce kalabilir
+5. GOREV_BITTI: görev tamamlandığında yaz
+
+## ÖRNEK
+Kullanıcı: Selam
+Sen: Merhaba! 👋 Size nasıl yardımcı olabilirim?
+
+Kullanıcı: Dünya kupasında durum nedir?
+Sen: 2026 Dünya Kupası devam ediyor. 🏆
+Ev sahipleri: ABD, Meksika, Kanada
+Aşama: Grup aşaması (2. hafta tamamlandı)
+"""
+
 
 def _reymen_env_yolu() -> Path:
     """Platform-bagimsiz .env dosyasi yolu. Windows ve Linux/macOS destegi."""
@@ -330,16 +404,18 @@ if _CONFIG_GUARD_AKTIF:
 
 
 class AIAgentOrchestrator:
-    def __init__(self, config=CONFIG, backend_mode="local", max_tur=15, onay_iste=False):
+    def __init__(self, config=CONFIG, backend_mode="local", max_tur=15, onay_iste=False, basit_mod=False):
         self.config = config
         self.backend_mode = backend_mode
         self.max_tur = max_tur
         self.onay_iste = onay_iste
+        self.basit_mod = basit_mod or BASIT_MOD  # .env'den veya parametre ile
 
         self._cekirdekleri_baslat()
-        self._opsiyonel_modulleri_yukle()
-        self._guvenligi_baslat()
-        self._eklentileri_yukle()
+        if not self.basit_mod:
+            self._opsiyonel_modulleri_yukle()
+            self._guvenligi_baslat()
+            self._eklentileri_yukle()
 
         if onay_iste:
             self.motor.onay_fonksiyonu = self._onay_iste
@@ -348,7 +424,41 @@ class AIAgentOrchestrator:
 
     def _cekirdekleri_baslat(self):
         """Zorunlu cekirdek modulleri baslat."""
+        # Provider her halükarda gerekli (model çağırmak için)
+        RuntimeProvider = _lazy_import("RuntimeProvider")
         self.provider = RuntimeProvider(self.config)
+        
+        # Basit modda sadece gerekli modülleri yükle
+        if self.basit_mod:
+            PromptAssemblyEngine = _lazy_import("PromptAssembly")
+            Motor = _lazy_import("Motor")
+            self.prompt_engine = PromptAssemblyEngine()
+            self.motor = Motor(
+                backend_mode=self.backend_mode,
+                config=self.config,
+                basit_mod=True,
+            )
+            # Diğer modülleri None olarak ata
+            self.compressor = None
+            self.bounded_memory = None
+            self.learning = None
+            self.session = None
+            self.hafiza = None
+            self.planlayici = None
+            self.insan = None
+            self._fc_mod = None
+            return
+        
+        # Normal mod: tüm modülleri yükle
+        ContextCompressor = _lazy_import("ContextCompressor")
+        BoundedMemory = _lazy_import("BoundedMemory")
+        ClosedLearningLoop = _lazy_import("LearningLoop")
+        PromptAssemblyEngine = _lazy_import("PromptAssembly")
+        AdvancedSessionStorage = _lazy_import("SessionStorage")
+        Motor = _lazy_import("Motor")
+        Planlayici = _lazy_import("Planlayici")
+        InsanArayuzu = _lazy_import("InsanArayuzu")
+        
         self.compressor = ContextCompressor()
         self.bounded_memory = BoundedMemory()
         self.learning = ClosedLearningLoop()
@@ -357,7 +467,7 @@ class AIAgentOrchestrator:
             learning_loop=self.learning,
         )
         self.session = AdvancedSessionStorage()
-        self.hafiza = vektorel_hafiza_sistemini_kur()
+        self.hafiza = _get_vektorel_hafiza()["kur"]()
         self.motor = Motor(
             backend_mode=self.backend_mode,
             hafiza_collection=self.hafiza,
