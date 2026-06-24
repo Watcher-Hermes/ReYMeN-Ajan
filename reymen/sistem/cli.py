@@ -15756,6 +15756,275 @@ def main(
     cli.run()
 
 
+# ═══════════════════════════════════════════════════════════════════════════════
+# Ek CLI Komutları — ReYMeN Projesi
+# Adapted from Hermes Agent (MIT License, Nous Research)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def cmd_skill_list():
+    """Yüklü skill'leri listeler.
+
+    Skill dizinlerini tarar ve yüklü skill'leri gösterir.
+    """
+    try:
+        from pathlib import Path as _Path
+        skills_dirs = []
+
+        # ~/.ReYMeN/skills/ kontrolü
+        try:
+            from ReYMeN_constants import get_ReYMeN_home as _get_home
+            reymen_home = _get_home()
+            user_skills = reymen_home / "skills"
+            if user_skills.is_dir():
+                skills_dirs.append(("Kullanıcı", user_skills))
+        except Exception:
+            pass
+
+        # Proje kökündeki skills/
+        project_skills = _Path(__file__).parent.parent / "skills"
+        if project_skills.is_dir():
+            skills_dirs.append(("Proje", project_skills))
+
+        if not skills_dirs:
+            print("Skill dizini bulunamadı.")
+            return
+
+        print("\n📋 Yüklü Skill'ler")
+        print("=" * 50)
+
+        total = 0
+        for label, sdir in skills_dirs:
+            skill_files = sorted(sdir.glob("*.md")) + sorted(sdir.glob("*.yaml")) + sorted(sdir.glob("*.yml"))
+            if skill_files:
+                print(f"\n📁 {label} ({sdir})")
+                for sf in skill_files:
+                    name = sf.stem
+                    size_kb = sf.stat().st_size / 1024
+                    print(f"  • {name:<30} ({size_kb:.1f} KB)")
+                    total += 1
+
+        if total == 0:
+            print("  (hiç skill bulunamadı)")
+        else:
+            print(f"\n Toplam: {total} skill")
+    except Exception as e:
+        print(f"Hata: {e}")
+
+
+def cmd_skill_search(query: str):
+    """Skill'leri query ile arar.
+
+    Skill dosyalarının içeriğinde arama yapar.
+    """
+    if not query:
+        print("Kullanım: skill search <arama_terimi>")
+        return
+
+    try:
+        from pathlib import Path as _Path
+        skills_dirs = []
+
+        try:
+            from ReYMeN_constants import get_ReYMeN_home as _get_home
+            reymen_home = _get_home()
+            user_skills = reymen_home / "skills"
+            if user_skills.is_dir():
+                skills_dirs.append(user_skills)
+        except Exception:
+            pass
+
+        project_skills = _Path(__file__).parent.parent / "skills"
+        if project_skills.is_dir():
+            skills_dirs.append(project_skills)
+
+        if not skills_dirs:
+            print("Skill dizini bulunamadı.")
+            return
+
+        print(f"\n🔍 '{query}' için arama sonuçları:")
+        print("=" * 50)
+
+        found = 0
+        query_lower = query.lower()
+        for sdir in skills_dirs:
+            for sf in sorted(sdir.glob("*.md")) + sorted(sdir.glob("*.yaml")) + sorted(sdir.glob("*.yml")):
+                try:
+                    content = sf.read_text(encoding="utf-8", errors="ignore")
+                    if query_lower in content.lower() or query_lower in sf.stem.lower():
+                        matches = content.lower().count(query_lower)
+                        print(f"  ✅ {sf.stem} — {matches} eşleşme")
+                        found += 1
+                except Exception:
+                    continue
+
+        if found == 0:
+            print("  Sonuç bulunamadı.")
+        else:
+            print(f"\n Toplam: {found} skill eşleşti")
+    except Exception as e:
+        print(f"Hata: {e}")
+
+
+def cmd_memory_stats():
+    """Bellek istatistiklerini gösterir.
+
+    MemoryManager durumunu ve kayıtlı sağlayıcıları listeler.
+    """
+    try:
+        from reymen.sistem.memory_manager import memory_manager
+
+        mm = memory_manager()
+        stats = mm.get_stats()
+
+        print("\n🧠 Bellek İstatistikleri")
+        print("=" * 50)
+        print(f"  Durum:           {'🟢 Aktif' if stats['aktif'] else '🔴 Pasif'}")
+        print(f"  Max Kayıt:       {stats['max_kayit']}")
+        print(f"  Sağlayıcı Sayısı: {stats['provider_sayisi']}")
+        print(f"  Dış Sağlayıcı:   {'var' if stats['dis_saglayici'] else 'yok'}")
+        print(f"  Toplam Araç:     {stats['toplam_arac']}")
+
+        if stats['saglayicilar']:
+            print("\n  Kayıtlı Sağlayıcılar:")
+            for p in stats['saglayicilar']:
+                print(f"    • {p['name']} ({p['tool_count']} araç)")
+        else:
+            print("\n  (henüz sağlayıcı kayıtlı değil)")
+
+    except ImportError:
+        print("memory_manager modülü bulunamadı.")
+    except Exception as e:
+        print(f"Hata: {e}")
+
+
+def cmd_provider_list():
+    """Aktif LLM sağlayıcılarını gösterir.
+
+    Ortam değişkenlerinden ve config'den sağlayıcı bilgilerini toplar.
+    """
+    try:
+        print("\n🔌 Aktif Sağlayıcılar")
+        print("=" * 50)
+
+        providers_found = []
+
+        # Anthropic
+        ant_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+        ant_token = os.environ.get("ANTHROPIC_TOKEN", "").strip()
+        if ant_key or ant_token:
+            auth_type = "OAuth Token" if ant_token else "API Key"
+            providers_found.append(("Anthropic", auth_type))
+
+        # OpenAI
+        oai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        if oai_key:
+            providers_found.append(("OpenAI", "API Key"))
+
+        # DeepSeek
+        ds_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+        if ds_key:
+            providers_found.append(("DeepSeek", "API Key"))
+
+        # Google
+        google_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+        gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+        if google_key or gemini_key:
+            providers_found.append(("Google/Gemini", "API Key"))
+
+        # Local (LMStudio, Ollama vb.)
+        ollama_url = os.environ.get("OLLAMA_BASE_URL", "").strip()
+        lmstudio_url = os.environ.get("LMSTUDIO_BASE_URL", "").strip()
+        if ollama_url:
+            providers_found.append(("Ollama (Local)", ollama_url))
+        if lmstudio_url:
+            providers_found.append(("LMStudio (Local)", lmstudio_url))
+
+        if providers_found:
+            for name, auth_info in providers_found:
+                print(f"  ✅ {name:<20} ({auth_info})")
+        else:
+            print("  (hiç sağlayıcı yapılandırılmamış)")
+            print("  İpucu: config.yaml veya ortam değişkenleri ile sağlayıcı ekleyin.")
+
+    except Exception as e:
+        print(f"Hata: {e}")
+
+
+def cmd_config_show():
+    """Mevcut config.yaml'ı gösterir.
+
+    Config dosyasını okur ve formatlanmış olarak yazdırır.
+    """
+    try:
+        import yaml
+        from pathlib import Path as _Path
+
+        # Config dosya yolları
+        config_paths = []
+
+        try:
+            from ReYMeN_constants import get_ReYMeN_home as _get_home
+            user_config = _get_home() / "config.yaml"
+            if user_config.exists():
+                config_paths.append(("Kullanıcı", user_config))
+        except Exception:
+            pass
+
+        project_config = _Path(__file__).parent / "cli-config.yaml"
+        if project_config.exists():
+            config_paths.append(("Proje", project_config))
+
+        if not config_paths:
+            print("Config dosyası bulunamadı.")
+            return
+
+        print("\n⚙️  Yapılandırma")
+        print("=" * 50)
+
+        for label, cpath in config_paths:
+            print(f"\n📁 {label}: {cpath}")
+            print("-" * 40)
+            try:
+                with open(cpath, "r", encoding="utf-8") as f:
+                    config_data = yaml.safe_load(f)
+                if config_data:
+                    # Hassas bilgileri gizle
+                    safe_config = _redact_config(config_data)
+                    print(yaml.dump(safe_config, default_flow_style=False, allow_unicode=True))
+                else:
+                    print("  (boş config)")
+            except Exception as e:
+                print(f"  Okuma hatası: {e}")
+
+    except ImportError:
+        print("PyYAML yüklenemedi. pip install pyyaml ile kurun.")
+    except Exception as e:
+        print(f"Hata: {e}")
+
+
+def _redact_config(config: Any, depth: int = 0) -> Any:
+    """Config içindeki hassas bilgileri gizler.
+
+    API key, token, password gibi alanların değerlerini maskeler.
+    """
+    if depth > 10:
+        return config
+    if isinstance(config, dict):
+        redacted = {}
+        sensitive_keys = {"api_key", "apikey", "api-key", "token", "secret",
+                          "password", "passwd", "access_token", "auth_token"}
+        for k, v in config.items():
+            k_lower = k.lower().replace("-", "_").replace(" ", "_")
+            if any(s in k_lower for s in sensitive_keys) and isinstance(v, str) and v:
+                redacted[k] = f"{v[:4]}{'*' * min(len(v) - 4, 20)}"
+            else:
+                redacted[k] = _redact_config(v, depth + 1)
+        return redacted
+    elif isinstance(config, list):
+        return [_redact_config(item, depth + 1) for item in config]
+    return config
+
+
 if __name__ == "__main__":
     import fire
 

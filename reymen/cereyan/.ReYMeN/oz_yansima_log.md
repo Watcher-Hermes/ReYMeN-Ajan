@@ -357,3 +357,57 @@
 1. Bellek kullanımını azaltmak için veri temizleme ve önbellek yönetimi uygulayın.
 2. Hata takip sistemini iyileştirerek en çok hata veren aracı tanımlayın.
 3. Ajanın düzenli bakımını yaparak performans sorunlarını önleyin.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %32.6, Bellek %81.9
+
+### Oneriler
+1. Bellek kullanımını optimize etmek için önbellek temizliği veya yeniden yapılandırma yapın.
+2. Gereksiz bellek tüketen uygulamaları veya araçları kontrol edin.
+3. Yüksek bellek kullanımının nedenlerini analiz edin.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %31.4, Bellek %82.3
+
+### Oneriler
+1. Bellek kullanımını optimize etmek için periyodik temizlik ve gereksiz verileri sıkıştırma uygulayın.
+2. Araç bazlı hata takibi eksik olduğundan, performans izleme sistemine detaylı araç logları ekleyin.
+3. Bellek tüketimi yüksek olduğundan, uygulama düzeyinde önbellek ve veri yapılarını optimize edin.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %24.7, Bellek %82.2
+
+### Oneriler
+1. Bellek kullanımını azaltmak için gereksiz önbellek temizliği veya yapılandırma optimize edilmeli.
+2. Hata takibi için araç bazlı izleme sistemi geliştirilerek potansiyel sorunlar erken tespit edilmeli.
+3. Periyodik bakım ve sistem kontrolü planlanarak performans istikrarı sürdürülmeli.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %23.5, Bellek %83.1
+
+### Oneriler
+1. Bellek kullanımını optimize etmek için gereksiz verileri veya geçici dosyaları temizleyin.
+2. Yüksek bellek tüketimini önlemek için uygulama veya araç yapılandırmasını gözden geçirin.
+3. Sürekli bellek izleme mekanizması ekleyerek olası tükenme sorunlarını önceden tespit edin.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %30.1, Bellek %83.1
+
+### Oneriler
+1. Bellek kullanımını optimize etmek için gereksiz verileri veya geçici dosyaları temizleyin.
+2. Yüksek bellek tüketimini önlemek için uygulama veya araç yapılandırmasını gözden geçirin.
+3. Sürekli bellek izleme mekanizması ekleyerek olası tükenme sorunlarını önceden tespit edin.
+
+## 2026-06-25 00:56 — Oz-Yansima Raporu
+- Hata orani: 0% (0/0 adim)
+- Sistem: CPU %26.2, Bellek %83.1
+
+### Oneriler
+1. **Bellek kullanımı %83.1 yüksek seviyede;** gereksiz bellek tutan araçları temizleyerek veya bellek havuzu optimizasyonu uygulayarak %70 altına düşürün.
+2. **Hata oranı %0 iyi durumda;** bu seviyeyi korumak için mevcut izleme ve loglama sistemlerini sürdürün.
+3. **Performans taban çizgisi oluşturun;** düzenli aralıklarla metrikleri kaydederek gelecekteki anomalileri erken tespit edin.

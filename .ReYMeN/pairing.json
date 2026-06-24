@@ -768,5 +768,12 @@
     "kod": "307779",
     "zaman": 1782337147.5531979,
     "dogrulandi": false
+  },
+  "80c05ed43a9449288c20750c1ad1eb41": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "918644",
+    "zaman": 1782338043.863484,
+    "dogrulandi": false
   }
 }
