@@ -3,7 +3,9 @@
 import contextlib
 import io
 import json
+import tempfile
 import time
+from pathlib import Path
 from types import SimpleNamespace
 import pytest
 from unittest.mock import MagicMock, patch
@@ -19,8 +21,18 @@ def _mock_agent():
 
 @pytest.fixture()
 def manager():
-    """SessionManager with a mock agent factory (avoids needing API keys)."""
-    return SessionManager(agent_factory=_mock_agent)
+    """SessionManager with a mock agent factory (avoids needing API keys).
+    Uses a temporary DB to guarantee test isolation."""
+    tmp_path = Path(tempfile.mktemp(suffix=".db"))
+    db = SessionDB(db_path=tmp_path)
+    mgr = SessionManager(agent_factory=_mock_agent, db=db)
+    yield mgr
+    # Close SQLite connection before unlinking on Windows
+    try:
+        db._conn.close()
+    except Exception:
+        pass
+    tmp_path.unlink(missing_ok=True)
 
 
 # ---------------------------------------------------------------------------
