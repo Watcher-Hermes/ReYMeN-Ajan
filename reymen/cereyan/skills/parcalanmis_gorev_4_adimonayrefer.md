@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin 1. adımı (Grup A, B, C - İzleme ve Bakım Planı) tamamlandı. Kullanıcı \"onay\" dedi ancak kalan 3 parçanın içeriği henüz iletilmedi. Ayrıca sistem CRON_EKLE aracının 4 kez bloke olduğunu bildiriyor. Kullanıcıdan kalan 3 adımın içeriğini bekliyorum.
 created: 2026-06-24
-usage_count: 38
+usage_count: 39
 last_used: 2026-06-25
 ---
 
@@ -582,3 +582,28 @@ Bu eylemin sonucu, bu dosyayı okuyarak daha fazla bilgi edinebilirsiniz. "
 ARAC_ADI: \"duplicate_module_detector.py\")
 
 Bu eylemin sonucu, bu dosyayı okuyarak daha fazla bilgi edinebilirsiniz. "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T14:25:15Z)
+
+DOSYA_OKU: \"referanslar\")
+   - GÖZLEM: Referanslar dosyasını okuyup, aynı girişlerin birden fazla kez kaydedildiğini kontrol eder.
+   - EYLEM: TEKRAR_SIL + BİRLEŞTİR
+   - GÖZLEM: Aynı girişler silindi ve referanslar dosyasını yeniden kaydeder.
+   - GOREV_BITTI(\"Referanslar dosyasını yeniden kaydedi\")
+3. Sorun 2 - AŞIRI_TEKRAR (Sorgu Tekrarları):
+   - EYLEM: DOSYA_OKU(\"sorgular\")
+   - GÖZLEM: Sorgular dosyasını okuyup, aynı sorguların çok kez tekrarlanmasını kontrol eder.
+   - EYLEM: TEMİZLE + ÖNBELLEK
+   - GÖZLEM: Sorgular dosyasını silerek, yeniden sorgular dosyasını oluşturur veya kullanıcıya yeni önemli sorgular ekler.
+   - GOREV_BITTI(\"Sorgular dosyasını yeniden yazdı\")
+4. Sorun 3 - TAMAMLANMAMIS_GÖREV (Tur Aşımı):
+   - EYLEM: DOSYA_OKU(\"görevler\")
+   - GÖZLEM: Görevler dosyasını okuyup, tamamlanmayan görevleri bulur.
+   - EYLEM: GÖREV_PARÇALA + ZAMAN_YÖNETİMİ
+   - GÖZLEM: Tamamlanayan görevleri siler veya yeniden görevler dosyasını oluşturur.
+   - GOREV_BITTI(\"Görevler dosyasını yeniden yazdı\")
+5. Sonuç:
+   - EYLEM: DOSYA\\_OKU(\"sonuç\")
+   - GÖZLEM: Sorunların çözüldüğünü belirtir veya yeni rapor dosyasını oluşturur.
+   - GOREV\\_BITTI(\"Sonuç dosyasını yeniden yazdı\") "

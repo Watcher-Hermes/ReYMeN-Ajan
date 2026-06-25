@@ -2,36 +2,21 @@
 """
 requirements.txt — ReYMeN Agent bağımlılıkları.
 
-ZORUNLU (core):
-    python-dotenv>=1.0.0
-    requests>=2.31.0
+Kurulum:
+    pip install -r requirements.txt
+    python -m playwright install chromium
 
-OPSİYONEL (yorum satırı olarak):
-    # pip install playwright && playwright install chromium
-    # pip install easyocr
-    # pip install beautifulsoup4 lxml
-    # pip install pillow
-    # pip install numpy
-    # pip install fal-client
-    # pip install openai
-    # pip install schedule
-
-TEST:
-    pytest>=7.0.0
-    pytest-cov>=4.0.0
+veya otomatik:
+    python setup.py
 """
 
 # ── Zorunlu Bağımlılıklar ────────────────────────────────────────────────────
 
 python-dotenv>=1.0.0,<2.0.0
 requests>=2.31.0,<3.0.0
+playwright>=1.40.0
 
-# ── Opsiyonel Bağımlılıklar (pip install ile kurulur) ────────────────────────
-#
-# Tarayıcı otomasyonu:
-#   playwright>=1.40.0
-#   pip install playwright && playwright install chromium
-#
+# ── Opsiyonel Bağımlılıklar ─────────────────────────────────────────────────
 # OCR:
 #   easyocr>=1.7.0
 #
@@ -51,3 +36,7 @@ requests>=2.31.0,<3.0.0
 #
 # Zamanlanmış görevler:
 #   schedule>=1.2.0
+
+# ── Test ─────────────────────────────────────────────────────────────────────
+pytest>=7.0.0
+pytest-cov>=4.0.0

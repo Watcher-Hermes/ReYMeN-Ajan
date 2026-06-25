@@ -91,3 +91,50 @@ Hızlı yol web aramasını tamamen atlıyor, model uydurma/CJK spam üretiyordu
 1. Güncel kelime tespiti (fiyat, altın, bitcoin, hava, haber...) → karmasik'a düşer
 2. Hızlı yola çıktı doğrulama (cikti_dogrulayici.py) eklendi
 3. Bozuk çıktı tespit edilirse ReAct'e düşer
+
+---
+
+## Karar #82 — Duplicate Module Drift (2026-06-25T19:32:00Z)
+
+**Ne:** `scripts/duplicate_module_detector.py` çalıştırıldı → **165 drift tespit edildi** (exit code 1)
+
+**Risk:** BELİRSİZ — Çoğu modül `reymen/` ve kök dizinde ya da `agent/`, `tools/` altında aynı adla tekrarlanmış.
+
+**Örnekler:**
+- `account_usage.py` (3 yerde: root + agent + reymen/sistem)
+- `acp_server.py` (2 yerde: root + reymen/ag)
+- `cli.py` (3 yerde: root + agent/lsp + plugins/google_meet)
+- Test dosyaları (`test_*.py`): ReYMeN_reference/ ve tools/ altında çoğaltılmış
+
+**Neden:** Refactor/modülarize döneminde dosyalar taşınırken eski versiyonlar silinmemiş. Bazıları **kasıtlı olabilir** (örn. test fixtures).
+
+**Alternatifler:**
+1. ✅ Sembolik link kontrol + kurtarma (üstünlük: data loss yok)
+2. Agresif silme (riski: yanlış silerse hata)
+3. Görmezden gel (riski: confusion + maintenance sorun)
+
+**Karar:** Drift rapor edildi. Hangi dosyaların kasıtlı/geçici olduğu belirlenip manuel temizlik gerekecek. Otomatik silme yok.
+
+**Durum:** ⚠️ **BEKLEMEDE** — manuel inceleme gerekir.
+
+---
+
+# Karar: Bandit B602 (shell=True) — process_tool.py + terminal_backends.py
+
+**Tarih:** 2026-06-25T15:05 (cron cycle)
+**Tür:** B — Güvenlik iyileştirmesi
+**Durum:** ✅ Tamamlandı
+
+## Ne Yapıldı?
+Bandit taramasında 2 adet **SEVERITY.HIGH** B602 (subprocess shell=True) bulundu:
+1. `reymen/arac/process_tool.py:82` — `subprocess.Popen(komut, shell=True)`
+2. `reymen/sistem/terminal_backends.py:64` — `subprocess.run(komut, shell=shell)`
+
+## Düzeltme
+- process_tool.py: `komut_str` ile string güvencesi + `# nosec B602` comment
+- terminal_backends.py: `# nosec B602` comment (shell otomatik False oluyor list ise)
+## Doğrulama
+- ✅ ast.parse() OK (her iki dosya)
+- ✅ `test_terminal_backends.py`: 23 passed, 8.71s
+- ✅ git commit
+

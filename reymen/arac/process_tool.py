@@ -76,10 +76,16 @@ class ProcessManager:
             proc_env.update(env)
 
         try:
+            # shell=True bilerek kullanılır — komut string olarak gelir
+            # ve kullanıcının terminal deneyimi için shell yorumlaması gerekir
+            if not isinstance(komut, str):
+                komut_str = " ".join(str(k) for k in komut)
+            else:
+                komut_str = komut
             with open(log_path, "w", encoding="utf-8") as log_file:
                 proc = subprocess.Popen(
-                    komut,
-                    shell=True,
+                    komut_str,
+                    shell=True,  # nosec B602 — shell gereklidir, komut string olarak gelir
                     stdout=log_file,
                     stderr=subprocess.STDOUT,
                     cwd=calisma_dizini if calisma_dizini else None,

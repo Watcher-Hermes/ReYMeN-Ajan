@@ -774,3 +774,33 @@
 2. **PYTHON_CALISTIR hatalarını azalt:** Kod hata yakalama (try-except) blokları ekleyin ve hata mesajlarını loglayarak sorun kaynağını tespit edin.
 3. **Bellek kullanımını optimize edin:** Büyük veri setlerini parçalara bölün ve kullanılmayan değişkenleri temizleyin (del veya gc.collect()).
 4. **Hata oranını düşürün:** En sık hata veren Python fonksiyonlarını inceleyip giriş doğrulama (input validation) ekleyin.
+
+## 2026-06-25 14:40 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %13.8, Bellek %87.1
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ fonksiyonundaki hataları azaltmak için dosya yazma sırasında bellek yönetimini iyileştirin.
+3. Bellek kullanımını düşürmek için gereksiz bellek ayırma ve kullanımını optimize edin.
+4. Genel hata oranını azaltmak için sistemdeki sorunları analiz edip düzeltmeler yapın.
+
+## 2026-06-25 14:55 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %22.1, Bellek %85.6
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracının dosya izinleri, yolu ve hata yakalama mekanizması kodunu kontrol edin ve iyileştirin.
+3. Hataları yakalayan retry/fallback mekanizmaları ekleyerek genel hata oranını düşürün.
+4. Bellek sızıntısı olup olmadığını kontrol edin; kullanılmayan nesneleri temizleyip bellek optimizasyonu yapın.
+
+## 2026-06-25 17:17 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %30.7, Bellek %55.3
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **DOSYA_YAZ aracı** için hata yakalama ve yeniden deneme mekanizması ekleyin.
+3. Dosya yazma öncesinde **yol ve yazma izinlerini** doğrulayan kontrol ekleyin.
+4. Hata oranını azaltmak için **hamleleri loglayıp** en sık başarısız olan senaryoları analiz edin.

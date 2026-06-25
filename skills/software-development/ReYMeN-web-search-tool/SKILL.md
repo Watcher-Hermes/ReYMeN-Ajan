@@ -63,5 +63,24 @@ if any(k in mesaj for k in GUNCEL_KELIMELER):
 | Dosya | Değişiklik |
 |-------|-----------|
 | `reymen/arac/prompt_builder.py` | `insert(0)` + raw JSON tekrarı kaldırıldı |
-| `reymen/cereyan/conversation_loop.py` | Anti-hallüsinasyon kuralları |
+| `reymen/cereyan/conversation_loop.py` | Anti-hallüsinasyon kuralları + `_cikti_dogrula()` |
 | `reymen/sistem/main.py` | Hızlı yol güncel kelime tespiti |
+| `reymen/arac/web_search_tool.py` | `_sayfadan_fiyat_cek()` — canlı veri çekme |
+
+## ⚠️ PITFALL: DDG Snippet Cache (2026-06-25)
+
+DDG arama sonuçları snippet'leri **önbellekten** gelir. Fiyat/kur sorgularında snippet eski veri gösterebilir.
+
+**Örnek:** DDG snippet "3.978,43 TL" gösteriyor ama sayfadan canlı çekilen "3.980,12 TL".
+
+**Çözüm:** `web_search_ve_ozetle()` fonksiyonunda fiyat sorgularında ilk sonucun URL'sine HTTP GET yap, sayfadan regex ile canlı fiyat çek:
+
+```python
+def _sayfadan_fiyat_cek(url, sorgu):
+    html = urllib.request.urlopen(url).read().decode()
+    tl = re.findall(r'(\d{1,3}[.,]\d{3}[.,]\d{2})\s*(?:TL|₺)', html)
+    usd = re.findall(r'(\d{1,4}[.,]\d{2,4})\s*(?:USD|\$)', html)
+    return f"TL: {tl[0]} | USD: {usd[0]}" if tl or usd else ""
+```
+
+Detay: `reymen-auto-web-search` skill → `references/live-data-extraction.md`

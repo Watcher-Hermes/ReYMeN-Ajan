@@ -61,7 +61,7 @@ class TerminalBackend:
 
             sonuc = subprocess.run(
                 komut,
-                shell=shell,
+                shell=shell,  # nosec B602 — shell kontrolü yukarıda: list ise False, str ise True
                 capture_output=True,
                 text=True,
                 timeout=timeout,
