@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin 1. adımı (Grup A, B, C - İzleme ve Bakım Planı) tamamlandı. Kullanıcı \"onay\" dedi ancak kalan 3 parçanın içeriği henüz iletilmedi. Ayrıca sistem CRON_EKLE aracının 4 kez bloke olduğunu bildiriyor. Kullanıcıdan kalan 3 adımın içeriğini bekliyorum.
 created: 2026-06-24
-usage_count: 41
+usage_count: 43
 last_used: 2026-06-25
 ---
 
@@ -627,3 +627,25 @@ DOSYA_OKU: \"dosya\")\" - dosyadan oku.
 Bu şekilde, tüm görevleri gerçekleştirebilirsiniz veya sorunları çözdüğünüzde, kullanıcıya bildiri verebilirsiniz. Bu yazılım ajanının daha fazla detayları için lütfen \"Dokümanı Gör\" sekmesini kullanabilirsiniz.
 
 Tekrar sorunlarla veya bize yardımcı olabileceğinizden emin olduğumuzdan emin olmak için teşekkürler! "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T19:56:31Z)
+
+DOSYA_OKU: 'veriler') gibi bir örnekte, 'veriler' dosyasını okuyarak verileri toplamak ve analiz etmek işlemini yapacağız.
+
+Gözlem: Okuduğumuz dosya 'veriler' olup olmadığını doğrulayacağız. Sorun şekillendirmek için bu verilerle birlikte yeni analizler yapacağız.
+
+Sonra: Daha fazla veriler toplamak ve analiz etmek işlemini yaptığını dahil olarak, sorun şekillendirmek için bu verilerle birlikte yeni analizler yapacağız.
+
+Bu gibi adımları takip ederek, Grup A'da tekrar eden sorunları (Grup A) ile ilgili görevleri tamamlamak için çalışacağız. Sorun şekillendirmek için yeni veriler toplamak ve analiz etmek işlemini yaptığını daha da destekleyeceğiz. "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T19:59:45Z)
+
+DOSYA_OKU: 'veriler') gibi bir örnekte, 'veriler' dosyasını okuyarak verileri toplamak ve analiz etmek işlemini yapacağız.
+
+Gözlem: Okuduğumuz dosya 'veriler' olup olmadığını doğrulayacağız. Sorun şekillendirmek için bu verilerle birlikte yeni analizler yapacağız.
+
+Sonra: Daha fazla veriler toplamak ve analiz etmek işlemini yaptığını dahil olarak, sorun şekillendirmek için bu verilerle birlikte yeni analizler yapacağız.
+
+Bu gibi adımları takip ederek, Grup A'da tekrar eden sorunları (Grup A) ile ilgili görevleri tamamlamak için çalışacağız. Sorun şekillendirmek için yeni veriler toplamak ve analiz etmek işlemini yaptığını daha da destekleyeceğiz. "

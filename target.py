@@ -1,3 +1,3 @@
-def topla(a, b)
+def topla(a, b):
     return a + b
 print(topla(5, 3))

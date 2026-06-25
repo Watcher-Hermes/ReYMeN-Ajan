@@ -1,69 +1,9 @@
-# REYMEN AGENT — DERİN DEBUG GÖREVİ
+# REYMEN AGENT - DERIN DEBUG GOREVI
+#
+# Bu dosya bir debug gorev belgesi ve Python scriptidir.
+# Asagidaki Python kodu canli-veri sorununu duzeltir.
+#
 
-## BAĞLAM
-PowerShell üzerinde çalışan `reymen` ajanı, "altının ons değeri nedir" sorgusunda
-canlı veri döndürmek yerine bir hata + döngüye giriyor. Loglardan tespit edilen belirtiler:
-
-- `reymen.sistem.once_hafiza: [OnceHafiza] ❌ Hafizada bulunamadi: altının ons değeri nedir`
-- `Referanslar: {"anahtar": "dri...`  → **kesik/bozuk JSON**, anahtar yarım (muhtemelen `drift...`)
-- Aynı sorgu **13:57:59 → 13:58:00** arası **3 kez** tekrar işlenmiş
-- `drift_duzeltme_onayi_ke...` → drift düzeltme onay döngüsü kesik
-- `reymen.cereyan.ajan_suru: 3 strateji analiz ediliyor...` satırında **takılı** — hiçbir araç çağrısı (web_search / fiyat API) tetiklenmemiş
-
-## KÖK NEDEN HİPOTEZİ
-Canlı fiyat sorgusu (cache'de OLMAMASI normal olan bir sorgu) `once_hafiza`
-katmanında cache miss yiyor; sistem bunu HATA sayıp drift düzeltmeye yönlendiriyor;
-sorgu hiçbir zaman canlı veri aracına (web_search / altın fiyat API) routing edilmiyor;
-sonuç: cache miss → drift → sonsuz strateji analiz döngüsü.
-
-## GÖREVİN — SIRAYLA YAP, HER ADIMI TEST ET, ONAYLA
-
-### 1. KEŞİF (önce oku, değiştirme)
-- [ ] `once_hafiza` / `OnceHafiza` modülünün kaynak dosyasını bul ve oku.
-- [ ] Cache miss durumunda ne döndürdüğünü tespit et: `null` mı, exception mı, hata mı fırlatıyor?
-- [ ] `Referanslar` JSON'unu üreten serializer'ı bul — `"anahtar"` neden kesiliyor?
-      (buffer limiti? encoding? truncation? string escape hatası?)
-- [ ] `drift_duzeltme_onayi` mekanizmasını bul — hangi koşulda tetikleniyor?
-- [ ] `ajan_suru` (strateji analiz) döngüsünün çıkış koşulunu bul — neden sonlanmıyor?
-
-### 2. TANI (kanıtla, varsayma)
-- [ ] Sorgu routing tablosunu çıkar: "altın fiyatı" gibi CANLI sorgular nereye yönleniyor?
-- [ ] Cache miss'in neden "hata" olarak işlendiğini koddan göster (satır numarasıyla).
-- [ ] JSON truncation'ın tam yerini izole et (AST/scope düzeyinde).
-
-### 3. DÜZELTME (minimum, hedefli)
-Aşağıdaki 3 düzeltmeyi yap — her birini ayrı test et:
-
-  **a) Cache bypass:** Canlı veri sorguları (fiyat, döviz, hava, güncel olay)
-     `once_hafiza`'yı atlayıp doğrudan tool routing'e gitsin. Cache miss = HATA DEĞİL,
-     "canlı veri gerekli" sinyali olsun.
-
-  **b) JSON serializer onarımı:** `Referanslar` anahtarının kesilme nedenini düzelt
-     (buffer/encoding/escape). Geçerli JSON üret; truncation varsa boyut limitini yükselt
-     veya streaming serialize kullan.
-
-  **c) Döngü kırıcı:** `drift_duzeltme` ve `ajan_suru` için MAX iterasyon + timeout koy.
-     Aynı sorgu N kez işlenirse döngüyü kır, fallback olarak tool çağır.
-
-### 4. ARAÇ ENTEGRASYONU
-- [ ] "altın ons fiyatı" sorgusu artık gerçek bir veri kaynağına gitsin:
-      web_search veya bir altın fiyat API'si (örn. metal fiyat endpoint'i).
-- [ ] Sonucu cache'e YAZ ki bir sonraki sorgu hızlı dönsün (TTL'li, örn. 5 dk).
-
-### 5. TEST & ONAY (bu kısım zorunlu)
-Düzeltmeden sonra ŞU testi çalıştır ve çıktıyı bana göster:
-```
-reymen > altının ons değeri nedir
-```
-Beklenen: cache miss → tool çağrısı → güncel USD/ons fiyatı → cache'e yazıldı → temiz çıkış.
-- [ ] Hata YOK, döngü YOK, geçerli JSON, canlı fiyat döndü → ONAYLA.
-- [ ] Aynı sorguyu 2. kez çalıştır → bu sefer cache'ten hızlı dönmeli.
-
-## KURALLAR
-- Değiştirdiğin HER dosyayı ve satırı raporla.
-- Hiçbir şey uydurma; dosyayı okumadan tahmin yürütme.
-- Her düzeltmeyi izole et — hepsini birden değiştirip "oldu herhalde" deme.
-- Sonunda kısa özet: NE bozuktu / NE değişti / test SONUCU.
 #!/usr/bin/env python3
 """
 REYMEN CANLI-VERİ DÜZELTİCİ

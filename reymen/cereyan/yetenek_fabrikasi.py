@@ -195,6 +195,27 @@ def beceri_karti_uret(beceri_adi: str, aciklama: str,
         )
 
         dosya_yolu.write_text(icerik, encoding="utf-8")
+
+        # ── Performans metriklerini JSON'a logla ──
+        try:
+            satir_sayisi = icerik.count("\n") + 1
+            boyut = len(icerik.encode("utf-8"))
+            log_kayit = {
+                "timestamp":    datetime.now().isoformat(),
+                "skill_adi":    beceri_adi,
+                "dosya":        str(dosya_yolu),
+                "boyut_bytes":  boyut,
+                "satir_sayisi": satir_sayisi,
+                "usage_count":  usage_count,
+            }
+            log_dizini = hedef_dir / ".ReYMeN" / "raporlar"
+            log_dizini.mkdir(parents=True, exist_ok=True)
+            log_dosyasi = log_dizini / "performans_metrikleri.jsonl"
+            with open(log_dosyasi, "a", encoding="utf-8") as f:
+                f.write(json.dumps(log_kayit, ensure_ascii=False) + "\n")
+        except Exception:
+            pass  # loglama hatasi skill olusturmayi engellemesin
+
         print(f"[BeceriKarti] Olusturuldu: {dosya_yolu}")
         return str(dosya_yolu)
     except Exception as hata:
@@ -298,6 +319,26 @@ class YetenekFabrikasi:
             )
 
             dosya_yolu.write_text(icerik, encoding="utf-8")
+
+            # ── Performans metriklerini JSON'a logla ──
+            try:
+                satir_sayisi = icerik.count("\n") + 1
+                boyut = len(icerik.encode("utf-8"))
+                log_kayit = {
+                    "timestamp":    datetime.now().isoformat(),
+                    "skill_adi":    ad,
+                    "dosya":        str(dosya_yolu),
+                    "boyut_bytes":  boyut,
+                    "satir_sayisi": satir_sayisi,
+                    "usage_count":  1,
+                }
+                log_dizini = self._skills_dir / ".ReYMeN" / "raporlar"
+                log_dizini.mkdir(parents=True, exist_ok=True)
+                log_dosyasi = log_dizini / "performans_metrikleri.jsonl"
+                with open(log_dosyasi, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(log_kayit, ensure_ascii=False) + "\n")
+            except Exception:
+                pass  # loglama hatasi skill olusturmayi engellemesin
 
             kayit = {
                 "ad": ad,
