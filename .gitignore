@@ -205,3 +205,4 @@ reymen/cereyan/.ReYMeN/ogrenmeler.db
 **/cokus_raporlari/*
 reymen/cereyan/.ReYMeN/beceri_kutuphanesi.json
 reymen/cereyan/skills/*.md
+*.bak
