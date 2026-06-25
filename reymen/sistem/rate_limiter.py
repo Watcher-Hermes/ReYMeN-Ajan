@@ -112,7 +112,7 @@ class TokenBudget:
         self.sinir    = gunluk_sinir or _env_int("TOKEN_BUDGET_DAILY", 0)
         self._harcanan: dict[str, int] = {}   # provider -> token
         self._gun     = self._bugun()
-        self._kilit   = threading.Lock()
+        self._kilit   = threading.RLock()  # reentrant: durum() calls toplam() inside lock
         self._oturum_baslangic = time.monotonic()
 
     @staticmethod
