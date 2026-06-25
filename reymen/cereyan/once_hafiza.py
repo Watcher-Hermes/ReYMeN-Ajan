@@ -15,6 +15,18 @@ Kullanım:
 
 from __future__ import annotations
 
+# ── __all__ (cereyan = TEK kaynak, sistem import * ile alır) ──────────────
+__all__ = [
+    # Module-level fonksiyonlar (cereyan'ın çekirdeği)
+    "kaydet", "ara", "hafizada_ara", "guven_guncelle",
+    "eski_kayitlari_temizle", "isle", "istatistik",
+    "belirsiz_gorev_cozumle",
+    # Private yardımcılar (sistem/main.py kullanır)
+    "_kademeli_guven", "_benzerlik_skoru", "_get_once_hafiza",
+    # Class
+    "OnceHafiza",
+]
+
 import json
 import logging
 import os
@@ -637,3 +649,477 @@ def _benzerlik_skoru(
 
 # ── İlk kurulum ───────────────────────────────────────────────────────────
 _db_kur()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OnceHafiza class — Sınıf tabanlı önbellek motoru (eski sistem/once_hafiza)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+import os as _os
+import sys as _sys
+import traceback as _traceback
+from datetime import datetime as _datetime, timezone as _timezone
+
+
+class OnceHafiza:
+    """
+    Önce Hafızaya Bak prensibi — sınıf tabanlı.
+
+    Her işlem öncesi:
+    1. Hafızada benzer çözüm ara
+    2. Bulursan direkt uygula (tekrar keşfetme)
+    3. Bulamazsan dene + kaydet
+    4. Hata olursa analiz et + düzelt + kaydet
+    """
+
+    ROOT = ROOT
+
+    @staticmethod
+    def _kademeli_guven(basari: int, hata: int) -> float:
+        """Sigmoid güven — cereyan/once_hafiza.py fonksiyonuna delege eder."""
+        return _kademeli_guven(basari, hata)
+
+    def __init__(
+        self,
+        skills_db: str | Path = ROOT / ".ReYMeN" / "skills_index.db",
+        skills_dir: str | Path = ROOT / "skills",
+        ogrenme_db: str | Path = ROOT.parent / "hafiza" / "ogrenme.db",
+        hata_db: str | Path = ROOT.parent / "hafiza" / "hatalar.db",
+    ):
+        self.skills_db = str(skills_db)
+        self.skills_dir = str(skills_dir)
+        self.ogrenme_db = str(ogrenme_db)
+        self.hata_db = str(hata_db)
+
+        _os.makedirs(self.skills_dir, exist_ok=True)
+        _os.makedirs(Path(self.ogrenme_db).parent, exist_ok=True)
+        _os.makedirs(Path(self.hata_db).parent, exist_ok=True)
+
+        self._db_kur()
+
+    # ── Veritabanı Kurulumu ──────────────────────────────────────────────
+
+    def _db_kur(self) -> None:
+        """FTS5 öğrenme + hata veritabanlarını kur."""
+        import sqlite3
+
+        # Öğrenme DB
+        con = sqlite3.connect(self.ogrenme_db)
+        con.execute("PRAGMA journal_mode=WAL")
+        con.executescript("""
+            CREATE TABLE IF NOT EXISTS ogrenmeler (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                hedef TEXT UNIQUE NOT NULL,
+                cozum TEXT NOT NULL,
+                kaynak TEXT DEFAULT '',
+                basari_sayisi INTEGER DEFAULT 1,
+                hata_sayisi INTEGER DEFAULT 0,
+                son_basari TEXT,
+                son_hata TEXT,
+                olusturulma TEXT DEFAULT (datetime('now'))
+            );
+            CREATE INDEX IF NOT EXISTS idx_hedef ON ogrenmeler(hedef);
+        """)
+        con.commit()
+
+        # Migration: mevcut DB'ye yeni kolon ekle (fail-safe)
+        for col_sql in [
+            "ALTER TABLE ogrenmeler ADD COLUMN guven_skoru FLOAT DEFAULT 0.5",
+            "ALTER TABLE ogrenmeler ADD COLUMN son_kullanim TEXT",
+            "ALTER TABLE ogrenmeler ADD COLUMN kategori TEXT DEFAULT ''",
+            "ALTER TABLE ogrenmeler ADD COLUMN gecerlilik_tarihi TEXT",
+            "ALTER TABLE ogrenmeler ADD COLUMN kaynak_url TEXT DEFAULT NULL",
+        ]:
+            try:
+                con.execute(col_sql)
+            except sqlite3.OperationalError:
+                pass  # kolon zaten var
+        con.commit()
+
+        # Kolon bazlı index'leri migration sonrası kur
+        for idx_sql in [
+            "CREATE INDEX IF NOT EXISTS idx_kategori ON ogrenmeler(kategori)",
+        ]:
+            try:
+                con.execute(idx_sql)
+            except sqlite3.OperationalError:
+                pass
+        con.commit()
+        con.close()
+
+        # Hata DB
+        con = sqlite3.connect(self.hata_db)
+        con.execute("PRAGMA journal_mode=WAL")
+        con.executescript("""
+            CREATE TABLE IF NOT EXISTS hatalar (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                hedef TEXT NOT NULL,
+                hata TEXT NOT NULL,
+                traceback TEXT DEFAULT '',
+                cozum TEXT DEFAULT '',
+                cozuldu INTEGER DEFAULT 0,
+                tarih TEXT DEFAULT (datetime('now'))
+            );
+            CREATE INDEX IF NOT EXISTS idx_hata_hedef ON hatalar(hedef);
+        """)
+        con.commit()
+        con.close()
+
+    # ── ADIM 1: Hafızada Ara ────────────────────────────────────────────
+
+    def hafizada_ara(self, hedef: str, kategori: str = "") -> dict[str, Any] | None:
+        """Hafızada benzer çözüm ara."""
+        import sqlite3
+
+        # FTS5 skills'te ara (varsa)
+        try:
+            scon = sqlite3.connect(self.skills_db, timeout=5)
+            try:
+                row = scon.execute(
+                    "SELECT ad, aciklama, icerik, kaynak FROM beceriler "
+                    "WHERE beceriler MATCH ? ORDER BY rank LIMIT 1",
+                    (hedef,),
+                ).fetchone()
+                if row:
+                    logger.info("[OnceHafiza] 🔍 Skills FTS5'te bulundu: %s", row[0])
+                    return {"hedef": row[0], "cozum": row[2], "kaynak": row[3] or "skills"}
+            except Exception:
+                pass
+            finally:
+                scon.close()
+        except Exception:
+            pass
+
+        # Öğrenme DB'de ara
+        try:
+            con = sqlite3.connect(self.ogrenme_db, timeout=5)
+            try:
+                sql = ("SELECT hedef, cozum, kaynak, basari_sayisi, hata_sayisi, "
+                       "gecerlilik_tarihi, guven_skoru, kategori FROM ogrenmeler "
+                       "WHERE hedef = ?")
+                params = [hedef]
+                if kategori:
+                    sql += " AND kategori = ?"
+                    params.append(kategori)
+                sql += " LIMIT 1"
+                row = con.execute(sql, params).fetchone()
+                if row:
+                    guven_skor = row[6] if len(row) > 6 and row[6] is not None else 1.0
+                    if guven_skor < 0.5:
+                        return {
+                            "durum": "belirsiz", "hedef": row[0], "cozum": row[1],
+                            "kaynak": row[2] or "ogrenme", "guven": guven_skor,
+                            "uyari": f"⚠️ Güven skoru düşük ({guven_skor:.2f})",
+                        }
+                    gecerli = row[5] if len(row) > 5 else None
+                    su_an = _datetime.now(_timezone.utc).strftime("%Y-%m-%d")
+                    gecerlilik_asmis = gecerli and gecerli < su_an if gecerli else False
+
+                    if len(row) > 6:
+                        basari_say = row[3] if len(row) > 3 else 1
+                        hata_say = row[4] if len(row) > 4 else 0
+                        yeni_guven = round(self._kademeli_guven(basari_say + 1, hata_say), 4)
+                        con.execute(
+                            "UPDATE ogrenmeler SET basari_sayisi = basari_sayisi + 1, "
+                            "son_basari = datetime('now'), son_kullanim = datetime('now'), "
+                            "guven_skoru = ? WHERE hedef = ?",
+                            (yeni_guven, hedef),
+                        )
+                    con.commit()
+
+                    sonuc = {"hedef": row[0], "cozum": row[1], "kaynak": row[2] or "ogrenme", "guven": guven_skor}
+                    if len(row) > 7 and row[7]:
+                        sonuc["kategori"] = row[7]
+                    if gecerlilik_asmis:
+                        sonuc["uyari"] = f"⚠️ Geçerlilik tarihi {gecerli} — güncelliğini yitirmiş!"
+                    return sonuc
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+
+        # LIKE araması (kısmi eşleşme)
+        try:
+            con = sqlite3.connect(self.ogrenme_db, timeout=5)
+            try:
+                like = f"%{hedef[:50]}%"
+                sql = ("SELECT hedef, cozum, kaynak, basari_sayisi, hata_sayisi, "
+                       "gecerlilik_tarihi, guven_skoru, kategori FROM ogrenmeler "
+                       "WHERE hedef LIKE ?")
+                params = [like]
+                if kategori:
+                    sql += " AND kategori = ?"
+                    params.append(kategori)
+                sql += " ORDER BY basari_sayisi DESC LIMIT 1"
+                row = con.execute(sql, params).fetchone()
+                if row:
+                    guven_skor = row[6] if len(row) > 6 and row[6] is not None else 1.0
+                    if guven_skor < 0.5:
+                        return {
+                            "durum": "belirsiz", "hedef": row[0], "cozum": row[1],
+                            "kaynak": row[2] or "ogrenme_kismi", "guven": guven_skor,
+                            "uyari": f"⚠️ Kısmi eşleşme, güven düşük ({guven_skor:.2f})",
+                        }
+                    return {"hedef": row[0], "cozum": row[1], "kaynak": row[2] or "ogrenme_kismi", "guven": guven_skor}
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+
+        logger.info("[OnceHafiza] ❌ Hafizada bulunamadi: %s", hedef[:60])
+        return None
+
+    # ── ADIM 2: Kaydet ──────────────────────────────────────────────────
+
+    def kaydet(self, hedef: str, cozum: str, kaynak: str = "kesif", kategori: str = "",
+               kaynak_url: str | None = None) -> None:
+        """Başarılı çözümü öğrenme DB'sine kaydet."""
+        import sqlite3
+
+        try:
+            con = sqlite3.connect(self.ogrenme_db, timeout=5)
+            try:
+                su_an = _datetime.now(_timezone.utc)
+                bugun = su_an.strftime("%Y-%m-%d")
+                gelecek = su_an.replace(
+                    month=su_an.month + 6 if su_an.month <= 6 else su_an.month - 6,
+                    year=su_an.year + (1 if su_an.month > 6 else 0),
+                )
+                gecerlilik = gelecek.strftime("%Y-%m-%d")
+
+                mevcut = con.execute(
+                    "SELECT basari_sayisi, hata_sayisi FROM ogrenmeler WHERE hedef = ?",
+                    (hedef[:500],),
+                ).fetchone()
+                if mevcut:
+                    basari = mevcut[0] + 1
+                    hata = mevcut[1]
+                    guven = round(self._kademeli_guven(basari, hata), 4)
+                else:
+                    guven = 0.5
+
+                con.execute(
+                    "INSERT INTO ogrenmeler "
+                    "(hedef, cozum, kaynak, basari_sayisi, son_basari, son_kullanim, "
+                    " guven_skoru, kategori, gecerlilik_tarihi, kaynak_url) "
+                    "VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?, ?) "
+                    "ON CONFLICT(hedef) DO UPDATE SET "
+                    "basari_sayisi = basari_sayisi + 1, "
+                    "son_basari = excluded.son_basari, "
+                    "son_kullanim = excluded.son_kullanim, "
+                    "guven_skoru = ?, "
+                    "cozum = excluded.cozum, "
+                    "kaynak_url = COALESCE(?, kaynak_url), "
+                    "kategori = CASE WHEN excluded.kategori != '' THEN excluded.kategori ELSE kategori END",
+                    (hedef[:500], cozum, kaynak, bugun, bugun, guven, kategori[:50], gecerlilik,
+                     kaynak_url, guven, kaynak_url),
+                )
+                con.commit()
+                logger.info("[OnceHafiza] ✅ Kaydedildi: %s (guven=%.2f, kategori=%s, gecerlilik=%s)",
+                            hedef[:50], guven, kategori or "yok", gecerlilik)
+            except Exception as e:
+                logger.warning("[OnceHafiza] Kayit hatasi: %s", e)
+            finally:
+                con.close()
+        except Exception as e:
+            logger.warning("[OnceHafiza] DB baglanti hatasi: %s", e)
+
+    # ── ADIM 3: Hata Kaydet ─────────────────────────────────────────────
+
+    def hata_kaydet(self, hedef: str, hata: str, tb: str = "") -> None:
+        """Hata kaydı tut. Ayrıca ogrenmeler'de hata_sayisi++ ve guven_skoru güncelle."""
+        import sqlite3
+
+        try:
+            con = sqlite3.connect(self.ogrenme_db, timeout=5)
+            try:
+                mevcut = con.execute(
+                    "SELECT basari_sayisi, hata_sayisi FROM ogrenmeler WHERE hedef = ?",
+                    (hedef[:500],),
+                ).fetchone()
+                if mevcut:
+                    basari = mevcut[0]
+                    hata_say = mevcut[1] + 1
+                    guven = round(self._kademeli_guven(basari, hata_say), 4)
+                    con.execute(
+                        "UPDATE ogrenmeler SET hata_sayisi = hata_sayisi + 1, "
+                        "son_hata = datetime('now'), guven_skoru = ? WHERE hedef = ?",
+                        (guven, hedef[:500]),
+                    )
+                    con.commit()
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+
+        try:
+            con = sqlite3.connect(self.hata_db, timeout=5)
+            try:
+                con.execute(
+                    "INSERT INTO hatalar (hedef, hata, traceback) VALUES (?, ?, ?)",
+                    (hedef[:500], str(hata)[:1000], tb[:2000]),
+                )
+                con.commit()
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+
+    def hata_cozum_bul(self, hedef: str, hata: str) -> dict[str, Any] | None:
+        """Benzer hata için daha önce çözüm bulunmuş mu?"""
+        import sqlite3
+
+        try:
+            con = sqlite3.connect(self.hata_db, timeout=5)
+            try:
+                row = con.execute(
+                    "SELECT cozum FROM hatalar WHERE cozuldu = 1 "
+                    "AND (hedef LIKE ? OR hata LIKE ?) LIMIT 1",
+                    (f"%{hedef[:30]}%", f"%{str(hata)[:50]}%"),
+                ).fetchone()
+                if row and row[0]:
+                    return {"cozum": row[0]}
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+        return None
+
+    def hata_cozuldu_isaretle(self, hedef: str, cozum: str) -> None:
+        """Çözülen hatayı işaretle."""
+        import sqlite3
+
+        try:
+            con = sqlite3.connect(self.hata_db, timeout=5)
+            try:
+                con.execute(
+                    "UPDATE hatalar SET cozuldu = 1, cozum = ? "
+                    "WHERE hedef = ? AND cozuldu = 0",
+                    (cozum, hedef[:500]),
+                )
+                con.commit()
+            except Exception:
+                pass
+            finally:
+                con.close()
+        except Exception:
+            pass
+
+    # ── ADIM 4: Analiz Et (regex+skor bazlı, LLM'siz) ───────────────────
+
+    def analiz_et(self, hedef: str, hata: str) -> str:
+        """Hata analizi yap, düzeltme önerisi üret."""
+        import re
+
+        hata_lower = (str(hata) or "").lower()
+
+        patterns = {
+            "import_hatasi": r"no module named|import error|module.*not found|cannot import",
+            "syntax_hatasi": r"invalid syntax|unexpected.*token|eol while|eof while",
+            "baglanti_hatasi": r"connection refused|timeout|network.*unreachable|cannot connect",
+            "api_hatasi": r"401|403|404|429|500|unauthorized|forbidden|rate limit|api key",
+            "dosya_hatasi": r"file not found|no such file|permission denied|is a directory",
+            "tip_hatasi": r"attributeerror|typeerror|valueerror|keyerror|indexerror",
+            "dll_hatasi": r"dll load|not a valid win32|ordinal not found|entry point",
+        }
+
+        eslesen = []
+        for kategori, pattern in patterns.items():
+            if re.search(pattern, hata_lower):
+                eslesen.append(kategori)
+
+        if not eslesen:
+            return f"Hata analiz edilemedi, manuel inceleme gerekli:\n{hata[:300]}"
+
+        cozum_onerileri = {
+            "import_hatasi": "Eksik paket: `pip install <paket>` veya sys.path kontrol",
+            "syntax_hatasi": "Kodda yazım hatası: satır bazlı incele + düzelt",
+            "baglanti_hatasi": "Ağ bağlantısı kesik: servis çalışıyor mu kontrol et",
+            "api_hatasi": "API anahtarı/sınır sorunu: yetkilendirme veya rate limit",
+            "dosya_hatasi": "Dosya yolu hatalı: dizin var mı kontrol et",
+            "tip_hatasi": "Değişken tipi uyuşmazlığı: type cast veya None kontrolü",
+            "dll_hatasi": "Windows DLL/bağımlılık: yeniden derle veya bağımlılık kur",
+        }
+
+        oneriler = [cozum_onerileri.get(k, "Bilinmeyen hata") for k in eslesen]
+        return f"Hata sinifi: {', '.join(eslesen)}\nDuzeltme: {' -> '.join(oneriler)}"
+
+    # ── ANA DÖNGÜ ────────────────────────────────────────────────────────
+
+    def isle(
+        self,
+        hedef: str,
+        calistirici: Callable[[str], dict[str, Any]] | None = None,
+        otomatik_kaydet: bool = True,
+        otomatik_coz: bool = True,
+        kategori: str = "",
+        kaynak_url: str | None = None,
+    ) -> dict[str, Any]:
+        """Ana işlem döngüsü: Önce hafızaya bak."""
+        logger.info("[OnceHafiza] === İslem basliyor: %s ===", hedef[:60])
+
+        kayit = self.hafizada_ara(hedef, kategori=kategori)
+        if kayit:
+            if kayit.get("durum") == "belirsiz":
+                return {
+                    "durum": "belirsiz", "sonuc": kayit["cozum"],
+                    "kaynak": kayit.get("kaynak", "hafiza"),
+                    "guven": kayit.get("guven", 0), "uyari": kayit.get("uyari", ""),
+                    "hedef": hedef,
+                }
+            return {
+                "durum": "hafiza", "sonuc": kayit["cozum"],
+                "kaynak": kayit.get("kaynak", "hafiza"), "hedef": hedef,
+            }
+
+        try:
+            if calistirici:
+                sonuc = calistirici(hedef)
+            else:
+                sonuc = {"output": hedef, "exit_code": 0}
+
+            if otomatik_kaydet:
+                cozum = str(sonuc.get("output", sonuc))[:2000]
+                self.kaydet(hedef, cozum, kategori=kategori, kaynak_url=kaynak_url)
+
+            return {"durum": "basarili", "sonuc": sonuc, "kaynak": "kesif", "hedef": hedef}
+
+        except Exception as e:
+            tb = _traceback.format_exc()
+            hata_str = f"{type(e).__name__}: {e}"
+            self.hata_kaydet(hedef, hata_str, tb)
+
+            if otomatik_coz:
+                hata_cozum = self.hata_cozum_bul(hedef, hata_str)
+                if hata_cozum:
+                    return {"durum": "cozuldu", "sonuc": hata_cozum["cozum"],
+                            "kaynak": "hata_cozum", "hedef": hedef}
+                analiz = self.analiz_et(hedef, hata_str)
+                return {"durum": "basarisiz", "sonuc": hata_str, "kaynak": "hata",
+                        "analiz": analiz, "traceback": tb, "hedef": hedef}
+
+            return {"durum": "basarisiz", "sonuc": hata_str, "kaynak": "hata",
+                    "traceback": tb, "hedef": hedef}
+
+
+# ── Singleton getter ────────────────────────────────────────────────────────
+
+_INSTANCE: OnceHafiza | None = None
+
+
+def _get_once_hafiza() -> OnceHafiza:
+    """Singleton OnceHafiza instance'ı al."""
+    global _INSTANCE
+    if _INSTANCE is None:
+        _INSTANCE = OnceHafiza()
+    return _INSTANCE

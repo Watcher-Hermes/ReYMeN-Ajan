@@ -206,3 +206,6 @@ reymen/cereyan/.ReYMeN/ogrenmeler.db
 reymen/cereyan/.ReYMeN/beceri_kutuphanesi.json
 reymen/cereyan/skills/*.md
 *.bak
+# Tauri desktop (deneysel)
+desktop-tauri/
+desktop-tauri/src-tauri/target/
