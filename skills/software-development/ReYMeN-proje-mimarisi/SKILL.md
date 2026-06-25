@@ -472,3 +472,4 @@ Provider ekleme/kaldirma icin: `references/provider-management.md` — 4+ dosya 
 - `references/batch-runner-pattern.md` — Batch runner deseni
 - `references/mass-test-generation.md` — 5.000+ test programatik uretme teknigi
 - `references/module-quality-assessment.md` — Modül kalite skorlama ve stub tespit metodolojisi
+- `references/hermes-profile-management.md` — Profil eşitleme, fallback zinciri, provider yönetimi

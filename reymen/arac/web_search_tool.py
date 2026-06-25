@@ -219,6 +219,7 @@ def web_search(sorgu: str, limit: int = 5, dil: str = "tr") -> Dict:
 def web_search_ve_ozetle(sorgu: str, limit: int = 3) -> str:
     """
     Web araması yapar ve sonuçları özetler.
+    Fiyat/kur sorgularında ilk sonucun sayfasından CANLI veri çeker.
 
     Args:
         sorgu: Arama sorgusu
@@ -237,6 +238,23 @@ def web_search_ve_ozetle(sorgu: str, limit: int = 3) -> str:
 
     satirlar = [f"🔍 '{sorgu}' arama sonuçları ({sonuc['kaynak']}):\n"]
 
+    # ── Fiyat sorgularında ilk sonuçtan CANLI veri çek ──
+    _fiyat_kelimeler = ["fiyat", "kur", "dolar", "euro", "altın", "altin",
+                        "bitcoin", "borsa", "ne kadar", "kaç tl"]
+    _fiyat_sorgu = any(k in sorgu.lower() for k in _fiyat_kelimeler)
+
+    _canli_veri = ""
+    if _fiyat_sorgu and sonuc["results"]:
+        ilk_url = sonuc["results"][0].get("url", "")
+        if ilk_url and ilk_url.startswith("http"):
+            try:
+                _canli_veri = _sayfadan_fiyat_cek(ilk_url, sorgu)
+            except Exception:
+                pass
+
+    if _canli_veri:
+        satirlar.append(f"📊 **CANLI VERİ (sayfadan çekildi):**\n{_canli_veri}\n")
+
     for i, r in enumerate(sonuc["results"], 1):
         baslik = r.get("baslik", "Başlık yok")
         url = r.get("url", "")
@@ -250,6 +268,52 @@ def web_search_ve_ozetle(sorgu: str, limit: int = 3) -> str:
         satirlar.append("")
 
     return "\n".join(satirlar)
+
+
+def _sayfadan_fiyat_cek(url: str, sorgu: str) -> str:
+    """
+    Verilen URL'den fiyat/kur bilgisini çeker.
+    Bigpara, altin.in, doviz.com gibi sitelerden canlı veri extract eder.
+    """
+    try:
+        req = urllib.request.Request(url, headers=_HEADERS)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            html_content = resp.read().decode("utf-8", errors="replace")
+
+        # TL formatı: 3.993,19 veya 3,993.19
+        tl_fiyatlar = re.findall(r'(\d{1,3}[.,]\d{3}[.,]\d{2})\s*(?:TL|₺)', html_content)
+
+        # USD formatı: $3,993.19 veya 3.993,19 USD
+        usd_fiyatlar = re.findall(r'(?:\$|USD)\s*(\d{1,4}[.,]\d{2,4})', html_content)
+        usd_fiyatlar2 = re.findall(r'(\d{1,4}[.,]\d{2,4})\s*(?:USD|\$)', html_content)
+
+        # ONS fiyatı (genellikle sayfada büyük fontla gösterilir)
+        ons_fiyat = re.findall(r'(\d{1,4}[.,]\d{2})\s*(?:USD|\$)', html_content)
+
+        sonuc_parcalari = []
+
+        if tl_fiyatlar:
+            # En büyük TL fiyatı genellikle ana fiyat
+            en_buyuk = max(tl_fiyatlar, key=lambda x: float(x.replace('.', '').replace(',', '.')))
+            sonuc_parcalari.append(f"TL: {en_buyuk}")
+
+        if usd_fiyatlar:
+            sonuc_parcalari.append(f"USD: {usd_fiyatlar[0]}")
+        elif usd_fiyatlar2:
+            sonuc_parcalari.append(f"USD: {usd_fiyatlar2[0]}")
+
+        # Gram altın
+        gram = re.findall(r'gram[:\s]*(\d{1,2}[.,]\d{3}[.,]\d{2})', html_content, re.IGNORECASE)
+        if gram:
+            sonuc_parcalari.append(f"Gram: {gram[0]} TL")
+
+        if sonuc_parcalari:
+            return " | ".join(sonuc_parcalari)
+
+        return ""
+
+    except Exception as e:
+        return ""
 
 
 # ── Motor Entegrasyonu ───────────────────────────────────────────────────────

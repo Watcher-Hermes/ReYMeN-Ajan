@@ -1162,5 +1162,24 @@
     "basari_orani": 1.0,
     "olusturma": "2026-06-24",
     "son_basari": "2026-06-25"
+  },
+  "altının_ons_değeri_nedir": {
+    "ad": "altının ons değeri nedir",
+    "aciklama": "altının ons değeri nedir",
+    "tetikleyiciler": [
+      "değeri",
+      "nedir",
+      "altının",
+      "ons"
+    ],
+    "adimlar": [
+      "FC/WEB_ARA",
+      "FC/WEB_ARA"
+    ],
+    "basari_kriteri": "Kullanıcının sorgusu üzerine güncel altın ons fiyatı web araması ile bulundu. Li",
+    "kullanim_sayisi": 1,
+    "basari_orani": 1.0,
+    "olusturma": "2026-06-25",
+    "son_basari": "2026-06-25"
   }
 }

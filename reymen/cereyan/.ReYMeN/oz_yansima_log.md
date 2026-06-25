@@ -764,3 +764,13 @@
 2. **DOSYA_YAZ** aracı için hata yakalama (try-catch) ve yeniden deneme mekanizması ekleyin.
 3. Dosya yazma öncesi bellek temizliği yaparak %86.5 bellek kullanımını düşürün.
 4. Büyük dosyaları parça parça (chunk) yazarak hem bellek hem hata oranını azaltın.
+
+## 2026-06-25 14:18 — Oz-Yansima Raporu
+- Hata orani: 40% (20/50 adim)
+- Sistem: CPU %25.6, Bellek %88.4
+
+### Oneriler
+1. 'PYTHON_CALISTIR' araci en cok hataya sebep oluyor (oran: 40%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **PYTHON_CALISTIR hatalarını azalt:** Kod hata yakalama (try-except) blokları ekleyin ve hata mesajlarını loglayarak sorun kaynağını tespit edin.
+3. **Bellek kullanımını optimize edin:** Büyük veri setlerini parçalara bölün ve kullanılmayan değişkenleri temizleyin (del veya gc.collect()).
+4. **Hata oranını düşürün:** En sık hata veren Python fonksiyonlarını inceleyip giriş doğrulama (input validation) ekleyin.
