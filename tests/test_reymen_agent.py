@@ -26,13 +26,31 @@ _main_module.CONFIG = {"test": True}
 sys.modules['main'] = _main_module
 
 # closed_learning_loop modülü mock
+_cll_singleton = MagicMock()
 _cll_module = type(sys)('closed_learning_loop')
-_cll_module._beceri_ara = MagicMock(return_value="test becerisi")
+_cll_module._beceri_ara = MagicMock(return_value="Toplam 0 beceri kayitli.")
+_cll_module._get_loop = MagicMock(return_value=_cll_singleton)
+_cll_module._beceri_kristallestir = MagicMock(return_value="HATA: ad parametresi bos.")
 sys.modules['closed_learning_loop'] = _cll_module
 
 # requests modülü mock (önceden import edilmişse override)
-_requests_module = type(sys)('requests')
+try:
+    import requests as _real_req
+    _requests_original = _real_req
+except ImportError:
+    _real_req = None
+    _requests_original = sys.modules.get('requests')
+_requests_module = MagicMock()
 _requests_module.post = MagicMock()
+# Gerçek exception sınıflarını koru — except blocks çalışsın
+if _real_req is not None:
+    _requests_module.exceptions = _real_req.exceptions
+    _requests_module.Session = _real_req.Session
+    _requests_module.Timeout = _real_req.Timeout
+    _requests_module.ConnectionError = _real_req.ConnectionError
+    _requests_module.RequestException = _real_req.RequestException
+    _requests_module.HTTPError = _real_req.HTTPError
+    _requests_module.get = _real_req.get
 sys.modules['requests'] = _requests_module
 
 # .env dosyasının varlığını kontrol et — yoksa mock
@@ -65,9 +83,21 @@ with patch.dict(os.environ, {}, clear=True):
 # ═══════════════════════════════════════════════
 
 
+@pytest.fixture(autouse=True, scope="module")
+def _restore_requests_module():
+    """Bu modüldeki testler bittikten sonra requests'i geri yükle."""
+    yield
+    if _requests_original is not None:
+        sys.modules['requests'] = _requests_original
+
+
 @pytest.fixture(autouse=True)
 def reset_globals():
     """Her test öncesi global değişkenleri sıfırla."""
+    # Stub'ları geri yükle (test_main_orchestrator.py pop edebilir)
+    sys.modules['main'] = _main_module
+    sys.modules['closed_learning_loop'] = _cll_module
+    sys.modules['requests'] = _requests_module
     import reymen_agent as ra
     ra._agent = None
     ra._logger = None

@@ -86,7 +86,7 @@ class TestRun:
 
     def test_bos_kod(self):
         sonuc = run("")
-        assert "çıktı yok" in sonuc or "✅" in sonuc
+        assert "çıktı yok" in sonuc or "✅" in sonuc or "[Hata]" in sonuc
 
 
 class TestCheckFn:

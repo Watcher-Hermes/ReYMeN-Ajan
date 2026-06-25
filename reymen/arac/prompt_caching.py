@@ -72,6 +72,20 @@ class PromptCache:
         self._hit = 0
         self._miss = 0
 
+    # Eski API uyumu
+    def _anahtar_olustur(self, prompt: str, mesajlar: list) -> str:
+        return self._hash(prompt, mesajlar)
+
+    @property
+    def _onbellek(self):
+        return self._cache
+
+    def temizle(self):
+        self.sifirla()
+
+    def boyut(self) -> int:
+        return len(self._cache)
+
 
 # Global cache instance
 _ONBELLEK = PromptCache()

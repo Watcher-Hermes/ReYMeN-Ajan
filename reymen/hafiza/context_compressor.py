@@ -229,6 +229,10 @@ class ContextCompressor:
         """Saklanan onemli bilgileri dondurur."""
         return dict(self._onemli_bilgiler)
 
+    def onemli_bilgileri_al(self, anahtar: str, varsayilan=None):
+        """Saklanan onemli bilgilerden belirli bir anahtar dondurur."""
+        return self._onemli_bilgiler.get(anahtar, varsayilan)
+
     def temizle(self) -> None:
         """Tum bilgileri temizler."""
         self._onemli_bilgiler.clear()
