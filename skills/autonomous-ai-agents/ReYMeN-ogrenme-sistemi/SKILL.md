@@ -14,6 +14,7 @@ Kapsar: `closed_learning_loop.py` + `yetenek_fabrikasi.py` + `migrate_skills.py`
 Referans: `references/crlf-normalizasyon-pattern.md`
 Referans: `references/read-only-teardown-pattern.md`
 Referans: `references/main-entegrasyon-pattern.md`
+Referans: `references/hafiza-pitfall-json-index-fts5-stale.md`
 
 ## Aşama 0: Veri Taşıma (Migration)
 
@@ -142,6 +143,9 @@ FTS5 MATCH sorgusu `"{kategori} AND {sorgu}"` şekline dönüşür. `kategori=No
 | 4 | Frontmatter alan koruma | Özel alanlar yeni frontmatter'da kayboluyordu | Tüm alanları tarayan döngü eklendi |
 | 5 | FTS5 index güncellemesi | Migration betiği FTS5'i güncellemiyordu | `_fts5_index_guncelle()` eklendi |
 | 6 | Yedek silme hatası | OneDrive kilidi `shutil.rmtree`'yi patlatıyordu | Fallback: zaman damgalı yedek |
+| 7 | SQL result index kayması | `row[4]` (hata_sayisi) kaynak olarak kullanılıyordu | `row[2]` (kaynak) düzeltildi |
+| 8 | FTS5 stale cache hit | Bozuk skill dosyası FTS5'te kaldı, cache hit döndürüyor | Dosya + index silindi, içerik doğrulama eklendi |
+| 9 | Hızlı yol web aramasını atlıyor | `?` içerdiği için fiyat sorguları hızlı yola gidiyor | Güncel kelime tespiti → ReAct'e düşer |
 
 ## Windows CRLF Uyumluluğu (Genel Kural)
 

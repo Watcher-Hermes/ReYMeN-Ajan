@@ -694,3 +694,73 @@
 2. **Dosya yazma hatalarını önlemek için** yazma öncesi disk alanı ve izin kontrolleri ekleyin.
 3. **Yüksek bellek kullanımını azaltmak için** büyük dosya işlemlerinde parça parça (chunk) yazma yöntemi kullanın.
 4. **Genel hata oranını düşürmek için** her araç çağrısında hata yakalama ve yeniden deneme mekanizması (retry) uygulayın.
+
+## 2026-06-25 11:23 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %24.5, Bellek %85.2
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. Hata yönetimini güçlendirin ve genel hata oranını azaltmak için otomatik düzeltme mekanizmaları ekleyin.
+3. DOSYA_YAZ aracını izole edin ve sorunun nedenini araştırarak hata kaynağını kontrol altına alın.
+4. Bellek kullanımını optimize etmek için gereksiz veri yüklerini temizleyin veya artırmayı düşünün.
+
+## 2026-06-25 11:34 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %10.0, Bellek %82.7
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **DOSYA_YAZ aracını gözden geçirin**: Yazma izinleri, dosya yolu doğrulama ve hata yakalama mekanizmalarını güçlendirin.
+3. **Bellek kullanımını optimize edin**: Büyük dosya işlemlerinde parçalı yazma (chunking) veya streaming kullanarak bellek yükünü azaltın.
+4. **Hata yakalama ve yeniden deneme mekanizması ekleyin**: Geçici hatalarda otomatik retry ile genel başarı oranını artırın.
+
+## 2026-06-25 11:46 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %16.0, Bellek %85.5
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **DOSYA_YAZ hatalarını detaylı loglayıp kök neden analizi yapın** (disk izinleri, yol hataları, kapasite sorunları kontrol edilmeli).
+3. **Dosya yazma işlemlerine hata yakalama ve yeniden deneme mekanizması ekleyin** (try-catch, retry pattern).
+4. **Bellek kullanımını azaltmak için büyük dosyaları parça parça (streaming) yazın ve kullanılmayan nesneleri serbest bırakın.**
+
+## 2026-06-25 12:49 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %16.1, Bellek %84.2
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracında hata kontrol mekanizmalarını güçlendirin ve dosya yol/izin kontrollerini ekleyin.
+3. Bellek kullanımını azaltmak için veri temizleme ve önbellek stratejileri uygulayın.
+4. Genel hata oranını düşürmek için hata yakalama ve kurtarma süreçlerini iyileştirin.
+
+## 2026-06-25 12:52 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %19.6, Bellek %87.0
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracının kodunu hata yönetimi ekleyerek optimize edin.
+3. Bellek temizliği için düzenli aralıklarla önbellek boşaltma mekanizması kurun.
+4. Hata oranını izleyip otomatik düzeltme veya yeniden deneme sistemi ekleyin.
+
+## 2026-06-25 13:25 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %10.0, Bellek %78.8
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **Dosya yazma operasyonları için hata yakalama (try-catch) ve yeniden deneme mekanizması ekleyin.**
+3. **Yazma işlemi öncesi dosya yolunu ve izinleri doğrulayarak ön kontrol ekleyin.**
+4. **Bellek kullanımını azaltmak için büyük dosya yazma işlemlerini parçalara (chunk) bölerek işleyin.**
+
+## 2026-06-25 13:56 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %11.8, Bellek %86.5
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **DOSYA_YAZ** aracı için hata yakalama (try-catch) ve yeniden deneme mekanizması ekleyin.
+3. Dosya yazma öncesi bellek temizliği yaparak %86.5 bellek kullanımını düşürün.
+4. Büyük dosyaları parça parça (chunk) yazarak hem bellek hem hata oranını azaltın.

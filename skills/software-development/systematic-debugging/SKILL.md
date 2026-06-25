@@ -44,6 +44,7 @@ Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve 
 | Common Rationalizations | `references/common-rationalizations.md` |
 | Quick Reference | `references/quick-reference.md` |
 | ToolRegistry Resolution Failures | `references/tool-registry-resolution-failures.md` |
+| Sessiz Hata Yutma (Silent Error Swallowing) | `references/silent-error-swallowing.md` |
 | ReYMeN Agent Integration | `references/hermes-agent-integration.md` |
 | Real-World Impact | `references/real-world-impact.md` |
 

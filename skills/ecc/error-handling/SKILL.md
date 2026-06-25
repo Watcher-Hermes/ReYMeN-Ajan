@@ -7,7 +7,8 @@ origin: ECC
 
 audience: contributor
 tags: [ai, automation, development]
-category: ecc---
+category: ecc
+---
 
 # Error Handling
 
@@ -27,6 +28,7 @@ Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve 
 | Retry with Exponential Backoff | `references/retry-with-exponential-backoff.md` |
 | User-Facing Error Messages | `references/user-facing-error-messages.md` |
 | Error Handling Checklist | `references/error-handling-checklist.md` |
+| LLM Dejenerasyon & Hallüsinasyon | `references/llm-dejenerasyon-hallusinasyon.md` |
 
 ## Kullanım
 

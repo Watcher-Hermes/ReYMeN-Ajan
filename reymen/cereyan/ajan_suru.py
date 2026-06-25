@@ -133,20 +133,29 @@ class GelistiriciAjan:
 
 class DenetciAjan:
     """Eylem planini elestirip onay/red kararı verir."""
+    _MAKS_TOPLAM_CAGRI = 6  # Mimar + Geliştirici + Denetçi (max) + Orkestratör
+    _TIMEOUT_SANIYE = 30    # Tek LLM çağrısı için max bekleme
 
     def __init__(self, provider, maks_tur: int = 2):
         self._provider = provider
-        self._maks_tur = maks_tur
+        self._maks_tur = min(maks_tur, 2)  # Maks 2 tur (asla 2'den fazla)
+        self._cagri_sayaci = 0
 
     def denetle(self, hedef: str, plan: str, gelistirici: GelistiriciAjan,
                  strateji: str) -> tuple[str, bool]:
         """Plani denetle; gerekirse gelistiriciyi yeniden cagir.
-
+        
         Returns:
             (son_plan, onaylandi_mi)
         """
         mevcut_plan = plan
         for tur in range(1, self._maks_tur + 1):
+            # Döngü kırıcı: max çağrı sayısını kontrol et
+            self._cagri_sayaci += 1
+            if self._cagri_sayaci > self._MAKS_TOPLAM_CAGRI:
+                log.warning(f"Döngü kırıcı: {self._cagri_sayaci} çağrı aşıldı, plan kabul ediliyor")
+                return mevcut_plan, False
+
             log.debug(f"Tur {tur}/{self._maks_tur} — plan inceleniyor...")
             kullanici_msg = (
                 f"Problem: {hedef}\n\nEylem Plani:\n{mevcut_plan}"
@@ -164,6 +173,7 @@ class DenetciAjan:
 
             yeni_strateji = f"{strateji}\n\n[Denetci Duzeltme Onerileri]:\n{duzeltme_ipucu[:400]}"
             mevcut_plan = gelistirici.plan_olustur(hedef, yeni_strateji)
+            self._cagri_sayaci += 1
 
         log.warning("Maks tur asildi, son plan kabul ediliyor.")
         return mevcut_plan, False

@@ -673,18 +673,25 @@ class AIAgentOrchestrator:
         import time as _time
         _t_baslat = _time.time()
 
-        # ── HIZLI YOL: selam/sohbet/bilgi → direkt API (ReAct atlanır)
+        # ── HIZLI YOL: selam/sohbet → direkt API (ReAct atlanır) ──
+        # NOT: Bilgi soruları (fiyat, güncel veri) hızlı yoldan GEÇMEZ — web araması gerekir
         _h = hedef.lower().strip()
         _SELAM = {"slm", "selam", "merhaba", "hey", "hi", "hello", "sa"}
         _SOHBET = {"nasılsın", "naber", "nbr", "iyi", "kötü", "teşekkür", "tesekkur", "bye"}
-        _BILGI = {"nedir", "kimdir", "nerede", "nasıl", "nasil", "hangisi", "neden", "açıkla", "anlat"}
+        _GUNCEL_KELIMELER = [
+            "fiyat", "fiyatı", "fiyati", "kur", "dolar", "euro", "altın", "altin",
+            "bitcoin", "borsa", "hava", "haber", "deprem", "maç", "skor",
+            "kaç tl", "kac tl", "ne kadar", "güncel", "bugün", "şimdi",
+        ]
+        _guncel_sorgu = any(k in _h for k in _GUNCEL_KELIMELER)
+
         if _h in _SELAM or _h.rstrip("!?.,") in _SELAM:
             _tip_hizli = "selam"
-        elif "?" in _h:
-            _tip_hizli = "bilgi"
         elif any(k in _h for k in _SOHBET) and len(_h) < 30:
             _tip_hizli = "sohbet"
-        elif any(k in _h for k in _BILGI):
+        elif _guncel_sorgu:
+            _tip_hizli = "karmasik"  # Güncel veri → ReAct + web araması
+        elif "?" in _h and len(_h) < 50:
             _tip_hizli = "bilgi"
         elif len(_h) < 100:
             _tip_hizli = "sohbet"
@@ -695,13 +702,20 @@ class AIAgentOrchestrator:
                 _m = getattr(self.provider, "model", None) or self.config.get("default_model", "deepseek-v4-flash")
                 yanit = self.provider.uret("Kisa ve oz cevap ver. Turkce konus.", [{"role": "user", "content": hedef}])
                 if yanit and yanit.strip():
-                    log.info(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
-                    print(yanit.strip())
-                    return {"output": yanit.strip(), "exit_code": 0}
+                    # Çıktı doğrulama (CJK spam, tekrar tespiti)
+                    from reymen.cereyan.cikti_dogrulayici import dogrula as _dogrula
+                    _sonuc = _dogrula(yanit, hedef)
+                    if not _sonuc["gecerli"]:
+                        log.warning("[HizliYol] Bozuk çıktı: %s — ReAct'e düş", _sonuc["sorun"])
+                        _tip_hizli = "karmasik"  # ReAct'e düş
+                    else:
+                        log.info(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
+                        print(yanit.strip())
+                        return {"output": yanit.strip(), "exit_code": 0}
             except Exception:
                 pass
 
-        hedef = self._giris_temizle(hedef)
+        hedef = self._giris_temizle(hedef, guncel_sorgu=_guncel_sorgu)
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
         # OnceHafiza: daha önce çözülmüş mü?
@@ -717,6 +731,23 @@ class AIAgentOrchestrator:
                 "once_hafiza": True,
                 "kaynak": kaynak,
             }
+
+        # Fix D: Güncel veri sorgusu → ReAct döngüsüne girmeden önce web araması dene.
+        # Cache miss + güncel kelime → AutoWebSearch → doğrulanmış taze sonuç varsa direkt dön.
+        if _guncel_sorgu:
+            try:
+                from reymen.cereyan.auto_web_search import AutoWebSearch as _AWS
+                _aws_inst = _AWS()
+                _web_metin, _web_guncel, _web_detay = _aws_inst.dogrulanmis_ara(hedef)
+                if _web_metin and "Hata" not in _web_metin and len(_web_metin.strip()) > 30:
+                    log.info(f"[GuncelWeb] ✅ Web araması başarılı (doğrulandı: {_web_guncel})")
+                    # Not: web sonucu once_hafiza'ya yazılmaz — kaydet() 6 ay TTL kullanır,
+                    # güncel fiyat verisi için yanlış olur. AutoWebSearch 5 dk in-memory cache yeterli.
+                    return {"output": _web_metin, "exit_code": 0, "kaynak": "web_arama"}
+                else:
+                    log.warning(f"[GuncelWeb] Web araması boş/hatalı döndü: {_web_detay}")
+            except Exception as _web_hata:
+                log.warning(f"[GuncelWeb] Web araması başarısız: {_web_hata}")
         # ──────────────────────────────────────────────────────────────────
 
         # Iteration budget — once karmasiklik belirle, sonra goruntu karar ver
@@ -783,7 +814,8 @@ class AIAgentOrchestrator:
             kb_rehber = ""
 
         # FAZ 6 — Swarm: karmasiklik >= 4 ise coklu ajan devreye gir
-        suru_kullan = analiz.get("karmasiklik", 1) >= 4 and self.ajan_suru
+        # Fix E: Güncel veri sorguları için swarm ASLA tetiklenmez — LLM'ler canlı veri bilmez.
+        suru_kullan = analiz.get("karmasiklik", 1) >= 4 and self.ajan_suru and not _guncel_sorgu
         if suru_kullan:
             log.debug("[AjanSuru] Karmasiklik >= 4 — swarm aktive ediliyor...")
             try:
@@ -1307,7 +1339,7 @@ class AIAgentOrchestrator:
 
     # ── Yardimci metodlar ─────────────────────────────────────────────
 
-    def _giris_temizle(self, hedef: str) -> str:
+    def _giris_temizle(self, hedef: str, guncel_sorgu: bool = False) -> str:
         """Kullanici girisini guvenlik katmanindan gecir."""
         try:
             from message_sanitization import giris_temizle
@@ -1344,7 +1376,9 @@ class AIAgentOrchestrator:
                 log.info("[MemSecurity] Injection kalıbi tespit edildi.")
             hedef = self.mem_guvenlik.redact(hedef)
 
-        if self.referanslar:
+        # Fix C: Güncel veri sorgularında referanslar bağlamı eklenmez —
+        # eski drift/web-scraping etiketleri budget analizini kirletip swarm'u tetikler.
+        if self.referanslar and not guncel_sorgu:
             ref_ozet = self.referanslar.context_ozeti()
             if ref_ozet:
                 hedef = f"{hedef}\n\n{ref_ozet}"

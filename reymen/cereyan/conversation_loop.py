@@ -420,6 +420,54 @@ class ConversationLoop:
             "yanit":     None,
         }
 
+        # ── 0.5. Otomatik web arama kontrolü (HALLÜSİNASYON ÖNLEME) ──
+        # ZORUNLU: Canlı veri sorgularında web araması yapılmazsa LLM'e gitme
+        # ── 0.5. Otomatik web arama + DOĞRULAMA (HALLÜSİNASYON ÖNLEME) ──
+        web_sonucu = ""
+        try:
+            from reymen.cereyan.auto_web_search import AutoWebSearch
+            aws = AutoWebSearch()
+            web_gerekli, sebep = aws.web_arasi_mi(hedef or "")
+            if web_gerekli:
+                log.info("[%s] Otomatik web aramasi: %s (sebep: %s)", task_id, hedef[:50], sebep)
+
+                # ── 1. Web araması yap ──
+                sonuc_metni, guncel_mi, dogrulama = aws.dogrulanmis_ara(hedef or "", limit=3)
+
+                if sonuc_metni and "Hata" not in sonuc_metni and "yapılamadı" not in sonuc_metni:
+                    log.info("[%s] Web aramasi+dogrulama: guncel=%s, %d karakter",
+                             task_id, guncel_mi, len(sonuc_metni))
+
+                    if baglam is None:
+                        baglam = {}
+                    baglam["web_arama_sonucu"] = sonuc_metni
+                    baglam["web_arama_sebebi"] = sebep
+                    baglam["web_dogrulama"] = dogrulama
+                    baglam["web_guncel_mi"] = guncel_mi
+
+                    if guncel_mi:
+                        # ── DOĞRULANMIŞ: LLM'i atla, direkt dön ──
+                        sonuc["basarili"] = True
+                        sonuc["yanit"] = sonuc_metni
+                        sonuc["kaynak"] = "web_arama_dogrulanmis"
+                        sonuc["web_otomatik"] = True
+                        sonuc["web_dogrulama"] = dogrulama
+                        sonuc["turlar"] = 0
+                        sonuc["sure"] = round(time.time() - baslama, 3)
+                        self._durum = "tamamlandi"
+                        log.info("[%s] Dogrulanmis web sonucu donduruldu (LLM atlandi)", task_id)
+                        return sonuc
+                    else:
+                        # ── DOĞRULANAMADI: LLM'e devam ama web sonucunu bağlama ekle ──
+                        log.warning("[%s] Web sonucu dogrulanamadi: %s — LLM'e devam",
+                                    task_id, dogrulama[:100])
+                else:
+                    log.warning("[%s] Web aramasi bos veya hatali, LLM'e devam", task_id)
+        except ImportError as _ie:
+            log.warning("[%s] Web modulu import hatasi: %s", task_id, _ie)
+        except Exception as _we:
+            log.warning("[%s] Web arama hatasi: %s", task_id, _we)
+
         # Session başlat
         session_id = None
         _storage = None
@@ -476,48 +524,61 @@ class ConversationLoop:
         # ── 2a. Görev öncesi hafıza kontrolü ─────────────────────────
         # İyileştirme #1: OnceHafiza ile zorunlu kontrol
         # guven_skoru > 0.8 ise → LLM çağırma, direkt döndür
+        # CANLI VERİ BYPASS: fiyat/döviz/hava/haber sorguları once_hafiza'yı atlar
+        _canli_veri_sorgusu = False
         try:
-            from reymen.hafiza.gorev_once_kontrol import hafizada_ara as _hafizada_ara
-            hafiza_sonuc = _hafizada_ara(hedef, kategori="")
-            if hafiza_sonuc and hafiza_sonuc.get("bulundu"):
-                guven = float(hafiza_sonuc.get("guven_skoru", 0))
-                log.info(
-                    "[%s] Hafizada bulundu: guven=%.2f, kaynak=%s",
-                    task_id, guven, hafiza_sonuc.get("kaynak", "?"),
-                )
-                self._onceki_bilgi = {
-                    "icerik": hafiza_sonuc.get("icerik", ""),
-                    "kaynak": hafiza_sonuc.get("kaynak", "hafiza"),
-                    "guven_skoru": guven,
-                    "kayit_id": hafiza_sonuc.get("kayit_id"),
-                }
+            from reymen.cereyan.auto_web_search import AutoWebSearch
+            _aws_kontrol = AutoWebSearch()
+            _web_gerekli_kontrol, _ = _aws_kontrol.web_arasi_mi(hedef or "")
+            if _web_gerekli_kontrol:
+                _canli_veri_sorgusu = True
+                log.info("[%s] Canlı veri sorgusu tespit edildi — once_hafiza bypass aktif", task_id)
+        except Exception:
+            pass
 
-                # guven > 0.8 → LLM'i tamamen atla
-                if guven > 0.8:
+        if not _canli_veri_sorgusu:
+            try:
+                from reymen.hafiza.gorev_once_kontrol import hafizada_ara as _hafizada_ara
+                hafiza_sonuc = _hafizada_ara(hedef, kategori="")
+                if hafiza_sonuc and hafiza_sonuc.get("bulundu"):
+                    guven = float(hafiza_sonuc.get("guven_skoru", 0))
                     log.info(
-                        "[%s] HAFIZA ATLAMASI: guven=%.2f > 0.8, LLM cagrilmadi (%%60 maliyet dususu)",
-                        task_id, guven,
+                        "[%s] Hafizada bulundu: guven=%.2f, kaynak=%s",
+                        task_id, guven, hafiza_sonuc.get("kaynak", "?"),
                     )
-                    sonuc["basarili"] = True
-                    sonuc["yanit"] = f"[Hafizadan] {hafiza_sonuc.get('icerik', '')[:2000]}"
-                    sonuc["kaynak"] = hafiza_sonuc.get("kaynak", "memory")
-                    sonuc["hafiza_atlama"] = True
-                    sonuc["guven_skoru"] = guven
-                    sonuc["turlar"] = 0
-                    sonuc["sure"] = round(time.time() - baslama, 3)
-                    if budget:
-                        budget.gorev_tamamla()
-                    self._durum = "tamamlandi"
-                    return sonuc
-            else:
+                    self._onceki_bilgi = {
+                        "icerik": hafiza_sonuc.get("icerik", ""),
+                        "kaynak": hafiza_sonuc.get("kaynak", "hafiza"),
+                        "guven_skoru": guven,
+                        "kayit_id": hafiza_sonuc.get("kayit_id"),
+                    }
+
+                    # guven > 0.8 → LLM'i tamamen atla
+                    if guven > 0.8:
+                        log.info(
+                            "[%s] HAFIZA ATLAMASI: guven=%.2f > 0.8, LLM cagrilmadi (%%60 maliyet dususu)",
+                            task_id, guven,
+                        )
+                        sonuc["basarili"] = True
+                        sonuc["yanit"] = f"[Hafizadan] {hafiza_sonuc.get('icerik', '')[:2000]}"
+                        sonuc["kaynak"] = hafiza_sonuc.get("kaynak", "memory")
+                        sonuc["hafiza_atlama"] = True
+                        sonuc["guven_skoru"] = guven
+                        sonuc["turlar"] = 0
+                        sonuc["sure"] = round(time.time() - baslama, 3)
+                        if budget:
+                            budget.gorev_tamamla()
+                        self._durum = "tamamlandi"
+                        return sonuc
+                else:
+                    self._onceki_bilgi = None
+                    log.debug("[%s] Hafizada benzer gorev bulunamadi", task_id)
+            except ImportError:
                 self._onceki_bilgi = None
-                log.debug("[%s] Hafizada benzer gorev bulunamadi", task_id)
-        except ImportError:
-            self._onceki_bilgi = None
-            log.debug("[%s] hafizada_ara modulu bulunamadi, hafiza kontrolu atlandi", task_id)
-        except Exception as _he:
-            self._onceki_bilgi = None
-            log.warning("[%s] Hafiza kontrol hatasi: %s", task_id, _he)
+                log.debug("[%s] hafizada_ara modulu bulunamadi, hafiza kontrolu atlandi", task_id)
+            except Exception as _he:
+                self._onceki_bilgi = None
+                log.warning("[%s] Hafiza kontrol hatasi: %s", task_id, _he)
 
         # ── İYİLEŞTİRME 4: BELİRSİZ GÖREV → HAFIZA TABANLI ÖNERİ ──
         # Hafizada bulunamadiysa, oneri_uret ile kullaniciya tahmin sun
@@ -771,8 +832,12 @@ class ConversationLoop:
                         break
 
                 else:
-                    # Text yanit → tamamlandi
+                    # Text yanit → doğrula → tamamlandi
                     icerik = self._yanit_icerigi_al(yanit)
+
+                    # ── ÇIKTI DOĞRULAMA: LLM dejenerasyon tespiti ──
+                    icerik = self._cikti_dogrula(icerik, task_id)
+
                     self._konusma_gecmisi.append({
                         "role":    "assistant",
                         "content": icerik,
@@ -879,6 +944,85 @@ class ConversationLoop:
     # YARDIMCI METODLAR — run_conversation
     # ══════════════════════════════════════════════════════════════════
 
+    # ── Maksimum yanıt uzunluğu ve tekrar eşiği ──
+    MAX_YANIT_UZUNLUK = 4000   # karakter
+    TEKRAR_ESIGI = 20          # aynı karakter/word art arda gelirse dejenerasyon
+
+    def _cikti_dogrula(self, icerik: str, task_id: str = "") -> str:
+        """
+        LLM çıktısını doğrula — dejenerasyon, tekrar, uzunluk kontrolü.
+
+        Tespit edilen sorunlar:
+        1. Aynı karakter art arda 20+ kez tekrar (因为因为因为...)
+        2. Aynı kelime/cümle 5+ kez tekrar
+        3. Yanıt 4000 karakterden uzun
+        4. Anlamsız karakter dizisi (Unicode spam)
+
+        Returns:
+            Düzeltilmiş veya kısaltılmış yanıt
+        """
+        if not icerik:
+            return icerik
+
+        _original_len = len(icerik)
+
+        # ── Kontrol 1: Tek karakter tekrarı (因为因为因为...) ──
+        # Aynı karakter 20+ kez art arda geliyorsa kes
+        import re as _re
+        _tek_karakter = _re.compile(r'(.)\1{19,}')
+        if _tek_karakter.search(icerik):
+            # İlk tekrar noktasına kadar al
+            match = _tek_karakter.search(icerik)
+            if match:
+                icerik = icerik[:match.start()].rstrip()
+                log.warning(
+                    "[%s] DEJENERASYON: Tek karakter tekrarı tespit edildi "
+                    "(%d→%d karakter)", task_id, _original_len, len(icerik),
+                )
+
+        # ── Kontrol 2: Aynı kelime tekrarı ──
+        # "çünkü çünkü çünkü" 5+ kez
+        _kelime_tekrar = _re.compile(r'(\b\w{2,}\b)(?:\s+\1){4,}')
+        if _kelime_tekrar.search(icerik):
+            match = _kelime_tekrar.search(icerik)
+            if match:
+                icerik = icerik[:match.start()].rstrip()
+                log.warning(
+                    "[%s] DEJENERASYON: Kelime tekrarı tespit edildi "
+                    "(%d→%d karakter)", task_id, _original_len, len(icerik),
+                )
+
+        # ── Kontrol 3: Unicode spam (Çince/Japonca/Korece olmayan bağlamda) ──
+        _cjk_karakterler = _re.findall(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]', icerik)
+        if len(_cjk_karakterler) > 10:
+            # CJK karakterleri var ama konu Çince/Japonca değilse → spam
+            # İlk CJK karaktere kadar al
+            ilk_cjk = _re.search(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]', icerik)
+            if ilk_cjk:
+                icerik = icerik[:ilk_cjk.start()].rstrip()
+                log.warning(
+                    "[%s] DEJENERASYON: Unicode spam (CJK) tespit edildi "
+                    "(%d→%d karakter)", task_id, _original_len, len(icerik),
+                )
+
+        # ── Kontrol 4: Çok uzun yanıt ──
+        if len(icerik) > self.MAX_YANIT_UZUNLUK:
+            icerik = icerik[:self.MAX_YANIT_UZUNLUK] + "\n\n... (yanıt kısaltıldı)"
+            log.warning(
+                "[%s] YANIT KISALTILDI: %d→%d karakter",
+                task_id, _original_len, len(icerik),
+            )
+
+        # ── Kontrol 5: Boş yanıt kaldıysa hata mesajı ──
+        if not icerik.strip():
+            icerik = (
+                "⚠️ LLM anlamsız çıktı üretti (dejenerasyon). "
+                "Lütfen soruyu tekrar sorun veya web araması deneyin."
+            )
+            log.warning("[%s] DEJENERASYON: Yanıt tamamen boşaldı", task_id)
+
+        return icerik
+
     def _budget_olustur(self, hedef: str) -> Any:
         """IterationBudget olustur; modul yoksa basit sayac doner."""
         if _BUDGET_AKTIF and standart_budget:
@@ -935,10 +1079,31 @@ class ConversationLoop:
             except Exception as e:
                 log.warning("PromptBuilder hatasi: %s", e)
 
-        return (
+        # Temel prompt
+        prompt = (
             "Sen ReYMeN, otonom bir yazilim ajanisin. "
-            "Hedefe odaklan, araclari kullan, Turkce yaz."
+            "Hedefe odaklan, araclari kullan, Turkce yaz.\n\n"
+            "WEB ARAMA KURALLARI:\n"
+            "- Guncel bilgi gerektiren sorularda (fiyat, hava, haber, döviz, borsa, "
+            "bitcoin, deprem, maç sonucu) web arama sonuclarini kullan.\n"
+            "- Eger GUNCEL WEB ARAMA SONUCLARI verildiyse, o veriyi kullanarak cevap ver.\n"
+            "- Web sonucu verilmediyse ve elinde guncel veri yoksa, "
+            "'Elimde güncel veri yok, web araması yapılması gerekiyor' de.\n"
+            "- Asla uydurma fiyat/veri/tarih verme.\n"
         )
+
+        # Web arama sonucu varsa prompt'a ekle
+        if baglam and baglam.get("web_arama_sonucu"):
+            web_blok = (
+                "\n\nGUNCEL WEB ARAMA SONUCLARI:\n"
+                f"{baglam['web_arama_sonucu']}\n\n"
+                "YUKARIDAKI web arama sonuclarini kullanarak cevap ver. "
+                "Eger sonucta kesin fiyat/veri varsa onu yaz. "
+                "Eger sonuc yetersizse, 'Web araması yapıldı ama kesin sonuç bulunamadı' de.\n"
+            )
+            prompt = prompt + web_blok
+
+        return prompt
 
     def _provider_tipi_belirle(self, provider: Optional[str] = None) -> str:
         """Provider tipini belirle: 'anthropic' | 'codex' | 'chat_completions'."""

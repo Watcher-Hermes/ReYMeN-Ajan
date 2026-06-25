@@ -54,13 +54,25 @@ class ReferansYoneticisi:
         return sonuc[:5]
 
     def context_ozeti(self, max_bas: int = 3) -> str:
-        """Context'e eklenecek ozet metin."""
+        """Context'e eklenecek ozet metin.
+
+        JSON-format ve pipe-separator etiketler (makine üretimi büyük veri) atlanır.
+        Etiket 60 karaktere kırpılır — karmaşıklık analizini kirletmemek için.
+        """
         if not self._referanslar:
             return ""
         son = self._referanslar[-max_bas:]
         satirlar = ["Referanslar:"]
         for r in son:
-            satirlar.append(f"  {r['etiket']}: {r['icerik'][:80]}")
+            etiket = str(r.get("etiket", ""))
+            # Makine üretimi büyük veriyi (JSON veya pipe-separator) filtrele
+            if etiket.startswith("{") or "|" in etiket or len(etiket) > 120:
+                continue
+            etiket_kisalt = etiket[:60]
+            icerik_kisalt = str(r.get("icerik", ""))[:60]
+            satirlar.append(f"  {etiket_kisalt}: {icerik_kisalt}")
+        if len(satirlar) == 1:  # başlık satırından başka hiçbir şey yoksa boş dön
+            return ""
         return "\n".join(satirlar)
 
     def sifirla(self):

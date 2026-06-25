@@ -305,8 +305,49 @@ class PromptBuilder:
 
         parcalar.append(f"## Hedef\n{hedef}")
 
+        # Web arama kuralları (ZORUNLU)
+        web_kurallari = (
+            "## WEB ARAMA KURALLARI\n"
+            "- Guncel bilgi gerektiren sorularda (fiyat, hava, haber, döviz, borsa, "
+            "bitcoin, deprem, maç sonucu) web arama sonuclarini kullan.\n"
+            "- Eger GUNCEL WEB ARAMA SONUCLARI verildiyse, o veriyi kullanarak cevap ver.\n"
+            "- Web sonucu verilmediyse ve elinde guncel veri yoksa, "
+            "'Elimde güncel veri yok, web araması yapılması gerekiyor' de.\n"
+            "- Asla uydurma fiyat/veri/tarih verme.\n"
+        )
+        parcalar.append(web_kurallari)
+
+        # Web arama sonucu varsa prompt'a ekle (EN ÜSTE — model önce görsün)
+        web_sonucu_eklendi = False
+        if ek_bilgi and "web_arama_sonucu" in ek_bilgi:
+            try:
+                ek_data = json.loads(ek_bilgi) if isinstance(ek_bilgi, str) else {}
+                if ek_data.get("web_arama_sonucu"):
+                    web_blok = (
+                        f"## GUNCEL WEB ARAMA SONUCLARI\n{ek_data['web_arama_sonucu']}\n\n"
+                        "YUKARIDAKI web arama sonuclarini kullanarak cevap ver. "
+                        "Eger sonucta kesin fiyat/veri varsa onu yaz. "
+                        "Eger sonuc yetersizse, 'Web araması yapıldı ama kesin sonuç bulunamadı' de."
+                    )
+                    parcalar.insert(0, web_blok)  # En üste ekle
+                    web_sonucu_eklendi = True
+            except Exception:
+                pass
+
+        # Ek bilgi varsa ekle (raw JSON web sonucunu TEKRAR ekleme)
         if ek_bilgi:
-            parcalar.append(f"## Ek Bilgi\n{ek_bilgi}")
+            # Web sonucu zaten eklendiyse, raw JSON'u tekrar ekleme
+            if web_sonucu_eklendi:
+                try:
+                    ek_data = json.loads(ek_bilgi) if isinstance(ek_bilgi, str) else {}
+                    # web_arama_sonucu hariç diğer bilgileri ekle
+                    diger = {k: v for k, v in ek_data.items() if k != "web_arama_sonucu"}
+                    if diger:
+                        parcalar.append(f"## Ek Bilgi\n{json.dumps(diger, ensure_ascii=False)}")
+                except Exception:
+                    pass  # JSON değilse ekleme
+            else:
+                parcalar.append(f"## Ek Bilgi\n{ek_bilgi}")
 
         parcalar.append(f"## Yaklaşım ({template['aciklama']})\n{template['vurgu']}")
         parcalar.append(self._araclar_metni())

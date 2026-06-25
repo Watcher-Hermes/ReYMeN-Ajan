@@ -35,6 +35,33 @@ TIMEOUT_SANIYE: int = 300
 _VARSAYILAN_MAX_TOKEN: int = 4096
 _VARSAYILAN_SICAKLIK: float = 0.7
 
+
+# ── Tekrar/Loop Temizleme ───────────────────────────────────────────────────
+def _tekrar_temizle(text: str) -> str:
+    """
+    LLM çıktısındaki sonsuz tekrarları temizler.
+    "因为因为因为..." → "because" (temizler)
+    """
+    import re
+    if not text or len(text) < 20:
+        return text
+
+    # 1. Karakter tekrarı kontrolü (ör: "aaaaaaa" → "aaa")
+    text = re.sub(r'(.)\1{5,}', r'\1\1\1', text)
+
+    # 2. Kelime tekrarı kontrolü (ör: "because because because..." → "because")
+    text = re.sub(r'(\b\w+\b)(\s+\1){4,}', r'\1', text)
+
+    # 3. Çince karakter bloğu kontrolü (因为, 因为, 因为...)
+    text = re.sub(r'(因为|因为|因为|因为|因为|因为|因为|因为|因为|因为){5,}',
+                  'because', text)
+
+    # 4. Uzunluk sınırı (4000 karakter)
+    if len(text) > 4000:
+        text = text[:4000] + "\n\n[...devamı kesildi — tekrar algılandı]"
+
+    return text
+
 # ── Token Tasarrufu ────────────────────────────────────────────────────────
 # Sohbet geçmişinde tutulacak maksimum mesaj sayısı
 # Her mesaj ~1000-3000 token harcar, fazlası maliyeti artırır
@@ -628,6 +655,8 @@ class Beyin:
             payload: dict = {
                 "model": model,
                 "messages": [{"role": "system", "content": sistem_prompt}] + kisitlanmis_mesajlar,
+                "max_tokens": _VARSAYILAN_MAX_TOKEN,
+                "frequency_penalty": 0.8,
             }
             if with_tools and tools:
                 payload["tools"] = tools
@@ -644,9 +673,12 @@ class Beyin:
             )
             r.raise_for_status()
             msg = r.json()["choices"][0]["message"]
+            # Tekrar/loop temizleme
+            icerik = msg.get("content") or ""
+            icerik = _tekrar_temizle(icerik)
             return {
                 "role": "assistant",
-                "content": msg.get("content") or "",
+                "content": icerik,
                 "tool_calls": msg.get("tool_calls") or [],
             }
 
@@ -1008,6 +1040,7 @@ class Beyin:
             "stream": False,
             "temperature": _VARSAYILAN_SICAKLIK,
             "max_tokens": _VARSAYILAN_MAX_TOKEN,
+            "frequency_penalty": 0.8,
         }
         r = requests.post(
             url,
@@ -1016,7 +1049,8 @@ class Beyin:
             timeout=TIMEOUT_SANIYE,
         )
         r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"]
+        # Tekrar/loop temizleme
+        return _tekrar_temizle(r.json()["choices"][0]["message"]["content"])
 
     def _cagir_openai_uyumlu(
         self,
@@ -1048,10 +1082,12 @@ class Beyin:
             "stream": False,
             "temperature": _VARSAYILAN_SICAKLIK,
             "max_tokens": _VARSAYILAN_MAX_TOKEN,
+            "frequency_penalty": 0.8,
         }
         r = requests.post(url, headers=headers, json=payload, timeout=TIMEOUT_SANIYE)
         r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"]
+        # Tekrar/loop temizleme
+        return _tekrar_temizle(r.json()["choices"][0]["message"]["content"])
 
     def _cagir_anthropic(
         self,
@@ -1077,7 +1113,8 @@ class Beyin:
         }
         r = requests.post(url, headers=headers, json=payload, timeout=TIMEOUT_SANIYE)
         r.raise_for_status()
-        return r.json()["content"][0]["text"]
+        # Tekrar/loop temizleme
+        return _tekrar_temizle(r.json()["content"][0]["text"])
 
     def _cagir_moonshot(
         self,

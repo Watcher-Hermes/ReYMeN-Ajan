@@ -388,5 +388,11 @@
     "icerik": "",
     "kaynak": "",
     "tarih": "2026-06-24"
+  },
+  {
+    "etiket": "anahtar: web_llm_direkt_don_kurali\ndeger: Web sonucu prompt'a ekleniyor ama LLM onu gormezden gelebilir. Kok cozum: web sonucu varsa LLM'e gitme, direkt don. Mantik: 1) Web sonucunun varligini kontrol et. 2) Web sonucu varsa (None degil ve bos degil), dogrudan kullaniciya don (GOREV_BITTI ile). 3) Web sonucu yoksa LLM'e git ve yanit al. 4) LLM yanitini dogrula ve isle. 5) Sonucu kullaniciya ilet. Bu kural tum web-sorgu tabanli gorevler icin gecerli.\netiketler: kurallar, web_llm, optimizasyon, drift_duzeltme, kok_cozum",
+    "icerik": "",
+    "kaynak": "",
+    "tarih": "2026-06-25"
   }
 ]

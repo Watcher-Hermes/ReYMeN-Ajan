@@ -506,7 +506,7 @@ def belirsiz_gorev_cozumle(
             "id": row[0],
             "hedef": row[1],
             "kategori": row[2],
-            "icerik": row[3][:200],
+            "icerik": row[3][:2000],  # 200→2000: referans JSON'un kesilmesini önle
             "guven_skoru": row[4],
             "basari_sayisi": row[5],
             "hata_sayisi": row[6],
@@ -527,7 +527,7 @@ def belirsiz_gorev_cozumle(
                 "id": en_guvenli[0],
                 "hedef": en_guvenli[1],
                 "kategori": en_guvenli[2],
-                "icerik": en_guvenli[3][:200],
+                "icerik": en_guvenli[3][:2000],  # 200→2000: referans JSON'un kesilmesini önle
                 "guven_skoru": en_guvenli[4],
                 "basari_sayisi": en_guvenli[5],
                 "hata_sayisi": en_guvenli[6],

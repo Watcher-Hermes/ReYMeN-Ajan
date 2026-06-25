@@ -242,7 +242,7 @@ class OnceHafiza:
                         )
                     con.commit()
 
-                    sonuc = {"hedef": row[0], "cozum": row[1], "kaynak": row[4] or "ogrenme", "guven": guven_skor}
+                    sonuc = {"hedef": row[0], "cozum": row[1], "kaynak": row[2] or "ogrenme", "guven": guven_skor}
                     if len(row) > 7 and row[7]:
                         sonuc["kategori"] = row[7]
                     if gecerlilik_asmis:

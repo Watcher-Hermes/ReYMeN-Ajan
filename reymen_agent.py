@@ -19,11 +19,39 @@ _agent = None
 _logger = None
 
 # ── Sabitler ──────────────────────────────────────────────────
-DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions"
-DEEPSEEK_MODEL = "deepseek-chat"
 MAX_YANIT_UZUNLUK = 4000
 MAX_BECERI_UZUNLUK = 1500
 MAX_MESAJ_UZUNLUK = 500
+
+# ── Multi-Provider Fallback Zinciri ─────────────────────────────
+# DeepSeek bitmişse (402/401) otomatik geçiş yapar
+_FALLBACK_PROVIDERS = [
+    {
+        "name": "xiaomi",
+        "api_url": "https://api.minimax.chat/v1/text/chatcompletion_v2",
+        "model": "MiniMax-Text-01",
+        "env_key": "XIAOMI_API_KEY",
+        "base_url": "https://api.minimax.chat/v1",
+    },
+    {
+        "name": "xai",
+        "api_url": "https://api.x.ai/v1/chat/completions",
+        "model": "grok-2-latest",
+        "env_key": "XAI_API_KEY",
+    },
+    {
+        "name": "deepseek",
+        "api_url": "https://api.deepseek.com/chat/completions",
+        "model": "deepseek-chat",
+        "env_key": "DEEPSEEK_API_KEY",
+    },
+    {
+        "name": "groq",
+        "api_url": "https://api.groq.com/openai/v1/chat/completions",
+        "model": "llama-3.3-70b-versatile",
+        "env_key": "GROQ_API_KEY",
+    },
+]
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -98,25 +126,143 @@ def _beceri_baglami_al(hedef: str) -> str:
 
 
 # ═══════════════════════════════════════════════════════════════
-# _deepseek_sohbet
+# _api_cagir_fallback — Multi-Provider Fallback
+# ═══════════════════════════════════════════════════════════════
+
+
+def _api_cagir_fallback(
+    messages: list, system_content: str = ""
+) -> tuple[str, str]:
+    """
+    Fallback zincirindeki provider'ları sırayla dener.
+    Returns: (yanit, provider_name) veya ("", "")
+    """
+    logger = _get_logger()
+
+    for provider in _FALLBACK_PROVIDERS:
+        api_key = os.environ.get(provider["env_key"])
+        if not api_key:
+            continue
+
+        api_url = provider["api_url"]
+        model = provider["model"]
+        name = provider["name"]
+
+        # MiniMax için özel format
+        if name == "xiaomi":
+            full_messages = []
+            if system_content:
+                full_messages.append({"role": "system", "content": system_content})
+            full_messages.extend(messages)
+            payload = {
+                "model": model,
+                "messages": full_messages,
+                "max_tokens": 1500,
+                "frequency_penalty": 0.8,
+            }
+        else:
+            # OpenAI uyumlu format
+            full_messages = []
+            if system_content:
+                full_messages.append({"role": "system", "content": system_content})
+            full_messages.extend(messages)
+            payload = {
+                "model": model,
+                "messages": full_messages,
+                "max_tokens": 1500,
+                "frequency_penalty": 0.8,
+                "stop": ["\n\n\n", "因为因为", "becausebecause"],
+            }
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+
+        try:
+            logger.info(f"[{name}] API çağrısı yapılıyor...")
+            resp = requests.post(api_url, headers=headers, json=payload, timeout=60)
+            resp.raise_for_status()
+            data = resp.json()
+            yanit = data["choices"][0]["message"]["content"]
+            logger.info(f"[{name}] API yanıtı başarılı")
+            return yanit, name
+        except requests.exceptions.HTTPError as e:
+            # 401/402/429 = provider bitmiş, diğerine geç
+            status = e.response.status_code if e.response else 0
+            if status in (401, 402, 429):
+                logger.warning(f"[{name}] API hatası {status} — sonraki provider'a geçiliyor")
+                continue
+            # Diğer hatalar (500, timeout vs) — aynı provider'da kalma
+            logger.error(f"[{name}] API hatası: {e}")
+            continue
+        except Exception as e:
+            logger.error(f"[{name}] Beklenmeyen hata: {e}")
+            continue
+
+    return "", ""
+
+
+# ═══════════════════════════════════════════════════════════════
+# _tekrar_temizle — Sonsuz loop/tekrar temizleme
+# ═══════════════════════════════════════════════════════════════
+
+
+def _tekrar_temizle(text: str) -> str:
+    """
+    LLM çıktısındaki sonsuz tekrarları temizler.
+    "因为因为因为..." → "因为" (ilk 3 taneden sonrasını siler)
+    """
+    if not text or len(text) < 20:
+        return text
+
+    import re
+
+    # 1. Karakter tekrarı kontrolü (ör: "aaaaaaa" → "aaa")
+    text = re.sub(r'(.)\1{5,}', r'\1\1\1', text)
+
+    # 2. Kelime tekrarı kontrolü (ör: "because because because..." → "because")
+    text = re.sub(r'(\b\w+\b)(\s+\1){4,}', r'\1', text)
+
+    # 3. Cümle tekrarı kontrolü (ör: aynı cümle 3+ kez)
+    satirlar = text.split('\n')
+    temiz_satirlar = []
+    onceki_ikisi = []
+    for satir in satirlar:
+        satir_stripped = satir.strip()
+        if satir_stripped and satir_stripped in onceki_ikisi:
+            continue  # Aynı cümle 3. kez geldiyse atla
+        temiz_satirlar.append(satir)
+        onceki_ikisi.append(satir_stripped)
+        if len(onceki_ikisi) > 2:
+            onceki_ikisi.pop(0)
+
+    text = '\n'.join(temiz_satirlar)
+
+    # 4. Çince karakter bloğu kontrolü (因为, 因为, 因为...)
+    text = re.sub(r'(因为|因为|因为|因为|因为|因为|因为|因为|因为|因为){5,}',
+                  'because', text)
+
+    # 5. Uzunluk sınırı (4000 karakter)
+    if len(text) > 4000:
+        text = text[:4000] + "\n\n[...devamı kesildi — tekrar algılandı]"
+
+    return text
+
+
+# ═══════════════════════════════════════════════════════════════
+# _deepseek_sohbet (multi-provider fallback ile)
 # ═══════════════════════════════════════════════════════════════
 
 
 def _deepseek_sohbet(messages: Any, config: Optional[dict] = None) -> str:
-    """DeepSeek API'ye sohbet isteği gönderir."""
+    """LLM'e sohbet isteği gönderir — multi-provider fallback ile."""
     logger = _get_logger()
-
-    # API anahtarı kontrolü
-    api_key = os.environ.get("XIAOMI_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
-    if not api_key:
-        logger.warning("DeepSeek API anahtarı bulunamadı")
-        return "API anahtarı bulunamadı"
 
     # Mesajı string'den listeye çevir
     if isinstance(messages, str):
         user_message = messages
     elif isinstance(messages, list):
-        # Eğer messages bir liste ise son user mesajını bul
         user_texts = [
             m["content"]
             for m in messages
@@ -137,33 +283,16 @@ def _deepseek_sohbet(messages: Any, config: Optional[dict] = None) -> str:
     if beceri_baglama:
         system_content += beceri_baglama
 
-    # API isteği
-    payload = {
-        "model": DEEPSEEK_MODEL,
-        "messages": [
-            {"role": "system", "content": system_content},
-            {"role": "user", "content": user_message},
-        ],
-    }
+    # Fallback zincirinde dene
+    mesaj_listesi = [{"role": "user", "content": user_message}]
+    yanit, provider = _api_cagir_fallback(mesaj_listesi, system_content)
 
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
-
-    try:
-        logger.info("DeepSeek API çağrısı yapılıyor...")
-        resp = requests.post(
-            DEEPSEEK_API_URL, headers=headers, json=payload, timeout=60
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        yanit = data["choices"][0]["message"]["content"]
-        logger.info("DeepSeek API yanıtı başarılı")
+    if yanit:
+        # Tekrar/loop temizleme
+        yanit = _tekrar_temizle(yanit)
         return yanit
-    except Exception as e:
-        logger.error(f"DeepSeek API hatası: {e}")
-        return f"API hatası: {e}"
+
+    return "Tüm API provider'ları başarısız oldu. Lütfen API anahtarlarını kontrol edin."
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -273,13 +402,9 @@ def _yanit_ayikla(raw: str) -> str:
 def _deepseek_fallback(
     error: str, messages: Any = None, config: Optional[dict] = None
 ) -> str:
-    """Fallback — agent başarısız olursa direkt DeepSeek API çağrısı."""
+    """Fallback — agent başarısız olursa multi-provider fallback ile dener."""
     logger = _get_logger()
     logger.warning(f"Fallback kullanılıyor: {error}")
-
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
-    if not api_key:
-        return "API anahtarı bulunamadı"
 
     # Kullanılacak mesaj
     if messages is None:
@@ -289,35 +414,19 @@ def _deepseek_fallback(
     else:
         mesaj = str(messages)
 
-    payload = {
-        "model": DEEPSEEK_MODEL,
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "Sen bir fallback asistansın. Ana sistem hatası nedeniyle "
-                    "devreye girdin. Kullanıcıya yardımcı ol."
-                ),
-            },
-            {"role": "user", "content": mesaj},
-        ],
-    }
+    system_content = (
+        "Sen bir fallback asistansın. Ana sistem hatası nedeniyle "
+        "devreye girdin. Kullanıcıya yardımcı ol."
+    )
 
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
+    # Fallback zincirinde dene
+    mesaj_listesi = [{"role": "user", "content": mesaj}]
+    yanit, provider = _api_cagir_fallback(mesaj_listesi, system_content)
 
-    try:
-        resp = requests.post(
-            DEEPSEEK_API_URL, headers=headers, json=payload, timeout=60
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
-    except Exception as e:
-        logger.error(f"Fallback API hatası: {e}")
-        return f"API hatası: {e}"
+    if yanit:
+        return yanit
+
+    return "Tüm API provider'ları başarısız oldu. Lütfen API anahtarlarını kontrol edin."
 
 
 # ═══════════════════════════════════════════════════════════════

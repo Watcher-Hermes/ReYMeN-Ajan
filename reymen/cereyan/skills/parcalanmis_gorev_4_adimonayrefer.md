@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin 1. adımı (Grup A, B, C - İzleme ve Bakım Planı) tamamlandı. Kullanıcı \"onay\" dedi ancak kalan 3 parçanın içeriği henüz iletilmedi. Ayrıca sistem CRON_EKLE aracının 4 kez bloke olduğunu bildiriyor. Kullanıcıdan kalan 3 adımın içeriğini bekliyorum.
 created: 2026-06-24
-usage_count: 34
+usage_count: 38
 last_used: 2026-06-25
 ---
 
@@ -442,3 +442,143 @@ YARDIM\\_ISTEDEK:
 \\\"Bu kod, verilerimizin aynı isimli ama farklı klasörlerdeki .py dosyalarını bulur, fonksiyon setlerini AST ile karşılaştır ve drift varsa raporlar. Bu kod, hangi dosyanın gerçekten import edildiğini (canlı yol) tespit eder.\\\")
 
 GOREV\\_BITTI(\\\"Bu kod, verilerimizin aynı isimli ama farklı klasörlerdeki .py dosyalarını bulur, fonksiyon setlerini AST ile karşılaştır ve drift varsa raporlar. Bu kod, hangi dosyanın gerçekten import edildiğini (canlı yol) tespit eder.\\\") \") "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T08:52:37Z)
+
+DOSYA_OKU: \"izleme_plani_20260623\")
+GÖZLEM: Anahtarların listesi içinde gerekenleri bulun.
+```
+Tekraredeki grupları işlemeye alın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: DOSYA_OKU(\"izleme_plani_20260623\")
+GÖZLEM: Anahtarların listesi içinde gerekenleri bulun.
+EYLEM: KOMUT_CALISTIR(\"python duplicate_module_detector.py\")
+GÖREV_BITTI(\"Duplicate modules detected.\")
+```
+Grup A'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python clean_referanslar.py\")
+GÖREV_BITTI(\"Referanslar temizlendi.\")
+```
+Grup B'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python clean_sorgular.py\")
+GÖREV_BITTI(\"Sorgular temizlendi.\")
+```
+Grup C'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_parçalama.py\")
+GÖREV_BITTI(\"Görevler tamamlandı.\")
+```
+Zamanana dayalayıp sonuçları görüntüleyin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_zamana_dayaliyor.py\")
+GÖREV_BITTI(\"Sonuçlar görüntülendi.\")
+```
+Sonucun yorumlanması veya daha fazla işlemeye alın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_raporlama.py\")
+GÖREV_BITTI(\"Raporlar oluşturuldu.\")
+```
+Tamamen tamamladığını onaylayın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_onaylama.py\")
+GÖREV_BITTI(\"Tamamen tamamlandığın onaylanması.\")
+```
+Sistemdeki otonom ajanları kontrol edin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python sistem_kontrolu.py\")
+GÖREV_BITTI(\"Sistemdeki otonom ajanları kontrol edildi.\")
+```
+Sistemdeki bakım veya yenileme işlemlerini gerçekleştirin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python sistem_bakimlari.py\")
+GÖREV_BITTI(\"Sistemdeki bakımlar gerçekleştirildi.\")
+``` "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T08:55:51Z)
+
+DOSYA_OKU: \"izleme_plani_20260623\")
+GÖZLEM: Anahtarların listesi içinde gerekenleri bulun.
+```
+Tekraredeki grupları işlemeye alın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: DOSYA_OKU(\"izleme_plani_20260623\")
+GÖZLEM: Anahtarların listesi içinde gerekenleri bulun.
+EYLEM: KOMUT_CALISTIR(\"python duplicate_module_detector.py\")
+GÖREV_BITTI(\"Duplicate modules detected.\")
+```
+Grup A'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python clean_referanslar.py\")
+GÖREV_BITTI(\"Referanslar temizlendi.\")
+```
+Grup B'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python clean_sorgular.py\")
+GÖREV_BITTI(\"Sorgular temizlendi.\")
+```
+Grup C'yi çözün, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_parçalama.py\")
+GÖREV_BITTI(\"Görevler tamamlandı.\")
+```
+Zamanana dayalayıp sonuçları görüntüleyin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_zamana_dayaliyor.py\")
+GÖREV_BITTI(\"Sonuçlar görüntülendi.\")
+```
+Sonucun yorumlanması veya daha fazla işlemeye alın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_raporlama.py\")
+GÖREV_BITTI(\"Raporlar oluşturuldu.\")
+```
+Tamamen tamamladığını onaylayın, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python gorev_onaylama.py\")
+GÖREV_BITTI(\"Tamamen tamamlandığın onaylanması.\")
+```
+Sistemdeki otonom ajanları kontrol edin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python sistem_kontrolu.py\")
+GÖREV_BITTI(\"Sistemdeki otonom ajanları kontrol edildi.\")
+```
+Sistemdeki bakım veya yenileme işlemlerini gerçekleştirin, bu nedenle şu adımları takip et:
+```makefile
+DÜŞÜN: Hedefi analiz et, bir sonraki adımı planla.
+EYLEM: KOMUT_CALISTIR(\"python sistem_bakimlari.py\")
+GÖREV_BITTI(\"Sistemdeki bakımlar gerçekleştirildi.\")
+``` "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T11:11:27Z)
+
+ARAC_ADI: \"duplicate_module_detector.py\")
+
+Bu eylemin sonucu, bu dosyayı okuyarak daha fazla bilgi edinebilirsiniz. "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T11:14:41Z)
+
+ARAC_ADI: \"duplicate_module_detector.py\")
+
+Bu eylemin sonucu, bu dosyayı okuyarak daha fazla bilgi edinebilirsiniz. "

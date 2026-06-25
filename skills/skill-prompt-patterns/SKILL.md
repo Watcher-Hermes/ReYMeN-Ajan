@@ -75,6 +75,23 @@ Patterns ranked by how consistently they work across GPT-4o, Claude 3.5 Sonnet, 
 5. **Copy-pasting prompts across models**: always test. A prompt tuned for GPT-4o may underperform on Claude and vice versa.
 6. **Ignoring system message**: putting everything in the user message instead of using the system message for persistent rules.
 7. **Over-relying on negative constraints**: "Do NOT do X, Y, Z, A, B, C" is less effective than "ONLY do W." Positive framing gives the model a clear target.
+8. **Absolute prohibitions on uncertainty**: "Never say I don't know" or "KESINLIKLE kullan" forces the model to fabricate when data is missing. Instead use conditional language: "If data is available, use it. If not, say so." This is critical when injecting external data (web search, RAG) into prompts — the model must be allowed to acknowledge gaps.
+
+## Anti-Hallucination Pattern (Critical)
+
+When injecting external data (web search results, RAG, API responses) into prompts:
+
+| ❌ Wrong (forces fabrication) | ✅ Right (conditional) |
+|:--|:--|
+| "Never say I don't know" | "If data is available, use it" |
+| "KESINLIKLE kullan" | "Eğer sonuç varsa kullan" |
+| "Asla bilmiyorum deme" | "Yetersizse 'sonuç bulunamadı' de" |
+
+**Why**: Absolute prohibitions on uncertainty make the model invent data rather than admit gaps. This is especially dangerous for financial data, prices, dates, and statistics.
+
+**Rule**: Always pair data injection with permission to acknowledge gaps. Add explicit "never fabricate" instruction.
+
+**See**: `web-tetikleyici-sistemi` skill → `references/anti-hallucination-rules.md` for full implementation pattern.
 
 ## Reliability Targets
 
