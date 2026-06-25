@@ -23,3 +23,15 @@
   - eval()/exec()/pickle.load() — none found in ReYMeN project code
 - **Verification:** 7 files syntax-checked (all OK via ast.parse), test suite: 112 passed across 5 test files (test_hook_dispatcher, test_checkpoint_manager, test_config_loader, test_config_manager, test_rate_limiter, test_batch_runner)
 - **Bandit:** Skipped — times out on Windows (30s), manual audit more reliable
+
+---
+## ⚠️ Drift Tespit Raporu — 2026-06-25 23:41:22
+
+**Kaynak:** scripts/duplicate_module_detector.py çalıştırıldı (cron)
+**Sonuç:** ❌ Drift tespit edildi — 161 duplicate module drift bulundu
+
+**Karar:** Rapor decisions.md'ye eklendi. Proje kökü ile reymen/, agent/, tools/, tests/ altındaki modüller arasında fonksiyon/farklılık drifti var. Detaylı liste için script'i doğrudan çalıştırın.
+
+**Ne yapıldı?** duplicate_module_detector.py çalıştırıldı, drift durumu tespit edildi.
+**Neden?** Cron görevi gereği periyodik drift kontrolü.
+**Alternatif?** —

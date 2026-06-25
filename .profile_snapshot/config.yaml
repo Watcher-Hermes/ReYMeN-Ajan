@@ -1,22 +1,21 @@
-## ReYMeN profil — tam standalone config (root hermes/config.yaml'a bağımlı değil)
-
-# ── Model ────────────────────────────────────────────────────────────────────
 model:
-  api_mode: chat_completions
-  base_url: https://api.deepseek.com
   default: deepseek-v4-flash
   provider: deepseek
-
-# ── Fallback zinciri (öncelik sırasıyla) ────────────────────────────────────
+  base_url: https://api.deepseek.com
+  api_mode: chat_completions
 fallback_providers:
-- api_mode: chat_completions
-  base_url: https://api.xiaomi.com/v1
-  model: mimo-v2.5
-  provider: xiaomi
-- api_mode: chat_completions
-  base_url: https://api.x.ai/v1
+- provider: deepseek
+  model: deepseek-v4-flash
+  base_url: https://api.deepseek.com
+  api_mode: chat_completions
+- provider: xiaomi
+  model: mimo-v2.5-pro
+  base_url: https://api.xiaomimimo.com/v1
+  api_mode: chat_completions
+- provider: xai
   model: grok-2-latest
-  provider: xai
+  base_url: https://api.x.ai/v1
+  api_mode: chat_completions
 - api_mode: chat_completions
   base_url: https://openrouter.ai/api/v1
   model: deepseek/deepseek-v4-flash
@@ -35,8 +34,6 @@ fallback_providers:
   base_url: http://127.0.0.1:1234/v1
   model: local-model
   provider: lmstudio
-
-# ── Görünüm ──────────────────────────────────────────────────────────────────
 display:
   compact: false
   final_response_markdown: raw
@@ -44,8 +41,6 @@ display:
   language: tr
   skin: reymen
   streaming: false
-
-# ── Ajan ─────────────────────────────────────────────────────────────────────
 agent:
   api_max_retries: 1
   api_timeout: 60
@@ -59,54 +54,36 @@ agent:
   - browser
   - browser-cdp
   - computer_use
-
-# ── Terminal ─────────────────────────────────────────────────────────────────
 terminal:
   backend: local
   cwd: C:\Users\marko\Desktop\Reymen Proje\hermes_projesi
   timeout: 180
-
-# ── Gateway ──────────────────────────────────────────────────────────────────
 gateway:
   strict: false
-
-# ── Hafıza ───────────────────────────────────────────────────────────────────
 memory:
   max_chars: 6000
   memory_enabled: true
   user_profile_enabled: true
   write_approval: false
 memory_char_limit: 50000
-
-# ── Skills ───────────────────────────────────────────────────────────────────
 skills:
   external_dirs:
   - C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\skills
   template_vars: true
   inline_shell: false
   write_approval: false
-
-# ── Sıkıştırma ───────────────────────────────────────────────────────────────
 compression:
   enabled: true
   target_ratio: 0.2
   threshold: 0.5
-
-# ── Onay ─────────────────────────────────────────────────────────────────────
 approvals:
   mode: false
-
-# ── Web ──────────────────────────────────────────────────────────────────────
 web:
   backend: firecrawl
-
-# ── Telegram ─────────────────────────────────────────────────────────────────
 telegram:
   allowed_chats: ''
   channel_prompts: {}
   reactions: false
-
-# ── MCP ──────────────────────────────────────────────────────────────────────
 mcp_servers:
   powerbi:
     args:
@@ -116,10 +93,8 @@ mcp_servers:
     command: npx
     args:
     - -y
-    - "@playwright/mcp@latest"
+    - '@playwright/mcp@latest'
     - --headless
-
-# ── Diğer ────────────────────────────────────────────────────────────────────
 credential_pool_strategies: {}
 max_concurrent_sessions: null
 providers: {}
@@ -128,3 +103,4 @@ onboarding:
     busy_input_prompt: true
     build_offered: true
     tool_progress_prompt: true
+provider: xiaomi
