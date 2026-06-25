@@ -9,9 +9,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 class TestLogging:
     def test_logger_kurulum(self):
         """Logger kurulumu ve alt logger olusturma."""
-        from ReYMeN_logging import kur, get_logger
-        log = kur()
-        assert log is not None
+        from ReYMeN_logging import setup_logging, get_logger
+        setup_logging()
         alt = get_logger("test")
         assert alt is not None
 
