@@ -278,9 +278,9 @@ def _model_sec(api_d=None):
 
     cur_m, cur_p = _mevcut_model()
 
-    # Mevcut model çalışıyorsa (True) ve listedeyse — seçimi tamamen atla
-    # Kullanıcı /model ile sonradan değiştirebilir
-    if api_d.get(cur_p) is True:
+    # Mevcut model config'de kayıtlıysa (kredi bitmiş olsa bile) seçimi atla
+    # Provider durumu (True/False) yerine config'e bak—kullanıcı seçtiyse devam et
+    if cur_m and cur_p:
         for p, m, ad, _env, _url in _MODELLER:
             if p == cur_p and m == cur_m:
                 print(f"  {_g('✓')} {_b(ad)} {_d('— aktif, /model ile değiştir')}")
