@@ -17,6 +17,9 @@ Kullanim (beyin.py icinde):
 """
 
 import re
+import logging
+log = logging.getLogger(__name__)
+
 from typing import Optional
 
 # ── Gorev kategorileri ────────────────────────────────────────────────────────
@@ -306,7 +309,7 @@ def yonlendirme_acikla(hedef: str, musait_providerlar: list[str]) -> str:
 # ── Test ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("=== akilli_yonlendirici.py Test ===\n")
+    log.info("=== akilli_yonlendirici.py Test ===\n")
 
     ornekler = [
         ("Bu dosya var mi kontrol et", ["lmstudio", "groq"]),
@@ -320,8 +323,8 @@ if __name__ == "__main__":
     for hedef, musait in ornekler:
         kategori = gorevi_siniflandir(hedef)
         prov, model = gorev_icin_model_sec(hedef, musait)
-        print(f"Hedef: {hedef[:50]}")
-        print(f"  Kategori: {kategori}  ->  {prov}/{model}")
+        log.info(f"Hedef: {hedef[:50]}")
+        log.info(f"  Kategori: {kategori}  ->  {prov}/{model}")
         print()
 
-    print("[Test] Tamamlandi.")
+    log.info("[Test] Tamamlandi.")

@@ -130,7 +130,7 @@ def hook(olay: str) -> Callable:
 
         @hook("on_session_start")
         def oturum_basladi(session_id: str, **kwargs):
-            print(f"Oturum başladı: {session_id}")
+            log.info(f"Oturum başladı: {session_id}")
     """
     def _decorator(fn: Callable) -> Callable:
         hook_kaydet(olay, fn)

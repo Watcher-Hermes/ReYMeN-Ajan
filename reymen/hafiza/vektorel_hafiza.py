@@ -11,6 +11,9 @@ Ozellikler:
 """
 
 import time
+import logging
+log = logging.getLogger(__name__)
+
 
 try:
     import chromadb

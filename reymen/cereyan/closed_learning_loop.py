@@ -890,7 +890,7 @@ if __name__ == "__main__":
             auto_index=False,
         )
 
-        print(f"\n[Test 0] Baslangic: {loop.toplam_beceri_sayisi()} beceri")
+        log.info(f"\n[Test 0] Baslangic: {loop.toplam_beceri_sayisi()} beceri")
 
         # Test 1: Yeni beceri
         yol1 = loop.beceri_kristallestir(
@@ -898,7 +898,7 @@ if __name__ == "__main__":
             "1. requests.get(url)\n2. BeautifulSoup parse\n3. Veri ayristir"
         )
         assert yol1, "Test 1 FAIL"
-        print(f"[Test 1] Yeni: {yol1} | Toplam: {loop.toplam_beceri_sayisi()}")
+        log.info(f"[Test 1] Yeni: {yol1} | Toplam: {loop.toplam_beceri_sayisi()}")
 
         # Test 2: Merge (ayni isim, farkli token)
         yol2 = loop.beceri_kristallestir(
@@ -907,32 +907,32 @@ if __name__ == "__main__":
         )
         assert yol2, "Test 2 FAIL"
         assert yol1 == yol2, f"Test 2 FAIL: merge olmadi ({yol1} != {yol2})"
-        print(f"[Test 2] Merge: OK | Toplam: {loop.toplam_beceri_sayisi()} (degismemeli)")
+        log.info(f"[Test 2] Merge: OK | Toplam: {loop.toplam_beceri_sayisi()} (degismemeli)")
 
         # Test 3: Baglam sorgusu
         baglam = loop.beceri_baglamini_al("web scraping")
         assert baglam and len(baglam) <= MAKS_BAGLAM_KARAKTER, "Test 3 FAIL"
-        print(f"[Test 3] Baglam ({len(baglam)} char): OK")
+        log.info(f"[Test 3] Baglam ({len(baglam)} char): OK")
 
         # Test 4: Karakter siniri
         for i in range(8):
             loop.beceri_kristallestir(f"beceri_{i}", "x" * 500, "\n".join(f"{j}." for j in range(50)))
         b2 = loop.beceri_baglamini_al("beceri", adet=6)
         assert len(b2) <= MAKS_BAGLAM_KARAKTER, f"Test 4 FAIL: {len(b2)} > {MAKS_BAGLAM_KARAKTER}"
-        print(f"[Test 4] Sinir: {len(b2)} char — OK")
+        log.info(f"[Test 4] Sinir: {len(b2)} char — OK")
 
         # Test 5: Yapisal cikti (LLM agent)
         sonuclar = loop.beceri_baglamini_al_yapisal("web scraping", adet=2)
         assert isinstance(sonuclar, list) and all("ad" in s for s in sonuclar), "Test 5 FAIL"
-        print(f"[Test 5] Yapisal: {sonuclar}")
+        log.info(f"[Test 5] Yapisal: {sonuclar}")
 
         # Test 6: SQL injection safety
         loop.beceri_baglamini_al("'; DROP TABLE beceriler; --")
         assert loop.toplam_beceri_sayisi() > 0, "Test 6 FAIL: injection!"
-        print(f"[Test 6] Injection safety: OK ({loop.toplam_beceri_sayisi()} beceri hala var)")
+        log.info(f"[Test 6] Injection safety: OK ({loop.toplam_beceri_sayisi()} beceri hala var)")
 
         loop.kapat()
-        print(f"\n✓ Tum testler gecti. Son: {loop.toplam_beceri_sayisi()} beceri")
+        log.info(f"\n✓ Tum testler gecti. Son: {loop.toplam_beceri_sayisi()} beceri")
 
 
 # ── Motor Kaydı ──────────────────────────────────────────────────

@@ -9,10 +9,13 @@ Katmanlar (en guvenilirden en az guvenilire):
 
 Kullanim:
     from guvenli_sandbox import guvenli_calistir
-    sonuc = guvenli_calistir("print('merhaba')", timeout=30)
+    sonuc = guvenli_calistir("log.info('merhaba')", timeout=30)
 """
 
 import os
+import logging
+log = logging.getLogger(__name__)
+
 import re
 import subprocess
 import sys
@@ -229,20 +232,20 @@ def sandbox_modu_raporu() -> str:
 # ─── Test ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("=== guvenli_sandbox.py Test ===")
-    print(f"[Mod raporu] {sandbox_modu_raporu()}\n")
+    log.info("=== guvenli_sandbox.py Test ===")
+    log.info(f"[Mod raporu] {sandbox_modu_raporu()}\n")
 
     testler = [
-        ("Basit print", "print('Merhaba ReYMeN FAZ6')"),
-        ("Matematik", "x = 2 ** 10\nprint(f'2^10 = {x}')"),
+        ("Basit print", "log.info('Merhaba ReYMeN FAZ6')"),
+        ("Matematik", "x = 2 ** 10\nlog.info(f'2^10 = {x}')"),
         ("Tehlike: os.system", "import os\nos.system('echo kotu')"),
         ("Tehlike: subprocess", "import subprocess\nsubprocess.run(['dir'])"),
-        ("Syntax hatasi", "def eksik(\nprint('bozuk')"),
+        ("Syntax hatasi", "def eksik(\nlog.info('bozuk')"),
         ("Zaman asimi", "while True: pass"),
     ]
 
     for ad, kod in testler:
-        print(f"--- Test: {ad} ---")
+        log.info(f"--- Test: {ad} ---")
         sonuc = guvenli_calistir(kod, timeout=3)
         print(sonuc)
         print()

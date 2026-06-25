@@ -1,0 +1,2 @@
+context_lengths:
+  deepseek@https://inference-api.nousresearch.com/v1: 1048576

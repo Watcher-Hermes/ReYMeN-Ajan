@@ -301,7 +301,7 @@ def run(**kwargs) -> str:
 
 
 if __name__ == "__main__":
-    print("=== BoundedMemory Test ===")
+    log.info("=== BoundedMemory Test ===")
     mem = BoundedMemory(max_boyut=3)
     print(mem.hatirla("renk", "mavi"))
     print(mem.hatirla("sayi", 42))
@@ -314,4 +314,4 @@ if __name__ == "__main__":
     print(mem.kapasite())
     print(mem.temizle())
     print(json.dumps(mem.istatistik(), ensure_ascii=False, indent=2))
-    print("=== Test Tamam ===")
+    log.info("=== Test Tamam ===")

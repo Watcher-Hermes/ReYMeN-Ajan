@@ -299,9 +299,10 @@ class TestSkillsList:
 
     def test_skills_list_bos_olabilir(self, server):
         """Skill yoksa bos liste donmeli (hata degil)."""
-        yanit = server._handle_request(
-            '{"jsonrpc":"2.0","method":"skills/list","id":1}'
-        )
+        with patch.object(server, '_list_skills_raw', return_value=[]):
+            yanit = server._handle_request(
+                '{"jsonrpc":"2.0","method":"skills/list","id":1}'
+            )
         data = json.loads(yanit)
         assert isinstance(data["result"]["skills"], list)
 

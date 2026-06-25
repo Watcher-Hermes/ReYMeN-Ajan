@@ -20,6 +20,9 @@ Aktivasyon (main.py):
 """
 
 import re
+import logging
+log = logging.getLogger(__name__)
+
 from typing import Optional
 
 # ─── Rol promptlari ──────────────────────────────────────────────────────────
@@ -98,7 +101,7 @@ class MimarAjan:
         self._provider = provider
 
     def analiz_et(self, hedef: str) -> str:
-        print("[Mimar] 3 strateji analiz ediliyor...")
+        log.info(f"3 strateji analiz ediliyor...")
         yanit = _rol_cagrisi(self._provider, _MIMAR_SISTEM, hedef)
         return yanit
 
@@ -119,7 +122,7 @@ class GelistiriciAjan:
         self._provider = provider
 
     def plan_olustur(self, hedef: str, strateji: str) -> str:
-        print("[Gelistirici] Eylem plani olusturuluyor...")
+        log.debug("Eylem plani olusturuluyor...")
         kullanici_msg = (
             f"Problem: {hedef}\n\n"
             f"Secilen Strateji:\n{strateji}\n\n"
@@ -144,25 +147,25 @@ class DenetciAjan:
         """
         mevcut_plan = plan
         for tur in range(1, self._maks_tur + 1):
-            print(f"[Denetci] Tur {tur}/{self._maks_tur} — plan inceleniyor...")
+            log.debug(f"Tur {tur}/{self._maks_tur} — plan inceleniyor...")
             kullanici_msg = (
                 f"Problem: {hedef}\n\nEylem Plani:\n{mevcut_plan}"
             )
             yanit = _rol_cagrisi(self._provider, _DENETCI_SISTEM, kullanici_msg)
 
             if yanit.strip().startswith("ONAY"):
-                print("[Denetci] Plan onaylandi.")
+                log.info(f"Plan onaylandi.")
                 return mevcut_plan, True
 
             # RED: duzelttir
-            print(f"[Denetci] Plan reddedildi (tur {tur}), duzelttiriliyor...")
+            log.warning(f"Plan reddedildi (tur {tur}), duzelttiriliyor...")
             duzeltme_m = re.search(r"DUZELTME:(.*?)$", yanit, re.DOTALL)
             duzeltme_ipucu = duzeltme_m.group(1).strip() if duzeltme_m else yanit
 
             yeni_strateji = f"{strateji}\n\n[Denetci Duzeltme Onerileri]:\n{duzeltme_ipucu[:400]}"
             mevcut_plan = gelistirici.plan_olustur(hedef, yeni_strateji)
 
-        print("[Denetci] Maks tur asildi, son plan kabul ediliyor.")
+        log.warning("Maks tur asildi, son plan kabul ediliyor.")
         return mevcut_plan, False
 
 
@@ -201,7 +204,7 @@ class AjanSurusu:
         son_plan, onaylandi = denetci.denetle(hedef, ilk_plan, gelistirici, en_iyi)
 
         # 4. Orkestrator: sentez
-        print("[Orkestrator] Sentez hazirlaniyor...")
+        log.info(f"Sentez hazirlaniyor...")
         onay_durumu = "ONAYLANDI" if onaylandi else "KISMI ONAY"
         orkestrator_msg = (
             f"Problem: {hedef}\n\n"
@@ -223,7 +226,7 @@ class AjanSurusu:
 # ── Test ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("=== ajan_suru.py Test ===\n")
+    log.info("=== ajan_suru.py Test ===\n")
 
     CAGRI_SAYACI = [0]
 
@@ -272,7 +275,7 @@ if __name__ == "__main__":
     hedef = "Buyuk bir CSV dosyasini okuyup isaretli satirlari ayri dosyaya kaydet"
     sonuc = suru.calistir(hedef, mevcut_araclar="DOSYA_OKU, PYTHON_CALISTIR, DOSYA_YAZ")
 
-    print("\n--- Suru Sonucu ---")
+    log.info("\n--- Suru Sonucu ---")
     print(sonuc)
-    print(f"\n[Test] Toplam LLM cagrisi: {CAGRI_SAYACI[0]} (beklenen: 3-5)")
-    print("[Test] Tamamlandi.")
+    log.info(f"\n[Test] Toplam LLM cagrisi: {CAGRI_SAYACI[0]} (beklenen: 3-5)")
+    log.info("[Test] Tamamlandi.")

@@ -24,6 +24,9 @@ Kullanim::
 """
 
 import json
+import logging
+log = logging.getLogger(__name__)
+
 import os
 import re
 import time
@@ -78,7 +81,7 @@ class AdaptifOgrenme:
                 encoding="utf-8",
             )
         except Exception as e:
-            print(f"[Adaptif]: Tercih kaydetme hatası: {e}")
+            log.info(f": Tercih kaydetme hatası: {e}")
 
     def tercih_ekle(self, metin: str, kaynak: str = "kullanici") -> bool:
         """Yeni tercih ekle. Aynı metin zaten varsa eklemez.
@@ -101,7 +104,7 @@ class AdaptifOgrenme:
         if len(self._tercihler) > MAKS_TERCIH:
             self._tercihler = self._tercihler[-MAKS_TERCIH:]
         self._kaydet()
-        print(f"[Adaptif]: Tercih kaydedildi -> {metin[:60]}")
+        log.info(f": Tercih kaydedildi -> {metin[:60]}")
         return True
 
     def kullanici_mesaji_isle(self, mesaj: str) -> bool:
@@ -132,7 +135,7 @@ class AdaptifOgrenme:
         if 0 <= indeks < len(self._tercihler):
             silinen = self._tercihler.pop(indeks)
             self._kaydet()
-            print(f"[Adaptif]: Tercih silindi: {silinen['metin'][:50]}")
+            log.info(f": Tercih silindi: {silinen['metin'][:50]}")
             return True
         return False
 
@@ -167,7 +170,7 @@ class AdaptifOgrenme:
             sonuc = motor.calistir("PYTHON_CALISTIR", f'"{mevcut_kod}"')
             if "[Hata]" not in sonuc and "Error" not in sonuc and "Traceback" not in sonuc:
                 if deneme > 0:
-                    print(f"[Self-correction]: {deneme}. denemede düzeldi.")
+                    log.info(f": {deneme}. denemede düzeldi.")
                 return sonuc
 
             son_hata = sonuc
@@ -192,9 +195,9 @@ class AdaptifOgrenme:
                     mevcut_kod = m.group(1).strip()
                 else:
                     mevcut_kod = yanit.strip()
-                print(f"[Self-correction]: Deneme {deneme + 1}, kod düzeltildi.")
+                log.info(f": Deneme {deneme + 1}, kod düzeltildi.")
             except Exception as e:
-                print(f"[Self-correction]: LLM hatası: {e}")
+                log.info(f": LLM hatası: {e}")
                 break
 
         return f"[Self-correction]: {max_deneme} denemede düzeltilemedi.\nSon hata: {son_hata[:300]}"
@@ -218,10 +221,10 @@ if __name__ == "__main__":
         "dosya oluştur",
         "hatırla: API key'i asla yazdırma",
     ]
-    print("=== Düzeltme Tespiti ===")
+    log.info("=== Düzeltme Tespiti ===")
     for t in testler:
         tespit = ao.kullanici_mesaji_isle(t)
-        print(f"{'[KAYDEDILDI]' if tespit else '[normal]  '} {t}")
+        log.info(f"{'[KAYDEDILDI]' if tespit else '[normal]  '} {t}")
 
-    print(f"\nToplam tercih: {ao.tercih_sayisi()}")
+    log.info(f"\nToplam tercih: {ao.tercih_sayisi()}")
     print(ao.tercih_blogu_al())

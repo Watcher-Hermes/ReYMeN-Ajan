@@ -9,6 +9,9 @@ Kullanım:
 """
 
 from __future__ import annotations
+import logging
+log = logging.getLogger(__name__)
+
 import os
 import re
 import sqlite3
@@ -102,7 +105,7 @@ class SessionSearchFTS5:
             return results
 
         except Exception as e:
-            print(f"[SessionSearch] Hata: {e}")
+            log.info(f"[SessionSearch] Hata: {e}")
             return []
 
     def _search_like(self, query: str, limit: int) -> List[SearchResult]:
@@ -146,7 +149,7 @@ class SessionSearchFTS5:
             return results
 
         except Exception as e:
-            print(f"[SessionSearch] Hata: {e}")
+            log.info(f"[SessionSearch] Hata: {e}")
             return []
 
     def _browse_recent(self, limit: int) -> List[SearchResult]:
@@ -178,7 +181,7 @@ class SessionSearchFTS5:
             return results
 
         except Exception as e:
-            print(f"[SessionSearch] Hata: {e}")
+            log.info(f"[SessionSearch] Hata: {e}")
             return []
 
     def _read_session(self, session_id: str) -> List[SearchResult]:
@@ -224,7 +227,7 @@ class SessionSearchFTS5:
             )]
 
         except Exception as e:
-            print(f"[SessionSearch] Hata: {e}")
+            log.info(f"[SessionSearch] Hata: {e}")
             return []
 
 

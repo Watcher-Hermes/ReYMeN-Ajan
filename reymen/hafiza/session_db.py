@@ -169,7 +169,7 @@ class AdvancedSessionStorage:
                         )
                     """)
                 except Exception as _session__e170:
-                    print(f"[UYARI] session_db.py:171 - {_session__e170}")
+                    log.info(f"[UYARI] session_db.py:171 - {_session__e170}")
 
                 conn.commit()
                 log.info("session_db sema kuruldu: %s", self.db_yolu)
@@ -262,7 +262,7 @@ class AdvancedSessionStorage:
                         (rowid, session_id, rol, icerik),
                     )
                 except Exception as _session__e263:
-                    print(f"[UYARI] session_db.py:264 - {_session__e263}")
+                    log.info(f"[UYARI] session_db.py:264 - {_session__e263}")
                 # Trigram FTS
                 try:
                     conn.execute(
@@ -270,7 +270,7 @@ class AdvancedSessionStorage:
                         (icerik,),
                     )
                 except Exception as _session__e271:
-                    print(f"[UYARI] session_db.py:272 - {_session__e271}")
+                    log.info(f"[UYARI] session_db.py:272 - {_session__e271}")
                 conn.commit()
                 log.debug("mesaj_ekle: session=%s rol=%s", session_id, rol)
             except Exception as e:
@@ -422,7 +422,7 @@ class AdvancedSessionStorage:
                     ).fetchall()
                     fts_ids = {r[0] for r in rows_fts}
                 except Exception as _session__e423:
-                    print(f"[UYARI] session_db.py:424 - {_session__e423}")
+                    log.info(f"[UYARI] session_db.py:424 - {_session__e423}")
 
                 if fts_ids:
                     placeholders = ",".join("?" * len(fts_ids))
@@ -818,7 +818,7 @@ class AdvancedSessionStorage:
                             ids,
                         )
                     except Exception as _session__e819:
-                        print(f"[UYARI] session_db.py:820 - {_session__e819}")
+                        log.info(f"[UYARI] session_db.py:820 - {_session__e819}")
                     try:
                         conn.execute(
                             "DELETE FROM session_messages_trigram WHERE rowid IN "
@@ -827,7 +827,7 @@ class AdvancedSessionStorage:
                             ids,
                         )
                     except Exception as _session__e828:
-                        print(f"[UYARI] session_db.py:829 - {_session__e828}")
+                        log.info(f"[UYARI] session_db.py:829 - {_session__e828}")
 
                     # Session'lari sil
                     conn.execute(
@@ -866,7 +866,7 @@ class AdvancedSessionStorage:
                         (hedef, eylem, sonuc),
                     )
                 except Exception as _session__e867:
-                    print(f"[UYARI] session_db.py:868 - {_session__e867}")
+                    log.info(f"[UYARI] session_db.py:868 - {_session__e867}")
                 conn.commit()
                 log.debug("gunluge_yaz: eylem=%s", eylem)
             except Exception as e:
@@ -948,7 +948,7 @@ SessionDB = AdvancedSessionStorage
 if __name__ == "__main__":
     import tempfile
 
-    print("=== AdvancedSessionStorage Test ===")
+    log.info("=== AdvancedSessionStorage Test ===")
 
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
         yol = f.name
@@ -963,23 +963,23 @@ if __name__ == "__main__":
         title=None,
     )
     assert sid, "session_id bos olmamali"
-    print(f"session_baslat OK: {sid}")
+    log.info(f"session_baslat OK: {sid}")
 
     s.mesaj_ekle(sid, "user", "Merhaba")
     s.mesaj_ekle(sid, "assistant", "Nasıl yardımcı olabilirim?")
-    print("mesaj_ekle OK")
+    log.info("mesaj_ekle OK")
 
     s.tool_call_kaydet(sid, "dosya_yaz", {"path": "test.txt"}, "OK", 120)
-    print("tool_call_kaydet OK")
+    log.info("tool_call_kaydet OK")
 
     s.token_guncelle(sid, input_tokens=450, output_tokens=120)
-    print("token_guncelle OK")
+    log.info("token_guncelle OK")
 
     s.maliyet_guncelle(sid, estimated_cost=0.00034, cost_status="estimated")
-    print("maliyet_guncelle OK")
+    log.info("maliyet_guncelle OK")
 
     s.session_bitir(sid, end_reason="completed")
-    print("session_bitir OK")
+    log.info("session_bitir OK")
 
     # Sorgulama
     row = s.session_bul(sid)
@@ -988,19 +988,19 @@ if __name__ == "__main__":
     assert row["tool_call_count"] == 1
     assert row["input_tokens"] == 450
     assert row["end_reason"] == "completed"
-    print(f"session_bul OK: msg={row['message_count']}, token={row['input_tokens']}")
+    log.info(f"session_bul OK: msg={row['message_count']}, token={row['input_tokens']}")
 
     stats = s.istatistik()
     assert stats["toplam_session"] >= 1
-    print(f"istatistik OK: toplam={stats['toplam_session']}")
+    log.info(f"istatistik OK: toplam={stats['toplam_session']}")
 
     son = s.son_sessionlar(limit=5)
     assert len(son) >= 1
-    print(f"son_sessionlar OK: {len(son)} session")
+    log.info(f"son_sessionlar OK: {len(son)} session")
 
     # Geriye uyumluluk
     s.gunluge_yaz("test hedefi", "DOSYA_YAZ", "TAMAMLANDI")
     sonuc = s.ara("test")
-    print(f"FTS5 ara OK: {len(sonuc)} sonuc")
+    log.info(f"FTS5 ara OK: {len(sonuc)} sonuc")
 
-    print("\nTum testler gecti!")
+    log.info("\nTum testler gecti!")

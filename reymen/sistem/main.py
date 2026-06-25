@@ -50,6 +50,13 @@ try:
     _LOGURU_KALDIRILDI = True
 except Exception:
     pass
+
+# ── Merkezi logging (tüm main.py blokları tarafından kullanılır) ──────────────
+try:
+    from reymen.sistem.reymen_logging import get_logger
+    log = get_logger("main")
+except ImportError:
+    log = logging.getLogger("main") if hasattr(logging, 'getLogger') else _startup_log.getLogger("main")
 # ─────────────────────────────────────────────────────────────────────────────
 
 # --- CORE (Lazy Import) ---
@@ -597,7 +604,7 @@ class AIAgentOrchestrator:
             yuklu = yukleyici.hepsini_yukle()
             if yuklu:
                 yukleyici.motora_kaydet(self.motor)
-                print(f"[Plugin] {len(yuklu)} arac eklentisi yuklendi: {yuklu}")
+                log.info(f"[Plugin] {len(yuklu)} arac eklentisi yuklendi: {yuklu}")
             self._plugin_yukleyici = yukleyici
         except Exception:
             pass
@@ -618,7 +625,7 @@ class AIAgentOrchestrator:
                 )
                 if aktif:
                     self.aktif_hafiza_plugin = aktif
-                    print(f"[HafızaPlugin] Aktif saglayici: {aktif.ad}")
+                    log.info(f"[HafızaPlugin] Aktif saglayici: {aktif.ad}")
                     # Aktif saglayicinin araclarini motor._plugin_arac_kaydet ile kaydet
                     for sema in aktif.arac_sema_al():
                         arac_adi = sema.get("ad", "")
@@ -644,7 +651,7 @@ class AIAgentOrchestrator:
                             sema.get("aciklama", ""),
                         )
         except Exception as e:
-            print(f"[HafızaPlugin] Yuklenemedi: {e}")
+            log.info(f"[HafızaPlugin] Yuklenemedi: {e}")
 
         # HITL sıkılaştırma + motor yaması
         if _GUARDRAILS_VAR and HITLSikistirici and motor_hitl_yamas_uygula:
@@ -688,7 +695,7 @@ class AIAgentOrchestrator:
                 _m = getattr(self.provider, "model", None) or self.config.get("default_model", "deepseek-v4-flash")
                 yanit = self.provider.uret("Kisa ve oz cevap ver. Turkce konus.", [{"role": "user", "content": hedef}])
                 if yanit and yanit.strip():
-                    print(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
+                    log.info(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
                     print(yanit.strip())
                     return {"output": yanit.strip(), "exit_code": 0}
             except Exception:
@@ -703,7 +710,7 @@ class AIAgentOrchestrator:
         if _hafiza_kayit:
             cozum = _hafiza_kayit["cozum"]
             kaynak = _hafiza_kayit.get("kaynak", "hafiza")
-            print(f"[OnceHafiza] ✅ Hafizada bulundu: {hedef[:50]} (kaynak: {kaynak})")
+            log.info(f"[OnceHafiza] ✅ Hafizada bulundu: {hedef[:50]} (kaynak: {kaynak})")
             return {
                 "output": cozum,
                 "exit_code": 0,
@@ -731,17 +738,17 @@ class AIAgentOrchestrator:
         # ReYMeN-style ayirici — her zaman goster
         _B, _R, _D = "\033[1m", "\033[0m", "\033[2m"
         _G = "\033[92m"
-        _SEP = _D + "─" * 68 + _R
+        _SEP = "─" * 50
         _real_stdout = sys.stdout
         _real_stdout.write(f"\n{_SEP}\n")
 
         if _verbose:
-            _real_stdout.write(f"{_B}▶ {hedef}{_R}  {_D}[k:{_karmasiklik}/5]{_R}\n")
+            _real_stdout.write(f"▶ {hedef[:80]}\n")
 
         # Basit sohbet: ic mesajlari gizle — sadece yanit goster
         import io as _io_rc
         if _verbose:
-            print(f"[Budget] Karmasiklik: {_karmasiklik}/5, Max tur: {max_tur}")
+            log.debug(f"[Budget] Karmasiklik: {_karmasiklik}/5, Max tur: {max_tur}")
         else:
             sys.stdout = _io_rc.StringIO()
 
@@ -751,7 +758,7 @@ class AIAgentOrchestrator:
         # RAG: gecmis tecrube ara
         gecmis = anlamsal_hafiza_ara(self.hafiza, hedef)
         if gecmis and "bulunamadi" not in gecmis:
-            print("[Hafiza] Ilgili gecmis tecrube bulundu.")
+            log.debug("Ilgili gecmis tecrube bulundu.")
             self.bounded_memory.kaydet(f"[Gecmis]: {gecmis}", "MEMORY.md")
 
         # Hafıza Plugin: onceden_getir — API çağrısı öncesi bağlam zenginleştirme
@@ -760,7 +767,7 @@ class AIAgentOrchestrator:
             try:
                 _hafiza_plugin_baglam = self.aktif_hafiza_plugin.onceden_getir(hedef)
                 if _hafiza_plugin_baglam:
-                    print(f"[HafızaPlugin/{self.aktif_hafiza_plugin.ad}] Önceki bağlam yüklendi.")
+                    log.debug(f"[HafızaPlugin/{self.aktif_hafiza_plugin.ad}] Önceki bağlam yüklendi.")
             except Exception:
                 pass
 
@@ -769,7 +776,7 @@ class AIAgentOrchestrator:
             kb_sablon = self.beceri_kb.benzer_bul(hedef)
             if kb_sablon:
                 kb_rehber = self.beceri_kb.rehber_metni(kb_sablon)
-                print(f"[BeceriKB] Rehber bulundu: {kb_sablon.get('ad', '?')}")
+                log.debug(f"[BeceriKB] Rehber bulundu: {kb_sablon.get('ad', '?')}")
             else:
                 kb_rehber = ""
         else:
@@ -778,23 +785,23 @@ class AIAgentOrchestrator:
         # FAZ 6 — Swarm: karmasiklik >= 4 ise coklu ajan devreye gir
         suru_kullan = analiz.get("karmasiklik", 1) >= 4 and self.ajan_suru
         if suru_kullan:
-            print("[AjanSuru] Karmasiklik >= 4 — swarm aktive ediliyor...")
+            log.debug("[AjanSuru] Karmasiklik >= 4 — swarm aktive ediliyor...")
             try:
                 suru_sonuc = self.ajan_suru.calistir(hedef)
-                print(f"[AjanSuru]\n{suru_sonuc[:600]}")
+                log.debug(f"[AjanSuru]\n{suru_sonuc[:600]}")
                 self.bounded_memory.kaydet(f"[Suru Analizi]: {suru_sonuc[:500]}", "MEMORY.md")
             except Exception as _suru_hata:
-                print(f"[AjanSuru] Hata: {_suru_hata}")
+                log.warning(f"[AjanSuru] Hata: {_suru_hata}")
 
         # Planlama — karmasiklik >= 3 ise Tree-of-Thought
         self.planlayici.sifirla()
         tot_kullan = analiz.get("karmasiklik", 1) >= 3
         plan = self.planlayici.plani_uret(hedef, tot=tot_kullan)
         if len(plan) > 1:
-            print(f"[Plan] {len(plan)} adim:")
+            log.debug(f"[Plan] {len(plan)} adim:")
             for i, adim in enumerate(plan, 1):
                 risk = " [RISK]" if self.planlayici.riskli_mi(adim) else ""
-                print(f"  {i}. {adim}{risk}")
+                log.info(f"  {i}. {adim}{risk}")
             plan_metni = "\n".join(f"{i}. {a}" for i, a in enumerate(plan, 1))
             hedef_ile_plan = f"{hedef}\n\nPLAN:\n{plan_metni}"
         else:
@@ -868,17 +875,17 @@ class AIAgentOrchestrator:
             if self.budget:
                 self.budget.tur_basla()
                 if not self.budget.devam_etmeli_mi():
-                    print(f"\n[Budget] {self.budget.durum_raporu()} — durduruldu.")
+                    log.info(f"\n[Budget] {self.budget.durum_raporu()} — durduruldu.")
                     break
 
-            print(f"\n--- TUR {tur}/{max_tur} ---")
+            log.info(f"\n--- TUR {tur}/{max_tur} ---")
 
             # Ajan seviyesi sikistirma: tur % 4 (50% esigi, normal yonetim)
             if self.conv_compressor and tur > 1 and tur % 4 == 0:
                 onceki_len = len(mesajlar)
                 mesajlar = self.conv_compressor.sikistir(mesajlar)
                 if len(mesajlar) < onceki_len:
-                    print(f"[SlidingWindow] {onceki_len} -> {len(mesajlar)} mesaj "
+                    log.info(f"[SlidingWindow] {onceki_len} -> {len(mesajlar)} mesaj "
                           f"(#{self.conv_compressor.sikistirma_sayisi()} sikistirma)")
 
             # Gateway guvenlik agi: %85 esigi — ajan sikistirmayi kaciran uzun sessionlar icin
@@ -889,11 +896,11 @@ class AIAgentOrchestrator:
                     onceki_len = len(mesajlar)
                     mesajlar = self.conv_compressor.sikistir(mesajlar)
                     if len(mesajlar) < onceki_len:
-                        print(f"[GatewaySikistirma] %85 esigi — {onceki_len} -> {len(mesajlar)} mesaj")
+                        log.info(f"[GatewaySikistirma] %85 esigi — {onceki_len} -> {len(mesajlar)} mesaj")
 
             ic_gozlem_modu = (IC_GOZLEM_ARALIK > 0 and tur > 1 and tur % IC_GOZLEM_ARALIK == 0)
             if ic_gozlem_modu:
-                print("[Oz-Yansima] Ilerleme degerlendiriliyor...")
+                log.info("[Oz-Yansima] Ilerleme degerlendiriliyor...")
 
             sistem_prompt = self._sistem_promptu_insa_et(
                 hedef, analiz, son_gozlem, tur, max_tur, ic_gozlem_modu, gecmis
@@ -946,7 +953,7 @@ class AIAgentOrchestrator:
             if _sem_cache and tur > 1:
                 cevap = _sem_cache.ara(_efektif_sistem, mesajlar)
                 if cevap:
-                    print("[SemanticCache] Önbellekten yanıt.")
+                    log.info("[SemanticCache] Önbellekten yanıt.")
 
             # 2. FC MODU: uret_v2() ile native tool_calls dene
             _fc_araclari_calistirildi = False
@@ -1013,7 +1020,7 @@ class AIAgentOrchestrator:
                                         adim_gecmisi.append(f"FC/{_fn}: {_sonuc[:80]}")
                                         son_gozlem = _sonuc
                                         _sonuclar.append(_sonuc)
-                                        print(f"[FC] {_fn} → {_sonuc[:120]}")
+                                        log.info(f"[FC] {_fn} → {_sonuc[:120]}")
 
                                 # Budget: tek çağrı başına bir tur (paralel araçlar = 1 tur)
                                 if self.budget:
@@ -1053,7 +1060,7 @@ class AIAgentOrchestrator:
                                 cevap = ""  # boş yanıt → metin moduna
 
                     except Exception as _fc_err:
-                        print(f"[FC] Hata ({type(_fc_err).__name__}): {_fc_err} → metin moduna geçildi.")
+                        log.info(f"[FC] Hata ({type(_fc_err).__name__}): {_fc_err} → metin moduna geçildi.")
                         self._fc_mod = False
 
             # FC araçları paralel çalıştırıldı → yeni tura geç (assistant+tool eklendi)
@@ -1084,7 +1091,7 @@ class AIAgentOrchestrator:
                         or "internet/disk" in u.lower()
                     )
                     if _kritik >= 1:
-                        print("[Guardrail] Kritik hallusinasyon — LLM'e geri bildiriliyor.")
+                        log.info("[Guardrail] Kritik hallusinasyon — LLM'e geri bildiriliyor.")
                         mesajlar.append({"role": "user", "content": (
                             f"Önceki yanıtında şu sorunlar tespit edildi:\n{_uyari_metni}\n\n"
                             "Lütfen yalnızca doğrulayabildiğin bilgileri kullan ve "
@@ -1097,7 +1104,7 @@ class AIAgentOrchestrator:
             # 5. Düşünce/Eylem logu ve mesajlara ekle
             _karmasiklik_now = analiz.get("karmasiklik", 1) if isinstance(analiz, dict) else 1
             if _karmasiklik_now >= 2:
-                print(f"[Dusunce/Eylem]\n{cevap}")
+                log.info(f"[Dusunce/Eylem]\n{cevap}")
             mesajlar.append({"role": "assistant", "content": cevap})
 
             # 6. Eylem ayrıştırma (metin modu: ARAC_ADI(...) pattern'i)
@@ -1106,19 +1113,19 @@ class AIAgentOrchestrator:
             if arac == "IC_GOZLEM":
                 m = re.findall(r'"((?:[^"\\]|\\.)*)"', ham)
                 analiz_m = m[0] if m else ham
-                print(f"[IC GOZLEM]: {analiz_m}")
+                log.info(f"[IC GOZLEM]: {analiz_m}")
                 mesajlar.append({"role": "user", "content": f"Gozlem: [Oz-Yansima]: {analiz_m}"})
                 son_gozlem = f"[Oz-Yansima]: {analiz_m}"
                 adim_gecmisi.append(f"IC_GOZLEM: {analiz_m[:80]}")
                 continue
 
             if not arac:
-                print("[Uyari] Eylem ayristirilamadi.")
+                log.info("[Uyari] Eylem ayristirilamadi.")
                 break
 
             # Tekrar korumasi
             if tur >= 2 and arac == onceki_eylem and ham == onceki_param:
-                print(f"[TEKRAR KORUMASI] {arac} tekrarlandi — bitiriliyor.")
+                log.info(f"[TEKRAR KORUMASI] {arac} tekrarlandi — bitiriliyor.")
                 self._ogren(hedef, adim_gecmisi, f"{arac}: {ham}")
                 return f"{arac}: {ham}"
             onceki_eylem = arac
@@ -1182,7 +1189,7 @@ class AIAgentOrchestrator:
                 )
             else:
                 gozlem = self.motor.calistir(arac, ham)
-            print(f"[Gozlem]\n{gozlem}")
+            log.info(f"[Gozlem]\n{gozlem}")
             son_gozlem = gozlem
             adim_gecmisi.append(f"{arac}: {ham}")
 
@@ -1196,7 +1203,7 @@ class AIAgentOrchestrator:
                 basarili = "[Hata]" not in gozlem and "Hatasi]" not in gozlem
                 hata_tipi = self._hata_tipi_bul(gozlem, basarili)
                 if not self.budget.tur_bitir(basarili=basarili, hata_tipi=hata_tipi):
-                    print(f"\n[Budget] {self.budget.durum_raporu()} — devam edilmiyor.")
+                    log.info(f"\n[Budget] {self.budget.durum_raporu()} — devam edilmiyor.")
                     self._ogren(hedef, adim_gecmisi, "Basarisiz: budget siniri")
                     return None
 
@@ -1213,7 +1220,7 @@ class AIAgentOrchestrator:
             # Circuit breaker
             if "[Hata]" in gozlem or "Hatasi]" in gozlem:
                 ardisik_hata += 1
-                print(f"[Hata Sayaci] {ardisik_hata}/3")
+                log.info(f"[Hata Sayaci] {ardisik_hata}/3")
 
                 # Stratejik ajan gecisi: hata tipine gore persona degistir
                 try:
@@ -1223,7 +1230,7 @@ class AIAgentOrchestrator:
                         aktif_ajan_id = yeni_ajan
                         ajan_degisti = True
                         _persona_talimati = ajan_talimatini_getir(aktif_ajan_id)
-                        print(f"[Ajan Gecisi] -> {aktif_ajan_id}")
+                        log.info(f"[Ajan Gecisi] -> {aktif_ajan_id}")
                         mesajlar.append({
                             "role": "user",
                             "content": f"[SISTEM]: Ajan degisti. Yeni rol:\n{_persona_talimati}\n\nBu yeni rolle cozume devam et."
@@ -1231,7 +1238,7 @@ class AIAgentOrchestrator:
                         ardisik_hata = 1  # Yeni ajanla sifirdan basla
                         continue
                 except Exception as _aj_hata:
-                    print(f"[AjanSecici] Hata: {_aj_hata}")
+                    log.info(f"[AjanSecici] Hata: {_aj_hata}")
 
                 if ardisik_hata >= 3:
                     # Reflexion: hata pattern'ini kaydet, ders olustur
@@ -1239,7 +1246,7 @@ class AIAgentOrchestrator:
                         try:
                             self.reflexion.yansima_kaydet(hedef, adim_gecmisi, gozlem)
                         except Exception as _rf_hata:
-                            print(f"[Reflexion] Hata: {_rf_hata}")
+                            log.info(f"[Reflexion] Hata: {_rf_hata}")
 
                     if yeniden_planlamalar < 2:
                         yeni_plan = self.planlayici.yeniden_planla(
@@ -1252,7 +1259,7 @@ class AIAgentOrchestrator:
                             yeniden_planlamalar += 1
                             ardisik_hata = 0
                             continue
-                    print("[Circuit Breaker] Durduruluyor.")
+                    log.info("[Circuit Breaker] Durduruluyor.")
                     self._ogren(hedef, adim_gecmisi, "Basarisiz: tekrarli hata")
                     return None
             else:
@@ -1278,7 +1285,7 @@ class AIAgentOrchestrator:
         # Post-processing loglarini gizle
         sys.stdout = _io_rc.StringIO()
         try:
-            print("\n[MAKSIMUM TUR ASILDI]")
+            log.info("\n[MAKSIMUM TUR ASILDI]")
             try:
                 from cokus_raporlayici import cokus_raporu_uret
                 _hata_gecmisi = [f"{a}" for a in adim_gecmisi[-10:]]
@@ -1306,7 +1313,7 @@ class AIAgentOrchestrator:
             from message_sanitization import giris_temizle
             hedef_temiz, san_rapor = giris_temizle(hedef, maks_uzunluk=8000)
             if san_rapor.get("bulgular"):
-                print(f"[Guvenlik] Injection engellendi: {san_rapor['bulgular']}")
+                log.info(f"[Guvenlik] Injection engellendi: {san_rapor['bulgular']}")
                 try:
                     from persistence import guvenlik_kalicilik
                     guvenlik_kalicilik().tehdit_kaydet(
@@ -1323,18 +1330,18 @@ class AIAgentOrchestrator:
         if self.guvenlik:
             guvenli, neden = self.guvenlik.prompt_guvenli_mi(hedef)
             if not guvenli:
-                print(f"[TirithSecurity] Tehdit: {neden}")
+                log.info(f"[TirithSecurity] Tehdit: {neden}")
         else:
             try:
                 from threat_patterns import prompt_guvenli_mi
                 if not prompt_guvenli_mi(hedef):
-                    print("[Guvenlik] Tehdit kalıbi tespit edildi.")
+                    log.info("[Guvenlik] Tehdit kalıbi tespit edildi.")
             except ImportError:
                 pass
 
         if self.mem_guvenlik:
             if self.mem_guvenlik.injection_var_mi(hedef):
-                print("[MemSecurity] Injection kalıbi tespit edildi.")
+                log.info("[MemSecurity] Injection kalıbi tespit edildi.")
             hedef = self.mem_guvenlik.redact(hedef)
 
         if self.referanslar:
@@ -1444,9 +1451,9 @@ class AIAgentOrchestrator:
             tecrube_kaydet(self.hafiza, kayit_id, f"{hedef} -> {ozet}", {"hedef": hedef})
             if adim_gecmisi:
                 self.learning.beceri_kristallestir(hedef[:40], ozet, "\n".join(adim_gecmisi))
-            print("[Ogrenme] Tecrube ve beceri kaydedildi.")
+            log.info("[Ogrenme] Tecrube ve beceri kaydedildi.")
         except Exception as e:
-            print(f"[Ogrenme Hatasi] {e}")
+            log.info(f"[Ogrenme Hatasi] {e}")
 
         # FAZ 6 — Beceri kutuphanesi JSON kaydı
         if self.beceri_kb and adim_gecmisi:
@@ -1460,14 +1467,14 @@ class AIAgentOrchestrator:
                 )
                 self.beceri_kb.basari_guncelle(hedef[:50], basarili=basarili)
             except Exception as _kb_hata:
-                print(f"[BeceriKB] Kayit hatasi: {_kb_hata}")
+                log.info(f"[BeceriKB] Kayit hatasi: {_kb_hata}")
 
         try:
             from self_improvement import OzGelistirmeMotoru
             ogm = OzGelistirmeMotoru(provider=self.provider)
             analiz = ogm.hata_analizi_yap()
             if analiz.get("hata_sayisi", 0) > 5:
-                print(f"[OzGelistirme] {analiz['hata_sayisi']} hata bulundu.")
+                log.info(f"[OzGelistirme] {analiz['hata_sayisi']} hata bulundu.")
         except Exception:
             pass
 
@@ -1550,7 +1557,7 @@ if __name__ == "__main__":
         _hafiza_bilgi = ""
         if agent and agent.aktif_hafiza_plugin:
             _hafiza_bilgi = f"  Hafıza: {agent.aktif_hafiza_plugin.ad}"
-        print(f"Komutlar: /model  /guncelle  /yansima  /hafiza  /cikis{_hafiza_bilgi}\n")
+        log.info(f"Komutlar: /model  /guncelle  /yansima  /hafiza  /cikis{_hafiza_bilgi}\n")
 
     # 5b. Startup bitti — logging'i ac ama gürültülü logger'lari WARNING'de tut
     _startup_log.disable(_startup_log.NOTSET)
@@ -1590,7 +1597,7 @@ if __name__ == "__main__":
                 _gateway_thread = _th.Thread(target=_gateway_baslat, daemon=True)
                 _gateway_thread.start()
                 _bot_adi = os.environ.get("TELEGRAM_BOT_ADI", "ReYMeN_ReYMeNbot")
-                print(f"  \033[92m[Telegram]\033[0m @{_bot_adi} baslatildi \033[2m(arka plan)\033[0m")
+                log.info(f"  \033[92m[Telegram]\033[0m @{_bot_adi} baslatildi \033[2m(arka plan)\033[0m")
     except Exception:
         pass
 
@@ -1621,7 +1628,7 @@ if __name__ == "__main__":
         try:
             hedef = input("ReYMeN > ").strip()
         except (EOFError, KeyboardInterrupt):
-            print("\n[ReYMeN] Görüşürüz.")
+            log.info("\n[ReYMeN] Görüşürüz.")
             break
 
         if not hedef:
@@ -1632,14 +1639,14 @@ if __name__ == "__main__":
             agent.adaptif_ogrenme.kullanici_mesaji_isle(hedef)
 
         if hedef.lower() in ("/cikis", "/q", "exit", "quit"):
-            print("[ReYMeN] Görüşürüz.")
+            log.info("[ReYMeN] Görüşürüz.")
             break
 
         if hedef.lower().startswith("/model"):
             try:
                 model_degistir(agent)
             except Exception as e:
-                print(f"[/model] Hata: {e}")
+                log.info(f"[/model] Hata: {e}")
             continue
 
         # FAZ 6 — /yansima komutu: oz yansima logunu goster
@@ -1647,20 +1654,20 @@ if __name__ == "__main__":
             if hasattr(agent, "oz_yansima") and agent.oz_yansima:
                 print(agent.oz_yansima.log_oku())
             else:
-                print("[/yansima] OzYansima modulu yuklu degil.")
+                log.info("[/yansima] OzYansima modulu yuklu degil.")
             continue
 
         # LLM Self-Improvement — /optimize: meta-prompt analizi calistir
         if hedef.lower() == "/optimize":
             if hasattr(agent, "meta_prompt") and agent.meta_prompt:
-                print("[MetaPromptOptimizer] Hata analizi yapiliyor...")
+                log.info("[MetaPromptOptimizer] Hata analizi yapiliyor...")
                 oneri = agent.meta_prompt.analiz_et_ve_oner()
                 if oneri:
-                    print(f"[MetaPromptOptimizer] Sistem eki eklendi:\n{oneri[:300]}")
+                    log.info(f"[MetaPromptOptimizer] Sistem eki eklendi:\n{oneri[:300]}")
                 else:
-                    print("[MetaPromptOptimizer] Yeterli hata verisi yok veya iyilestirme gerekmedi.")
+                    log.info("[MetaPromptOptimizer] Yeterli hata verisi yok veya iyilestirme gerekmedi.")
             else:
-                print("[/optimize] MetaPromptOptimizer modulu yuklu degil.")
+                log.info("[/optimize] MetaPromptOptimizer modulu yuklu degil.")
             continue
 
         if hedef.lower().startswith("/guncelle"):
@@ -1669,9 +1676,9 @@ if __name__ == "__main__":
                 args = hedef[len("/guncelle"):].strip()
                 yeniden_baslat = guncelle_komut(args)
                 if yeniden_baslat:
-                    print("\n  Programı kapatıp 'python main.py' ile yeniden başlatın.")
+                    log.info("\n  Programı kapatıp 'python main.py' ile yeniden başlatın.")
             else:
-                print("[/guncelle] guncelle.py bulunamadı.")
+                log.info("[/guncelle] guncelle.py bulunamadı.")
             continue
 
         # ── /hafiza komutu ────────────────────────────────────────────────
@@ -1679,20 +1686,20 @@ if __name__ == "__main__":
             _hafiza_arg = hedef[len("/hafiza"):].strip()
             hp = getattr(agent, "aktif_hafiza_plugin", None)
             if not hp:
-                print("[Hafıza] Aktif hafıza plugin'i yok.")
+                log.info("[Hafıza] Aktif hafıza plugin'i yok.")
                 continue
 
             if not _hafiza_arg or _hafiza_arg == "durum":
                 # Durum bilgisi
                 blok = hp.sistem_prompt_bloku()
                 araclar = [s.get("ad", "") for s in hp.arac_sema_al()]
-                print(f"\n[Hafıza Plugin] {hp.ad}")
+                log.info(f"\n[Hafıza Plugin] {hp.ad}")
                 print(blok)
-                print(f"Araçlar: {', '.join(araclar)}")
+                log.info(f"Araçlar: {', '.join(araclar)}")
                 saglayicilar = getattr(agent, "_plugin_yukleyici", None)
                 if saglayicilar:
                     liste = saglayicilar.hafiza_saglayici_listele()
-                    print(f"Kayıtlı: {', '.join(liste)}")
+                    log.info(f"Kayıtlı: {', '.join(liste)}")
 
             elif _hafiza_arg.startswith("ara "):
                 sorgu = _hafiza_arg[4:].strip()
@@ -1702,7 +1709,7 @@ if __name__ == "__main__":
                     ) if hasattr(hp, "arac_cagri_isle") else ""
                     print(sonuc or "Sonuç bulunamadı.")
                 else:
-                    print("Kullanım: /hafiza ara <sorgu>")
+                    log.info("Kullanım: /hafiza ara <sorgu>")
 
             elif _hafiza_arg.startswith("kaydet "):
                 metin = _hafiza_arg[7:].strip()
@@ -1711,7 +1718,7 @@ if __name__ == "__main__":
                     sonuc = hp.arac_cagri_isle(arac_adi, {"icerik": metin})
                     print(sonuc)
                 else:
-                    print("Kullanım: /hafiza kaydet <metin>")
+                    log.info("Kullanım: /hafiza kaydet <metin>")
 
             elif _hafiza_arg == "listele":
                 arac_adi = "HAFIZA_LISTELE" if hp.ad == "sqlite_fts" else "OTURUM_LISTELE"
@@ -1731,12 +1738,12 @@ if __name__ == "__main__":
                     ) if yl._hafiza_yoneticisi else False
                     if ok:
                         agent.aktif_hafiza_plugin = yl.aktif_hafiza_saglayici()
-                        print(f"[Hafıza] Aktif: {agent.aktif_hafiza_plugin.ad}")
+                        log.info(f"[Hafıza] Aktif: {agent.aktif_hafiza_plugin.ad}")
                     else:
                         kayitli = yl.hafiza_saglayici_listele()
-                        print(f"Değiştirilemedi. Kayıtlı: {kayitli}")
+                        log.info(f"Değiştirilemedi. Kayıtlı: {kayitli}")
                 else:
-                    print("[Hafıza] Plugin yöneticisi bulunamadı.")
+                    log.info("[Hafıza] Plugin yöneticisi bulunamadı.")
 
             else:
                 print(

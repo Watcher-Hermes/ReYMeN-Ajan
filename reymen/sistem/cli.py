@@ -1049,8 +1049,8 @@ def _setup_worktree(repo_root: str = None) -> Optional[Dict[str, str]]:
 
     repo_root = repo_root or _git_repo_root()
     if not repo_root:
-        print("\033[31m✗ --worktree requires being inside a git repository.\033[0m")
-        print("  cd into your project repo first, then run ReYMeN -w")
+        log.info("\033[31m✗ --worktree requires being inside a git repository.\033[0m")
+        log.info("  cd into your project repo first, then run ReYMeN -w")
         return None
 
     short_id = uuid.uuid4().hex[:8]
@@ -1082,10 +1082,10 @@ def _setup_worktree(repo_root: str = None) -> Optional[Dict[str, str]]:
             capture_output=True, text=True, timeout=30, cwd=repo_root,
         )
         if result.returncode != 0:
-            print(f"\033[31m✗ Failed to create worktree: {result.stderr.strip()}\033[0m")
+            log.info(f"\033[31m✗ Failed to create worktree: {result.stderr.strip()}\033[0m")
             return None
     except Exception as e:
-        print(f"\033[31m✗ Failed to create worktree: {e}\033[0m")
+        log.info(f"\033[31m✗ Failed to create worktree: {e}\033[0m")
         return None
 
     # Copy files listed in .worktreeinclude (gitignored files the agent needs)
@@ -1161,8 +1161,8 @@ def _setup_worktree(repo_root: str = None) -> Optional[Dict[str, str]]:
         "repo_root": repo_root,
     }
 
-    print(f"\033[32m✓ Worktree created:\033[0m {wt_path}")
-    print(f"  Branch: {branch_name}")
+    log.info(f"\033[32m✓ Worktree created:\033[0m {wt_path}")
+    log.info(f"  Branch: {branch_name}")
 
     return info
 
@@ -1223,8 +1223,8 @@ def _cleanup_worktree(info: Dict[str, str] = None) -> None:
     has_unpushed = _worktree_has_unpushed_commits(wt_path, timeout=10)
 
     if has_unpushed:
-        print(f"\n\033[33m⚠ Worktree has unpushed commits, keeping: {wt_path}\033[0m")
-        print(f"  To clean up manually: git worktree remove --force {wt_path}")
+        log.info(f"\n\033[33m⚠ Worktree has unpushed commits, keeping: {wt_path}\033[0m")
+        log.info(f"  To clean up manually: git worktree remove --force {wt_path}")
         _active_worktree = None
         return
 
@@ -1248,7 +1248,7 @@ def _cleanup_worktree(info: Dict[str, str] = None) -> None:
         logger.debug("Failed to delete branch %s: %s", branch, e)
 
     _active_worktree = None
-    print(f"\033[32m✓ Worktree cleaned up: {wt_path}\033[0m")
+    log.info(f"\033[32m✓ Worktree cleaned up: {wt_path}\033[0m")
 
 
 def _run_state_db_auto_maintenance(session_db) -> None:
@@ -3109,7 +3109,7 @@ class ReYMeNCLI:
             mcp_names = set((CLI_CONFIG.get("mcp_servers") or {}).keys())
             invalid = [t for t in toolsets if not validate_toolset(t) and t not in mcp_names]
             if invalid:
-                self._console_print(f"[bold red]Warning: Unknown toolsets: {', '.join(invalid)}[/]")
+                self._console_log.info(f"[bold red]Warning: Unknown toolsets: {', '.join(invalid)}[/]")
         
         # Filesystem checkpoints: CLI flag > config
         cp_cfg = CLI_CONFIG.get("checkpoints", {})
@@ -4100,7 +4100,7 @@ class ReYMeNCLI:
             return
 
         if self.verbose:
-            _cprint(f"  {_DIM}[thinking] {preview_text}{_RST}")
+            _clog.info(f"  {_DIM}[thinking] {preview_text}{_RST}")
             return
 
         lines = preview_text.splitlines()
@@ -4109,7 +4109,7 @@ class ReYMeNCLI:
             preview += f"\n  ... ({len(lines) - 5} more lines)"
         else:
             preview = preview_text
-        _cprint(f"  {_DIM}[thinking] {preview}{_RST}")
+        _clog.info(f"  {_DIM}[thinking] {preview}{_RST}")
 
     def _flush_reasoning_preview(self, *, force: bool = False) -> None:
         """Flush buffered reasoning text at natural boundaries.
@@ -4217,12 +4217,12 @@ class ReYMeNCLI:
 
     def _print_user_message_preview(self, user_input: str) -> None:
         """Render a user message using the normal chat scrollback style."""
-        ChatConsole().print(f"[{_accent_hex()}]{'─' * 40}[/]")
+        ChatConsole().log.info(f"[{_accent_hex()}]{'─' * 40}[/]")
         text = str(user_input or "")
         if "\n" in text:
             ChatConsole().print(self._format_submitted_user_message_preview(text))
         else:
-            ChatConsole().print(f"[bold {_accent_hex()}]●[/] [bold]{_escape(text)}[/]")
+            ChatConsole().log.info(f"[bold {_accent_hex()}]●[/] [bold]{_escape(text)}[/]")
 
     def _stream_reasoning_delta(self, text: str) -> None:
         """Stream reasoning/thinking tokens into a dim box above the response.
@@ -4247,7 +4247,7 @@ class ReYMeNCLI:
             w = self._scrollback_box_width()
             r_label = " Reasoning "
             r_fill = w - 2 - len(r_label)
-            _cprint(f"\n{_DIM}┌─{r_label}{'─' * max(r_fill - 1, 0)}┐{_RST}")
+            _clog.info(f"\n{_DIM}┌─{r_label}{'─' * max(r_fill - 1, 0)}┐{_RST}")
 
         self._reasoning_buf = getattr(self, "_reasoning_buf", "") + text
 
@@ -4255,9 +4255,9 @@ class ReYMeNCLI:
         # reasoning is visible in real-time even without newlines.
         while "\n" in self._reasoning_buf:
             line, self._reasoning_buf = self._reasoning_buf.split("\n", 1)
-            _cprint(f"{_DIM}{line}{_RST}")
+            _clog.info(f"{_DIM}{line}{_RST}")
         if len(self._reasoning_buf) > 80:
-            _cprint(f"{_DIM}{self._reasoning_buf}{_RST}")
+            _clog.info(f"{_DIM}{self._reasoning_buf}{_RST}")
             self._reasoning_buf = ""
 
     def _close_reasoning_box(self) -> None:
@@ -4266,10 +4266,10 @@ class ReYMeNCLI:
             # Flush remaining reasoning buffer
             buf = getattr(self, "_reasoning_buf", "")
             if buf:
-                _cprint(f"{_DIM}{buf}{_RST}")
+                _clog.info(f"{_DIM}{buf}{_RST}")
                 self._reasoning_buf = ""
             w = self._scrollback_box_width()
-            _cprint(f"{_DIM}└{'─' * (w - 2)}┘{_RST}")
+            _clog.info(f"{_DIM}└{'─' * (w - 2)}┘{_RST}")
             self._reasoning_box_opened = False
 
             # Flush any content that was deferred while reasoning was rendering.
@@ -4461,7 +4461,7 @@ class ReYMeNCLI:
                 label = f"{label} {datetime.now().strftime('%H:%M')}"
             w = self._scrollback_box_width()
             fill = w - 2 - ReYMeNCLI._status_bar_display_width(label)
-            _cprint(f"\n{_ACCENT}╭─{label}{'─' * max(fill - 1, 0)}╮{_RST}")
+            _clog.info(f"\n{_ACCENT}╭─{label}{'─' * max(fill - 1, 0)}╮{_RST}")
 
         self._stream_buf += text
 
@@ -4469,7 +4469,7 @@ class ReYMeNCLI:
         _tc = getattr(self, "_stream_text_ansi", "")
 
         def _emit_one(printed_line: str) -> None:
-            _cprint(f"{_STREAM_PAD}{_tc}{printed_line}{_RST}" if _tc else f"{_STREAM_PAD}{printed_line}")
+            _clog.info(f"{_STREAM_PAD}{_tc}{printed_line}{_RST}" if _tc else f"{_STREAM_PAD}{printed_line}")
 
         def _flush_table_buf() -> None:
             buf = self._stream_table_buf
@@ -4551,17 +4551,17 @@ class ReYMeNCLI:
                 joined = _strip_markdown_syntax(joined)
             block = realign_markdown_tables(joined, _terminal_width_for_streaming())
             for ln in block.split("\n"):
-                _cprint(f"{_STREAM_PAD}{_tc}{ln}{_RST}" if _tc else f"{_STREAM_PAD}{ln}")
+                _clog.info(f"{_STREAM_PAD}{_tc}{ln}{_RST}" if _tc else f"{_STREAM_PAD}{ln}")
 
         if self._stream_buf:
             line = _strip_markdown_syntax(self._stream_buf) if self.final_response_markdown == "strip" else self._stream_buf
-            _cprint(f"{_STREAM_PAD}{_tc}{line}{_RST}" if _tc else f"{_STREAM_PAD}{line}")
+            _clog.info(f"{_STREAM_PAD}{_tc}{line}{_RST}" if _tc else f"{_STREAM_PAD}{line}")
             self._stream_buf = ""
 
         # Close the response box
         if self._stream_box_opened:
             w = self._scrollback_box_width()
-            _cprint(f"{_ACCENT}╰{'─' * (w - 2)}╯{_RST}")
+            _clog.info(f"{_ACCENT}╰{'─' * (w - 2)}╯{_RST}")
 
     def _reset_stream_state(self) -> None:
         """Reset streaming state before each agent invocation."""
@@ -4612,7 +4612,7 @@ class ReYMeNCLI:
         self._command_status = status
         self._invalidate(min_interval=0.0)
         try:
-            print(f"⏳ {status}")
+            log.info(f"⏳ {status}")
             yield
         finally:
             self._command_running = False
@@ -4623,17 +4623,17 @@ class ReYMeNCLI:
         """Open the active input buffer in an external editor."""
         app = getattr(self, "_app", None)
         if not app:
-            _cprint(f"{_DIM}External editor is only available inside the interactive CLI.{_RST}")
+            _clog.info(f"{_DIM}External editor is only available inside the interactive CLI.{_RST}")
             return False
         if self._command_running:
-            _cprint(f"{_DIM}Wait for the current command to finish before opening the editor.{_RST}")
+            _clog.info(f"{_DIM}Wait for the current command to finish before opening the editor.{_RST}")
             return False
         if self._sudo_state or self._secret_state or self._approval_state or getattr(self, "_slash_confirm_state", None) or self._clarify_state:
-            _cprint(f"{_DIM}Finish the active prompt before opening the editor.{_RST}")
+            _clog.info(f"{_DIM}Finish the active prompt before opening the editor.{_RST}")
             return False
         target_buffer = buffer or getattr(app, "current_buffer", None)
         if target_buffer is None:
-            _cprint(f"{_DIM}No active input buffer is available for the external editor.{_RST}")
+            _clog.info(f"{_DIM}No active input buffer is available for the external editor.{_RST}")
             return False
         try:
             existing_text = getattr(target_buffer, "text", "")
@@ -4649,7 +4649,7 @@ class ReYMeNCLI:
             target_buffer.open_in_editor(validate_and_handle=False)
             return True
         except Exception as exc:
-            _cprint(f"{_DIM}Failed to open external editor: {exc}{_RST}")
+            _clog.info(f"{_DIM}Failed to open external editor: {exc}{_RST}")
             return False
 
     def _ensure_runtime_credentials(self) -> bool:
@@ -4691,7 +4691,7 @@ class ReYMeNCLI:
                             "Primary provider auth failed (%s). Falling through to fallback: %s/%s",
                             _primary_exc, _fb_provider, _fb_model,
                         )
-                        _cprint(f"⚠️  Primary auth failed — switching to fallback: {_fb_provider} / {_fb_model}")
+                        _clog.info(f"⚠️  Primary auth failed — switching to fallback: {_fb_provider} / {_fb_model}")
                         self.requested_provider = _fb_provider
                         self.model = _fb_model
                         _primary_exc = None
@@ -4701,7 +4701,7 @@ class ReYMeNCLI:
 
         if runtime is None:
             message = format_runtime_provider_error(_primary_exc) if _primary_exc else "Provider resolution failed."
-            ChatConsole().print(f"[bold red]{message}[/]")
+            ChatConsole().log.info(f"[bold red]{message}[/]")
             return False
 
         api_key = runtime.get("api_key")
@@ -4732,11 +4732,11 @@ class ReYMeNCLI:
                     base_url, _source,
                 )
             else:
-                print("\n⚠️  Provider resolver returned an empty API key. "
+                log.info("\n⚠️  Provider resolver returned an empty API key. "
                       "Set OPENROUTER_API_KEY or run: ReYMeN setup")
                 return False
         if not isinstance(base_url, str) or not base_url:
-            print("\n⚠️  Provider resolver returned an empty base URL. "
+            log.info("\n⚠️  Provider resolver returned an empty base URL. "
                   "Check your provider config or run: ReYMeN setup")
             return False
 
@@ -4923,14 +4923,14 @@ class ReYMeNCLI:
             _quiet_mode = getattr(self, "tool_progress_mode", "full") == "off"
             if not session_meta:
                 if _quiet_mode:
-                    print(f"Session not found: {self.session_id}", file=sys.stderr)
+                    log.info(f"Session not found: {self.session_id}", file=sys.stderr)
                     print(
                         "Use a session ID from a previous CLI run (ReYMeN sessions list).",
                         file=sys.stderr,
                     )
                 else:
-                    _cprint(f"\033[1;31mSession not found: {self.session_id}{_RST}")
-                    _cprint(f"{_DIM}Use a session ID from a previous CLI run (ReYMeN sessions list).{_RST}")
+                    _clog.info(f"\033[1;31mSession not found: {self.session_id}{_RST}")
+                    _clog.info(f"{_DIM}Use a session ID from a previous CLI run (ReYMeN sessions list).{_RST}")
                 return False
             # If the requested session is the (empty) head of a compression
             # chain, walk to the descendant that actually holds the messages.
@@ -5070,15 +5070,15 @@ class ReYMeNCLI:
                     self.agent._ensure_db_session()
                     if self.agent._session_db_created:
                         self._session_db.set_session_title(self.session_id, self._pending_title)
-                        _cprint(f"  Session title applied: {self._pending_title}")
+                        _clog.info(f"  Session title applied: {self._pending_title}")
                         self._pending_title = None
                     # else: row creation failed transiently — keep _pending_title for retry
                 except (ValueError, Exception) as e:
-                    _cprint(f"  Could not apply pending title: {e}")
+                    _clog.info(f"  Could not apply pending title: {e}")
                     # Keep _pending_title so it can be retried after row creation succeeds
             return True
         except Exception as e:
-            ChatConsole().print(f"[bold red]Failed to initialize agent: {e}[/]")
+            ChatConsole().log.info(f"[bold red]Failed to initialize agent: {e}[/]")
             return False
     
     def _show_security_advisories(self):
@@ -5100,7 +5100,7 @@ class ReYMeNCLI:
             if banner:
                 # Print to stderr — keeps stdout clean for piped automation,
                 # and Rich's banner rendering already wrote to stdout above.
-                print(banner, file=sys.stderr, flush=True)
+                print(banner, file=sys.stderr)
         except Exception:
             # Never let the security banner block startup. Failures are
             # logged at DEBUG by the advisory module.
@@ -5482,14 +5482,14 @@ class ReYMeNCLI:
         from tools.checkpoint_manager import format_checkpoint_list
 
         if not hasattr(self, 'agent') or not self.agent:
-            print("  No active agent session.")
+            log.info("  No active agent session.")
             return
 
         mgr = self.agent._checkpoint_mgr
         if not mgr.enabled:
-            print("  Checkpoints are not enabled.")
-            print("  Enable with: ReYMeN --checkpoints")
-            print("  Or in config.yaml: checkpoints: { enabled: true }")
+            log.info("  Checkpoints are not enabled.")
+            log.info("  Enable with: ReYMeN --checkpoints")
+            log.info("  Or in config.yaml: checkpoints: { enabled: true }")
             return
 
         cwd = os.getenv("TERMINAL_CWD", os.getcwd())
@@ -5505,11 +5505,11 @@ class ReYMeNCLI:
         # Handle /rollback diff <N>
         if args[0].lower() == "diff":
             if len(args) < 2:
-                print("  Usage: /rollback diff <N>")
+                log.info("  Usage: /rollback diff <N>")
                 return
             checkpoints = mgr.list_checkpoints(cwd)
             if not checkpoints:
-                print(f"  No checkpoints found for {cwd}")
+                log.info(f"  No checkpoints found for {cwd}")
                 return
             target_hash = self._resolve_checkpoint_ref(args[1], checkpoints)
             if not target_hash:
@@ -5519,26 +5519,26 @@ class ReYMeNCLI:
                 stat = result.get("stat", "")
                 diff = result.get("diff", "")
                 if not stat and not diff:
-                    print("  No changes since this checkpoint.")
+                    log.info("  No changes since this checkpoint.")
                 else:
                     if stat:
-                        print(f"\n{stat}")
+                        log.info(f"\n{stat}")
                     if diff:
                         # Limit diff output to avoid terminal flood
                         diff_lines = diff.splitlines()
                         if len(diff_lines) > 80:
-                            print("\n".join(diff_lines[:80]))
-                            print(f"\n  ... ({len(diff_lines) - 80} more lines, showing first 80)")
+                            log.info("\n".join(diff_lines[:80]))
+                            log.info(f"\n  ... ({len(diff_lines) - 80} more lines, showing first 80)")
                         else:
-                            print(f"\n{diff}")
+                            log.info(f"\n{diff}")
             else:
-                print(f"  ❌ {result['error']}")
+                log.info(f"  ❌ {result['error']}")
             return
 
         # Resolve checkpoint reference (number or hash)
         checkpoints = mgr.list_checkpoints(cwd)
         if not checkpoints:
-            print(f"  No checkpoints found for {cwd}")
+            log.info(f"  No checkpoints found for {cwd}")
             return
 
         target_hash = self._resolve_checkpoint_ref(args[0], checkpoints)
@@ -5551,18 +5551,18 @@ class ReYMeNCLI:
         result = mgr.restore(cwd, target_hash, file_path=file_path)
         if result["success"]:
             if file_path:
-                print(f"  ✅ Restored {file_path} from checkpoint {result['restored_to']}: {result['reason']}")
+                log.info(f"  ✅ Restored {file_path} from checkpoint {result['restored_to']}: {result['reason']}")
             else:
-                print(f"  ✅ Restored to checkpoint {result['restored_to']}: {result['reason']}")
-            print("  A pre-rollback snapshot was saved automatically.")
+                log.info(f"  ✅ Restored to checkpoint {result['restored_to']}: {result['reason']}")
+            log.info("  A pre-rollback snapshot was saved automatically.")
 
             # Also undo the last conversation turn so the agent's context
             # matches the restored filesystem state
             if self.conversation_history:
                 self.undo_last(prefill=False)
-                print("  Chat turn undone to match restored file state.")
+                log.info("  Chat turn undone to match restored file state.")
         else:
-            print(f"  ❌ {result['error']}")
+            log.info(f"  ❌ {result['error']}")
 
     def _resolve_checkpoint_ref(self, ref: str, checkpoints: list) -> str | None:
         """Resolve a checkpoint number or hash to a full commit hash."""
@@ -5571,7 +5571,7 @@ class ReYMeNCLI:
             if 0 <= idx < len(checkpoints):
                 return checkpoints[idx]["hash"]
             else:
-                print(f"  Invalid checkpoint number. Use 1-{len(checkpoints)}.")
+                log.info(f"  Invalid checkpoint number. Use 1-{len(checkpoints)}.")
                 return None
         except ValueError:
             # Treat as a git hash
@@ -5598,12 +5598,12 @@ class ReYMeNCLI:
         if subcmd in {"list", "ls"}:
             snaps = list_quick_snapshots()
             if not snaps:
-                print("  No state snapshots yet.")
-                print("  Create one: /snapshot create [label]")
+                log.info("  No state snapshots yet.")
+                log.info("  Create one: /snapshot create [label]")
                 return
-            print(f"  State snapshots ({display_ReYMeN_home()}/state-snapshots/):\n")
-            print(f"  {'#':>3}  {'ID':<35} {'Files':>5} {'Size':>10} {'Label'}")
-            print(f"  {'─'*3}  {'─'*35} {'─'*5} {'─'*10} {'─'*20}")
+            log.info(f"  State snapshots ({display_ReYMeN_home()}/state-snapshots/):\n")
+            log.info(f"  {'#':>3}  {'ID':<35} {'Files':>5} {'Size':>10} {'Label'}")
+            log.info(f"  {'─'*3}  {'─'*35} {'─'*5} {'─'*10} {'─'*20}")
             for i, s in enumerate(snaps, 1):
                 size = s.get("total_size", 0)
                 if size < 1024:
@@ -5613,23 +5613,23 @@ class ReYMeNCLI:
                 else:
                     size_str = f"{size / 1024 / 1024:.1f} MB"
                 label = s.get("label") or ""
-                print(f"  {i:3}  {s['id']:<35} {s.get('file_count', 0):>5} {size_str:>10} {label}")
+                log.info(f"  {i:3}  {s['id']:<35} {s.get('file_count', 0):>5} {size_str:>10} {label}")
 
         elif subcmd == "create":
             label = " ".join(parts[2:]) if len(parts) > 2 else None
             snap_id = create_quick_snapshot(label=label)
             if snap_id:
-                print(f"  Snapshot created: {snap_id}")
+                log.info(f"  Snapshot created: {snap_id}")
             else:
-                print("  No state files found to snapshot.")
+                log.info("  No state files found to snapshot.")
 
         elif subcmd in {"restore", "rewind"}:
             if len(parts) < 3:
-                print("  Usage: /snapshot restore <snapshot-id>")
+                log.info("  Usage: /snapshot restore <snapshot-id>")
                 # Show hint with most recent snapshot
                 snaps = list_quick_snapshots(limit=1)
                 if snaps:
-                    print(f"  Most recent: {snaps[0]['id']}")
+                    log.info(f"  Most recent: {snaps[0]['id']}")
                 return
             snap_id = parts[2]
             # Allow restore by number (1-indexed)
@@ -5639,15 +5639,15 @@ class ReYMeNCLI:
                 if 1 <= idx <= len(snaps):
                     snap_id = snaps[idx - 1]["id"]
                 else:
-                    print(f"  Invalid snapshot number. Use 1-{len(snaps)}.")
+                    log.info(f"  Invalid snapshot number. Use 1-{len(snaps)}.")
                     return
             except ValueError:
                 pass
             if restore_quick_snapshot(snap_id):
-                print(f"  Restored state from: {snap_id}")
-                print("  Restart recommended for state.db changes to take effect.")
+                log.info(f"  Restored state from: {snap_id}")
+                log.info("  Restart recommended for state.db changes to take effect.")
             else:
-                print(f"  Snapshot not found: {snap_id}")
+                log.info(f"  Snapshot not found: {snap_id}")
 
         elif subcmd == "prune":
             keep = 20
@@ -5655,14 +5655,14 @@ class ReYMeNCLI:
                 try:
                     keep = int(parts[2])
                 except ValueError:
-                    print("  Usage: /snapshot prune [keep-count]")
+                    log.info("  Usage: /snapshot prune [keep-count]")
                     return
             deleted = prune_quick_snapshots(keep=keep)
-            print(f"  Pruned {deleted} old snapshot(s) (keeping {keep}).")
+            log.info(f"  Pruned {deleted} old snapshot(s) (keeping {keep}).")
 
         else:
-            print(f"  Unknown subcommand: {subcmd}")
-            print("  Usage: /snapshot [list|create [label]|restore <id>|prune [N]]")
+            log.info(f"  Unknown subcommand: {subcmd}")
+            log.info("  Usage: /snapshot [list|create [label]|restore <id>|prune [N]]")
 
     def _handle_stop_command(self):
         """Handle /stop — kill all running background processes.
@@ -5676,12 +5676,12 @@ class ReYMeNCLI:
         running = [p for p in processes if p.get("status") == "running"]
 
         if not running:
-            print("  No running background processes.")
+            log.info("  No running background processes.")
             return
 
-        print(f"  Stopping {len(running)} background process(es)...")
+        log.info(f"  Stopping {len(running)} background process(es)...")
         killed = process_registry.kill_all()
-        print(f"  ✅ Stopped {killed} process(es).")
+        log.info(f"  ✅ Stopped {killed} process(es).")
 
     def _handle_agents_command(self):
         """Handle /agents — show background processes and agent status."""
@@ -5691,17 +5691,17 @@ class ReYMeNCLI:
         running = [p for p in processes if p.get("status") == "running"]
         finished = [p for p in processes if p.get("status") != "running"]
 
-        _cprint(f"  Running processes: {len(running)}")
+        _clog.info(f"  Running processes: {len(running)}")
         for p in running:
             cmd = p.get("command", "")[:80]
             up = format_uptime_short(p.get("uptime_seconds", 0))
-            _cprint(f"    {p.get('session_id', '?')} · {up} · {cmd}")
+            _clog.info(f"    {p.get('session_id', '?')} · {up} · {cmd}")
 
         if finished:
-            _cprint(f"  Recently finished: {len(finished)}")
+            _clog.info(f"  Recently finished: {len(finished)}")
 
         agent_running = getattr(self, "_agent_running", False)
-        _cprint(f"  Agent: {'running' if agent_running else 'idle'}")
+        _clog.info(f"  Agent: {'running' if agent_running else 'idle'}")
 
     def _handle_paste_command(self):
         """Handle /paste — explicitly check clipboard for an image.
@@ -5722,11 +5722,11 @@ class ReYMeNCLI:
         if has_clipboard_image():
             if self._try_attach_clipboard_image():
                 n = len(self._attached_images)
-                _cprint(f"  📎 Image #{n} attached from clipboard")
+                _clog.info(f"  📎 Image #{n} attached from clipboard")
             else:
-                _cprint(f"  {_DIM}(>_<) Clipboard has an image but extraction failed{_RST}")
+                _clog.info(f"  {_DIM}(>_<) Clipboard has an image but extraction failed{_RST}")
         else:
-            _cprint(f"  {_DIM}(._.) No image found in clipboard{_RST}")
+            _clog.info(f"  {_DIM}(._.) No image found in clipboard{_RST}")
 
     def _write_osc52_clipboard(self, text: str) -> None:
         """Copy *text* to terminal clipboard via OSC 52."""
@@ -5783,60 +5783,60 @@ class ReYMeNCLI:
 
         assistant = [m for m in self.conversation_history if m.get("role") == "assistant"]
         if not assistant:
-            _cprint("  Nothing to copy yet.")
+            _clog.info("  Nothing to copy yet.")
             return
 
         if arg:
             try:
                 idx = int(arg) - 1
             except ValueError:
-                _cprint("  Usage: /copy [number]")
+                _clog.info("  Usage: /copy [number]")
                 return
             if idx < 0 or idx >= len(assistant):
-                _cprint(f"  Invalid response number. Use 1-{len(assistant)}.")
+                _clog.info(f"  Invalid response number. Use 1-{len(assistant)}.")
                 return
         else:
             idx = len(assistant) - 1
             while idx >= 0 and not _assistant_copy_text(assistant[idx].get("content")):
                 idx -= 1
             if idx < 0:
-                _cprint("  Nothing to copy in assistant responses yet.")
+                _clog.info("  Nothing to copy in assistant responses yet.")
                 return
 
         text = _assistant_copy_text(assistant[idx].get("content"))
         if not text:
-            _cprint("  Nothing to copy in that assistant response.")
+            _clog.info("  Nothing to copy in that assistant response.")
             return
 
         try:
             self._write_osc52_clipboard(text)
-            _cprint(f"  Copied assistant response #{idx + 1} to clipboard")
+            _clog.info(f"  Copied assistant response #{idx + 1} to clipboard")
         except Exception as e:
-            _cprint(f"  Clipboard copy failed: {e}")
+            _clog.info(f"  Clipboard copy failed: {e}")
 
     def _handle_image_command(self, cmd_original: str):
         """Handle /image <path> — attach a local image file for the next prompt."""
         raw_args = (cmd_original.split(None, 1)[1].strip() if " " in cmd_original else "")
         if not raw_args:
             hint = _termux_example_image_path() if _is_termux_environment() else "/path/to/image.png"
-            _cprint(f"  {_DIM}Usage: /image <path>  e.g. /image {hint}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /image <path>  e.g. /image {hint}{_RST}")
             return
 
         path_token, _remainder = _split_path_input(raw_args)
         image_path = _resolve_attachment_path(path_token)
         if image_path is None:
-            _cprint(f"  {_DIM}(>_<) File not found: {path_token}{_RST}")
+            _clog.info(f"  {_DIM}(>_<) File not found: {path_token}{_RST}")
             return
         if image_path.suffix.lower() not in _IMAGE_EXTENSIONS:
-            _cprint(f"  {_DIM}(._.) Not a supported image file: {image_path.name}{_RST}")
+            _clog.info(f"  {_DIM}(._.) Not a supported image file: {image_path.name}{_RST}")
             return
 
         self._attached_images.append(image_path)
-        _cprint(f"  📎 Attached image: {image_path.name}")
+        _clog.info(f"  📎 Attached image: {image_path.name}")
         if _remainder:
-            _cprint(f"  {_DIM}Now type your prompt (or use --image in single-query mode): {_remainder}{_RST}")
+            _clog.info(f"  {_DIM}Now type your prompt (or use --image in single-query mode): {_remainder}{_RST}")
         elif _is_termux_environment():
-            _cprint(f"  {_DIM}Tip: type your next message, or run ReYMeN chat -q --image {_termux_example_image_path(image_path.name)} \"What do you see?\"{_RST}")
+            _clog.info(f"  {_DIM}Tip: type your next message, or run ReYMeN chat -q --image {_termux_example_image_path(image_path.name)} \"What do you see?\"{_RST}")
 
     def _preprocess_images_with_vision(self, text: str, images: list, *, announce: bool = True) -> str:
         """Analyze attached images via the vision tool and return enriched text.
@@ -5865,7 +5865,7 @@ class ReYMeNCLI:
                 continue
             size_kb = img_path.stat().st_size // 1024
             if announce:
-                _cprint(f"  {_DIM}👁️  analyzing {img_path.name} ({size_kb}KB)...{_RST}")
+                _clog.info(f"  {_DIM}👁️  analyzing {img_path.name} ({size_kb}KB)...{_RST}")
             try:
                 result_json = _asyncio.run(
                     vision_analyze_tool(image_url=str(img_path), user_prompt=analysis_prompt)
@@ -5879,7 +5879,7 @@ class ReYMeNCLI:
                         f"image_url: {img_path}]"
                     )
                     if announce:
-                        _cprint(f"  {_DIM}✓ image analyzed{_RST}")
+                        _clog.info(f"  {_DIM}✓ image analyzed{_RST}")
                 else:
                     enriched_parts.append(
                         f"[The user attached an image but it couldn't be analyzed. "
@@ -5887,7 +5887,7 @@ class ReYMeNCLI:
                         f"image_url: {img_path}]"
                     )
                     if announce:
-                        _cprint(f"  {_DIM}⚠ vision analysis failed — path included for retry{_RST}")
+                        _clog.info(f"  {_DIM}⚠ vision analysis failed — path included for retry{_RST}")
             except Exception as e:
                 enriched_parts.append(
                     f"[The user attached an image but analysis failed ({e}). "
@@ -5895,7 +5895,7 @@ class ReYMeNCLI:
                     f"image_url: {img_path}]"
                 )
                 if announce:
-                    _cprint(f"  {_DIM}⚠ vision analysis error — path included for retry{_RST}")
+                    _clog.info(f"  {_DIM}⚠ vision analysis error — path included for retry{_RST}")
 
         # Combine: vision descriptions first, then the user's original text
         user_text = text if isinstance(text, str) and text else ""
@@ -5916,13 +5916,13 @@ class ReYMeNCLI:
             
             if api_key_missing:
                 self._console_print()
-                self._console_print("[yellow]⚠️  Some tools disabled (missing API keys):[/]")
+                self._console_log.info("[yellow]⚠️  Some tools disabled (missing API keys):[/]")
                 for item in api_key_missing:
                     tools_str = ", ".join(item["tools"][:2])  # Show first 2 tools
                     if len(item["tools"]) > 2:
                         tools_str += f", +{len(item['tools'])-2} more"
-                    self._console_print(f"   [dim]• {item['name']}[/] [dim italic]({', '.join(item['missing_vars'])})[/]")
-                self._console_print("[dim]   Run 'ReYMeN setup' to configure[/]")
+                    self._console_log.info(f"   [dim]• {item['name']}[/] [dim italic]({', '.join(item['missing_vars'])})[/]")
+                self._console_log.info("[dim]   Run 'ReYMeN setup' to configure[/]")
         except Exception:
             pass  # Don't crash on import errors
     
@@ -6021,7 +6021,7 @@ class ReYMeNCLI:
             f"Tokens: {total_tokens:,}",
             f"Agent Running: {'Yes' if is_running else 'No'}",
         ])
-        self._console_print("\n".join(lines), highlight=False, markup=False)
+        self._console_log.info("\n".join(lines), highlight=False, markup=False)
     
     def _fast_command_available(self) -> bool:
         try:
@@ -6050,20 +6050,20 @@ class ReYMeNCLI:
         inner_width = 55
         if len(header) > inner_width:
             header = header[:inner_width]
-        _cprint(f"\n{_BOLD}+{'-' * inner_width}+{_RST}")
-        _cprint(f"{_BOLD}|{header:^{inner_width}}|{_RST}")
-        _cprint(f"{_BOLD}+{'-' * inner_width}+{_RST}")
+        _clog.info(f"\n{_BOLD}+{'-' * inner_width}+{_RST}")
+        _clog.info(f"{_BOLD}|{header:^{inner_width}}|{_RST}")
+        _clog.info(f"{_BOLD}+{'-' * inner_width}+{_RST}")
 
         for category, commands in COMMANDS_BY_CATEGORY.items():
-            _cprint(f"\n  {_BOLD}── {category} ──{_RST}")
+            _clog.info(f"\n  {_BOLD}── {category} ──{_RST}")
             for cmd, desc in commands.items():
                 if not self._command_available(cmd):
                     continue
-                ChatConsole().print(f"    [bold {_accent_hex()}]{cmd:<15}[/] [dim]-[/] {_escape(desc)}")
+                ChatConsole().log.info(f"    [bold {_accent_hex()}]{cmd:<15}[/] [dim]-[/] {_escape(desc)}")
 
         skill_commands = _ensure_skill_commands()
         if skill_commands:
-            _cprint(f"\n  ⚡ {_BOLD}Skill Commands{_RST} ({len(skill_commands)} installed):")
+            _clog.info(f"\n  ⚡ {_BOLD}Skill Commands{_RST} ({len(skill_commands)} installed):")
             for cmd, info in sorted(skill_commands.items()):
                 ChatConsole().print(
                     f"    [bold {_accent_hex()}]{cmd:<22}[/] [dim]-[/] {_escape(info['description'])}"
@@ -6071,7 +6071,7 @@ class ReYMeNCLI:
 
         _bundles_now = get_skill_bundles()
         if _bundles_now:
-            _cprint(f"\n  ▣ {_BOLD}Skill Bundles{_RST} ({len(_bundles_now)} installed):")
+            _clog.info(f"\n  ▣ {_BOLD}Skill Bundles{_RST} ({len(_bundles_now)} installed):")
             for cmd, info in sorted(_bundles_now.items()):
                 skill_count = len(info.get("skills", []))
                 desc = info.get("description") or f"Load {skill_count} skills"
@@ -6080,20 +6080,20 @@ class ReYMeNCLI:
                     f"{_escape(desc)} [dim]({skill_count} skills)[/]"
                 )
 
-        _cprint(f"\n  {_DIM}Tip: Just type your message to chat with ReYMeN!{_RST}")
-        _cprint(f"  {_DIM}Multi-line: Alt+Enter for a new line{_RST}")
-        _cprint(f"  {_DIM}Draft editor: Ctrl+G (Alt+G in VSCode/Cursor){_RST}")
+        _clog.info(f"\n  {_DIM}Tip: Just type your message to chat with ReYMeN!{_RST}")
+        _clog.info(f"  {_DIM}Multi-line: Alt+Enter for a new line{_RST}")
+        _clog.info(f"  {_DIM}Draft editor: Ctrl+G (Alt+G in VSCode/Cursor){_RST}")
         if _is_termux_environment():
-            _cprint(f"  {_DIM}Attach image: /image {_termux_example_image_path()} or start your prompt with a local image path{_RST}\n")
+            _clog.info(f"  {_DIM}Attach image: /image {_termux_example_image_path()} or start your prompt with a local image path{_RST}\n")
         else:
-            _cprint(f"  {_DIM}Paste image: Alt+V (or /paste){_RST}\n")
+            _clog.info(f"  {_DIM}Paste image: Alt+V (or /paste){_RST}\n")
     
     def show_tools(self):
         """Display available tools with kawaii ASCII art."""
         tools = get_tool_definitions(enabled_toolsets=self.enabled_toolsets, quiet_mode=True)
         
         if not tools:
-            print("(;_;) No tools available")
+            log.info("(;_;) No tools available")
             return
         
         # Header
@@ -6101,9 +6101,9 @@ class ReYMeNCLI:
         title = "(^_^)/ Available Tools"
         width = 78
         pad = width - len(title)
-        print("+" + "-" * width + "+")
-        print("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
-        print("+" + "-" * width + "+")
+        log.info("+" + "-" * width + "+")
+        log.info("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
+        log.info("+" + "-" * width + "+")
         print()
         
         # Group tools by toolset
@@ -6122,12 +6122,12 @@ class ReYMeNCLI:
         
         # Display by toolset
         for toolset in sorted(toolsets.keys()):
-            print(f"  [{toolset}]")
+            log.info(f"  [{toolset}]")
             for name, desc in toolsets[toolset]:
-                print(f"    * {name:<20} - {desc}")
+                log.info(f"    * {name:<20} - {desc}")
             print()
         
-        print(f"  Total: {len(tools)} tools  ヽ(^o^)ノ")
+        log.info(f"  Total: {len(tools)} tools  ヽ(^o^)ノ")
         print()
 
     def _handle_tools_command(self, cmd: str):
@@ -6188,9 +6188,9 @@ class ReYMeNCLI:
 
         names = parts[2:]
         if not names:
-            print(f"(._.) Usage: /tools {subcommand} <name> [name ...]")
-            print(f"  Built-in toolset:  /tools {subcommand} web")
-            print(f"  MCP tool:          /tools {subcommand} github:create_issue")
+            log.info(f"(._.) Usage: /tools {subcommand} <name> [name ...]")
+            log.info(f"  Built-in toolset:  /tools {subcommand} web")
+            log.info(f"  MCP tool:          /tools {subcommand} github:create_issue")
             return
 
         # Apply the change directly — the user typing the command is implicit
@@ -6198,7 +6198,7 @@ class ReYMeNCLI:
         # TUI event loop (known pitfall).
         verb = "Disabling" if subcommand == "disable" else "Enabling"
         label = ", ".join(names)
-        _cprint(f"{_ACCENT}{verb} {label}...{_RST}")
+        _clog.info(f"{_ACCENT}{verb} {label}...{_RST}")
 
         _run_capture(Namespace(tools_action=subcommand, names=names, platform="cli"))
 
@@ -6207,7 +6207,7 @@ class ReYMeNCLI:
         from ReYMeN_cli.config import load_config
         self.enabled_toolsets = _get_platform_tools(load_config(), "cli")
         self.new_session()
-        _cprint(f"{_DIM}Session reset. New tool configuration is active.{_RST}")
+        _clog.info(f"{_DIM}Session reset. New tool configuration is active.{_RST}")
 
     def show_toolsets(self):
         """Display available toolsets with kawaii ASCII art."""
@@ -6218,9 +6218,9 @@ class ReYMeNCLI:
         title = "(^_^)b Available Toolsets"
         width = 58
         pad = width - len(title)
-        print("+" + "-" * width + "+")
-        print("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
-        print("+" + "-" * width + "+")
+        log.info("+" + "-" * width + "+")
+        log.info("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
+        log.info("+" + "-" * width + "+")
         print()
         
         for name in sorted(all_toolsets.keys()):
@@ -6231,13 +6231,13 @@ class ReYMeNCLI:
                 
                 # Mark if currently enabled
                 marker = "(*)" if self.enabled_toolsets and name in self.enabled_toolsets else "   "
-                print(f"  {marker} {name:<18} [{tool_count:>2} tools] - {desc}")
+                log.info(f"  {marker} {name:<18} [{tool_count:>2} tools] - {desc}")
         
         print()
-        print("  (*) = currently enabled")
+        log.info("  (*) = currently enabled")
         print()
-        print("  Tip: Use 'all' or '*' to enable all toolsets")
-        print("  Example: python cli.py --toolsets web,terminal")
+        log.info("  Tip: Use 'all' or '*' to enable all toolsets")
+        log.info("  Example: python cli.py --toolsets web,terminal")
         print()
     
     def _handle_profile_command(self):
@@ -6249,8 +6249,8 @@ class ReYMeNCLI:
         profile_name = get_active_profile_name()
 
         print()
-        print(f"  Profile: {profile_name}")
-        print(f"  Home:    {display}")
+        log.info(f"  Profile: {profile_name}")
+        log.info(f"  Home:    {display}")
         print()
 
     def show_config(self):
@@ -6282,33 +6282,33 @@ class ReYMeNCLI:
         title = "(^_^) Configuration"
         width = 50
         pad = width - len(title)
-        print("+" + "-" * width + "+")
-        print("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
-        print("+" + "-" * width + "+")
+        log.info("+" + "-" * width + "+")
+        log.info("|" + " " * (pad // 2) + title + " " * (pad - pad // 2) + "|")
+        log.info("+" + "-" * width + "+")
         print()
-        print("  -- Model --")
-        print(f"  Model:     {self.model}")
-        print(f"  Base URL:  {self.base_url}")
-        print(f"  API Key:   {api_key_display}")
+        log.info("  -- Model --")
+        log.info(f"  Model:     {self.model}")
+        log.info(f"  Base URL:  {self.base_url}")
+        log.info(f"  API Key:   {api_key_display}")
         print()
-        print("  -- Terminal --")
-        print(f"  Environment:  {terminal_env}")
+        log.info("  -- Terminal --")
+        log.info(f"  Environment:  {terminal_env}")
         if terminal_env == "ssh":
             ssh_host = os.getenv("TERMINAL_SSH_HOST", "not set")
             ssh_user = os.getenv("TERMINAL_SSH_USER", "not set")
             ssh_port = os.getenv("TERMINAL_SSH_PORT", "22")
-            print(f"  SSH Target:   {ssh_user}@{ssh_host}:{ssh_port}")
-        print(f"  Working Dir:  {terminal_cwd}")
-        print(f"  Timeout:      {terminal_timeout}s")
+            log.info(f"  SSH Target:   {ssh_user}@{ssh_host}:{ssh_port}")
+        log.info(f"  Working Dir:  {terminal_cwd}")
+        log.info(f"  Timeout:      {terminal_timeout}s")
         print()
-        print("  -- Agent --")
-        print(f"  Max Turns:  {self.max_turns}")
-        print(f"  Toolsets:   {', '.join(self.enabled_toolsets) if self.enabled_toolsets else 'all'}")
-        print(f"  Verbose:    {self.verbose}")
+        log.info("  -- Agent --")
+        log.info(f"  Max Turns:  {self.max_turns}")
+        log.info(f"  Toolsets:   {', '.join(self.enabled_toolsets) if self.enabled_toolsets else 'all'}")
+        log.info(f"  Verbose:    {self.verbose}")
         print()
-        print("  -- Session --")
-        print(f"  Started:     {self.session_start.strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"  Config File: {config_path} {config_status}")
+        log.info("  -- Session --")
+        log.info(f"  Started:     {self.session_start.strftime('%Y-%m-%d %H:%M:%S')}")
+        log.info(f"  Config File: {config_path} {config_status}")
         print()
     
     def _list_recent_sessions(self, limit: int = 10) -> list[dict[str, Any]]:
@@ -6338,20 +6338,20 @@ class ReYMeNCLI:
 
         print()
         if reason == "history":
-            print("(._.) No messages in the current chat yet — here are recent sessions you can resume:")
+            log.info("(._.) No messages in the current chat yet — here are recent sessions you can resume:")
         else:
-            print("  Recent sessions:")
+            log.info("  Recent sessions:")
         print()
-        print(f"  {'#':<3} {'Title':<32} {'Preview':<40} {'Last Active':<13} {'ID'}")
-        print(f"  {'─' * 3} {'─' * 32} {'─' * 40} {'─' * 13} {'─' * 24}")
+        log.info(f"  {'#':<3} {'Title':<32} {'Preview':<40} {'Last Active':<13} {'ID'}")
+        log.info(f"  {'─' * 3} {'─' * 32} {'─' * 40} {'─' * 13} {'─' * 24}")
         for idx, session in enumerate(sessions, start=1):
             title = session.get("title") or "—"
             preview = (session.get("preview") or "")[:38]
             last_active = _relative_time(session.get("last_active"))
-            print(f"  {idx:<3} {title:<32} {preview:<40} {last_active:<13} {session['id']}")
+            log.info(f"  {idx:<3} {title:<32} {preview:<40} {last_active:<13} {session['id']}")
         print()
-        print("  Use /resume <number>, /resume <session id>, or /resume <session title> to continue.")
-        print("  Example: /resume 2")
+        log.info("  Use /resume <number>, /resume <session id>, or /resume <session title> to continue.")
+        log.info("  Example: /resume 2")
         print()
         return True
 
@@ -6359,7 +6359,7 @@ class ReYMeNCLI:
         """Display conversation history."""
         if not self.conversation_history:
             if not self._show_recent_sessions(reason="history"):
-                print("(._.) No conversation history yet.")
+                log.info("(._.) No conversation history yet.")
             return
 
         preview_limit = 400
@@ -6372,14 +6372,14 @@ class ReYMeNCLI:
                 return
 
             noun = "message" if hidden_tool_messages == 1 else "messages"
-            print("\n  [Tools]")
-            print(f"    ({hidden_tool_messages} tool {noun} hidden)")
+            log.info("\n  [Tools]")
+            log.info(f"    ({hidden_tool_messages} tool {noun} hidden)")
             hidden_tool_messages = 0
 
         print()
-        print("+" + "-" * 50 + "+")
-        print("|" + " " * 12 + "(^_^) Conversation History" + " " * 11 + "|")
-        print("+" + "-" * 50 + "+")
+        log.info("+" + "-" * 50 + "+")
+        log.info("|" + " " * 12 + "(^_^) Conversation History" + " " * 11 + "|")
+        log.info("+" + "-" * 50 + "+")
 
         for msg in self.conversation_history:
             role = msg.get("role", "unknown")
@@ -6398,13 +6398,13 @@ class ReYMeNCLI:
             content_text = "" if content is None else str(content)
 
             if role == "user":
-                print(f"\n  [You #{visible_index}]")
+                log.info(f"\n  [You #{visible_index}]")
                 print(
                     f"    {content_text[:preview_limit]}{'...' if len(content_text) > preview_limit else ''}"
                 )
                 continue
 
-            print(f"\n  [ReYMeN #{visible_index}]")
+            log.info(f"\n  [ReYMeN #{visible_index}]")
             tool_calls = msg.get("tool_calls") or []
             if content_text:
                 preview = content_text[:preview_limit]
@@ -6417,7 +6417,7 @@ class ReYMeNCLI:
             else:
                 preview = "(no text response)"
                 suffix = ""
-            print(f"    {preview}{suffix}")
+            log.info(f"    {preview}{suffix}")
 
         flush_tool_summary()
         print()
@@ -6499,7 +6499,7 @@ class ReYMeNCLI:
                     try:
                         sanitized = SessionDB.sanitize_title(title)
                     except ValueError as e:
-                        _cprint(f"  Title rejected: {e}")
+                        _clog.info(f"  Title rejected: {e}")
                         sanitized = None
                         title = None
                     if sanitized:
@@ -6508,13 +6508,13 @@ class ReYMeNCLI:
                             self._pending_title = None
                             title = sanitized
                         except ValueError as e:
-                            _cprint(f"  {e} — session started untitled.")
+                            _clog.info(f"  {e} — session started untitled.")
                             title = None
                         except Exception:
                             title = None
                     elif title is not None:
                         # sanitize_title returned empty (whitespace-only / unprintable)
-                        _cprint("  Title is empty after cleanup — session started untitled.")
+                        _clog.info("  Title is empty after cleanup — session started untitled.")
                         title = None
             # Notify memory providers that session_id rotated to a fresh
             # conversation. reset=True signals providers to flush accumulated
@@ -6536,9 +6536,9 @@ class ReYMeNCLI:
 
         if not silent:
             if title:
-                print(f"(^_^)v New session started: {title}")
+                log.info(f"(^_^)v New session started: {title}")
             else:
-                print("(^_^)v New session started!")
+                log.info("(^_^)v New session started!")
 
     def _handle_handoff_command(self, cmd_original: str) -> bool:
         """Handle ``/handoff <platform>`` — transfer this CLI session to a gateway platform.
@@ -6561,9 +6561,9 @@ class ReYMeNCLI:
 
         parts = cmd_original.split(maxsplit=1)
         if len(parts) < 2 or not parts[1].strip():
-            _cprint("  Usage: /handoff <platform>")
-            _cprint("  Hands the current session off to that platform's home channel.")
-            _cprint("  The CLI session ends here; resume it later with /resume.")
+            _clog.info("  Usage: /handoff <platform>")
+            _clog.info("  Hands the current session off to that platform's home channel.")
+            _clog.info("  The CLI session ends here; resume it later with /resume.")
             return True
 
         platform_name = parts[1].strip().lower()
@@ -6572,36 +6572,36 @@ class ReYMeNCLI:
         try:
             from gateway.config import load_gateway_config, Platform
         except Exception as exc:  # pragma: no cover — gateway pkg always shipped
-            _cprint(f"  Could not load gateway config: {exc}")
+            _clog.info(f"  Could not load gateway config: {exc}")
             return True
 
         try:
             platform = Platform(platform_name)
         except (ValueError, KeyError):
-            _cprint(f"  Unknown platform '{platform_name}'.")
+            _clog.info(f"  Unknown platform '{platform_name}'.")
             return True
 
         try:
             gw_config = load_gateway_config()
         except Exception as exc:
-            _cprint(f"  Could not load gateway config: {exc}")
+            _clog.info(f"  Could not load gateway config: {exc}")
             return True
 
         pcfg = gw_config.platforms.get(platform)
         if not pcfg or not pcfg.enabled:
-            _cprint(f"  Platform '{platform_name}' is not configured/enabled in the gateway.")
+            _clog.info(f"  Platform '{platform_name}' is not configured/enabled in the gateway.")
             return True
 
         home = gw_config.get_home_channel(platform)
         if not home or not home.chat_id:
-            _cprint(f"  No home channel configured for {platform_name}.")
-            _cprint(f"  Set one with /sethome on the destination chat first.")
+            _clog.info(f"  No home channel configured for {platform_name}.")
+            _clog.info(f"  Set one with /sethome on the destination chat first.")
             return True
 
         # Refuse mid-turn: an in-flight agent run would race with the
         # gateway's switch_session and the synthetic turn dispatch.
         if getattr(self, "_agent_running", False):
-            _cprint("  Agent is busy. Wait for the current turn to finish, then retry /handoff.")
+            _clog.info("  Agent is busy. Wait for the current turn to finish, then retry /handoff.")
             return True
 
         # Make sure we have a SessionDB handle.
@@ -6612,7 +6612,7 @@ class ReYMeNCLI:
             except Exception:
                 pass
         if not self._session_db:
-            _cprint(f"  {format_session_db_unavailable()}")
+            _clog.info(f"  {format_session_db_unavailable()}")
             return True
 
         # Make sure the session row exists in state.db. Most CLI sessions
@@ -6629,7 +6629,7 @@ class ReYMeNCLI:
                 placeholder_title = f"handoff-{self.session_id[:8]}"
                 self._session_db.set_session_title(self.session_id, placeholder_title)
         except Exception as exc:
-            _cprint(f"  Could not ensure session row in state.db: {exc}")
+            _clog.info(f"  Could not ensure session row in state.db: {exc}")
             return True
 
         # Display title for messaging.
@@ -6646,11 +6646,11 @@ class ReYMeNCLI:
         # Mark pending — gateway watcher will pick this up.
         ok = self._session_db.request_handoff(self.session_id, platform_name)
         if not ok:
-            _cprint("  Session is already in flight for handoff. Wait for it to settle, then retry.")
+            _clog.info("  Session is already in flight for handoff. Wait for it to settle, then retry.")
             return True
 
-        _cprint(f"  Queued handoff of '{session_title}' → {platform_name} (home: {home.name}).")
-        _cprint(f"  Waiting for the gateway to pick it up...")
+        _clog.info(f"  Queued handoff of '{session_title}' → {platform_name} (home: {home.name}).")
+        _clog.info(f"  Waiting for the gateway to pick it up...")
 
         # Poll-block on terminal state. Tick every 0.5s; bail at ~60s.
         import time as _time
@@ -6664,20 +6664,20 @@ class ReYMeNCLI:
             current = (state_row or {}).get("state") or "pending"
             if current != last_state:
                 if current == "running":
-                    _cprint("  Gateway picked it up; transferring...")
+                    _clog.info("  Gateway picked it up; transferring...")
                 last_state = current
             if current == "completed":
-                _cprint("")
-                _cprint(f"  ↻ Handoff complete. The session is now active on {platform_name}.")
-                _cprint(f"  Resume it on this CLI later with: /resume {session_title}")
-                _cprint("")
+                _clog.info("")
+                _clog.info(f"  ↻ Handoff complete. The session is now active on {platform_name}.")
+                _clog.info(f"  Resume it on this CLI later with: /resume {session_title}")
+                _clog.info("")
                 # End the CLI cleanly — same exit semantics as /quit.
                 self._should_exit = True
                 return False
             if current == "failed":
                 err = (state_row or {}).get("error") or "unknown error"
-                _cprint(f"  Handoff failed: {err}")
-                _cprint("  Your CLI session is intact. Try /handoff again, or /resume on the platform manually.")
+                _clog.info(f"  Handoff failed: {err}")
+                _clog.info("  Your CLI session is intact. Try /handoff again, or /resume on the platform manually.")
                 return True
             _time.sleep(0.5)
 
@@ -6686,8 +6686,8 @@ class ReYMeNCLI:
             self._session_db.fail_handoff(self.session_id, "timed out waiting for gateway")
         except Exception:
             pass
-        _cprint("  Timed out waiting for the gateway. Is `ReYMeN gateway` running?")
-        _cprint("  Your CLI session is intact.")
+        _clog.info("  Timed out waiting for the gateway. Is `ReYMeN gateway` running?")
+        _clog.info("  Your CLI session is intact.")
         return True
 
     def _handle_resume_command(self, cmd_original: str) -> None:
@@ -6709,7 +6709,7 @@ class ReYMeNCLI:
             target = target[1:-1].strip()
 
         if not target:
-            _cprint("  Usage: /resume <number|session_id_or_title>")
+            _clog.info("  Usage: /resume <number|session_id_or_title>")
             if self._show_recent_sessions(reason="resume"):
                 # Arm a one-shot pending-resume selection so the user can type
                 # just the number (`3`) on the next line instead of having to
@@ -6719,7 +6719,7 @@ class ReYMeNCLI:
                 # #34584.
                 self._pending_resume_sessions = self._list_recent_sessions(limit=10)
                 return
-            _cprint("  Tip:   Use /history or `ReYMeN sessions list` to find sessions.")
+            _clog.info("  Tip:   Use /history or `ReYMeN sessions list` to find sessions.")
             return
 
         # Any explicit /resume <target> supersedes a previously-armed bare
@@ -6728,7 +6728,7 @@ class ReYMeNCLI:
 
         if not self._session_db:
             from ReYMeN_state import format_session_db_unavailable
-            _cprint(f"  {format_session_db_unavailable()}")
+            _clog.info(f"  {format_session_db_unavailable()}")
             return
 
         # Resolve numbered selection, title, or ID
@@ -6736,8 +6736,8 @@ class ReYMeNCLI:
             sessions = self._list_recent_sessions(limit=10)
             index = int(target)
             if index < 1 or index > len(sessions):
-                _cprint(f"  Resume index {index} is out of range.")
-                _cprint("  Use /resume with no arguments to see available sessions.")
+                _clog.info(f"  Resume index {index} is out of range.")
+                _clog.info("  Use /resume with no arguments to see available sessions.")
                 return
             selected = sessions[index - 1]
             target_id = selected["id"]
@@ -6748,8 +6748,8 @@ class ReYMeNCLI:
 
         session_meta = self._session_db.get_session(target_id)
         if not session_meta:
-            _cprint(f"  Session not found: {target}")
-            _cprint("  Use /history or `ReYMeN sessions list` to see available sessions.")
+            _clog.info(f"  Session not found: {target}")
+            _clog.info("  Use /history or `ReYMeN sessions list` to see available sessions.")
             return
 
         # If the target is the empty head of a compression chain, redirect to
@@ -6769,7 +6769,7 @@ class ReYMeNCLI:
                 session_meta = resolved_meta
 
         if target_id == self.session_id:
-            _cprint("  Already on that session.")
+            _clog.info("  Already on that session.")
             return
 
         old_session_id = self.session_id
@@ -6837,7 +6837,7 @@ class ReYMeNCLI:
             )
             self._display_resumed_history()
         else:
-            _cprint(f"  ↻ Resumed session {target_id}{title_part} — no messages, starting fresh.")
+            _clog.info(f"  ↻ Resumed session {target_id}{title_part} — no messages, starting fresh.")
 
     def _consume_pending_resume_selection(self, text: str) -> bool:
         """Resolve a bare numeric reply that follows a bare ``/resume`` prompt.
@@ -6870,8 +6870,8 @@ class ReYMeNCLI:
 
         index = int(stripped)
         if index < 1 or index > len(pending):
-            _cprint(f"  Resume index {index} is out of range.")
-            _cprint("  Use /resume with no arguments to see available sessions.")
+            _clog.info(f"  Resume index {index} is out of range.")
+            _clog.info("  Use /resume with no arguments to see available sessions.")
             return True
 
         self._handle_resume_command(f"/resume {index}")
@@ -6900,10 +6900,10 @@ class ReYMeNCLI:
         if not arg or sub in {"list", "ls", "browse"}:
             if not self._session_db:
                 from ReYMeN_state import format_session_db_unavailable
-                _cprint(f"  {format_session_db_unavailable()}")
+                _clog.info(f"  {format_session_db_unavailable()}")
                 return
             if not self._show_recent_sessions(reason="sessions"):
-                _cprint("  (._.) No previous sessions yet.")
+                _clog.info("  (._.) No previous sessions yet.")
             return
 
         # /sessions <id_or_title> behaves the same as /resume <id_or_title>.
@@ -6917,12 +6917,12 @@ class ReYMeNCLI:
         Inspired by Claude Code's /branch command.
         """
         if not self.conversation_history:
-            _cprint("  No conversation to branch — send a message first.")
+            _clog.info("  No conversation to branch — send a message first.")
             return
 
         if not self._session_db:
             from ReYMeN_state import format_session_db_unavailable
-            _cprint(f"  {format_session_db_unavailable()}")
+            _clog.info(f"  {format_session_db_unavailable()}")
             return
 
         parts = cmd_original.split(None, 1)
@@ -6967,7 +6967,7 @@ class ReYMeNCLI:
                 parent_session_id=parent_session_id,
             )
         except Exception as e:
-            _cprint(f"  Failed to create branch session: {e}")
+            _clog.info(f"  Failed to create branch session: {e}")
             return
 
         # Copy conversation history to the new session
@@ -7036,8 +7036,8 @@ class ReYMeNCLI:
             f"  ⑂ Branched session \"{branch_title}\""
             f" ({msg_count} user message{'s' if msg_count != 1 else ''})"
         )
-        _cprint(f"  Original session: {parent_session_id}")
-        _cprint(f"  Branch session:   {new_session_id}")
+        _clog.info(f"  Original session: {parent_session_id}")
+        _clog.info(f"  Branch session:   {new_session_id}")
 
     def save_conversation(self):
         """Save the current conversation to a JSON snapshot under ~/.ReYMeN/sessions/saved/.
@@ -7048,7 +7048,7 @@ class ReYMeNCLI:
         regardless of whether the user ever runs ``/save``.
         """
         if not self.conversation_history:
-            print("(;_;) No conversation to save.")
+            log.info("(;_;) No conversation to save.")
             return
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -7056,7 +7056,7 @@ class ReYMeNCLI:
         try:
             saved_dir.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            print(f"(x_x) Failed to create save directory {saved_dir}: {e}")
+            log.info(f"(x_x) Failed to create save directory {saved_dir}: {e}")
             return
         path = saved_dir / f"ReYMeN_conversation_{timestamp}.json"
 
@@ -7068,11 +7068,11 @@ class ReYMeNCLI:
                     "session_start": self.session_start.isoformat(),
                     "messages": self.conversation_history,
                 }, f, indent=2, ensure_ascii=False)
-            print(f"(^_^)v Conversation snapshot saved to: {path}")
+            log.info(f"(^_^)v Conversation snapshot saved to: {path}")
             if self.session_id:
-                print(f"       Resume the live session with: ReYMeN --resume {self.session_id}")
+                log.info(f"       Resume the live session with: ReYMeN --resume {self.session_id}")
         except Exception as e:
-            print(f"(x_x) Failed to save: {e}")
+            log.info(f"(x_x) Failed to save: {e}")
     
     def retry_last(self):
         """Retry the last user message by removing the last exchange and re-sending.
@@ -7082,7 +7082,7 @@ class ReYMeNCLI:
         Returns the message to re-send, or None if there's nothing to retry.
         """
         if not self.conversation_history:
-            print("(._.) No messages to retry.")
+            log.info("(._.) No messages to retry.")
             return None
         
         # Walk backwards to find the last user message
@@ -7093,14 +7093,14 @@ class ReYMeNCLI:
                 break
         
         if last_user_idx is None:
-            print("(._.) No user message found to retry.")
+            log.info("(._.) No user message found to retry.")
             return None
         
         # Extract the message text and remove everything from that point forward
         last_message = self.conversation_history[last_user_idx].get("content", "")
         self.conversation_history = self.conversation_history[:last_user_idx]
         
-        print(f"(^_^)b Retrying: \"{last_message[:60]}{'...' if len(last_message) > 60 else ''}\"")
+        log.info(f"(^_^)b Retrying: \"{last_message[:60]}{'...' if len(last_message) > 60 else ''}\"")
         return last_message
     
     def undo_last(self, n: int = 1, prefill: bool = True):
@@ -7127,7 +7127,7 @@ class ReYMeNCLI:
         touch the user's input buffer.
         """
         if not self.conversation_history:
-            print("(._.) No messages to undo.")
+            log.info("(._.) No messages to undo.")
             return
 
         if n < 1:
@@ -7142,7 +7142,7 @@ class ReYMeNCLI:
                     break
 
         if not user_indices:
-            print("(._.) No user message found to undo.")
+            log.info("(._.) No user message found to undo.")
             return
 
         # The oldest of the collected user messages is our truncation point.
@@ -7219,7 +7219,7 @@ class ReYMeNCLI:
             f"Backed up to: \"{removed_text[:60]}{'...' if len(removed_text) > 60 else ''}\""
         )
         remaining = len(self.conversation_history)
-        print(f"  {remaining} message(s) remaining in history.")
+        log.info(f"  {remaining} message(s) remaining in history.")
 
         # Pre-fill the composer with the backed-up message so the user can
         # edit and resubmit (Claude-Code-style). Editable, not auto-sent.
@@ -7629,7 +7629,7 @@ class ReYMeNCLI:
 
     def _apply_model_switch_result(self, result, persist_global: bool) -> None:
         if not result.success:
-            _cprint(f"  ✗ {result.error_message}")
+            _clog.info(f"  ✗ {result.error_message}")
             return
 
         old_model = self.model
@@ -7658,7 +7658,7 @@ class ReYMeNCLI:
                     api_mode=result.api_mode,
                 )
             except Exception as exc:
-                _cprint(f"  ⚠ Agent swap failed ({exc}); change applied to next session.")
+                _clog.info(f"  ⚠ Agent swap failed ({exc}); change applied to next session.")
 
         self._pending_model_switch_note = (
             f"[Note: model was just switched from {old_model} to {result.new_model} "
@@ -7667,8 +7667,8 @@ class ReYMeNCLI:
         )
 
         provider_label = result.provider_label or result.target_provider
-        _cprint(f"  ✓ Model switched: {result.new_model}")
-        _cprint(f"    Provider: {provider_label}")
+        _clog.info(f"  ✓ Model switched: {result.new_model}")
+        _clog.info(f"    Provider: {provider_label}")
 
         # Context: always resolve via the provider-aware chain so Codex OAuth,
         # Copilot, and Nous-enforced caps win over the raw models.dev entry
@@ -7685,31 +7685,31 @@ class ReYMeNCLI:
                 config_context_length=getattr(self.agent, "_config_context_length", None) if self.agent else None,
             )
             if ctx:
-                _cprint(f"    Context: {ctx:,} tokens")
+                _clog.info(f"    Context: {ctx:,} tokens")
         except Exception:
             pass
         if mi:
             if mi.max_output:
-                _cprint(f"    Max output: {mi.max_output:,} tokens")
+                _clog.info(f"    Max output: {mi.max_output:,} tokens")
             if mi.has_cost_data():
-                _cprint(f"    Cost: {mi.format_cost()}")
-            _cprint(f"    Capabilities: {mi.format_capabilities()}")
+                _clog.info(f"    Cost: {mi.format_cost()}")
+            _clog.info(f"    Capabilities: {mi.format_capabilities()}")
 
         cache_enabled = (
             (base_url_host_matches(result.base_url or "", "openrouter.ai") and "claude" in result.new_model.lower())
             or result.api_mode == "anthropic_messages"
         )
         if cache_enabled:
-            _cprint("    Prompt caching: enabled")
+            _clog.info("    Prompt caching: enabled")
         if result.warning_message:
-            _cprint(f"    ⚠ {result.warning_message}")
+            _clog.info(f"    ⚠ {result.warning_message}")
         if persist_global:
             save_config_value("model.default", result.new_model)
             if result.provider_changed:
                 save_config_value("model.provider", result.target_provider)
-            _cprint("    Saved to config.yaml (--global)")
+            _clog.info("    Saved to config.yaml (--global)")
         else:
-            _cprint("    (session only — add --global to persist)")
+            _clog.info("    (session only — add --global to persist)")
 
     def _handle_model_picker_selection(self, persist_global: bool = False) -> None:
         state = self._model_picker_state
@@ -7801,7 +7801,7 @@ class ReYMeNCLI:
             try:
                 from ReYMeN_cli.models import clear_provider_models_cache
                 clear_provider_models_cache()
-                _cprint("  Cleared model picker cache. Refreshing...")
+                _clog.info("  Cleared model picker cache. Refreshing...")
             except Exception:
                 pass
 
@@ -7838,11 +7838,11 @@ class ReYMeNCLI:
                 providers = []
 
             if not providers:
-                _cprint("  No authenticated providers found.")
-                _cprint("")
-                _cprint("  /model <name>                        switch model")
-                _cprint("  /model --provider <slug>             switch provider")
-                _cprint("  /model --refresh                     re-fetch live model lists")
+                _clog.info("  No authenticated providers found.")
+                _clog.info("")
+                _clog.info("  /model <name>                        switch model")
+                _clog.info("  /model --provider <slug>             switch provider")
+                _clog.info("  /model --refresh                     re-fetch live model lists")
                 return
 
             self._open_model_picker(
@@ -7868,7 +7868,7 @@ class ReYMeNCLI:
         )
 
         if not result.success:
-            _cprint(f"  ✗ {result.error_message}")
+            _clog.info(f"  ✗ {result.error_message}")
             return
 
         # Apply to CLI state.
@@ -7901,7 +7901,7 @@ class ReYMeNCLI:
                     api_mode=result.api_mode,
                 )
             except Exception as exc:
-                _cprint(f"  ⚠ Agent swap failed ({exc}); change applied to next session.")
+                _clog.info(f"  ⚠ Agent swap failed ({exc}); change applied to next session.")
 
         # Store a note to prepend to the next user message so the model
         # knows a switch occurred (avoids injecting system messages mid-history
@@ -7914,8 +7914,8 @@ class ReYMeNCLI:
 
         # Display confirmation with full metadata
         provider_label = result.provider_label or result.target_provider
-        _cprint(f"  ✓ Model switched: {result.new_model}")
-        _cprint(f"    Provider: {provider_label}")
+        _clog.info(f"  ✓ Model switched: {result.new_model}")
+        _clog.info(f"    Provider: {provider_label}")
 
         # Context: always resolve via the provider-aware chain so Codex OAuth,
         # Copilot, and Nous-enforced caps win over the raw models.dev entry
@@ -7931,13 +7931,13 @@ class ReYMeNCLI:
             config_context_length=getattr(self.agent, "_config_context_length", None) if self.agent else None,
         )
         if ctx:
-            _cprint(f"    Context: {ctx:,} tokens")
+            _clog.info(f"    Context: {ctx:,} tokens")
         if mi:
             if mi.max_output:
-                _cprint(f"    Max output: {mi.max_output:,} tokens")
+                _clog.info(f"    Max output: {mi.max_output:,} tokens")
             if mi.has_cost_data():
-                _cprint(f"    Cost: {mi.format_cost()}")
-            _cprint(f"    Capabilities: {mi.format_capabilities()}")
+                _clog.info(f"    Cost: {mi.format_cost()}")
+            _clog.info(f"    Capabilities: {mi.format_capabilities()}")
 
         # Cache notice
         cache_enabled = (
@@ -7945,20 +7945,20 @@ class ReYMeNCLI:
             or result.api_mode == "anthropic_messages"
         )
         if cache_enabled:
-            _cprint("    Prompt caching: enabled")
+            _clog.info("    Prompt caching: enabled")
 
         # Warning from validation
         if result.warning_message:
-            _cprint(f"    ⚠ {result.warning_message}")
+            _clog.info(f"    ⚠ {result.warning_message}")
 
         # Persistence
         if persist_global:
             save_config_value("model.default", result.new_model)
             if result.provider_changed:
                 save_config_value("model.provider", result.target_provider)
-            _cprint("    Saved to config.yaml (--global)")
+            _clog.info("    Saved to config.yaml (--global)")
         else:
-            _cprint("    (session only — add --global to persist)")
+            _clog.info("    (session only — add --global to persist)")
 
     def _handle_codex_runtime(self, cmd_original: str) -> None:
         """Handle /codex-runtime — toggle the codex app-server runtime opt-in.
@@ -7976,14 +7976,14 @@ class ReYMeNCLI:
         new_value, errors = crs.parse_args(raw_args)
         if errors:
             for err in errors:
-                _cprint(f"❌ {err}")
+                _clog.info(f"❌ {err}")
             return
 
         # Load + persist via the existing config helpers
         try:
             from ReYMeN_cli.config import load_config, save_config
         except Exception as exc:
-            _cprint(f"❌ could not load config: {exc}")
+            _clog.info(f"❌ could not load config: {exc}")
             return
         cfg = load_config()
 
@@ -7995,10 +7995,10 @@ class ReYMeNCLI:
 
         prefix = "✓" if result.success else "✗"
         for line in result.message.splitlines():
-            _cprint(f"  {prefix} {line}" if line.startswith("openai_runtime")
+            _clog.info(f"  {prefix} {line}" if line.startswith("openai_runtime")
                     else f"    {line}")
         if result.success and result.requires_new_session:
-            _cprint("    Tip: `/reset` starts a new session immediately.")
+            _clog.info("    Tip: `/reset` starts a new session immediately.")
 
     def _should_handle_model_command_inline(self, text: str, has_images: bool = False) -> bool:
         """Return True when /model should be handled immediately on the UI thread."""
@@ -8064,14 +8064,14 @@ class ReYMeNCLI:
             from agent.google_oauth import get_valid_access_token, GoogleOAuthError, load_credentials
             from agent.google_code_assist import retrieve_user_quota, CodeAssistError
         except ImportError as exc:
-            self._console_print(f"  [red]Gemini modules unavailable: {exc}[/]")
+            self._console_log.info(f"  [red]Gemini modules unavailable: {exc}[/]")
             return
 
         try:
             access_token = get_valid_access_token()
         except GoogleOAuthError as exc:
-            self._console_print(f"  [yellow]{exc}[/]")
-            self._console_print("  Run [bold]/model[/] and pick 'Google Gemini (OAuth)' to sign in.")
+            self._console_log.info(f"  [yellow]{exc}[/]")
+            self._console_log.info("  Run [bold]/model[/] and pick 'Google Gemini (OAuth)' to sign in.")
             return
 
         creds = load_credentials()
@@ -8080,17 +8080,17 @@ class ReYMeNCLI:
         try:
             buckets = retrieve_user_quota(access_token, project_id=project_id)
         except CodeAssistError as exc:
-            self._console_print(f"  [red]Quota lookup failed:[/] {exc}")
+            self._console_log.info(f"  [red]Quota lookup failed:[/] {exc}")
             return
 
         if not buckets:
-            self._console_print("  [dim]No quota buckets reported (account may be on legacy/unmetered tier).[/]")
+            self._console_log.info("  [dim]No quota buckets reported (account may be on legacy/unmetered tier).[/]")
             return
 
         # Sort for stable display, group by model
         buckets.sort(key=lambda b: (b.model_id, b.token_type))
         self._console_print()
-        self._console_print(f"  [bold]Gemini Code Assist quota[/]  (project: {project_id or '(auto / free-tier)'})")
+        self._console_log.info(f"  [bold]Gemini Code Assist quota[/]  (project: {project_id or '(auto / free-tier)'})")
         self._console_print()
         for b in buckets:
             pct = max(0.0, min(1.0, b.remaining_fraction))
@@ -8101,7 +8101,7 @@ class ReYMeNCLI:
             header = b.model_id
             if b.token_type:
                 header += f" [{b.token_type}]"
-            self._console_print(f"    {header:40s}  {bar}  {pct_str}")
+            self._console_log.info(f"    {header:40s}  {bar}  {pct_str}")
         self._console_print()
 
     def _handle_personality_command(self, cmd: str):
@@ -8116,37 +8116,37 @@ class ReYMeNCLI:
                 self.system_prompt = ""
                 self.agent = None  # Force re-init
                 if save_config_value("agent.system_prompt", ""):
-                    print("(^_^)b Personality cleared (saved to config)")
+                    log.info("(^_^)b Personality cleared (saved to config)")
                 else:
-                    print("(^_^) Personality cleared (session only)")
-                print("  No personality overlay — using base agent behavior.")
+                    log.info("(^_^) Personality cleared (session only)")
+                log.info("  No personality overlay — using base agent behavior.")
             elif personality_name in self.personalities:
                 self.system_prompt = self._resolve_personality_prompt(self.personalities[personality_name])
                 self.agent = None  # Force re-init
                 if save_config_value("agent.system_prompt", self.system_prompt):
-                    print(f"(^_^)b Personality set to '{personality_name}' (saved to config)")
+                    log.info(f"(^_^)b Personality set to '{personality_name}' (saved to config)")
                 else:
-                    print(f"(^_^) Personality set to '{personality_name}' (session only)")
-                print(f"  \"{self.system_prompt[:60]}{'...' if len(self.system_prompt) > 60 else ''}\"")
+                    log.info(f"(^_^) Personality set to '{personality_name}' (session only)")
+                log.info(f"  \"{self.system_prompt[:60]}{'...' if len(self.system_prompt) > 60 else ''}\"")
             else:
-                print(f"(._.) Unknown personality: {personality_name}")
-                print(f"  Available: none, {', '.join(self.personalities.keys())}")
+                log.info(f"(._.) Unknown personality: {personality_name}")
+                log.info(f"  Available: none, {', '.join(self.personalities.keys())}")
         else:
             # Show available personalities
             print()
-            print("+" + "-" * 50 + "+")
-            print("|" + " " * 12 + "(^o^)/ Personalities" + " " * 15 + "|")
-            print("+" + "-" * 50 + "+")
+            log.info("+" + "-" * 50 + "+")
+            log.info("|" + " " * 12 + "(^o^)/ Personalities" + " " * 15 + "|")
+            log.info("+" + "-" * 50 + "+")
             print()
-            print(f"  {'none':<12} - (no personality overlay)")
+            log.info(f"  {'none':<12} - (no personality overlay)")
             for name, prompt in self.personalities.items():
                 if isinstance(prompt, dict):
                     preview = prompt.get("description") or prompt.get("system_prompt", "")[:50]
                 else:
                     preview = str(prompt)[:50]
-                print(f"  {name:<12} - {preview}")
+                log.info(f"  {name:<12} - {preview}")
             print()
-            print("  Usage: /personality <name>")
+            log.info("  Usage: /personality <name>")
             print()
     
     def _handle_cron_command(self, cmd: str):
@@ -8192,7 +8192,7 @@ class ReYMeNCLI:
                     try:
                         opts["repeat"] = int(tokens[i + 1])
                     except ValueError:
-                        print("(._.) --repeat must be an integer")
+                        log.info("(._.) --repeat must be an integer")
                         return None
                     i += 2
                 elif token == "--skill" and i + 1 < len(tokens):
@@ -8225,38 +8225,38 @@ class ReYMeNCLI:
 
         if len(tokens) == 1:
             print()
-            print("+" + "-" * 68 + "+")
-            print("|" + " " * 22 + "(^_^) Scheduled Tasks" + " " * 23 + "|")
-            print("+" + "-" * 68 + "+")
+            log.info("+" + "-" * 68 + "+")
+            log.info("|" + " " * 22 + "(^_^) Scheduled Tasks" + " " * 23 + "|")
+            log.info("+" + "-" * 68 + "+")
             print()
-            print("  Commands:")
-            print("    /cron list")
-            print('    /cron add "every 2h" "Check server status" [--skill blogwatcher]')
-            print('    /cron edit <job_id> --schedule "every 4h" --prompt "New task"')
-            print("    /cron edit <job_id> --skill blogwatcher --skill maps")
-            print("    /cron edit <job_id> --remove-skill blogwatcher")
-            print("    /cron edit <job_id> --clear-skills")
-            print("    /cron pause <job_id>")
-            print("    /cron resume <job_id>")
-            print("    /cron run <job_id>")
-            print("    /cron remove <job_id>")
+            log.info("  Commands:")
+            log.info("    /cron list")
+            log.info('    /cron add "every 2h" "Check server status" [--skill blogwatcher]')
+            log.info('    /cron edit <job_id> --schedule "every 4h" --prompt "New task"')
+            log.info("    /cron edit <job_id> --skill blogwatcher --skill maps")
+            log.info("    /cron edit <job_id> --remove-skill blogwatcher")
+            log.info("    /cron edit <job_id> --clear-skills")
+            log.info("    /cron pause <job_id>")
+            log.info("    /cron resume <job_id>")
+            log.info("    /cron run <job_id>")
+            log.info("    /cron remove <job_id>")
             print()
             result = _cron_api(action="list")
             jobs = result.get("jobs", []) if result.get("success") else []
             if jobs:
-                print("  Current Jobs:")
-                print("  " + "-" * 63)
+                log.info("  Current Jobs:")
+                log.info("  " + "-" * 63)
                 for job in jobs:
                     repeat_str = job.get("repeat", "?")
-                    print(f"    {job['job_id'][:12]:<12} | {job['schedule']:<15} | {repeat_str:<8}")
+                    log.info(f"    {job['job_id'][:12]:<12} | {job['schedule']:<15} | {repeat_str:<8}")
                     if job.get("skills"):
-                        print(f"      Skills: {', '.join(job['skills'])}")
-                    print(f"      {job.get('prompt_preview', '')}")
+                        log.info(f"      Skills: {', '.join(job['skills'])}")
+                    log.info(f"      {job.get('prompt_preview', '')}")
                     if job.get("next_run_at"):
-                        print(f"      Next: {job['next_run_at']}")
+                        log.info(f"      Next: {job['next_run_at']}")
                     print()
             else:
-                print("  No scheduled jobs. Use '/cron add' to create one.")
+                log.info("  No scheduled jobs. Use '/cron add' to create one.")
             print()
             return
 
@@ -8269,36 +8269,36 @@ class ReYMeNCLI:
             result = _cron_api(action="list", include_disabled=opts["all"])
             jobs = result.get("jobs", []) if result.get("success") else []
             if not jobs:
-                print("(._.) No scheduled jobs.")
+                log.info("(._.) No scheduled jobs.")
                 return
 
             print()
-            print("Scheduled Jobs:")
-            print("-" * 80)
+            log.info("Scheduled Jobs:")
+            log.info("-" * 80)
             for job in jobs:
-                print(f"  ID: {job['job_id']}")
-                print(f"  Name: {job['name']}")
-                print(f"  State: {job.get('state', '?')}")
-                print(f"  Schedule: {job['schedule']} ({job.get('repeat', '?')})")
-                print(f"  Next run: {job.get('next_run_at', 'N/A')}")
+                log.info(f"  ID: {job['job_id']}")
+                log.info(f"  Name: {job['name']}")
+                log.info(f"  State: {job.get('state', '?')}")
+                log.info(f"  Schedule: {job['schedule']} ({job.get('repeat', '?')})")
+                log.info(f"  Next run: {job.get('next_run_at', 'N/A')}")
                 if job.get("skills"):
-                    print(f"  Skills: {', '.join(job['skills'])}")
-                print(f"  Prompt: {job.get('prompt_preview', '')}")
+                    log.info(f"  Skills: {', '.join(job['skills'])}")
+                log.info(f"  Prompt: {job.get('prompt_preview', '')}")
                 if job.get("last_run_at"):
-                    print(f"  Last run: {job['last_run_at']} ({job.get('last_status', '?')})")
+                    log.info(f"  Last run: {job['last_run_at']} ({job.get('last_status', '?')})")
                 print()
             return
 
         if subcommand in {"add", "create"}:
             positionals = opts["positionals"]
             if not positionals:
-                print("(._.) Usage: /cron add <schedule> <prompt>")
+                log.info("(._.) Usage: /cron add <schedule> <prompt>")
                 return
             schedule = opts["schedule"] or positionals[0]
             prompt = opts["prompt"] or " ".join(positionals[1:])
             skills = _normalize_skills(opts["skills"])
             if not prompt and not skills:
-                print("(._.) Please provide a prompt or at least one skill")
+                log.info("(._.) Please provide a prompt or at least one skill")
                 return
             result = _cron_api(
                 action="create",
@@ -8310,24 +8310,24 @@ class ReYMeNCLI:
                 skills=skills or None,
             )
             if result.get("success"):
-                print(f"(^_^)b Created job: {result['job_id']}")
-                print(f"  Schedule: {result['schedule']}")
+                log.info(f"(^_^)b Created job: {result['job_id']}")
+                log.info(f"  Schedule: {result['schedule']}")
                 if result.get("skills"):
-                    print(f"  Skills: {', '.join(result['skills'])}")
-                print(f"  Next run: {result['next_run_at']}")
+                    log.info(f"  Skills: {', '.join(result['skills'])}")
+                log.info(f"  Next run: {result['next_run_at']}")
             else:
-                print(f"(x_x) Failed to create job: {result.get('error')}")
+                log.info(f"(x_x) Failed to create job: {result.get('error')}")
             return
 
         if subcommand == "edit":
             positionals = opts["positionals"]
             if not positionals:
-                print("(._.) Usage: /cron edit <job_id> [--schedule ...] [--prompt ...] [--skill ...]")
+                log.info("(._.) Usage: /cron edit <job_id> [--schedule ...] [--prompt ...] [--skill ...]")
                 return
             job_id = positionals[0]
             existing = get_job(job_id)
             if not existing:
-                print(f"(._.) Job not found: {job_id}")
+                log.info(f"(._.) Job not found: {job_id}")
                 return
 
             final_skills = None
@@ -8357,42 +8357,42 @@ class ReYMeNCLI:
             )
             if result.get("success"):
                 job = result["job"]
-                print(f"(^_^)b Updated job: {job['job_id']}")
-                print(f"  Schedule: {job['schedule']}")
+                log.info(f"(^_^)b Updated job: {job['job_id']}")
+                log.info(f"  Schedule: {job['schedule']}")
                 if job.get("skills"):
-                    print(f"  Skills: {', '.join(job['skills'])}")
+                    log.info(f"  Skills: {', '.join(job['skills'])}")
                 else:
-                    print("  Skills: none")
+                    log.info("  Skills: none")
             else:
-                print(f"(x_x) Failed to update job: {result.get('error')}")
+                log.info(f"(x_x) Failed to update job: {result.get('error')}")
             return
 
         if subcommand in {"pause", "resume", "run", "remove", "rm", "delete"}:
             positionals = opts["positionals"]
             if not positionals:
-                print(f"(._.) Usage: /cron {subcommand} <job_id>")
+                log.info(f"(._.) Usage: /cron {subcommand} <job_id>")
                 return
             job_id = positionals[0]
             action = "remove" if subcommand in {"remove", "rm", "delete"} else subcommand
             result = _cron_api(action=action, job_id=job_id, reason="paused from /cron" if action == "pause" else None)
             if not result.get("success"):
-                print(f"(x_x) Failed to {action} job: {result.get('error')}")
+                log.info(f"(x_x) Failed to {action} job: {result.get('error')}")
                 return
             if action == "pause":
-                print(f"(^_^)b Paused job: {result['job']['name']} ({job_id})")
+                log.info(f"(^_^)b Paused job: {result['job']['name']} ({job_id})")
             elif action == "resume":
-                print(f"(^_^)b Resumed job: {result['job']['name']} ({job_id})")
-                print(f"  Next run: {result['job'].get('next_run_at')}")
+                log.info(f"(^_^)b Resumed job: {result['job']['name']} ({job_id})")
+                log.info(f"  Next run: {result['job'].get('next_run_at')}")
             elif action == "run":
-                print(f"(^_^)b Triggered job: {result['job']['name']} ({job_id})")
-                print("  It will run on the next scheduler tick.")
+                log.info(f"(^_^)b Triggered job: {result['job']['name']} ({job_id})")
+                log.info("  It will run on the next scheduler tick.")
             else:
                 removed = result.get("removed_job", {})
-                print(f"(^_^)b Removed job: {removed.get('name', job_id)} ({job_id})")
+                log.info(f"(^_^)b Removed job: {removed.get('name', job_id)} ({job_id})")
             return
 
-        print(f"(._.) Unknown cron command: {subcommand}")
-        print("  Available: list, add, edit, pause, resume, run, remove")
+        log.info(f"(._.) Unknown cron command: {subcommand}")
+        log.info("  Available: list, add, edit, pause, resume, run, remove")
 
     def _handle_curator_command(self, cmd: str):
         """Handle /curator slash command.
@@ -8414,7 +8414,7 @@ class ReYMeNCLI:
             # don't kill the interactive session.
             pass
         except Exception as exc:
-            print(f"(._.) curator: {exc}")
+            log.info(f"(._.) curator: {exc}")
 
     def _handle_kanban_command(self, cmd: str):
         """Handle the /kanban command — delegate to the shared kanban CLI.
@@ -8447,16 +8447,16 @@ class ReYMeNCLI:
         from gateway.config import load_gateway_config, Platform
         
         print()
-        print("+" + "-" * 60 + "+")
-        print("|" + " " * 15 + "(✿◠‿◠) Gateway Status" + " " * 17 + "|")
-        print("+" + "-" * 60 + "+")
+        log.info("+" + "-" * 60 + "+")
+        log.info("|" + " " * 15 + "(✿◠‿◠) Gateway Status" + " " * 17 + "|")
+        log.info("+" + "-" * 60 + "+")
         print()
         
         try:
             config = load_gateway_config()
             
-            print("  Messaging Platform Configuration:")
-            print("  " + "-" * 55)
+            log.info("  Messaging Platform Configuration:")
+            log.info("  " + "-" * 55)
             
             platform_status = {
                 Platform.TELEGRAM: ("Telegram", "TELEGRAM_BOT_TOKEN"),
@@ -8470,33 +8470,33 @@ class ReYMeNCLI:
                 if pconfig and pconfig.enabled:
                     home = config.get_home_channel(platform)
                     home_str = f" → {home.name}" if home else ""
-                    print(f"    ✓ {name:<12} Enabled{home_str}")
+                    log.info(f"    ✓ {name:<12} Enabled{home_str}")
                 else:
-                    print(f"    ○ {name:<12} Not configured ({env_var})")
+                    log.info(f"    ○ {name:<12} Not configured ({env_var})")
             
             print()
-            print("  Session Reset Policy:")
-            print("  " + "-" * 55)
+            log.info("  Session Reset Policy:")
+            log.info("  " + "-" * 55)
             policy = config.default_reset_policy
-            print(f"    Mode: {policy.mode}")
-            print(f"    Daily reset at: {policy.at_hour}:00")
-            print(f"    Idle timeout: {policy.idle_minutes} minutes")
+            log.info(f"    Mode: {policy.mode}")
+            log.info(f"    Daily reset at: {policy.at_hour}:00")
+            log.info(f"    Idle timeout: {policy.idle_minutes} minutes")
             
             print()
-            print("  To start the gateway:")
-            print("    python cli.py --gateway")
+            log.info("  To start the gateway:")
+            log.info("    python cli.py --gateway")
             print()
-            print(f"  Configuration file: {display_ReYMeN_home()}/config.yaml")
+            log.info(f"  Configuration file: {display_ReYMeN_home()}/config.yaml")
             print()
             
         except Exception as e:
-            print(f"  Error loading gateway config: {e}")
+            log.info(f"  Error loading gateway config: {e}")
             print()
-            print("  To configure the gateway:")
-            print("    1. Set environment variables:")
-            print("       TELEGRAM_BOT_TOKEN=your_token")
-            print("       DISCORD_BOT_TOKEN=your_token")
-            print(f"    2. Or configure settings in {display_ReYMeN_home()}/config.yaml")
+            log.info("  To configure the gateway:")
+            log.info("    1. Set environment variables:")
+            log.info("       TELEGRAM_BOT_TOKEN=your_token")
+            log.info("       DISCORD_BOT_TOKEN=your_token")
+            log.info(f"    2. Or configure settings in {display_ReYMeN_home()}/config.yaml")
             print()
     
     def process_command(self, command: str) -> bool:
@@ -8536,7 +8536,7 @@ class ReYMeNCLI:
             if _args in {"--delete", "-d"}:
                 self._delete_session_on_exit = True
             elif _args:
-                _cprint(f"  {_DIM}✗ Unknown argument: {_escape(_args)}. Use /exit --delete to also remove session history.{_RST}")
+                _clog.info(f"  {_DIM}✗ Unknown argument: {_escape(_args)}. Use /exit --delete to also remove session history.{_RST}")
                 return True
             return False
         elif canonical == "help":
@@ -8554,7 +8554,7 @@ class ReYMeNCLI:
             # tab switches, subshell ``clear``, SSH window restores, etc.
             # See issue #8688 (cmux). Ctrl+L is bound to the same helper.
             self._force_full_redraw()
-            _cprint(f"  {_DIM}✓ UI redrawn{_RST}")
+            _clog.info(f"  {_DIM}✓ UI redrawn{_RST}")
         elif canonical == "clear":
             if self._confirm_destructive_slash(
                 "clear",
@@ -8600,7 +8600,7 @@ class ReYMeNCLI:
                         session_id=self.session_id,
                         context_length=ctx_len,
                     )
-                _cprint("  ✨ (◕‿◕)✨ Fresh start! Screen cleared and conversation reset.\n")
+                _clog.info("  ✨ (◕‿◕)✨ Fresh start! Screen cleared and conversation reset.\n")
                 # Show a random tip on new session
                 try:
                     from ReYMeN_cli.tips import get_random_tip
@@ -8610,12 +8610,12 @@ class ReYMeNCLI:
                         _tip_color = get_active_skin().get_color("banner_dim", "#B8860B")
                     except Exception:
                         _tip_color = "#B8860B"
-                    cc.print(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
+                    cc.log.info(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
                 except Exception:
                     pass
             else:
                 self.show_banner()
-                print("  ✨ (◕‿◕)✨ Fresh start! Screen cleared and conversation reset.\n")
+                log.info("  ✨ (◕‿◕)✨ Fresh start! Screen cleared and conversation reset.\n")
                 # Show a random tip on new session
                 try:
                     from ReYMeN_cli.tips import get_random_tip
@@ -8625,7 +8625,7 @@ class ReYMeNCLI:
                         _tip_color = get_active_skin().get_color("banner_dim", "#B8860B")
                     except Exception:
                         _tip_color = "#B8860B"
-                    self._console_print(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
+                    self._console_log.info(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
                 except Exception:
                     pass
         elif canonical == "history":
@@ -8641,46 +8641,46 @@ class ReYMeNCLI:
                             from ReYMeN_state import SessionDB
                             new_title = SessionDB.sanitize_title(raw_title)
                         except ValueError as e:
-                            _cprint(f"  {e}")
+                            _clog.info(f"  {e}")
                             new_title = None
                         if not new_title:
-                            _cprint("  Title is empty after cleanup. Please use printable characters.")
+                            _clog.info("  Title is empty after cleanup. Please use printable characters.")
                         elif self._session_db.get_session(self.session_id):
                             # Session exists in DB — set title directly
                             try:
                                 if self._session_db.set_session_title(self.session_id, new_title):
-                                    _cprint(f"  Session title set: {new_title}")
+                                    _clog.info(f"  Session title set: {new_title}")
                                 else:
-                                    _cprint("  Session not found in database.")
+                                    _clog.info("  Session not found in database.")
                             except ValueError as e:
-                                _cprint(f"  {e}")
+                                _clog.info(f"  {e}")
                         else:
                             # Session not created yet — defer the title
                             # Check uniqueness proactively with the sanitized title
                             existing = self._session_db.get_session_by_title(new_title)
                             if existing:
-                                _cprint(f"  Title '{new_title}' is already in use by session {existing['id']}")
+                                _clog.info(f"  Title '{new_title}' is already in use by session {existing['id']}")
                             else:
                                 self._pending_title = new_title
-                                _cprint(f"  Session title queued: {new_title} (will be saved on first message)")
+                                _clog.info(f"  Session title queued: {new_title} (will be saved on first message)")
                     else:
                         from ReYMeN_state import format_session_db_unavailable
-                        _cprint(f"  {format_session_db_unavailable()}")
+                        _clog.info(f"  {format_session_db_unavailable()}")
                 else:
-                    _cprint("  Usage: /title <your session title>")
+                    _clog.info("  Usage: /title <your session title>")
             # Show current title and session ID if no argument given
             elif self._session_db:
-                _cprint(f"  Session ID: {self.session_id}")
+                _clog.info(f"  Session ID: {self.session_id}")
                 session = self._session_db.get_session(self.session_id)
                 if session and session.get("title"):
-                    _cprint(f"  Title: {session['title']}")
+                    _clog.info(f"  Title: {session['title']}")
                 elif self._pending_title:
-                    _cprint(f"  Title (pending): {self._pending_title}")
+                    _clog.info(f"  Title (pending): {self._pending_title}")
                 else:
-                    _cprint("  No title set. Usage: /title <your session title>")
+                    _clog.info("  No title set. Usage: /title <your session title>")
             else:
                 from ReYMeN_state import format_session_db_unavailable
-                _cprint(f"  {format_session_db_unavailable()}")
+                _clog.info(f"  {format_session_db_unavailable()}")
         elif canonical == "handoff":
             if not self._handle_handoff_command(cmd_original):
                 return False
@@ -8725,7 +8725,7 @@ class ReYMeNCLI:
                 try:
                     _undo_n = int(_undo_parts[1])
                 except ValueError:
-                    print(f"(._.) Invalid count {_undo_parts[1]!r} — use /undo or /undo N.")
+                    log.info(f"(._.) Invalid count {_undo_parts[1]!r} — use /undo or /undo N.")
                     return
                 if _undo_n < 1:
                     _undo_n = 1
@@ -8761,7 +8761,7 @@ class ReYMeNCLI:
         elif canonical == "statusbar":
             self._status_bar_visible = not self._status_bar_visible
             state = "visible" if self._status_bar_visible else "hidden"
-            self._console_print(f"  Status bar {state}")
+            self._console_log.info(f"  Status bar {state}")
         elif canonical == "verbose":
             self._toggle_verbose()
         elif canonical == "footer":
@@ -8792,7 +8792,7 @@ class ReYMeNCLI:
         elif canonical == "reload":
             from ReYMeN_cli.config import reload_env
             count = reload_env()
-            print(f"  Reloaded .env ({count} var(s) updated)")
+            log.info(f"  Reloaded .env ({count} var(s) updated)")
         elif canonical == "reload-mcp":
             # Interactive reload: confirm first (unless the user has opted out).
             # The auto-reload path (file watcher) calls _reload_mcp directly
@@ -8811,10 +8811,10 @@ class ReYMeNCLI:
                 mgr = get_plugin_manager()
                 plugins = mgr.list_plugins()
                 if not plugins:
-                    print("No plugins installed.")
-                    print(f"Drop plugin directories into {display_ReYMeN_home()}/plugins/ to get started.")
+                    log.info("No plugins installed.")
+                    log.info(f"Drop plugin directories into {display_ReYMeN_home()}/plugins/ to get started.")
                 else:
-                    print(f"Plugins ({len(plugins)}):")
+                    log.info(f"Plugins ({len(plugins)}):")
                     for p in plugins:
                         status = "✓" if p["enabled"] else "✗"
                         version = f" v{p['version']}" if p["version"] else ""
@@ -8824,9 +8824,9 @@ class ReYMeNCLI:
                         parts = [x for x in [tools, hooks, commands] if x]
                         detail = f" ({', '.join(parts)})" if parts else ""
                         error = f" — {p['error']}" if p["error"] else ""
-                        print(f"  {status} {p['name']}{version}{detail}{error}")
+                        log.info(f"  {status} {p['name']}{version}{detail}{error}")
             except Exception as e:
-                print(f"Plugin system error: {e}")
+                log.info(f"Plugin system error: {e}")
         elif canonical == "rollback":
             self._handle_rollback_command(cmd_original)
         elif canonical == "snapshot":
@@ -8842,13 +8842,13 @@ class ReYMeNCLI:
             parts = cmd_original.split(None, 1)
             payload = parts[1].strip() if len(parts) > 1 else ""
             if not payload:
-                _cprint("  Usage: /queue <prompt>")
+                _clog.info("  Usage: /queue <prompt>")
             else:
                 self._pending_input.put(payload)
                 if self._agent_running:
-                    _cprint(f"  Queued for the next turn: {payload[:80]}{'...' if len(payload) > 80 else ''}")
+                    _clog.info(f"  Queued for the next turn: {payload[:80]}{'...' if len(payload) > 80 else ''}")
                 else:
-                    _cprint(f"  Queued: {payload[:80]}{'...' if len(payload) > 80 else ''}")
+                    _clog.info(f"  Queued: {payload[:80]}{'...' if len(payload) > 80 else ''}")
         elif canonical == "steer":
             # Inject a message after the next tool call without interrupting.
             # If the agent is actively running, push the text into the agent's
@@ -8858,21 +8858,21 @@ class ReYMeNCLI:
             parts = cmd_original.split(None, 1)
             payload = parts[1].strip() if len(parts) > 1 else ""
             if not payload:
-                _cprint("  Usage: /steer <prompt>")
+                _clog.info("  Usage: /steer <prompt>")
             elif self._agent_running and self.agent is not None and hasattr(self.agent, "steer"):
                 try:
                     accepted = self.agent.steer(payload)
                 except Exception as exc:
-                    _cprint(f"  Steer failed: {exc}")
+                    _clog.info(f"  Steer failed: {exc}")
                 else:
                     if accepted:
-                        _cprint(f"  ⏩ Steer queued — arrives after the next tool call: {payload[:80]}{'...' if len(payload) > 80 else ''}")
+                        _clog.info(f"  ⏩ Steer queued — arrives after the next tool call: {payload[:80]}{'...' if len(payload) > 80 else ''}")
                     else:
-                        _cprint("  Steer rejected (empty payload).")
+                        _clog.info("  Steer rejected (empty payload).")
             else:
                 # No active run — treat as a normal next-turn message.
                 self._pending_input.put(payload)
-                _cprint(f"  No agent running; queued as next turn: {payload[:80]}{'...' if len(payload) > 80 else ''}")
+                _clog.info(f"  No agent running; queued as next turn: {payload[:80]}{'...' if len(payload) > 80 else ''}")
         elif canonical == "goal":
             self._handle_goal_command(cmd_original)
         elif canonical == "subgoal":
@@ -8906,13 +8906,13 @@ class ReYMeNCLI:
                             if output:
                                 self._console_print(_rich_text_from_ansi(output))
                             else:
-                                self._console_print("[dim]Command returned no output[/]")
+                                self._console_log.info("[dim]Command returned no output[/]")
                         except subprocess.TimeoutExpired:
-                            self._console_print("[bold red]Quick command timed out (30s)[/]")
+                            self._console_log.info("[bold red]Quick command timed out (30s)[/]")
                         except Exception as e:
-                            self._console_print(f"[bold red]Quick command error: {e}[/]")
+                            self._console_log.info(f"[bold red]Quick command error: {e}[/]")
                     else:
-                        self._console_print(f"[bold red]Quick command '{base_cmd}' has no command defined[/]")
+                        self._console_log.info(f"[bold red]Quick command '{base_cmd}' has no command defined[/]")
                 elif qcmd.get("type") == "alias":
                     target = qcmd.get("target", "").strip()
                     if target:
@@ -8921,9 +8921,9 @@ class ReYMeNCLI:
                         aliased_command = f"{target} {user_args}".strip()
                         return self.process_command(aliased_command)
                     else:
-                        self._console_print(f"[bold red]Quick command '{base_cmd}' has no target defined[/]")
+                        self._console_log.info(f"[bold red]Quick command '{base_cmd}' has no target defined[/]")
                 else:
-                    self._console_print(f"[bold red]Quick command '{base_cmd}' has unsupported type (supported: 'exec', 'alias')[/]")
+                    self._console_log.info(f"[bold red]Quick command '{base_cmd}' has unsupported type (supported: 'exec', 'alias')[/]")
             # Check for plugin-registered slash commands
             elif base_cmd.lstrip("/") in _get_plugin_cmd_handler_names():
                 from ReYMeN_cli.plugins import (
@@ -8940,7 +8940,7 @@ class ReYMeNCLI:
                         if result:
                             _cprint(str(result))
                     except Exception as e:
-                        _cprint(f"\033[1;31mPlugin command error: {e}{_RST}")
+                        _clog.info(f"\033[1;31mPlugin command error: {e}{_RST}")
             # Skill bundles take precedence over individual skills — /<bundle>
             # loads multiple skills at once. Rescans cheaply when files change.
             elif base_cmd in skill_bundles:
@@ -8973,11 +8973,11 @@ class ReYMeNCLI:
                 )
                 if msg:
                     skill_name = skill_commands[base_cmd]["name"]
-                    print(f"\n⚡ Loading skill: {skill_name}")
+                    log.info(f"\n⚡ Loading skill: {skill_name}")
                     if hasattr(self, '_pending_input'):
                         self._pending_input.put(msg)
                 else:
-                    ChatConsole().print(f"[bold red]Failed to load skill for {base_cmd}[/]")
+                    ChatConsole().log.info(f"[bold red]Failed to load skill for {base_cmd}[/]")
             else:
                 # Prefix matching: if input uniquely identifies one command, execute it.
                 # Matches against both built-in COMMANDS and installed skill commands so
@@ -9006,18 +9006,18 @@ class ReYMeNCLI:
                     full_name = matches[0]
                     if full_name == typed_base:
                         # Already an exact token — no expansion possible; fall through
-                        _cprint(f"\033[1;31mUnknown command: {cmd_lower}{_RST}")
-                        _cprint(f"{_DIM}{_ACCENT}Type /help for available commands{_RST}")
+                        _clog.info(f"\033[1;31mUnknown command: {cmd_lower}{_RST}")
+                        _clog.info(f"{_DIM}{_ACCENT}Type /help for available commands{_RST}")
                     else:
                         remainder = cmd_original.strip()[len(typed_base):]
                         full_cmd = full_name + remainder
                         return self.process_command(full_cmd)
                 elif len(matches) > 1:
-                    _cprint(f"{_ACCENT}Ambiguous command: {cmd_lower}{_RST}")
-                    _cprint(f"{_DIM}Did you mean: {', '.join(sorted(matches))}?{_RST}")
+                    _clog.info(f"{_ACCENT}Ambiguous command: {cmd_lower}{_RST}")
+                    _clog.info(f"{_DIM}Did you mean: {', '.join(sorted(matches))}?{_RST}")
                 else:
-                    _cprint(f"\033[1;31mUnknown command: {cmd_lower}{_RST}")
-                    _cprint(f"{_DIM}{_ACCENT}Type /help for available commands{_RST}")
+                    _clog.info(f"\033[1;31mUnknown command: {cmd_lower}{_RST}")
+                    _clog.info(f"{_DIM}{_ACCENT}Type /help for available commands{_RST}")
         
         return True
     
@@ -9030,9 +9030,9 @@ class ReYMeNCLI:
         """
         parts = cmd.strip().split(maxsplit=1)
         if len(parts) < 2 or not parts[1].strip():
-            _cprint("  Usage: /background <prompt>")
-            _cprint("  Example: /background Summarize the top HN stories today")
-            _cprint("  The task runs in a separate session and results display here when done.")
+            _clog.info("  Usage: /background <prompt>")
+            _clog.info("  Example: /background Summarize the top HN stories today")
+            _clog.info("  The task runs in a separate session and results display here when done.")
             return
 
         prompt = parts[1].strip()
@@ -9042,12 +9042,12 @@ class ReYMeNCLI:
 
         # Make sure we have valid credentials
         if not self._ensure_runtime_credentials():
-            _cprint("  (>_<) Cannot start background task: no valid credentials.")
+            _clog.info("  (>_<) Cannot start background task: no valid credentials.")
             return
 
-        _cprint(f"  🔄 Background task #{task_num} started: \"{prompt[:60]}{'...' if len(prompt) > 60 else ''}\"")
-        _cprint(f"  Task ID: {task_id}")
-        _cprint("  You can continue chatting — results will appear when done.\n")
+        _clog.info(f"  🔄 Background task #{task_num} started: \"{prompt[:60]}{'...' if len(prompt) > 60 else ''}\"")
+        _clog.info(f"  Task ID: {task_id}")
+        _clog.info("  You can continue chatting — results will appear when done.\n")
 
         turn_route = self._resolve_turn_agent_config(prompt)
 
@@ -9114,10 +9114,10 @@ class ReYMeNCLI:
                     self._app.invalidate()
                     time.sleep(0.05)  # brief pause for refresh
                 print()
-                ChatConsole().print(f"[{_accent_hex()}]{'─' * 40}[/]")
-                _cprint(f"  ✅ Background task #{task_num} complete")
-                _cprint(f"  Prompt: \"{prompt[:60]}{'...' if len(prompt) > 60 else ''}\"")
-                ChatConsole().print(f"[{_accent_hex()}]{'─' * 40}[/]")
+                ChatConsole().log.info(f"[{_accent_hex()}]{'─' * 40}[/]")
+                _clog.info(f"  ✅ Background task #{task_num} complete")
+                _clog.info(f"  Prompt: \"{prompt[:60]}{'...' if len(prompt) > 60 else ''}\"")
+                ChatConsole().log.info(f"[{_accent_hex()}]{'─' * 40}[/]")
                 if response:
                     try:
                         from ReYMeN_cli.skin_engine import get_active_skin
@@ -9142,7 +9142,7 @@ class ReYMeNCLI:
                         width=self._scrollback_box_width(),
                     ))
                 else:
-                    _cprint("  (No response generated)")
+                    _clog.info("  (No response generated)")
 
                 # Play bell if enabled
                 if self.bell_on_complete:
@@ -9155,7 +9155,7 @@ class ReYMeNCLI:
                     self._app.invalidate()
                     time.sleep(0.05)
                 print()
-                _cprint(f"  ❌ Background task #{task_num} failed: {e}")
+                _clog.info(f"  ❌ Background task #{task_num} failed: {e}")
             finally:
                 try:
                     set_sudo_password_callback(None)
@@ -9195,20 +9195,20 @@ class ReYMeNCLI:
         try:
             from agent.skill_bundles import list_bundles, _bundles_dir
         except Exception as exc:
-            _cprint(f"\033[1;31mBundle subsystem unavailable: {exc}{_RST}")
+            _clog.info(f"\033[1;31mBundle subsystem unavailable: {exc}{_RST}")
             return
 
         bundles = list_bundles()
         if not bundles:
-            _cprint("  No skill bundles installed.")
+            _clog.info("  No skill bundles installed.")
             _cprint(
                 f"  {_DIM}Create one with: ReYMeN bundles create "
                 f"<name> --skill <s1> --skill <s2>{_RST}"
             )
-            _cprint(f"  {_DIM}Directory: {_bundles_dir()}{_RST}")
+            _clog.info(f"  {_DIM}Directory: {_bundles_dir()}{_RST}")
             return
 
-        _cprint(f"\n  ▣ {_BOLD}Skill Bundles{_RST} ({len(bundles)} installed):")
+        _clog.info(f"\n  ▣ {_BOLD}Skill Bundles{_RST} ({len(bundles)} installed):")
         for info in bundles:
             skill_count = len(info.get("skills", []))
             desc = info.get("description") or f"Load {skill_count} skills"
@@ -9217,7 +9217,7 @@ class ReYMeNCLI:
                 f"[dim]-[/] {_escape(desc)} [dim]({skill_count} skills)[/]"
             )
             for s in info.get("skills", []):
-                ChatConsole().print(f"        [dim]· {_escape(s)}[/]")
+                ChatConsole().log.info(f"        [dim]· {_escape(s)}[/]")
         _cprint(
             f"\n  {_DIM}Invoke a bundle with /<slug>. "
             f"Manage with `ReYMeN bundles`.{_RST}"
@@ -9250,12 +9250,12 @@ class ReYMeNCLI:
                 _port = parsed_cdp.port or (443 if parsed_cdp.scheme in {"https", "wss"} else 80)
             except ValueError:
                 print()
-                print(f"   ⚠ Invalid port in browser url: {cdp_url}")
+                log.info(f"   ⚠ Invalid port in browser url: {cdp_url}")
                 print()
                 return
             if not parsed_cdp.hostname:
                 print()
-                print(f"   ⚠ Missing host in browser url: {cdp_url}")
+                log.info(f"   ⚠ Missing host in browser url: {cdp_url}")
                 print()
                 return
             _host = parsed_cdp.hostname
@@ -9282,10 +9282,10 @@ class ReYMeNCLI:
             _already_open = is_browser_debug_ready(cdp_url, timeout=1.0)
 
             if _already_open:
-                print(f"   ✓ Chromium-family browser is already listening on port {_port}")
+                log.info(f"   ✓ Chromium-family browser is already listening on port {_port}")
             elif cdp_url == _DEFAULT_CDP:
                 # Try to auto-launch a Chromium-family browser with remote debugging
-                print("   Chromium-family browser isn't running with remote debugging — attempting to launch...")
+                log.info("   Chromium-family browser isn't running with remote debugging — attempting to launch...")
                 _launched = self._try_launch_chrome_debug(_port, _plat.system())
                 if _launched:
                     # Wait for the DevTools discovery endpoint to come up
@@ -9295,25 +9295,25 @@ class ReYMeNCLI:
                             break
                         time.sleep(0.5)
                     if _already_open:
-                        print(f"   ✓ Chromium-family browser launched and listening on port {_port}")
+                        log.info(f"   ✓ Chromium-family browser launched and listening on port {_port}")
                     else:
-                        print(f"   ⚠ Browser launched but port {_port} isn't responding yet")
-                        print("     Try again in a few seconds — the debug instance may still be starting")
+                        log.info(f"   ⚠ Browser launched but port {_port} isn't responding yet")
+                        log.info("     Try again in a few seconds — the debug instance may still be starting")
                 else:
-                    print("   ⚠ Could not auto-launch a Chromium-family browser")
+                    log.info("   ⚠ Could not auto-launch a Chromium-family browser")
                     sys_name = _plat.system()
                     chrome_cmd = manual_chrome_debug_command(_port, sys_name)
                     if chrome_cmd:
-                        print(f"     Launch a Chromium-family browser manually:")
-                        print(f"     {chrome_cmd}")
+                        log.info(f"     Launch a Chromium-family browser manually:")
+                        log.info(f"     {chrome_cmd}")
                     else:
-                        print("     No supported Chromium-family browser executable found in this environment")
+                        log.info("     No supported Chromium-family browser executable found in this environment")
             else:
-                print(f"   ⚠ Port {_port} is not reachable at {cdp_url}")
+                log.info(f"   ⚠ Port {_port} is not reachable at {cdp_url}")
 
             if not _already_open:
                 print()
-                print("Browser not connected — start a Chromium-family browser with remote debugging and retry /browser connect")
+                log.info("Browser not connected — start a Chromium-family browser with remote debugging and retry /browser connect")
                 print()
                 return
 
@@ -9326,8 +9326,8 @@ class ReYMeNCLI:
             except Exception:
                 pass
             print()
-            print("🌐 Browser connected to live Chromium-family browser via CDP")
-            print(f"   Endpoint: {cdp_url}")
+            log.info("🌐 Browser connected to live Chromium-family browser via CDP")
+            log.info(f"   Endpoint: {cdp_url}")
             print()
 
             # Inject context message so the model knows this slash command
@@ -9355,8 +9355,8 @@ class ReYMeNCLI:
                 except Exception:
                     pass
                 print()
-                print("🌐 Browser disconnected from live Chromium-family browser")
-                print("   Browser tools reverted to default mode (local headless or cloud provider)")
+                log.info("🌐 Browser disconnected from live Chromium-family browser")
+                log.info("   Browser tools reverted to default mode (local headless or cloud provider)")
                 print()
 
                 if hasattr(self, '_pending_input'):
@@ -9366,14 +9366,14 @@ class ReYMeNCLI:
                     )
             else:
                 print()
-                print("Browser is not connected to a live Chromium-family browser (already using default mode)")
+                log.info("Browser is not connected to a live Chromium-family browser (already using default mode)")
                 print()
 
         elif sub == "status":
             print()
             if current:
-                print("🌐 Browser: connected to live Chromium-family browser via CDP")
-                print(f"   Endpoint: {current}")
+                log.info("🌐 Browser: connected to live Chromium-family browser via CDP")
+                log.info(f"   Endpoint: {current}")
 
                 _port = 9222
                 try:
@@ -9386,9 +9386,9 @@ class ReYMeNCLI:
                     s.settimeout(1)
                     s.connect(("127.0.0.1", _port))
                     s.close()
-                    print("   Status: ✓ reachable")
+                    log.info("   Status: ✓ reachable")
                 except (OSError, Exception):
-                    print("   Status: ⚠ not reachable (browser may not be running)")
+                    log.info("   Status: ⚠ not reachable (browser may not be running)")
             else:
                 try:
                     from tools.browser_tool import _get_cloud_provider
@@ -9397,7 +9397,7 @@ class ReYMeNCLI:
                     provider = None
 
                 if provider is not None:
-                    print(f"🌐 Browser: {provider.provider_name()} (cloud)")
+                    log.info(f"🌐 Browser: {provider.provider_name()} (cloud)")
                 else:
                     # Show engine info for local mode
                     try:
@@ -9406,25 +9406,25 @@ class ReYMeNCLI:
                     except Exception:
                         engine = "auto"
                     if engine == "lightpanda":
-                        print("🌐 Browser: local Lightpanda (agent-browser --engine lightpanda)")
-                        print("   ⚡ Lightpanda: faster navigation, no screenshot support")
-                        print("   Automatic Chromium fallback for screenshots and failed commands")
+                        log.info("🌐 Browser: local Lightpanda (agent-browser --engine lightpanda)")
+                        log.info("   ⚡ Lightpanda: faster navigation, no screenshot support")
+                        log.info("   Automatic Chromium fallback for screenshots and failed commands")
                     elif engine == "chrome":
-                        print("🌐 Browser: local headless Chromium (agent-browser --engine chrome)")
+                        log.info("🌐 Browser: local headless Chromium (agent-browser --engine chrome)")
                     else:
-                        print("🌐 Browser: local headless Chromium (agent-browser)")
+                        log.info("🌐 Browser: local headless Chromium (agent-browser)")
             print()
-            print("   /browser connect      — connect to your live Chromium-family browser")
-            print("   /browser disconnect   — revert to default")
+            log.info("   /browser connect      — connect to your live Chromium-family browser")
+            log.info("   /browser disconnect   — revert to default")
             print()
 
         else:
             print()
-            print("Usage: /browser connect|disconnect|status")
+            log.info("Usage: /browser connect|disconnect|status")
             print()
-            print("   connect      Connect browser tools to your live Chromium-family browser session")
-            print("   disconnect   Revert to default browser backend")
-            print("   status       Show current browser mode")
+            log.info("   connect      Connect browser tools to your live Chromium-family browser session")
+            log.info("   disconnect   Revert to default browser backend")
+            log.info("   status       Show current browser mode")
             print()
 
     # ────────────────────────────────────────────────────────────────
@@ -9470,30 +9470,30 @@ class ReYMeNCLI:
 
         mgr = self._get_goal_manager()
         if mgr is None:
-            _cprint(f"  {_DIM}Goals unavailable (no active session).{_RST}")
+            _clog.info(f"  {_DIM}Goals unavailable (no active session).{_RST}")
             return
 
         lower = arg.lower()
 
         # Bare /goal or /goal status → show current state
         if not arg or lower == "status":
-            _cprint(f"  {mgr.status_line()}")
+            _clog.info(f"  {mgr.status_line()}")
             return
 
         if lower == "pause":
             state = mgr.pause(reason="user-paused")
             if state is None:
-                _cprint(f"  {_DIM}No goal set.{_RST}")
+                _clog.info(f"  {_DIM}No goal set.{_RST}")
             else:
-                _cprint(f"  ⏸ Goal paused: {state.goal}")
+                _clog.info(f"  ⏸ Goal paused: {state.goal}")
             return
 
         if lower == "resume":
             state = mgr.resume()
             if state is None:
-                _cprint(f"  {_DIM}No goal to resume.{_RST}")
+                _clog.info(f"  {_DIM}No goal to resume.{_RST}")
             else:
-                _cprint(f"  ▶ Goal resumed: {state.goal}")
+                _clog.info(f"  ▶ Goal resumed: {state.goal}")
                 _cprint(
                     f"  {_DIM}Send any message (or press Enter on an empty prompt "
                     f"is a no-op; type 'continue' to kick it off).{_RST}"
@@ -9504,19 +9504,19 @@ class ReYMeNCLI:
             had = mgr.has_goal()
             mgr.clear()
             if had:
-                _cprint("  ✓ Goal cleared.")
+                _clog.info("  ✓ Goal cleared.")
             else:
-                _cprint(f"  {_DIM}No active goal.{_RST}")
+                _clog.info(f"  {_DIM}No active goal.{_RST}")
             return
 
         # Otherwise treat the arg as the goal text.
         try:
             state = mgr.set(arg)
         except ValueError as exc:
-            _cprint(f"  Invalid goal: {exc}")
+            _clog.info(f"  Invalid goal: {exc}")
             return
 
-        _cprint(f"  ⊙ Goal set ({state.max_turns}-turn budget): {state.goal}")
+        _clog.info(f"  ⊙ Goal set ({state.max_turns}-turn budget): {state.goal}")
         _cprint(
             f"  {_DIM}After each turn, a judge model will check if the goal is done. "
             f"ReYMeN keeps working until it is, you pause/clear it, or the budget is "
@@ -9549,17 +9549,17 @@ class ReYMeNCLI:
 
         mgr = self._get_goal_manager()
         if mgr is None:
-            _cprint(f"  {_DIM}Goals unavailable (no active session).{_RST}")
+            _clog.info(f"  {_DIM}Goals unavailable (no active session).{_RST}")
             return
 
         if not mgr.has_goal():
-            _cprint(f"  {_DIM}No active goal. Set one with /goal <text>.{_RST}")
+            _clog.info(f"  {_DIM}No active goal. Set one with /goal <text>.{_RST}")
             return
 
         # No args → list current subgoals.
         if not arg:
-            _cprint(f"  {mgr.status_line()}")
-            _cprint(f"  {mgr.render_subgoals()}")
+            _clog.info(f"  {mgr.status_line()}")
+            _clog.info(f"  {mgr.render_subgoals()}")
             return
 
         tokens = arg.split(None, 1)
@@ -9568,41 +9568,41 @@ class ReYMeNCLI:
 
         if verb == "remove":
             if not rest:
-                _cprint("  Usage: /subgoal remove <n>")
+                _clog.info("  Usage: /subgoal remove <n>")
                 return
             try:
                 idx = int(rest.split()[0])
             except ValueError:
-                _cprint("  /subgoal remove: <n> must be an integer (1-based index).")
+                _clog.info("  /subgoal remove: <n> must be an integer (1-based index).")
                 return
             try:
                 removed = mgr.remove_subgoal(idx)
             except (IndexError, RuntimeError) as exc:
-                _cprint(f"  /subgoal remove: {exc}")
+                _clog.info(f"  /subgoal remove: {exc}")
                 return
-            _cprint(f"  ✓ Removed subgoal {idx}: {removed}")
+            _clog.info(f"  ✓ Removed subgoal {idx}: {removed}")
             return
 
         if verb == "clear":
             try:
                 prev = mgr.clear_subgoals()
             except RuntimeError as exc:
-                _cprint(f"  /subgoal clear: {exc}")
+                _clog.info(f"  /subgoal clear: {exc}")
                 return
             if prev:
-                _cprint(f"  ✓ Cleared {prev} subgoal{'s' if prev != 1 else ''}.")
+                _clog.info(f"  ✓ Cleared {prev} subgoal{'s' if prev != 1 else ''}.")
             else:
-                _cprint(f"  {_DIM}No subgoals to clear.{_RST}")
+                _clog.info(f"  {_DIM}No subgoals to clear.{_RST}")
             return
 
         # Otherwise — append the whole arg as a new subgoal.
         try:
             text = mgr.add_subgoal(arg)
         except (ValueError, RuntimeError) as exc:
-            _cprint(f"  /subgoal: {exc}")
+            _clog.info(f"  /subgoal: {exc}")
             return
         idx = len(mgr.state.subgoals) if mgr.state else 0
-        _cprint(f"  ✓ Added subgoal {idx}: {text}")
+        _clog.info(f"  ✓ Added subgoal {idx}: {text}")
 
     def _maybe_continue_goal_after_turn(self) -> None:
         """Hook run after every CLI turn. Judges + maybe re-queues.
@@ -9710,7 +9710,7 @@ class ReYMeNCLI:
         decision = mgr.evaluate_after_turn(last_response, user_initiated=True)
         msg = decision.get("message") or ""
         if msg:
-            _cprint(f"  {msg}")
+            _clog.info(f"  {msg}")
 
         if decision.get("should_continue"):
             prompt = decision.get("continuation_prompt")
@@ -9725,7 +9725,7 @@ class ReYMeNCLI:
         try:
             from ReYMeN_cli.skin_engine import list_skins, set_active_skin, get_active_skin_name
         except ImportError:
-            print("Skin engine not available.")
+            log.info("Skin engine not available.")
             return
 
         parts = cmd.strip().split(maxsplit=1)
@@ -9733,21 +9733,21 @@ class ReYMeNCLI:
             # Show current skin and list available
             current = get_active_skin_name()
             skins = list_skins()
-            print(f"\n  Current skin: {current}")
-            print("  Available skins:")
+            log.info(f"\n  Current skin: {current}")
+            log.info("  Available skins:")
             for s in skins:
                 marker = " ●" if s["name"] == current else "  "
                 source = f" ({s['source']})" if s["source"] == "user" else ""
-                print(f"   {marker} {s['name']}{source} — {s['description']}")
-            print("\n  Usage: /skin <name>")
-            print(f"  Custom skins: drop a YAML file in {display_ReYMeN_home()}/skins/\n")
+                log.info(f"   {marker} {s['name']}{source} — {s['description']}")
+            log.info("\n  Usage: /skin <name>")
+            log.info(f"  Custom skins: drop a YAML file in {display_ReYMeN_home()}/skins/\n")
             return
 
         new_skin = parts[1].strip().lower()
         available = {s["name"] for s in list_skins()}
         if new_skin not in available:
-            print(f"  Unknown skin: {new_skin}")
-            print(f"  Available: {', '.join(sorted(available))}")
+            log.info(f"  Unknown skin: {new_skin}")
+            log.info(f"  Available: {', '.join(sorted(available))}")
             return
 
         set_active_skin(new_skin)
@@ -9755,12 +9755,12 @@ class ReYMeNCLI:
         # _DIM is now a fixed dim+italic ANSI escape (terminal-default fg)
         # so it doesn't need re-resolving on skin switch.
         if save_config_value("display.skin", new_skin):
-            print(f"  Skin set to: {new_skin} (saved)")
+            log.info(f"  Skin set to: {new_skin} (saved)")
         else:
-            print(f"  Skin set to: {new_skin}")
-        print("  Note: banner colors will update on next session start.")
+            log.info(f"  Skin set to: {new_skin}")
+        log.info("  Note: banner colors will update on next session start.")
         if self._apply_tui_skin_style():
-            print("  Prompt + TUI colors updated.")
+            log.info("  Prompt + TUI colors updated.")
 
     def _handle_footer_command(self, cmd_original: str) -> None:
         """Toggle or inspect ``display.runtime_footer.enabled`` from the CLI.
@@ -9802,7 +9802,7 @@ class ReYMeNCLI:
         elif arg == "":
             new_state = not current
         else:
-            _cprint("  Usage: /footer [on|off|status]")
+            _clog.info("  Usage: /footer [on|off|status]")
             return
 
         if save_config_value("display.runtime_footer.enabled", new_state):
@@ -9810,9 +9810,9 @@ class ReYMeNCLI:
                 f"{_Colors.GREEN}ON{_Colors.RESET}" if new_state
                 else f"{_Colors.DIM}OFF{_Colors.RESET}"
             )
-            _cprint(f"  Runtime footer: {state}")
+            _clog.info(f"  Runtime footer: {state}")
         else:
-            _cprint("  Failed to save runtime_footer setting to config.yaml")
+            _clog.info("  Failed to save runtime_footer setting to config.yaml")
 
     def _toggle_verbose(self):
         """Cycle tool progress mode: off → new → all → verbose → off.
@@ -9959,9 +9959,9 @@ class ReYMeNCLI:
             else:
                 level = rc.get("effort", "medium")
             display_state = "on ✓" if self.show_reasoning else "off"
-            _cprint(f"  {_ACCENT}Reasoning effort:  {level}{_RST}")
-            _cprint(f"  {_ACCENT}Reasoning display: {display_state}{_RST}")
-            _cprint(f"  {_DIM}Usage: /reasoning <none|minimal|low|medium|high|xhigh|show|hide>{_RST}")
+            _clog.info(f"  {_ACCENT}Reasoning effort:  {level}{_RST}")
+            _clog.info(f"  {_ACCENT}Reasoning display: {display_state}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /reasoning <none|minimal|low|medium|high|xhigh|show|hide>{_RST}")
             return
 
         arg = parts[1].strip().lower()
@@ -9972,32 +9972,32 @@ class ReYMeNCLI:
             if self.agent:
                 self.agent.reasoning_callback = self._current_reasoning_callback()
             save_config_value("display.show_reasoning", True)
-            _cprint(f"  {_ACCENT}✓ Reasoning display: ON (saved){_RST}")
-            _cprint(f"  {_DIM}  Model thinking will be shown during and after each response.{_RST}")
+            _clog.info(f"  {_ACCENT}✓ Reasoning display: ON (saved){_RST}")
+            _clog.info(f"  {_DIM}  Model thinking will be shown during and after each response.{_RST}")
             return
         if arg in {"hide", "off"}:
             self.show_reasoning = False
             if self.agent:
                 self.agent.reasoning_callback = self._current_reasoning_callback()
             save_config_value("display.show_reasoning", False)
-            _cprint(f"  {_ACCENT}✓ Reasoning display: OFF (saved){_RST}")
+            _clog.info(f"  {_ACCENT}✓ Reasoning display: OFF (saved){_RST}")
             return
 
         # Effort level change
         parsed = _parse_reasoning_config(arg)
         if parsed is None:
-            _cprint(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
-            _cprint(f"  {_DIM}Valid levels: none, minimal, low, medium, high, xhigh{_RST}")
-            _cprint(f"  {_DIM}Display:      show, hide{_RST}")
+            _clog.info(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
+            _clog.info(f"  {_DIM}Valid levels: none, minimal, low, medium, high, xhigh{_RST}")
+            _clog.info(f"  {_DIM}Display:      show, hide{_RST}")
             return
 
         self.reasoning_config = parsed
         self.agent = None  # Force agent re-init with new reasoning config
 
         if save_config_value("agent.reasoning_effort", arg):
-            _cprint(f"  {_ACCENT}✓ Reasoning effort set to '{arg}' (saved to config){_RST}")
+            _clog.info(f"  {_ACCENT}✓ Reasoning effort set to '{arg}' (saved to config){_RST}")
         else:
-            _cprint(f"  {_ACCENT}✓ Reasoning effort set to '{arg}' (session only){_RST}")
+            _clog.info(f"  {_ACCENT}✓ Reasoning effort set to '{arg}' (session only){_RST}")
 
     def _handle_busy_command(self, cmd: str):
         """Handle /busy — control what Enter does while ReYMeN is working.
@@ -10011,21 +10011,21 @@ class ReYMeNCLI:
         """
         parts = cmd.strip().split(maxsplit=1)
         if len(parts) < 2 or parts[1].strip().lower() == "status":
-            _cprint(f"  {_ACCENT}Busy input mode: {self.busy_input_mode}{_RST}")
+            _clog.info(f"  {_ACCENT}Busy input mode: {self.busy_input_mode}{_RST}")
             if self.busy_input_mode == "queue":
                 _behavior = "queues for next turn"
             elif self.busy_input_mode == "steer":
                 _behavior = "steers into current run (after next tool call)"
             else:
                 _behavior = "interrupts current run"
-            _cprint(f"  {_DIM}Enter while busy: {_behavior}{_RST}")
-            _cprint(f"  {_DIM}Usage: /busy [queue|steer|interrupt|status]{_RST}")
+            _clog.info(f"  {_DIM}Enter while busy: {_behavior}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /busy [queue|steer|interrupt|status]{_RST}")
             return
 
         arg = parts[1].strip().lower()
         if arg not in {"queue", "interrupt", "steer"}:
-            _cprint(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
-            _cprint(f"  {_DIM}Usage: /busy [queue|steer|interrupt|status]{_RST}")
+            _clog.info(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /busy [queue|steer|interrupt|status]{_RST}")
             return
 
         self.busy_input_mode = arg
@@ -10036,15 +10036,15 @@ class ReYMeNCLI:
                 behavior = "Enter will steer your message into the current run (after the next tool call)."
             else:
                 behavior = "Enter will interrupt the current run while ReYMeN is busy."
-            _cprint(f"  {_ACCENT}✓ Busy input mode set to '{arg}' (saved to config){_RST}")
-            _cprint(f"  {_DIM}{behavior}{_RST}")
+            _clog.info(f"  {_ACCENT}✓ Busy input mode set to '{arg}' (saved to config){_RST}")
+            _clog.info(f"  {_DIM}{behavior}{_RST}")
         else:
-            _cprint(f"  {_ACCENT}✓ Busy input mode set to '{arg}' (session only){_RST}")
+            _clog.info(f"  {_ACCENT}✓ Busy input mode set to '{arg}' (session only){_RST}")
 
     def _handle_fast_command(self, cmd: str):
         """Handle /fast — toggle fast mode (OpenAI Priority Processing / Anthropic Fast Mode)."""
         if not self._fast_command_available():
-            _cprint("  (._.) /fast is only available for models that support fast mode (OpenAI Priority Processing or Anthropic Fast Mode).")
+            _clog.info("  (._.) /fast is only available for models that support fast mode (OpenAI Priority Processing or Anthropic Fast Mode).")
             return
 
         # Determine the branding for the current model
@@ -10059,8 +10059,8 @@ class ReYMeNCLI:
         parts = cmd.strip().split(maxsplit=1)
         if len(parts) < 2 or parts[1].strip().lower() == "status":
             status = "fast" if self.service_tier == "priority" else "normal"
-            _cprint(f"  {_ACCENT}{feature_name}: {status}{_RST}")
-            _cprint(f"  {_DIM}Usage: /fast [normal|fast|status]{_RST}")
+            _clog.info(f"  {_ACCENT}{feature_name}: {status}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /fast [normal|fast|status]{_RST}")
             return
 
         arg = parts[1].strip().lower()
@@ -10074,15 +10074,15 @@ class ReYMeNCLI:
             saved_value = "normal"
             label = "NORMAL"
         else:
-            _cprint(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
-            _cprint(f"  {_DIM}Usage: /fast [normal|fast|status]{_RST}")
+            _clog.info(f"  {_DIM}(._.) Unknown argument: {arg}{_RST}")
+            _clog.info(f"  {_DIM}Usage: /fast [normal|fast|status]{_RST}")
             return
 
         self.agent = None  # Force agent re-init with new service-tier config
         if save_config_value("agent.service_tier", saved_value):
-            _cprint(f"  {_ACCENT}✓ {feature_name} set to {label} (saved to config){_RST}")
+            _clog.info(f"  {_ACCENT}✓ {feature_name} set to {label} (saved to config){_RST}")
         else:
-            _cprint(f"  {_ACCENT}✓ {feature_name} set to {label} (session only){_RST}")
+            _clog.info(f"  {_ACCENT}✓ {feature_name} set to {label} (session only){_RST}")
 
     def _on_reasoning(self, reasoning_text: str):
         """Callback for intermediate reasoning display during tool-call loops."""
@@ -10110,15 +10110,15 @@ class ReYMeNCLI:
           the automatic token-budget heuristic.
         """
         if not self.conversation_history or len(self.conversation_history) < 4:
-            print("(._.) Not enough conversation to compress (need at least 4 messages).")
+            log.info("(._.) Not enough conversation to compress (need at least 4 messages).")
             return
 
         if not self.agent:
-            print("(._.) No active agent -- send a message first.")
+            log.info("(._.) No active agent -- send a message first.")
             return
 
         if not self.agent.compression_enabled:
-            print("(._.) Compression is disabled in config.")
+            log.info("(._.) Compression is disabled in config.")
             return
 
         from ReYMeN_cli.partial_compress import (
@@ -10171,14 +10171,14 @@ class ReYMeNCLI:
                     tools=_tools,
                 )
                 if partial:
-                    print(f"🗜️  Summarizing up to here: compressing {len(head)} of "
+                    log.info(f"🗜️  Summarizing up to here: compressing {len(head)} of "
                           f"{original_count} messages (~{approx_tokens:,} tokens), "
                           f"keeping last {keep_last} exchange(s) verbatim...")
                 elif focus_topic:
-                    print(f"🗜️  Compressing {original_count} messages (~{approx_tokens:,} tokens), "
+                    log.info(f"🗜️  Compressing {original_count} messages (~{approx_tokens:,} tokens), "
                           f"focus: \"{focus_topic}\"...")
                 else:
-                    print(f"🗜️  Compressing {original_count} messages (~{approx_tokens:,} tokens)...")
+                    log.info(f"🗜️  Compressing {original_count} messages (~{approx_tokens:,} tokens)...")
 
                 # Pass None as system_message so _compress_context rebuilds
                 # the system prompt from scratch via _build_system_prompt(None).
@@ -10231,13 +10231,13 @@ class ReYMeNCLI:
                     new_tokens,
                 )
                 icon = "🗜️" if summary["noop"] else "✅"
-                print(f"  {icon} {summary['headline']}")
-                print(f"     {summary['token_line']}")
+                log.info(f"  {icon} {summary['headline']}")
+                log.info(f"     {summary['token_line']}")
                 if summary["note"]:
-                    print(f"     {summary['note']}")
+                    log.info(f"     {summary['note']}")
 
             except Exception as e:
-                print(f"  ❌ Compression failed: {e}")
+                log.info(f"  ❌ Compression failed: {e}")
 
     def _handle_debug_command(self):
         """Handle /debug — upload debug report + logs and print paste URLs."""
@@ -10262,7 +10262,7 @@ class ReYMeNCLI:
         from ReYMeN_cli.config import is_managed, format_managed_message
 
         if is_managed():
-            print(f"  ✗ {format_managed_message('update ReYMeN Agent')}")
+            log.info(f"  ✗ {format_managed_message('update ReYMeN Agent')}")
             return False
 
         # Use the prompt_toolkit-native modal so the confirmation panel
@@ -10279,15 +10279,15 @@ class ReYMeNCLI:
             choices=choices,
         )
         if raw is None:
-            print("  🟡 /update cancelled.")
+            log.info("  🟡 /update cancelled.")
             return False
         choice = self._normalize_slash_confirm_choice(raw, choices)
         if choice != "once":
-            print("  🟡 /update cancelled.")
+            log.info("  🟡 /update cancelled.")
             return False
 
         print()
-        print("  ⚕ Launching update...")
+        log.info("  ⚕ Launching update...")
         print()
 
         # Store the relaunch args so run() can exec them from the main thread
@@ -10302,14 +10302,14 @@ class ReYMeNCLI:
     def _show_usage(self):
         """Show rate limits (if available) and session token usage."""
         if not self.agent:
-            print("(._.) No active agent -- send a message first.")
+            log.info("(._.) No active agent -- send a message first.")
             return
 
         agent = self.agent
         calls = agent.session_api_calls
 
         if calls == 0:
-            print("(._.) No API calls made yet in this session.")
+            log.info("(._.) No API calls made yet in this session.")
             return
 
         # ── Rate limits (shown first when available) ────────────────
@@ -10350,35 +10350,35 @@ class ReYMeNCLI:
         )
         elapsed = format_duration_compact((datetime.now() - self.session_start).total_seconds())
 
-        print("  📊 Session Token Usage")
-        print(f"  {'─' * 40}")
-        print(f"  Model:                     {agent.model}")
-        print(f"  Input tokens:              {input_tokens:>10,}")
-        print(f"  Cache read tokens:         {cache_read_tokens:>10,}")
-        print(f"  Cache write tokens:        {cache_write_tokens:>10,}")
-        print(f"  Output tokens:             {output_tokens:>10,}")
+        log.info("  📊 Session Token Usage")
+        log.info(f"  {'─' * 40}")
+        log.info(f"  Model:                     {agent.model}")
+        log.info(f"  Input tokens:              {input_tokens:>10,}")
+        log.info(f"  Cache read tokens:         {cache_read_tokens:>10,}")
+        log.info(f"  Cache write tokens:        {cache_write_tokens:>10,}")
+        log.info(f"  Output tokens:             {output_tokens:>10,}")
         if reasoning_tokens:
-            print(f"  ↳ Reasoning (subset):      {reasoning_tokens:>10,}")
-        print(f"  Prompt tokens (total):     {prompt:>10,}")
-        print(f"  Completion tokens:         {completion:>10,}")
-        print(f"  Total tokens:              {total:>10,}")
-        print(f"  API calls:                 {calls:>10,}")
-        print(f"  Session duration:          {elapsed:>10}")
-        print(f"  Cost status:              {cost_result.status:>10}")
-        print(f"  Cost source:              {cost_result.source:>10}")
+            log.info(f"  ↳ Reasoning (subset):      {reasoning_tokens:>10,}")
+        log.info(f"  Prompt tokens (total):     {prompt:>10,}")
+        log.info(f"  Completion tokens:         {completion:>10,}")
+        log.info(f"  Total tokens:              {total:>10,}")
+        log.info(f"  API calls:                 {calls:>10,}")
+        log.info(f"  Session duration:          {elapsed:>10}")
+        log.info(f"  Cost status:              {cost_result.status:>10}")
+        log.info(f"  Cost source:              {cost_result.source:>10}")
         if cost_result.amount_usd is not None:
             prefix = "~" if cost_result.status == "estimated" else ""
-            print(f"  Total cost:              {prefix}${float(cost_result.amount_usd):>10.4f}")
+            log.info(f"  Total cost:              {prefix}${float(cost_result.amount_usd):>10.4f}")
         elif cost_result.status == "included":
-            print(f"  Total cost:              {'included':>10}")
+            log.info(f"  Total cost:              {'included':>10}")
         else:
-            print(f"  Total cost:              {'n/a':>10}")
-        print(f"  {'─' * 40}")
-        print(f"  Current context:  {last_prompt:,} / {ctx_len:,} ({pct:.0f}%)")
-        print(f"  Messages:         {msg_count}")
-        print(f"  Compressions:     {compressions}")
+            log.info(f"  Total cost:              {'n/a':>10}")
+        log.info(f"  {'─' * 40}")
+        log.info(f"  Current context:  {last_prompt:,} / {ctx_len:,} ({pct:.0f}%)")
+        log.info(f"  Messages:         {msg_count}")
+        log.info(f"  Compressions:     {compressions}")
         if cost_result.status == "unknown":
-            print(f"  Note:             Pricing unknown for {agent.model}")
+            log.info(f"  Note:             Pricing unknown for {agent.model}")
 
         # Account limits -- fetched off-thread with a hard timeout so slow
         # provider APIs don't hang the prompt.
@@ -10429,7 +10429,7 @@ class ReYMeNCLI:
                 try:
                     days = int(parts[i + 1])
                 except ValueError:
-                    print(f"  Invalid --days value: {parts[i + 1]}")
+                    log.info(f"  Invalid --days value: {parts[i + 1]}")
                     return
                 i += 2
             elif parts[i] == "--source" and i + 1 < len(parts):
@@ -10451,7 +10451,7 @@ class ReYMeNCLI:
             print(engine.format_terminal(report))
             db.close()
         except Exception as e:
-            print(f"  Error generating insights: {e}")
+            log.info(f"  Error generating insights: {e}")
 
     def _check_config_mcp_changes(self) -> None:
         """Detect mcp_servers changes in config.yaml and auto-reload MCP connections.
@@ -10500,14 +10500,14 @@ class ReYMeNCLI:
         # timeout so a hung MCP server cannot block the process_loop
         # indefinitely (which would freeze the entire TUI).
         print()
-        print("🔄 MCP server config changed — reloading connections...")
+        log.info("🔄 MCP server config changed — reloading connections...")
         _reload_thread = threading.Thread(
             target=self._reload_mcp, daemon=True
         )
         _reload_thread.start()
         _reload_thread.join(timeout=30)
         if _reload_thread.is_alive():
-            print("  ⚠️  MCP reload timed out (30s). Some servers may not have reconnected.")
+            log.info("  ⚠️  MCP reload timed out (30s). Some servers may not have reconnected.")
 
     # Inline-skip tokens that bypass the destructive-slash confirmation modal.
     # Matches the escape-hatch pattern users on broken modal platforms
@@ -10612,23 +10612,23 @@ class ReYMeNCLI:
             choices=choices,
         )
         if raw is None:
-            print(f"🟡 /{command} cancelled (no input).")
+            log.info(f"🟡 /{command} cancelled (no input).")
             return None
         choice = self._normalize_slash_confirm_choice(raw, choices)
         if choice is None:
-            print(f"🟡 Unrecognized choice '{raw}'. /{command} cancelled.")
+            log.info(f"🟡 Unrecognized choice '{raw}'. /{command} cancelled.")
             return None
 
         if choice == "cancel":
-            print(f"🟡 /{command} cancelled. Conversation unchanged.")
+            log.info(f"🟡 /{command} cancelled. Conversation unchanged.")
             return None
 
         if choice == "always":
             if save_config_value("approvals.destructive_slash_confirm", False):
-                print("🔒 Future /clear, /new, /reset, and /undo will run without confirmation.")
-                print("   Re-enable via `approvals.destructive_slash_confirm: true` in config.yaml.")
+                log.info("🔒 Future /clear, /new, /reset, and /undo will run without confirmation.")
+                log.info("   Re-enable via `approvals.destructive_slash_confirm: true` in config.yaml.")
             else:
-                print("⚠️  Couldn't persist opt-out — proceeding once.")
+                log.info("⚠️  Couldn't persist opt-out — proceeding once.")
 
         return choice
 
@@ -10678,23 +10678,23 @@ class ReYMeNCLI:
             choices=choices,
         )
         if raw is None:
-            print("🟡 /reload-mcp cancelled (no input).")
+            log.info("🟡 /reload-mcp cancelled (no input).")
             return
         choice = self._normalize_slash_confirm_choice(raw, choices)
         if choice is None:
-            print(f"🟡 Unrecognized choice '{raw}'. /reload-mcp cancelled.")
+            log.info(f"🟡 Unrecognized choice '{raw}'. /reload-mcp cancelled.")
             return
 
         if choice == "cancel":
-            print("🟡 /reload-mcp cancelled. MCP tools unchanged.")
+            log.info("🟡 /reload-mcp cancelled. MCP tools unchanged.")
             return
 
         if choice == "always":
             if save_config_value("approvals.mcp_reload_confirm", False):
-                print("🔒 Future /reload-mcp calls will run without confirmation.")
-                print("   Re-enable via `approvals.mcp_reload_confirm: true` in config.yaml.")
+                log.info("🔒 Future /reload-mcp calls will run without confirmation.")
+                log.info("   Re-enable via `approvals.mcp_reload_confirm: true` in config.yaml.")
             else:
-                print("⚠️  Couldn't persist opt-out — reloading once.")
+                log.info("⚠️  Couldn't persist opt-out — reloading once.")
 
         with self._busy_command(self._slow_command_status(cmd_original)):
             self._reload_mcp()
@@ -10713,7 +10713,7 @@ class ReYMeNCLI:
                 old_servers = set(_servers.keys())
 
             if not self._command_running:
-                print("🔄 Reloading MCP servers...")
+                log.info("🔄 Reloading MCP servers...")
 
             # Shutdown existing connections
             shutdown_mcp_servers()
@@ -10730,15 +10730,15 @@ class ReYMeNCLI:
             reconnected = connected_servers & old_servers
 
             if reconnected:
-                print(f"  ♻️  Reconnected: {', '.join(sorted(reconnected))}")
+                log.info(f"  ♻️  Reconnected: {', '.join(sorted(reconnected))}")
             if added:
-                print(f"  ➕ Added: {', '.join(sorted(added))}")
+                log.info(f"  ➕ Added: {', '.join(sorted(added))}")
             if removed:
-                print(f"  ➖ Removed: {', '.join(sorted(removed))}")
+                log.info(f"  ➖ Removed: {', '.join(sorted(removed))}")
             if not connected_servers:
-                print("  No MCP servers connected.")
+                log.info("  No MCP servers connected.")
             else:
-                print(f"  🔧 {len(new_tools)} tool(s) available from {len(connected_servers)} server(s)")
+                log.info(f"  🔧 {len(new_tools)} tool(s) available from {len(connected_servers)} server(s)")
 
             # Refresh the agent's tool list so the model can call new tools
             if self.agent is not None:
@@ -10779,10 +10779,10 @@ class ReYMeNCLI:
                 except Exception:
                     pass  # Best-effort
 
-            print(f"  ✅ Agent updated — {len(self.agent.tools if self.agent else [])} tool(s) available")
+            log.info(f"  ✅ Agent updated — {len(self.agent.tools if self.agent else [])} tool(s) available")
 
         except Exception as e:
-            print(f"  ❌ MCP reload failed: {e}")
+            log.info(f"  ❌ MCP reload failed: {e}")
 
     def _reload_skills(self) -> None:
         """Reload skills: rescan ~/.ReYMeN/skills/ and queue a note for the
@@ -10801,7 +10801,7 @@ class ReYMeNCLI:
             from agent.skill_commands import reload_skills, get_skill_commands
 
             if not self._command_running:
-                print("🔄 Reloading skills...")
+                log.info("🔄 Reloading skills...")
 
             result = reload_skills()
 
@@ -10815,8 +10815,8 @@ class ReYMeNCLI:
             total = result.get("total", 0)
 
             if not added and not removed:
-                print("  No new skills detected.")
-                print(f"  📚 {total} skill(s) available")
+                log.info("  No new skills detected.")
+                log.info(f"  📚 {total} skill(s) available")
                 return
 
             def _fmt_line(item: dict) -> str:
@@ -10825,14 +10825,14 @@ class ReYMeNCLI:
                 return f"    - {nm}: {desc}" if desc else f"    - {nm}"
 
             if added:
-                print("  ➕ Added Skills:")
+                log.info("  ➕ Added Skills:")
                 for item in added:
-                    print(f"  {_fmt_line(item)}")
+                    log.info(f"  {_fmt_line(item)}")
             if removed:
-                print("  ➖ Removed Skills:")
+                log.info("  ➖ Removed Skills:")
                 for item in removed:
-                    print(f"  {_fmt_line(item)}")
-            print(f"  📚 {total} skill(s) available")
+                    log.info(f"  {_fmt_line(item)}")
+            log.info(f"  📚 {total} skill(s) available")
 
             # Queue a one-shot note for the NEXT user turn. The CLI's agent
             # loop prepends ``_pending_skills_reload_note`` (if set) to the
@@ -10860,7 +10860,7 @@ class ReYMeNCLI:
             self._pending_skills_reload_note = "\n".join(sections)
 
         except Exception as e:
-            print(f"  ❌ Skills reload failed: {e}")
+            log.info(f"  ❌ Skills reload failed: {e}")
 
     # ====================================================================
     # Tool-call generation indicator (shown during streaming)
@@ -10880,7 +10880,7 @@ class ReYMeNCLI:
 
         from agent.display import get_tool_emoji
         emoji = get_tool_emoji(tool_name, default="⚡")
-        _cprint(f"  ┊ {emoji} preparing {tool_name}…")
+        _clog.info(f"  ┊ {emoji} preparing {tool_name}…")
 
     # ====================================================================
     # Tool progress callback (audio cues for voice mode)
@@ -10920,7 +10920,7 @@ class ReYMeNCLI:
                 try:
                     from agent.display import get_cute_tool_message
                     line = get_cute_tool_message(function_name, stored_args, duration, result=kwargs.get("result"))
-                    _cprint(f"  {line}")
+                    _clog.info(f"  {line}")
                 except Exception:
                     pass
                 # First-touch onboarding: on the first tool in this process
@@ -10943,7 +10943,7 @@ class ReYMeNCLI:
                         )
                         if not is_seen(CLI_CONFIG, TOOL_PROGRESS_FLAG):
                             self._long_tool_hint_fired = True
-                            _cprint(f"  {_DIM}{tool_progress_hint_cli()}{_RST}")
+                            _clog.info(f"  {_DIM}{tool_progress_hint_cli()}{_RST}")
                             mark_seen(_ReYMeN_home / "config.yaml", TOOL_PROGRESS_FLAG)
                             CLI_CONFIG.setdefault("onboarding", {}).setdefault("seen", {})[TOOL_PROGRESS_FLAG] = True
                 except Exception:
@@ -11077,7 +11077,7 @@ class ReYMeNCLI:
             with self._voice_lock:
                 if not self._voice_recording:
                     return
-            _cprint(f"\n{_DIM}Silence detected, auto-stopping...{_RST}")
+            _clog.info(f"\n{_DIM}Silence detected, auto-stopping...{_RST}")
             if hasattr(self, '_app') and self._app:
                 self._app.invalidate()
             self._voice_stop_and_transcribe()
@@ -11103,7 +11103,7 @@ class ReYMeNCLI:
             _recording_hint = f"Termux:API capture | {_label} to stop"
         else:
             _recording_hint = f"{_label} to stop"
-        _cprint(f"\n{_ACCENT}● Recording...{_RST} {_DIM}({_recording_hint}){_RST}")
+        _clog.info(f"\n{_ACCENT}● Recording...{_RST} {_DIM}({_recording_hint}){_RST}")
 
         # Periodically refresh prompt to update audio level indicator
         def _refresh_level():
@@ -11146,13 +11146,13 @@ class ReYMeNCLI:
                     pass
 
             if wav_path is None:
-                _cprint(f"{_DIM}No speech detected.{_RST}")
+                _clog.info(f"{_DIM}No speech detected.{_RST}")
                 return
 
             # _voice_processing is already True (set atomically above)
             if hasattr(self, '_app') and self._app:
                 self._app.invalidate()
-            _cprint(f"{_DIM}Transcribing...{_RST}")
+            _clog.info(f"{_DIM}Transcribing...{_RST}")
 
             # Get STT model from config
             stt_model = None
@@ -11174,14 +11174,14 @@ class ReYMeNCLI:
                 self._pending_input.put(transcript)
                 submitted = True
             elif result.get("success"):
-                _cprint(f"{_DIM}No speech detected.{_RST}")
+                _clog.info(f"{_DIM}No speech detected.{_RST}")
             else:
                 error = result.get("error", "Unknown error")
-                _cprint(f"\n{_DIM}Transcription failed: {error}{_RST}")
+                _clog.info(f"\n{_DIM}Transcription failed: {error}{_RST}")
                 transcription_failed = True
 
         except Exception as e:
-            _cprint(f"\n{_DIM}Voice processing error: {e}{_RST}")
+            _clog.info(f"\n{_DIM}Voice processing error: {e}{_RST}")
             transcription_failed = wav_path is not None
         finally:
             with self._voice_lock:
@@ -11193,7 +11193,7 @@ class ReYMeNCLI:
             try:
                 if wav_path and os.path.isfile(wav_path):
                     if transcription_failed:
-                        _cprint(f"{_DIM}Recording preserved at: {wav_path}{_RST}")
+                        _clog.info(f"{_DIM}Recording preserved at: {wav_path}{_RST}")
                     else:
                         os.unlink(wav_path)
             except Exception:
@@ -11205,7 +11205,7 @@ class ReYMeNCLI:
                 if self._no_speech_count >= 3:
                     self._voice_continuous = False
                     self._no_speech_count = 0
-                    _cprint(f"{_DIM}No speech detected 3 times, continuous mode stopped.{_RST}")
+                    _clog.info(f"{_DIM}No speech detected 3 times, continuous mode stopped.{_RST}")
                     return
             else:
                 self._no_speech_count = 0
@@ -11221,7 +11221,7 @@ class ReYMeNCLI:
                         if hasattr(self, '_app') and self._app:
                             self._app.invalidate()
                     except Exception as e:
-                        _cprint(f"{_DIM}Voice auto-restart failed: {e}{_RST}")
+                        _clog.info(f"{_DIM}Voice auto-restart failed: {e}{_RST}")
                 threading.Thread(target=_restart_recording, daemon=True).start()
 
     def _voice_speak_response_async(self, text: str) -> None:
@@ -11283,7 +11283,7 @@ class ReYMeNCLI:
                     pass
         except Exception as e:
             logger.warning("Voice TTS playback failed: %s", e)
-            _cprint(f"{_DIM}TTS playback failed: {e}{_RST}")
+            _clog.info(f"{_DIM}TTS playback failed: {e}{_RST}")
         finally:
             self._voice_tts_done.set()
 
@@ -11307,8 +11307,8 @@ class ReYMeNCLI:
             else:
                 self._enable_voice_mode()
         else:
-            _cprint(f"Unknown voice subcommand: {subcommand}")
-            _cprint("Usage: /voice [on|off|tts|status]")
+            _clog.info(f"Unknown voice subcommand: {subcommand}")
+            _clog.info("Usage: /voice [on|off|tts|status]")
 
     def _voice_beeps_enabled(self) -> bool:
         """Return whether CLI voice mode should play record start/stop beeps."""
@@ -11324,7 +11324,7 @@ class ReYMeNCLI:
     def _enable_voice_mode(self):
         """Enable voice mode after checking requirements."""
         if self._voice_mode:
-            _cprint(f"{_DIM}Voice mode is already enabled.{_RST}")
+            _clog.info(f"{_DIM}Voice mode is already enabled.{_RST}")
             return
 
         from tools.voice_mode import check_voice_requirements, detect_audio_environment
@@ -11332,23 +11332,23 @@ class ReYMeNCLI:
         # Environment detection -- warn and block in incompatible environments
         env_check = detect_audio_environment()
         if not env_check["available"]:
-            _cprint(f"\n{_ACCENT}Voice mode unavailable in this environment:{_RST}")
+            _clog.info(f"\n{_ACCENT}Voice mode unavailable in this environment:{_RST}")
             for warning in env_check["warnings"]:
-                _cprint(f"  {_DIM}{warning}{_RST}")
+                _clog.info(f"  {_DIM}{warning}{_RST}")
             return
 
         reqs = check_voice_requirements()
         if not reqs["available"]:
-            _cprint(f"\n{_ACCENT}Voice mode requirements not met:{_RST}")
+            _clog.info(f"\n{_ACCENT}Voice mode requirements not met:{_RST}")
             for line in reqs["details"].split("\n"):
-                _cprint(f"  {_DIM}{line}{_RST}")
+                _clog.info(f"  {_DIM}{line}{_RST}")
             if reqs["missing_packages"]:
                 if _is_termux_environment():
-                    _cprint(f"\n  {_BOLD}Option 1: pkg install termux-api{_RST}")
-                    _cprint(f"  {_DIM}Then install/update the Termux:API Android app for microphone capture{_RST}")
-                    _cprint(f"  {_BOLD}Option 2: pkg install python-numpy portaudio && python -m pip install sounddevice{_RST}")
+                    _clog.info(f"\n  {_BOLD}Option 1: pkg install termux-api{_RST}")
+                    _clog.info(f"  {_DIM}Then install/update the Termux:API Android app for microphone capture{_RST}")
+                    _clog.info(f"  {_BOLD}Option 2: pkg install python-numpy portaudio && python -m pip install sounddevice{_RST}")
                 else:
-                    _cprint(f"\n  {_BOLD}Install: {sys.executable} -m pip install {' '.join(reqs['missing_packages'])}{_RST}")
+                    _clog.info(f"\n  {_BOLD}Install: {sys.executable} -m pip install {' '.join(reqs['missing_packages'])}{_RST}")
             return
 
         with self._voice_lock:
@@ -11376,10 +11376,10 @@ class ReYMeNCLI:
         # here would drift after a mid-session config edit (Copilot
         # round-14 on #19835, same class as round-13).
         _ptt_display = self._voice_record_key_label()
-        _cprint(f"\n{_ACCENT}Voice mode enabled{tts_status}{_RST}")
-        _cprint(f"  {_DIM}{_ptt_display} to start/stop recording{_RST}")
-        _cprint(f"  {_DIM}/voice tts  to toggle speech output{_RST}")
-        _cprint(f"  {_DIM}/voice off  to disable voice mode{_RST}")
+        _clog.info(f"\n{_ACCENT}Voice mode enabled{tts_status}{_RST}")
+        _clog.info(f"  {_DIM}{_ptt_display} to start/stop recording{_RST}")
+        _clog.info(f"  {_DIM}/voice tts  to toggle speech output{_RST}")
+        _clog.info(f"  {_DIM}/voice off  to disable voice mode{_RST}")
 
     def _disable_voice_mode(self):
         """Disable voice mode, cancel any active recording, and stop TTS."""
@@ -11411,12 +11411,12 @@ class ReYMeNCLI:
             pass
         self._voice_tts_done.set()
 
-        _cprint(f"\n{_DIM}Voice mode disabled.{_RST}")
+        _clog.info(f"\n{_DIM}Voice mode disabled.{_RST}")
 
     def _toggle_voice_tts(self):
         """Toggle TTS output for voice mode."""
         if not self._voice_mode:
-            _cprint(f"{_DIM}Enable voice mode first: /voice on{_RST}")
+            _clog.info(f"{_DIM}Enable voice mode first: /voice on{_RST}")
             return
 
         with self._voice_lock:
@@ -11426,9 +11426,9 @@ class ReYMeNCLI:
         if self._voice_tts:
             from tools.tts_tool import check_tts_requirements
             if not check_tts_requirements():
-                _cprint(f"{_DIM}Warning: No TTS provider available. Install edge-tts or set API keys.{_RST}")
+                _clog.info(f"{_DIM}Warning: No TTS provider available. Install edge-tts or set API keys.{_RST}")
 
-        _cprint(f"{_ACCENT}Voice TTS {status}.{_RST}")
+        _clog.info(f"{_ACCENT}Voice TTS {status}.{_RST}")
 
     def _show_voice_status(self):
         """Show current voice mode status."""
@@ -11436,18 +11436,18 @@ class ReYMeNCLI:
 
         reqs = check_voice_requirements()
 
-        _cprint(f"\n{_BOLD}Voice Mode Status{_RST}")
-        _cprint(f"  Mode:      {'ON' if self._voice_mode else 'OFF'}")
-        _cprint(f"  TTS:       {'ON' if self._voice_tts else 'OFF'}")
-        _cprint(f"  Recording: {'YES' if self._voice_recording else 'no'}")
+        _clog.info(f"\n{_BOLD}Voice Mode Status{_RST}")
+        _clog.info(f"  Mode:      {'ON' if self._voice_mode else 'OFF'}")
+        _clog.info(f"  TTS:       {'ON' if self._voice_tts else 'OFF'}")
+        _clog.info(f"  Recording: {'YES' if self._voice_recording else 'no'}")
         # Display the startup-pinned label so /voice status always
         # matches the live prompt_toolkit binding (Copilot round-14 on
         # #19835, same class as round-13). Reading live config here
         # would drift after a mid-session config edit.
-        _cprint(f"  Record key: {self._voice_record_key_label()}")
-        _cprint(f"\n  {_BOLD}Requirements:{_RST}")
+        _clog.info(f"  Record key: {self._voice_record_key_label()}")
+        _clog.info(f"\n  {_BOLD}Requirements:{_RST}")
         for line in reqs["details"].split("\n"):
-            _cprint(f"    {line}")
+            _clog.info(f"    {line}")
 
     def _clarify_callback(self, question, choices):
         """
@@ -11510,7 +11510,7 @@ class ReYMeNCLI:
         self._clarify_freetext = False
         self._clarify_deadline = 0
         self._invalidate()
-        _cprint(f"\n{_DIM}(clarify timed out after {timeout}s — agent will decide){_RST}")
+        _clog.info(f"\n{_DIM}(clarify timed out after {timeout}s — agent will decide){_RST}")
         return (
             "The user did not provide a response within the time limit. "
             "Use your best judgement to make the choice and proceed."
@@ -11545,9 +11545,9 @@ class ReYMeNCLI:
                 self._restore_modal_input_snapshot()
                 self._invalidate()
                 if result:
-                    _cprint(f"\n{_DIM}  ✓ Password received (cached for session){_RST}")
+                    _clog.info(f"\n{_DIM}  ✓ Password received (cached for session){_RST}")
                 else:
-                    _cprint(f"\n{_DIM}  ⏭ Skipped{_RST}")
+                    _clog.info(f"\n{_DIM}  ⏭ Skipped{_RST}")
                 return result
             except queue.Empty:
                 remaining = self._sudo_deadline - _time.monotonic()
@@ -11559,7 +11559,7 @@ class ReYMeNCLI:
         self._sudo_deadline = 0
         self._restore_modal_input_snapshot()
         self._invalidate()
-        _cprint(f"\n{_DIM}  ⏱ Timeout — continuing without sudo{_RST}")
+        _clog.info(f"\n{_DIM}  ⏱ Timeout — continuing without sudo{_RST}")
         return ""
 
     def _approval_callback(self, command: str, description: str,
@@ -11614,7 +11614,7 @@ class ReYMeNCLI:
             self._approval_state = None
             self._approval_deadline = 0
             self._invalidate()
-            _cprint(f"\n{_DIM}  ⏱ Timeout — denying command{_RST}")
+            _clog.info(f"\n{_DIM}  ⏱ Timeout — denying command{_RST}")
             return "deny"
 
     def _approval_choices(self, command: str, *, allow_permanent: bool = True) -> list[str]:
@@ -11922,7 +11922,7 @@ class ReYMeNCLI:
 
         # Initialize agent if needed
         if self.agent is None:
-            _cprint(f"{_DIM}Initializing agent...{_RST}")
+            _clog.info(f"{_DIM}Initializing agent...{_RST}")
         if not self._init_agent(
             model_override=turn_route["model"],
             runtime_override=turn_route["runtime"],
@@ -12003,7 +12003,7 @@ class ReYMeNCLI:
                             f"  {_DIM}[@ context: {len(_ctx_result.references)} ref(s), "
                             f"{_ctx_result.injected_tokens} tokens]{_RST}")
                     for w in _ctx_result.warnings:
-                        _cprint(f"  {_DIM}⚠ {w}{_RST}")
+                        _clog.info(f"  {_DIM}⚠ {w}{_RST}")
                     if _ctx_result.blocked:
                         return "\n".join(_ctx_result.warnings) or "Context injection refused."
                     message = _ctx_result.message
@@ -12020,7 +12020,7 @@ class ReYMeNCLI:
         # Add user message to history
         self.conversation_history.append({"role": "user", "content": message})
 
-        ChatConsole().print(f"[{_accent_hex()}]{'─' * 40}[/]")
+        ChatConsole().log.info(f"[{_accent_hex()}]{'─' * 40}[/]")
         print(flush=True)
         
         try:
@@ -12079,8 +12079,8 @@ class ReYMeNCLI:
                         if self.show_timestamps:
                             label = f"{label}{datetime.now().strftime('%H:%M')} "
                         fill = w - 2 - ReYMeNCLI._status_bar_display_width(label)
-                        _cprint(f"\n{_ACCENT}╭─{label}{'─' * max(fill - 1, 0)}╮{_RST}")
-                    _cprint(f"{_STREAM_PAD}{sentence.rstrip()}")
+                        _clog.info(f"\n{_ACCENT}╭─{label}{'─' * max(fill - 1, 0)}╮{_RST}")
+                    _clog.info(f"{_STREAM_PAD}{sentence.rstrip()}")
 
                 tts_thread = threading.Thread(
                     target=stream_tts_to_speaker,
@@ -12212,7 +12212,7 @@ class ReYMeNCLI:
                             # But if it does (race condition), don't interrupt.
                             if self._clarify_state or self._clarify_freetext:
                                 continue
-                            print("\n⚡ New message detected, interrupting...")
+                            log.info("\n⚡ New message detected, interrupting...")
                             # Signal TTS to stop on interrupt
                             if stop_event is not None:
                                 stop_event.set()
@@ -12360,7 +12360,7 @@ class ReYMeNCLI:
                 # to avoid an infinite error → record → error loop
                 if self._voice_continuous:
                     self._voice_continuous = False
-                    _cprint(f"\n{_DIM}Continuous voice mode stopped due to error.{_RST}")
+                    _clog.info(f"\n{_DIM}Continuous voice mode stopped due to error.{_RST}")
 
             # Handle interrupt - check if we were interrupted
             pending_message = None
@@ -12398,7 +12398,7 @@ class ReYMeNCLI:
                         display_reasoning += f"\n{_DIM}  ... ({len(lines) - 10} more lines){_RST}"
                     else:
                         display_reasoning = reasoning.strip()
-                    _cprint(f"\n{r_top}\n{_DIM}{display_reasoning}{_RST}\n{r_bot}")
+                    _clog.info(f"\n{r_top}\n{_DIM}{display_reasoning}{_RST}\n{r_bot}")
 
             if response and not response_previewed:
                 # Use skin engine for label/color with fallback
@@ -12418,7 +12418,7 @@ class ReYMeNCLI:
                 if use_streaming_tts and _streaming_box_opened and not is_error_response:
                     # Text was already printed sentence-by-sentence; just close the box
                     w = self._scrollback_box_width()
-                    _cprint(f"\n{_ACCENT}╰{'─' * (w - 2)}╯{_RST}")
+                    _clog.info(f"\n{_ACCENT}╰{'─' * (w - 2)}╯{_RST}")
                 elif already_streamed:
                     # Response was already streamed token-by-token with box framing;
                     # _flush_stream() already closed the box. Skip Rich Panel.
@@ -12478,9 +12478,9 @@ class ReYMeNCLI:
                 n = len(all_parts)
                 preview = combined[:50] + ("..." if len(combined) > 50 else "")
                 if n > 1:
-                    print(f"\n⚡ Sending {n} messages after interrupt: '{preview}'")
+                    log.info(f"\n⚡ Sending {n} messages after interrupt: '{preview}'")
                 else:
-                    print(f"\n⚡ Sending after interrupt: '{preview}'")
+                    log.info(f"\n⚡ Sending after interrupt: '{preview}'")
                 self._pending_input.put(combined)
 
             # If a /steer was left over (agent finished before another tool
@@ -12488,13 +12488,13 @@ class ReYMeNCLI:
             _leftover_steer = result.get("pending_steer") if result else None
             if _leftover_steer and hasattr(self, '_pending_input'):
                 preview = _leftover_steer[:60] + ("..." if len(_leftover_steer) > 60 else "")
-                print(f"\n⏩ Delivering leftover /steer as next turn: '{preview}'")
+                log.info(f"\n⏩ Delivering leftover /steer as next turn: '{preview}'")
                 self._pending_input.put(_leftover_steer)
 
             return response
             
         except Exception as e:
-            print(f"Error: {e}")
+            log.info(f"Error: {e}")
             return None
         finally:
             # Ensure streaming TTS resources are cleaned up even on error.
@@ -12536,7 +12536,7 @@ class ReYMeNCLI:
                 except Exception:
                     pass
 
-            print("Resume this session with:")
+            log.info("Resume this session with:")
             # Session IDs are profile-constrained, so the resume hint must
             # include `-p <profile>` for non-default profiles. Without this,
             # copying the hint from a non-default profile fails to find the
@@ -12550,15 +12550,15 @@ class ReYMeNCLI:
             profile_flag = (
                 "" if _active_profile in ("default", "custom") else f" -p {_active_profile}"
             )
-            print(f"  ReYMeN --resume {self.session_id}{profile_flag}")
+            log.info(f"  ReYMeN --resume {self.session_id}{profile_flag}")
             if session_title:
-                print(f"  ReYMeN -c \"{session_title}\"{profile_flag}")
+                log.info(f"  ReYMeN -c \"{session_title}\"{profile_flag}")
             print()
-            print(f"Session:        {self.session_id}")
+            log.info(f"Session:        {self.session_id}")
             if session_title:
-                print(f"Title:          {session_title}")
-            print(f"Duration:       {duration_str}")
-            print(f"Messages:       {msg_count} ({user_msgs} user, {tool_calls} tool calls)")
+                log.info(f"Title:          {session_title}")
+            log.info(f"Duration:       {duration_str}")
+            log.info(f"Messages:       {msg_count} ({user_msgs} user, {tool_calls} tool calls)")
         else:
             try:
                 from ReYMeN_cli.skin_engine import get_active_goodbye
@@ -12804,7 +12804,7 @@ class ReYMeNCLI:
         try:
             _term_lines = shutil.get_terminal_size().lines
             if _term_lines > 2:
-                print("\n" * (_term_lines - 1), end="", flush=True)
+                log.info("\n" * (_term_lines - 1), end="")
         except Exception:
             pass
 
@@ -12826,7 +12826,7 @@ class ReYMeNCLI:
         except Exception:
             _welcome_text = "Welcome to ReYMeN Agent! Type your message or /help for commands."
             _welcome_color = "#FFF8DC"
-        self._console_print(f"[{_welcome_color}]{_welcome_text}[/]")
+        self._console_log.info(f"[{_welcome_color}]{_welcome_text}[/]")
 
         # Redaction opt-out warning (#17691): ON by default, loud when off.
         # The redactor snapshots its state at import time so any toggle now
@@ -12861,7 +12861,7 @@ class ReYMeNCLI:
                     _resid_color = _welcome_skin.get_color("banner_dim", "#B8860B")
                 except Exception:
                     _resid_color = "#B8860B"
-                self._console_print(f"[{_resid_color}]{openclaw_residue_hint_cli()}[/]")
+                self._console_log.info(f"[{_resid_color}]{openclaw_residue_hint_cli()}[/]")
                 try:
                     from ReYMeN_cli.config import get_config_path as _get_cfg_path_resid
                     mark_seen(_get_cfg_path_resid(), OPENCLAW_RESIDUE_FLAG)
@@ -12877,7 +12877,7 @@ class ReYMeNCLI:
                 _tip_color = _welcome_skin.get_color("banner_dim", "#B8860B")
             except Exception:
                 _tip_color = "#B8860B"
-            self._console_print(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
+            self._console_log.info(f"[dim {_tip_color}]✦ Tip: {_tip}[/]")
         except Exception:
             pass  # Tips are non-critical — never break startup
 
@@ -13048,7 +13048,7 @@ class ReYMeNCLI:
                 try:
                     self._handle_model_picker_selection()
                 except Exception as _exc:
-                    _cprint(f"  ✗ Model selection failed: {_exc}")
+                    _clog.info(f"  ✗ Model selection failed: {_exc}")
                     self._close_model_picker()
                 event.app.current_buffer.reset()
                 event.app.invalidate()
@@ -13141,18 +13141,18 @@ class ReYMeNCLI:
                                 if self.agent is not None and hasattr(self.agent, "steer"):
                                     accepted = bool(self.agent.steer(text))
                             except Exception as exc:
-                                _cprint(f"  {_DIM}Steer failed ({exc}) — queued for next turn.{_RST}")
+                                _clog.info(f"  {_DIM}Steer failed ({exc}) — queued for next turn.{_RST}")
                                 accepted = False
                             if accepted:
                                 preview = text[:80] + ("..." if len(text) > 80 else "")
-                                _cprint(f"  {_ACCENT}⏩ Steered: '{preview}'{_RST}")
+                                _clog.info(f"  {_ACCENT}⏩ Steered: '{preview}'{_RST}")
                             else:
                                 _effective_mode = "queue"
                     if _effective_mode == "queue":
                         # Queue for the next turn instead of interrupting
                         self._pending_input.put(payload)
                         preview = text if text else f"[{len(images)} image{'s' if len(images) != 1 else ''} attached]"
-                        _cprint(f"  Queued for the next turn: {preview[:80]}{'...' if len(preview) > 80 else ''}")
+                        _clog.info(f"  Queued for the next turn: {preview[:80]}{'...' if len(preview) > 80 else ''}")
                     elif _effective_mode == "interrupt":
                         self._interrupt_queue.put(payload)
                         # Debug: log to file when message enters interrupt queue
@@ -13176,7 +13176,7 @@ class ReYMeNCLI:
                             mark_seen,
                         )
                         if not is_seen(CLI_CONFIG, BUSY_INPUT_FLAG):
-                            _cprint(f"  {_DIM}{busy_input_hint_cli(self.busy_input_mode)}{_RST}")
+                            _clog.info(f"  {_DIM}{busy_input_hint_cli(self.busy_input_mode)}{_RST}")
                             mark_seen(_ReYMeN_home / "config.yaml", BUSY_INPUT_FLAG)
                             CLI_CONFIG.setdefault("onboarding", {}).setdefault("seen", {})[BUSY_INPUT_FLAG] = True
                     except Exception:
@@ -13438,7 +13438,7 @@ class ReYMeNCLI:
                     cli_ref._voice_continuous = False
                     _should_cancel_voice = True
             if _should_cancel_voice:
-                _cprint(f"\n{_DIM}Recording cancelled.{_RST}")
+                _clog.info(f"\n{_DIM}Recording cancelled.{_RST}")
                 threading.Thread(
                     target=_recorder_ref.cancel, daemon=True
                 ).start()
@@ -13493,13 +13493,13 @@ class ReYMeNCLI:
 
             if self._agent_running and self.agent:
                 if now - self._last_ctrl_c_time < 2.0:
-                    print("\n⚡ Force exiting...")
+                    log.info("\n⚡ Force exiting...")
                     self._should_exit = True
                     event.app.exit()
                     return
                 
                 self._last_ctrl_c_time = now
-                print("\n⚡ Interrupting agent... (press Ctrl+C again to force exit)")
+                log.info("\n⚡ Interrupting agent... (press Ctrl+C again to force exit)")
                 self.agent.interrupt()
             # If there's text or images, clear them (like bash).
             # If everything is already empty, exit.
@@ -13538,7 +13538,7 @@ class ReYMeNCLI:
                     cli_ref._voice_continuous = False
                     _should_cancel_voice = True
             if _should_cancel_voice:
-                _cprint(f"\n{_DIM}Recording cancelled.{_RST}")
+                _clog.info(f"\n{_DIM}Recording cancelled.{_RST}")
                 threading.Thread(
                     target=_recorder_ref.cancel, daemon=True
                 ).start()
@@ -13592,7 +13592,7 @@ class ReYMeNCLI:
                 return
 
             if self._agent_running and self.agent:
-                print("\n⚡ Interrupting agent...")
+                log.info("\n⚡ Interrupting agent...")
                 self.agent.interrupt()
             elif event.app.current_buffer.text or self._attached_images:
                 event.app.current_buffer.reset()
@@ -13646,7 +13646,7 @@ class ReYMeNCLI:
         def handle_ctrl_z(event):
             """Handle Ctrl+Z - suspend process to background (Unix only)."""
             if sys.platform == 'win32':
-                _cprint(f"\n{_DIM}Suspend (Ctrl+Z) is not supported on Windows.{_RST}")
+                _clog.info(f"\n{_DIM}Suspend (Ctrl+Z) is not supported on Windows.{_RST}")
                 event.app.invalidate()
                 return
             import signal as _sig
@@ -13753,7 +13753,7 @@ class ReYMeNCLI:
                         if hasattr(cli_ref, '_app') and cli_ref._app:
                             cli_ref._app.invalidate()
                     except Exception as e:
-                        _cprint(f"\n{_DIM}Voice recording failed: {e}{_RST}")
+                        _clog.info(f"\n{_DIM}Voice recording failed: {e}{_RST}")
 
                 threading.Thread(target=_start_recording, daemon=True).start()
                 event.app.invalidate()
@@ -14806,9 +14806,9 @@ class ReYMeNCLI:
                         if _file_drop["is_image"]:
                             submit_images.append(_drop_path)
                             user_input = _remainder or f"[User attached image: {_drop_path.name}]"
-                            _cprint(f"  📎 Auto-attached image: {_drop_path.name}")
+                            _clog.info(f"  📎 Auto-attached image: {_drop_path.name}")
                         else:
-                            _cprint(f"  📄 Detected file: {_drop_path.name}")
+                            _clog.info(f"  📄 Detected file: {_drop_path.name}")
                             user_input = (
                                 f"[User attached file: {_drop_path}]"
                                 + (f"\n{_remainder}" if _remainder else "")
@@ -14826,7 +14826,7 @@ class ReYMeNCLI:
                         continue
 
                     if not _file_drop and isinstance(user_input, str) and _looks_like_slash_command(user_input):
-                        _cprint(f"\n⚙️  {user_input}")
+                        _clog.info(f"\n⚙️  {user_input}")
                         try:
                             if not self.process_command(user_input):
                                 self._should_exit = True
@@ -14839,7 +14839,7 @@ class ReYMeNCLI:
                             # command and return to the prompt, NOT exit the entire
                             # session. Without this guard a KeyboardInterrupt unwinds
                             # to the outer prompt_toolkit loop and the session dies.
-                            _cprint("\n[dim]Command interrupted.[/dim]")
+                            _clog.info("\n[dim]Command interrupted.[/dim]")
                         continue
                     
                     # Expand paste references back to full content
@@ -14853,7 +14853,7 @@ class ReYMeNCLI:
                     # Show image attachment count
                     if submit_images:
                         n = len(submit_images)
-                        _cprint(f"  {_DIM}📎 {n} image{'s' if n > 1 else ''} attached{_RST}")
+                        _clog.info(f"  {_DIM}📎 {n} image{'s' if n > 1 else ''} attached{_RST}")
 
                     # Regular chat - run agent
                     self._agent_running = True
@@ -14894,7 +14894,7 @@ class ReYMeNCLI:
                                     self._voice_start_recording()
                                     app.invalidate()
                                 except Exception as e:
-                                    _cprint(f"{_DIM}Voice auto-restart failed: {e}{_RST}")
+                                    _clog.info(f"{_DIM}Voice auto-restart failed: {e}{_RST}")
                             threading.Thread(target=_restart_recording, daemon=True).start()
 
                         # Drain process notifications (completions + watch matches)
@@ -15162,9 +15162,9 @@ class ReYMeNCLI:
                         _sessions_dir = _ghh() / "sessions"
                         _sid = self.agent.session_id
                         if self._session_db.delete_session(_sid, sessions_dir=_sessions_dir):
-                            _cprint(f"  {_DIM}✓ Session {_escape(_sid)} deleted{_RST}")
+                            _clog.info(f"  {_DIM}✓ Session {_escape(_sid)} deleted{_RST}")
                         else:
-                            _cprint(f"  {_DIM}✗ Session {_escape(_sid)} not found for deletion{_RST}")
+                            _clog.info(f"  {_DIM}✗ Session {_escape(_sid)} not found for deletion{_RST}")
                     except (Exception, KeyboardInterrupt) as e:
                         logger.debug("Could not delete session on exit: %s", e)
             # Plugin hook: on_session_end — safety net for interrupted exits.
@@ -15386,7 +15386,7 @@ def main(
     if gateway:
         import asyncio
         from gateway.run import start_gateway
-        print("Starting ReYMeN Gateway (messaging platforms)...")
+        log.info("Starting ReYMeN Gateway (messaging platforms)...")
         asyncio.run(start_gateway())
         return
 
@@ -15703,7 +15703,7 @@ def main(
                         and result.get("error")
                         and (result.get("failed") or result.get("partial"))
                     ):
-                        print(f"Error: {result['error']}", file=sys.stderr)
+                        log.info(f"Error: {result['error']}", file=sys.stderr)
                     elif response:
                         print(response)
 
@@ -15721,7 +15721,7 @@ def main(
                             logger.debug("kanban goal loop failed: %s", _goal_exc)
 
                     # Session ID goes to stderr so piped stdout is clean.
-                    print(f"\nsession_id: {cli.session_id}", file=sys.stderr)
+                    log.info(f"\nsession_id: {cli.session_id}", file=sys.stderr)
                     
                     # Ensure proper exit code for automation wrappers
                     sys.exit(1 if isinstance(result, dict) and result.get("failed") else 0)
@@ -15744,7 +15744,7 @@ def main(
             # invocations are fast.
             _query_label = query or ("[image attached]" if single_query_images else "")
             if _query_label:
-                cli.console.print(f"[bold blue]Query:[/] {_query_label}")
+                cli.console.log.info(f"[bold blue]Query:[/] {_query_label}")
             # Surface security advisories before the agent runs — short
             # banner, doesn't depend on the welcome banner being shown.
             cli._show_security_advisories()
@@ -15786,29 +15786,29 @@ def cmd_skill_list():
             skills_dirs.append(("Proje", project_skills))
 
         if not skills_dirs:
-            print("Skill dizini bulunamadı.")
+            log.info("Skill dizini bulunamadı.")
             return
 
-        print("\n📋 Yüklü Skill'ler")
-        print("=" * 50)
+        log.info("\n📋 Yüklü Skill'ler")
+        log.info("=" * 50)
 
         total = 0
         for label, sdir in skills_dirs:
             skill_files = sorted(sdir.glob("*.md")) + sorted(sdir.glob("*.yaml")) + sorted(sdir.glob("*.yml"))
             if skill_files:
-                print(f"\n📁 {label} ({sdir})")
+                log.info(f"\n📁 {label} ({sdir})")
                 for sf in skill_files:
                     name = sf.stem
                     size_kb = sf.stat().st_size / 1024
-                    print(f"  • {name:<30} ({size_kb:.1f} KB)")
+                    log.info(f"  • {name:<30} ({size_kb:.1f} KB)")
                     total += 1
 
         if total == 0:
-            print("  (hiç skill bulunamadı)")
+            log.info("  (hiç skill bulunamadı)")
         else:
-            print(f"\n Toplam: {total} skill")
+            log.info(f"\n Toplam: {total} skill")
     except Exception as e:
-        print(f"Hata: {e}")
+        log.error(f"{e}")
 
 
 def cmd_skill_search(query: str):
@@ -15817,7 +15817,7 @@ def cmd_skill_search(query: str):
     Skill dosyalarının içeriğinde arama yapar.
     """
     if not query:
-        print("Kullanım: skill search <arama_terimi>")
+        log.info("Kullanım: skill search <arama_terimi>")
         return
 
     try:
@@ -15838,11 +15838,11 @@ def cmd_skill_search(query: str):
             skills_dirs.append(project_skills)
 
         if not skills_dirs:
-            print("Skill dizini bulunamadı.")
+            log.info("Skill dizini bulunamadı.")
             return
 
-        print(f"\n🔍 '{query}' için arama sonuçları:")
-        print("=" * 50)
+        log.info(f"\n🔍 '{query}' için arama sonuçları:")
+        log.info("=" * 50)
 
         found = 0
         query_lower = query.lower()
@@ -15852,17 +15852,17 @@ def cmd_skill_search(query: str):
                     content = sf.read_text(encoding="utf-8", errors="ignore")
                     if query_lower in content.lower() or query_lower in sf.stem.lower():
                         matches = content.lower().count(query_lower)
-                        print(f"  ✅ {sf.stem} — {matches} eşleşme")
+                        log.info(f"  ✅ {sf.stem} — {matches} eşleşme")
                         found += 1
                 except Exception:
                     continue
 
         if found == 0:
-            print("  Sonuç bulunamadı.")
+            log.info("  Sonuç bulunamadı.")
         else:
-            print(f"\n Toplam: {found} skill eşleşti")
+            log.info(f"\n Toplam: {found} skill eşleşti")
     except Exception as e:
-        print(f"Hata: {e}")
+        log.error(f"{e}")
 
 
 def cmd_memory_stats():
@@ -15876,25 +15876,25 @@ def cmd_memory_stats():
         mm = memory_manager()
         stats = mm.get_stats()
 
-        print("\n🧠 Bellek İstatistikleri")
-        print("=" * 50)
-        print(f"  Durum:           {'🟢 Aktif' if stats['aktif'] else '🔴 Pasif'}")
-        print(f"  Max Kayıt:       {stats['max_kayit']}")
-        print(f"  Sağlayıcı Sayısı: {stats['provider_sayisi']}")
-        print(f"  Dış Sağlayıcı:   {'var' if stats['dis_saglayici'] else 'yok'}")
-        print(f"  Toplam Araç:     {stats['toplam_arac']}")
+        log.info("\n🧠 Bellek İstatistikleri")
+        log.info("=" * 50)
+        log.info(f"  Durum:           {'🟢 Aktif' if stats['aktif'] else '🔴 Pasif'}")
+        log.info(f"  Max Kayıt:       {stats['max_kayit']}")
+        log.info(f"  Sağlayıcı Sayısı: {stats['provider_sayisi']}")
+        log.info(f"  Dış Sağlayıcı:   {'var' if stats['dis_saglayici'] else 'yok'}")
+        log.info(f"  Toplam Araç:     {stats['toplam_arac']}")
 
         if stats['saglayicilar']:
-            print("\n  Kayıtlı Sağlayıcılar:")
+            log.info("\n  Kayıtlı Sağlayıcılar:")
             for p in stats['saglayicilar']:
-                print(f"    • {p['name']} ({p['tool_count']} araç)")
+                log.info(f"    • {p['name']} ({p['tool_count']} araç)")
         else:
-            print("\n  (henüz sağlayıcı kayıtlı değil)")
+            log.info("\n  (henüz sağlayıcı kayıtlı değil)")
 
     except ImportError:
-        print("memory_manager modülü bulunamadı.")
+        log.info("memory_manager modülü bulunamadı.")
     except Exception as e:
-        print(f"Hata: {e}")
+        log.error(f"{e}")
 
 
 def cmd_provider_list():
@@ -15903,8 +15903,8 @@ def cmd_provider_list():
     Ortam değişkenlerinden ve config'den sağlayıcı bilgilerini toplar.
     """
     try:
-        print("\n🔌 Aktif Sağlayıcılar")
-        print("=" * 50)
+        log.info("\n🔌 Aktif Sağlayıcılar")
+        log.info("=" * 50)
 
         providers_found = []
 
@@ -15941,13 +15941,13 @@ def cmd_provider_list():
 
         if providers_found:
             for name, auth_info in providers_found:
-                print(f"  ✅ {name:<20} ({auth_info})")
+                log.info(f"  ✅ {name:<20} ({auth_info})")
         else:
-            print("  (hiç sağlayıcı yapılandırılmamış)")
-            print("  İpucu: config.yaml veya ortam değişkenleri ile sağlayıcı ekleyin.")
+            log.info("  (hiç sağlayıcı yapılandırılmamış)")
+            log.info("  İpucu: config.yaml veya ortam değişkenleri ile sağlayıcı ekleyin.")
 
     except Exception as e:
-        print(f"Hata: {e}")
+        log.error(f"{e}")
 
 
 def cmd_config_show():
@@ -15975,15 +15975,15 @@ def cmd_config_show():
             config_paths.append(("Proje", project_config))
 
         if not config_paths:
-            print("Config dosyası bulunamadı.")
+            log.info("Config dosyası bulunamadı.")
             return
 
-        print("\n⚙️  Yapılandırma")
-        print("=" * 50)
+        log.info("\n⚙️  Yapılandırma")
+        log.info("=" * 50)
 
         for label, cpath in config_paths:
-            print(f"\n📁 {label}: {cpath}")
-            print("-" * 40)
+            log.info(f"\n📁 {label}: {cpath}")
+            log.info("-" * 40)
             try:
                 with open(cpath, "r", encoding="utf-8") as f:
                     config_data = yaml.safe_load(f)
@@ -15992,14 +15992,14 @@ def cmd_config_show():
                     safe_config = _redact_config(config_data)
                     print(yaml.dump(safe_config, default_flow_style=False, allow_unicode=True))
                 else:
-                    print("  (boş config)")
+                    log.info("  (boş config)")
             except Exception as e:
-                print(f"  Okuma hatası: {e}")
+                log.info(f"  Okuma hatası: {e}")
 
     except ImportError:
-        print("PyYAML yüklenemedi. pip install pyyaml ile kurun.")
+        log.info("PyYAML yüklenemedi. pip install pyyaml ile kurun.")
     except Exception as e:
-        print(f"Hata: {e}")
+        log.error(f"{e}")
 
 
 def _redact_config(config: Any, depth: int = 0) -> Any:

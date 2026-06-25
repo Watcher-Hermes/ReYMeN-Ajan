@@ -654,3 +654,43 @@
 1. Bellek kullanımını optimize etmek için ön bellek (cache) temizleme mekanizması uygulayın.
 2. Hata verilerini daha detaylı kaydeden izleme araçları ekleyin.
 3. Bellek tüketimi yüksek uygulamaları gözden geçirip gereksiz yüklerden kurtulun.
+
+## 2026-06-25 09:22 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %15.5, Bellek %82.5
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracı kodunu inceleyerek hata kaynaklarını düzeltin.
+3. Bellek kullanımını azaltmak için gereksiz verileri temizleyin.
+4. Hata takibi için detaylı loglama ekleyin.
+
+## 2026-06-25 10:42 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %14.1, Bellek %83.8
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracı için hata yakalama ve yeniden deneme mekanizması ekleyin.
+3. Bellek sızıntılarını önlemek için dosya işlemlerinde akış tabanlı (stream) yöntemler kullanın.
+4. Hata ayıklama için daha detaylı loglama yaparak kök neden analizi gerçekleştirin.
+
+## 2026-06-25 11:09 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %21.7, Bellek %84.2
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracını geliştirin, hata ayıklama ve veri doğrulama ekleyin.
+3. Bellek yönetimini optimize edin, gereksiz yükleri temizleyin.
+4. Hata yakalama ve durum izleme mekanizması ekleyin.
+
+## 2026-06-25 11:20 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %13.6, Bellek %83.0
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. **Dosya yazma hatalarını önlemek için** yazma öncesi disk alanı ve izin kontrolleri ekleyin.
+3. **Yüksek bellek kullanımını azaltmak için** büyük dosya işlemlerinde parça parça (chunk) yazma yöntemi kullanın.
+4. **Genel hata oranını düşürmek için** her araç çağrısında hata yakalama ve yeniden deneme mekanizması (retry) uygulayın.

@@ -58,8 +58,39 @@ def _api(yontem: str, veri: dict = None, timeout: int = 30) -> dict:
         return {"ok": False, "error": str(e)}
 
 
+def _formatla_metin(metin: str) -> str:
+    """Metni Telegram icin formatla — numaralilar satir basinda olsun."""
+    import re
+    satirlar = metin.split("\n")
+    duzeltilmis = []
+    for satir in satirlar:
+        # "1. madde" gibi numaralilari satir basina al
+        # Ornek: "bazı metin 1. madde 2. madde" → satir satir ayir
+        # Ama zaten satir basinda olanlari dokunma
+        s = satir.strip()
+        # Satir icinde "1. ", "2. ", "10. " gibi numaralar varsa ayir
+        if re.search(r'(?:^|\s)(\d{1,3}\.\s)', s) and not s.startswith(('1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '0.')):
+            # Satir icindeki numaralari satir basina tasi
+            parcalar = re.split(r'(?<!\d)(\d{1,3}\.\s)', s)
+            if len(parcalar) > 1:
+                birlesik = ""
+                for p in parcalar:
+                    if re.match(r'^\d{1,3}\.\s$', p):
+                        duzeltilmis.append(birlesik.strip())
+                        birlesik = p
+                    else:
+                        birlesik += p
+                if birlesik.strip():
+                    duzeltilmis.append(birlesik.strip())
+                continue
+        duzeltilmis.append(satir)
+    return "\n".join(duzeltilmis)
+
+
 def gonder(chat_id: int | str, metin: str, parse_mode: str = "") -> dict:
     """Telegram'a mesaj gonder — 4096 karakter sinirini bol."""
+    # Numaralilari satir basina al
+    metin = _formatla_metin(metin)
     sinir = 4000
     if len(metin) <= sinir:
         veri = {"chat_id": chat_id, "text": metin}

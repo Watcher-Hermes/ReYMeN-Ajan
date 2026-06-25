@@ -58,9 +58,9 @@ class ReferansYoneticisi:
         if not self._referanslar:
             return ""
         son = self._referanslar[-max_bas:]
-        satirlar = ["[Referanslar]"]
+        satirlar = ["Referanslar:"]
         for r in son:
-            satirlar.append(f"  - {r['etiket']}: {r['icerik'][:100]}")
+            satirlar.append(f"  {r['etiket']}: {r['icerik'][:80]}")
         return "\n".join(satirlar)
 
     def sifirla(self):

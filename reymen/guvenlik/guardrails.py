@@ -335,7 +335,7 @@ if __name__ == "__main__":
     import logging as _logging
     _logging.basicConfig(level=_logging.DEBUG, format="%(levelname)s %(message)s")
 
-    print("=== Hallucination Filtresi Testi ===")
+    log.info("=== Hallucination Filtresi Testi ===")
     filtre = HallucinationFiltresi(esik_skor=1.5)
 
     testler: list[tuple[str, str]] = [
@@ -349,15 +349,15 @@ if __name__ == "__main__":
     for yanit, hedef in testler:
         _, uyarilar = filtre.filtrele(yanit, hedef=hedef)
         etiket = "RİSKLİ" if uyarilar else "TEMİZ "
-        print(f"[{etiket}] {yanit[:55]}")
+        log.info(f"[{etiket}] {yanit[:55]}")
         for u in uyarilar:
-            print(f"         {u}")
+            log.info(f"         {u}")
 
-    print(f"\nİstatistik: {filtre.istatistik()}")
+    log.info(f"\nİstatistik: {filtre.istatistik()}")
 
-    print("\n=== HITL Testi ===")
+    log.info("\n=== HITL Testi ===")
     hitl = HITLSikistirici()
     hitl.sikilas()
-    print(f"Aktif mi: {hitl.aktif}")
+    log.info(f"Aktif mi: {hitl.aktif}")
     hitl.geri_al()
-    print(f"Aktif mi: {hitl.aktif}")
+    log.info(f"Aktif mi: {hitl.aktif}")

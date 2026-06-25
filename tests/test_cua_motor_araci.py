@@ -75,7 +75,7 @@ class TestKoordinatParse:
         assert self.parse("0, 0") is None
 
     def test_negatif_parsed_as_pozitif(self):
-        """Negatif isareti \d+ tarafindan atlanir, pozitif sayi olarak parse edilir."""
+        r"""Negatif isareti \d+ tarafindan atlanir, pozitif sayi olarak parse edilir."""
         sonuc = self.parse("-5, 100")
         assert sonuc is not None
         x, y = sonuc
@@ -249,13 +249,20 @@ class TestEylemYorumla:
 
 
 class TestOnKosulKontrol:
+    def _sifirla(self, cua):
+        """Hem shim hem inner modül state'ini sıfırla."""
+        import reymen.arac.cua_motor_araci as inner
+        cua._on_kosul_kontrolu_yapildi = False
+        cua._on_kosul_sonuc = None
+        inner._on_kosul_kontrolu_yapildi = False
+        inner._on_kosul_sonuc = None
+
     def test_on_kosul_basarisiz_lmstudio_yok(self):
         pytest.importorskip("pyautogui", reason="pyautogui gerekli")
         pytest.importorskip("PIL", reason="Pillow gerekli")
         from cua_motor_araci import _on_kosul_kontrol
         import cua_motor_araci as cua
-        cua._on_kosul_kontrolu_yapildi = False
-        cua._on_kosul_sonuc = None
+        self._sifirla(cua)
 
         with patch("cua_motor_araci.requests.get") as mock_get:
             mock_get.side_effect = __import__("requests").exceptions.ConnectionError()
@@ -268,17 +275,12 @@ class TestOnKosulKontrol:
         pytest.importorskip("PIL", reason="Pillow gerekli")
         from cua_motor_araci import _on_kosul_kontrol
         import cua_motor_araci as cua
-        import reymen.arac.cua_motor_araci as _inner_cua
-        # Hem shim hem inner modül sıfırlanmalı (test izolasyonu)
-        cua._on_kosul_kontrolu_yapildi = False
-        cua._on_kosul_sonuc = None
-        _inner_cua._on_kosul_kontrolu_yapildi = False
-        _inner_cua._on_kosul_sonuc = None
+        self._sifirla(cua)
 
         with patch("reymen.arac.cua_motor_araci.requests.get") as mock_get:
             mock_response = MagicMock()
             mock_response.status_code = 200
-            mock_response.json.return_value = [{"id": "llava"}]
+            mock_response.json.return_value = [{"id": cua.LM_STUDIO_MODEL}]
             mock_get.return_value = mock_response
             sonuc = cua._on_kosul_kontrol()
         assert sonuc is None

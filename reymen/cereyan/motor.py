@@ -8,8 +8,17 @@ from typing import Any, Optional, Dict, List, Tuple, Union
 import os
 import re
 import sys
+import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+
+# Merkezi logging (fail-open: yüklenemezse stdlib logging kullan)
+try:
+    from reymen.sistem.reymen_logging import get_logger
+    log = get_logger("motor")
+except Exception:
+    import logging
+    log = logging.getLogger("motor")
 
 ROOT = Path(__file__).parent
 
@@ -114,8 +123,8 @@ def _gateway_durum_yaz(state: str = "running", hata: str = "") -> None:
         _GATEWAY_STATE_PATH.write_text(
             _json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
         )
-    except Exception:
-        pass
+    except Exception as e:
+        log.debug("Gateway state yazılamadı: %s", e)
 
 
 class Motor:
@@ -235,6 +244,23 @@ class Motor:
             # Entegrasyon 7 — ekran/tarayıcı/skill/telegram
             "araclar_ekran", "araclar_tarayici",
             "skill_bundles", "skill_commands", "telegram_bot",
+            # Entegrasyon 8 — Hermes eksiklik kapatma (18 modül)
+            "reymen.arac.web_extract_tool",
+            "reymen.arac.vision_analyze_tool",
+            "reymen.arac.image_generate_tool",
+            "reymen.arac.todo_tool",
+            "reymen.arac.process_tool",
+            "reymen.arac.file_ops_tool",
+            "reymen.arac.cron_tool",
+            "reymen.arac.memory_batch_tool",
+            "reymen.arac.profile_tool",
+            "reymen.arac.approval_tool",
+            "reymen.arac.multi_platform_tool",
+            "reymen.arac.browser_mcp_tool",
+            "reymen.arac.powershell_tool",
+            "reymen.sistem.model_switcher",
+            "reymen.arac.web_search_tool",
+            "reymen.cereyan.auto_web_search",
             # Entegrasyon 8 — Claude Code işbirliği
             "tools.claude_code_tool",
             # Kopru (Bot1/Bot2 Bridge)
@@ -267,11 +293,11 @@ class Motor:
             except Exception as _e:
                 _yukleme_hatalari.append(f"{mod_adi}: {type(_e).__name__}: {_e}")
         if _yukleme_hatalari:
-            print(f"[Motor] {len(_yukleme_hatalari)} modul yukleme hatasi:")
+            log.warning(f"{len(_yukleme_hatalari)} modul yukleme hatasi:")
             for h in _yukleme_hatalari[:5]:
-                print(f"  ⚠ {h}")
+                log.warning(f"  {h}")
             if len(_yukleme_hatalari) > 5:
-                print(f"  ... ve {len(_yukleme_hatalari) - 5} hata daha")
+                log.warning(f"  ... ve {len(_yukleme_hatalari) - 5} hata daha")
         # Skill araçları (cache'li)
         if self._skill_araclari_cache is None:
             self._skill_araclari_kaydet()
@@ -288,7 +314,7 @@ class Motor:
         except ImportError:
             pass  # plugin_loader yok
         except Exception as _e:
-            print(f"[Motor] PluginYukleyici baslatma hatasi: {_e}")
+            log.error(f"PluginYukleyici baslatma hatasi: {_e}")
 
     def _skill_araclari_kaydet(self) -> None:
         """skill_utils modülünden SKILL_ araçlarını kaydet (v1 — geriye uyumluluk)."""
@@ -330,8 +356,8 @@ class Motor:
                     izinler = skill_izin_verilen_araclar(ad)
                     if izinler and hasattr(self, "ekstra_izin_araclar"):
                         self.ekstra_izin_araclar.update(izinler)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log.debug("Skill izin güncelleme hatası: %s", e)
                 return sonuc
 
             self._plugin_arac_kaydet(
@@ -382,7 +408,7 @@ class Motor:
                 lambda ad="": skill_eval_listele(ad),
                 "Skill'in eval test case'lerini listele",
             )
-            print(f"[Skill v4] {skill_sayisi()} skill yuklu.")
+            log.info(f"Skill v4: {skill_sayisi()} skill yuklu.")
         except ImportError:
             pass
 
@@ -704,7 +730,7 @@ class Motor:
         mesaj = self._DURUM_MESAJLARI.get(arac)
         if mesaj:
             ozet = (params[0] if params else "")[:60]
-            print(f"  [*] {mesaj}" + (f" [{ozet}]" if ozet else ""), flush=True)
+            log.info(f"[*] {mesaj}" + (f" [{ozet}]" if ozet else ""))
 
     _RISKLI_ARACLAR: frozenset = frozenset({
         "KOMUT_CALISTIR", "PYTHON_CALISTIR", "TARAYICI_AC",
@@ -714,6 +740,7 @@ class Motor:
 
     def calistir(self, arac: str, ham_param: str) -> str:
         params = self._parametreleri_coz(ham_param)
+        log.info(f"calistir: {arac} | param_sayisi={len(params)}")
 
         # Araç durum mesajı
         self._durum_goster(arac, params)
@@ -722,12 +749,13 @@ class Motor:
         try:
             from tools.achievements import _listeye_ekle
             _listeye_ekle("tools_used.json", arac)
-        except Exception:
-            pass
+        except Exception as e:
+            log.debug("Achievement araç kayıt hatası: %s", e)
 
         # check_fn: araç musait mi?
         _check = self._ARAC_CHECK_FNS.get(arac)
         if _check is not None and not _check():
+            log.warning(f"[Motor] {arac} kullanilamaz (check_fn engelledi)")
             return f"[{arac}]: Bu araç bu ortamda kullanılamıyor (gereksinim eksik)."
 
         # HITL: riskli araclarda onay
@@ -735,6 +763,7 @@ class Motor:
         if arac in self._RISKLI_ARACLAR and not _izinli and getattr(self, "onay_fonksiyonu", None):
             ozet = (params[0] if params else "")[:120]
             if not self.onay_fonksiyonu(arac, ozet):
+                log.info(f"[Motor] {arac} HITL onayi reddedildi")
                 return f"[İptal]: Kullanıcı '{arac}' eylemini reddetti."
 
         # HATA_COZUCU araçları — Registry/Plugin öncesi erken kontrol
@@ -817,11 +846,11 @@ class Motor:
                                         else:
                                             nisan_bul = nisan.bul(alan, metin_alternatif=deger)
                                         if nisan_bul.get("asama", 0) > 0:
-                                            logger.info("[Tor] Nisan asama %d ile '%s' bulundu (%d,%d)",
+                                            log.info("[Tor] Nisan asama %d ile '%s' bulundu (%d,%d)",
                                                        nisan_bul["asama"], alan,
                                                        nisan_bul.get("x", 0), nisan_bul.get("y", 0))
                             except Exception as ocr_e:
-                                logger.warning("[Tor] Nisan fallback hatasi: %s", ocr_e)
+                                log.warning("[Tor] Nisan fallback hatasi: %s", ocr_e)
                             return f"[Form] Basarili: {sonuc['basarili']}, Basarisiz: {sonuc['basarisiz']}"
                         return f"[Form] Basarili: {sonuc['basarili']}, Basarisiz: {sonuc['basarisiz']}"
                     return "[Tor]: JSON formatinda alanlar gonderin."
@@ -840,7 +869,7 @@ class Motor:
                         if not izin:
                             return "[Kayit] REDDEDILDI: Kullanici onay vermedi."
                     except ImportError:
-                        logger.warning("[Tor] insan_arayuzu bulunamadi, onay atlandi.")
+                        log.warning("[Tor] insan_arayuzu bulunamadi, onay atlandi.")
                     import json
                     data = json.loads(ham_param) if ham_param.startswith("{") else {}
                     if data:
@@ -855,7 +884,7 @@ class Motor:
                         if not izin:
                             return "[Siparis] REDDEDILDI: Kullanici onay vermedi."
                     except ImportError:
-                        logger.warning("[Tor] insan_arayuzu bulunamadi, onay atlandi.")
+                        log.warning("[Tor] insan_arayuzu bulunamadi, onay atlandi.")
                     import json
                     data = json.loads(ham_param) if ham_param.startswith("{") else {}
                     if data:
@@ -874,6 +903,7 @@ class Motor:
             _registry_sonuc = _REGISTRY.calistir(arac, *params)
             if not _registry_sonuc.startswith("[Bilinmeyen arac]"):
                 self._hook_tetikle(arac, params, _registry_sonuc)
+                log.debug(f"[Motor] {arac} -> Registry basarili ({len(_registry_sonuc)} krk)")
                 return _registry_sonuc
 
         # 2. PluginManager ile dene
@@ -881,6 +911,7 @@ class Motor:
             try:
                 plugin_sonuc = _PLUGIN_MGR.run(arac.lower())
                 self._hook_tetikle(arac, params, plugin_sonuc)
+                log.debug(f"[Motor] {arac} -> Plugin basarili")
                 return str(plugin_sonuc)
             except KeyError:
                 pass
@@ -888,6 +919,10 @@ class Motor:
         # 3. Fallback: if/else zinciri
         sonuc = self._fallback_calistir(arac, params)
         self._hook_tetikle(arac, params, sonuc)
+        if "[Hata]" in sonuc:
+            log.warning(f"[Motor] {arac} -> Fallback hata: {sonuc[:150]}")
+        else:
+            log.debug(f"[Motor] {arac} -> Fallback basarili ({len(sonuc)} krk)")
         return sonuc
 
     def _paralel_calistir(self, tanim: str) -> str:
@@ -953,12 +988,17 @@ class Motor:
         return "\n".join(satirlar)
 
     def _hook_tetikle(self, arac: str, params: List[str], sonuc: str) -> None:
-        """Araç çalıştıktan sonra async hookları tetikle."""
+        """Araç çalıştıktan sonra async hookları tetikle.
+        Hook tetikleme olayını logla."""
         if not self._hooks:
             return
         hata = "[Hata]" in sonuc or "[hata]" in sonuc.lower()
         olay = "TOOL_ERROR" if hata else "TOOL_CALLED"
         self._hooks.tetikle(olay, arac=arac, params=params, sonuc=sonuc[:200])
+        if hata:
+            log.warning(f"Hook tetiklendi: {olay} | arac={arac} | sonuc={sonuc[:100]}")
+        else:
+            log.debug(f"Hook tetiklendi: {olay} | arac={arac}")
 
     def _fallback_calistir(self, arac: str, params: List[str]) -> str:
         """Yedek if/else zinciri (registry calismazsa)."""
@@ -1000,8 +1040,8 @@ class Motor:
                 yeni = check_achievements(gorev_tamamlandi=True)
                 if yeni:
                     return "__GOREV_BITTI__\n" + "\n".join(f"{r['emoji']} {r['name']} kazanıldı! 🎉" for r in yeni)
-            except Exception:
-                pass
+            except Exception as e:
+                log.debug("Achievement kontrol hatası: %s", e)
             return "__GOREV_BITTI__"
         if arac == "DURUM_BILDIR":
             try:
@@ -1544,7 +1584,7 @@ class Motor:
 if __name__ == "__main__":
     m = Motor(backend_mode="local")
     arac, ham = m.eylemi_ayristir("Eylem: DOSYA_OKU(\"test.txt\")")
-    print(f"{arac} -> {m.calistir(arac, ham)[:60]}")
+    log.info(f"{arac} -> {m.calistir(arac, ham)[:60]}")
 
 # ══════════════════════════════════════════════════════════════════════════════
 # OPTIMIZED TOOL REGISTRY — Sadece gerekli tool'lar

@@ -8,6 +8,9 @@ tek sistem promptuna donusturulur.
 """
 
 import os
+import logging
+log = logging.getLogger(__name__)
+
 from pathlib import Path
 
 
@@ -27,7 +30,7 @@ class PromptAssembly:
         try:
             self._depo_yolu.mkdir(parents=True, exist_ok=True)
         except OSError as _prompt_a_e28:
-            print(f"[UYARI] prompt_assembly.py:29 - {_prompt_a_e28}")
+            log.info(f"[UYARI] prompt_assembly.py:29 - {_prompt_a_e28}")
 
         # Context files yoneticisi
         self._context_loader = None
@@ -35,7 +38,7 @@ class PromptAssembly:
             from agent.context_files import ContextFileLoader
             self._context_loader = ContextFileLoader()
         except ImportError as _prompt_a_e36:
-            print(f"[UYARI] prompt_assembly.py:37 - {_prompt_a_e36}")
+            log.info(f"[UYARI] prompt_assembly.py:37 - {_prompt_a_e36}")
 
     # ── Ana metot: eksiksiz sistem promptu ─────────────────────────────
 
@@ -118,7 +121,7 @@ class PromptAssembly:
                 if aday.exists():
                     return aday.read_text(encoding="utf-8").strip()
             except OSError as _prompt_a_e113:
-                print(f"[UYARI] prompt_assembly.py:114 - {_prompt_a_e113}")
+                log.info(f"[UYARI] prompt_assembly.py:114 - {_prompt_a_e113}")
         return ""
 
     def _memory_oku(self) -> str:
@@ -135,7 +138,7 @@ class PromptAssembly:
                     icerik = yol.read_text(encoding="utf-8").strip()
                     return icerik[-2000:] if len(icerik) > 2000 else icerik
             except OSError as _prompt_a_e130:
-                print(f"[UYARI] prompt_assembly.py:131 - {_prompt_a_e130}")
+                log.info(f"[UYARI] prompt_assembly.py:131 - {_prompt_a_e130}")
         return ""
 
     def _beceri_baglamini_al(self, hedef: str) -> str:
@@ -248,9 +251,9 @@ if __name__ == "__main__":
     pa = PromptAssembly()
     pa.ekle("giris", "Merhaba, ben ReYMeN asistaninim.")
     pa.ekle("talimat", "Kullaniciya yardimci ol.")
-    print(f"Parcalar: {pa.liste()}")
-    print(f"Birlestirilmis:\n{pa.birlestir(['giris', 'talimat'])}")
-    print("\n--- insa_et testi ---")
+    log.info(f"Parcalar: {pa.liste()}")
+    log.info(f"Birlestirilmis:\n{pa.birlestir(['giris', 'talimat'])}")
+    log.info("\n--- insa_et testi ---")
     prompt = pa.insa_et("Test hedefi", son_gozlem="onceki cikti ok", tur=2, toplam_tur=10)
     print(prompt[:300])
 

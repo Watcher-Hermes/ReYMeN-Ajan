@@ -464,12 +464,12 @@ class ConversationLoop:
             sonuc["intent"] = _intent.tip
             sonuc["intent_guven"] = _intent.guven
             sonuc["intent_hedef"] = _intent.hedef
-            log.info(
-                "[%s] Intent: %s (guven=%.2f, hedef=%s)",
+            log.debug(
+                            "[%s] Intent: %s (guven=%.2f, hedef=%s)",
                 task_id, _intent.tip, _intent.guven, _intent.hedef,
             )
         except ImportError:
-            log.info("[%s] intent_recognition modulu bulunamadi, atlandi", task_id)
+            log.debug("[%s] intent_recognition modulu bulunamadi, atlandi", task_id)
         except Exception as _ie:
             log.warning("[%s] Intent tanima hatasi: %s", task_id, _ie)
 
@@ -511,10 +511,10 @@ class ConversationLoop:
                     return sonuc
             else:
                 self._onceki_bilgi = None
-                log.info("[%s] Hafizada benzer gorev bulunamadi", task_id)
+                log.debug("[%s] Hafizada benzer gorev bulunamadi", task_id)
         except ImportError:
             self._onceki_bilgi = None
-            log.info("[%s] hafizada_ara modulu bulunamadi, hafiza kontrolu atlandi", task_id)
+            log.debug("[%s] hafizada_ara modulu bulunamadi, hafiza kontrolu atlandi", task_id)
         except Exception as _he:
             self._onceki_bilgi = None
             log.warning("[%s] Hafiza kontrol hatasi: %s", task_id, _he)
@@ -638,10 +638,10 @@ class ConversationLoop:
 
                 budget.tur_basla()
                 tur = budget.tur
-                log.info(
-                    "[%s] Tur %d (provider=%s, gecmis=%d mesaj)",
-                    task_id, tur, provider_tipi, len(self._konusma_gecmisi),
-                )
+                log.debug(
+                                    "[%s] Tur %d (provider=%s, gecmis=%d mesaj)",
+                                    task_id, tur, provider_tipi, len(self._konusma_gecmisi),
+                                )
 
                 # ── 4. Context preflight ──────────────────────────────
                 self._konusma_gecmisi = self._context_preflight(
@@ -663,6 +663,9 @@ class ConversationLoop:
                     api_mesajlari = self._prompt_caching_ekle(api_mesajlari)
 
                 # ── 8. API call — exponential backoff retry ile ────────────
+                _api_baslama = time.time()
+                _spinner = ["⏳ Isleniyor...", "⏳ Hesaplaniyor...", "⏳ Yanit hazirlaniyor..."]
+                _spin_idx = 0
                 try:
                     yanit = self._api_call_with_retry(
                         api_mesajlari, provider_tipi, task_id, budget,
@@ -673,6 +676,9 @@ class ConversationLoop:
                     self._cb_art_arda_hata = 0  # iptal sayilmaz
                     log.warning("[%s] Ctrl+C ile iptal edildi", task_id)
                     break
+
+                _api_sure = time.time() - _api_baslama
+                log.info(f"  ✓ Yanıt alındı ({_api_sure:.1f}s)")
 
                 if yanit is None:
                     self._cb_art_arda_hata += 1
@@ -711,7 +717,7 @@ class ConversationLoop:
                             except Exception:
                                 arac_params = {"param": arac_params}
 
-                        log.info("[%s] Tool call: %s", task_id, arac_adi)
+                        log.debug("[%s] Tool call: %s", task_id, arac_adi)
                         budget.eylem_kaydet(arac_adi)
 
                         # Hook: araç çağrılmadan önce
@@ -756,7 +762,7 @@ class ConversationLoop:
                             sonuc["basarili"] = True
                             sonuc["sonuc"]    = arac_sonuc.get("cikti", "")
                             budget.gorev_tamamla()
-                            log.info("[%s] Arac tamamlama sinyali: %s", task_id, arac_adi)
+                            log.debug("[%s] Arac tamamlama sinyali: %s", task_id, arac_adi)
                             break
 
                     budget.tur_bitir(basarili=True)
@@ -775,7 +781,7 @@ class ConversationLoop:
                     sonuc["yanit"]    = icerik
                     budget.gorev_tamamla()
                     budget.tur_bitir(basarili=True)
-                    log.info("[%s] Text yanit alindi, tamamlandi", task_id)
+                    log.debug("[%s] Text yanit alindi, tamamlandi", task_id)
                     break
 
         except Exception as e:
@@ -795,7 +801,7 @@ class ConversationLoop:
                     "cancelled" if self._durum == "iptal" else "error"
                 )
                 _storage.session_bitir(session_id, end_reason=end_reason)
-                log.info("[%s] Session kapatildi: %s (%s)", task_id, session_id, end_reason)
+                log.debug("[%s] Session kapatildi: %s (%s)", task_id, session_id, end_reason)
             except Exception as _se:
                 log.warning("[%s] Session bitirme hatasi: %s", task_id, _se)
 
@@ -1687,14 +1693,14 @@ def run(**kwargs: Any) -> str:
 if __name__ == "__main__":
     import sys
 
-    print("=== ConversationLoop Basit Test ===")
+    log.info("=== ConversationLoop Basit Test ===")
 
     # --- Test 1: coz() eski API ---
     loop = ConversationLoop(motor=None, beyin=None, max_tur=3)
     s = loop.coz("test hedef")
     assert isinstance(s, dict), "coz() dict donmeli"
     assert s["hedef"] == "test hedef"
-    print(f"coz() OK: basarili={s['basarili']}, tur={s['turlar']}")
+    log.info(f"coz() OK: basarili={s['basarili']}, tur={s['turlar']}")
 
     # --- Test 2: run_conversation() yeni API ---
     loop2 = ConversationLoop(max_tur=2)
@@ -1702,14 +1708,14 @@ if __name__ == "__main__":
     assert isinstance(s2, dict), "run_conversation() dict donmeli"
     assert "task_id" in s2
     assert "budget" in s2
-    print(f"run_conversation() OK: task_id={s2['task_id']}, tur={s2['turlar']}")
+    log.info(f"run_conversation() OK: task_id={s2['task_id']}, tur={s2['turlar']}")
 
     # --- Test 3: provider tipi ---
     loop3 = ConversationLoop()
     assert loop3._provider_tipi_belirle("anthropic") == "anthropic"
     assert loop3._provider_tipi_belirle("codex")     == "codex"
     assert loop3._provider_tipi_belirle("deepseek")  == "chat_completions"
-    print("Provider tipi OK")
+    log.info("Provider tipi OK")
 
     # --- Test 4: tool_calls parse ---
     yanit_arac  = {"content": 'DOSYA_OKU("test.txt")'}
@@ -1718,7 +1724,7 @@ if __name__ == "__main__":
     assert len(loop3._tool_calls_al(yanit_arac))  == 1
     assert len(loop3._tool_calls_al(yanit_bitti)) == 0
     assert len(loop3._tool_calls_al(yanit_dusun)) == 0
-    print("Tool call parse OK")
+    log.info("Tool call parse OK")
 
-    print("\nTum testler gecti!")
+    log.info("\nTum testler gecti!")
     sys.exit(0)
