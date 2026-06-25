@@ -804,3 +804,23 @@
 2. **DOSYA_YAZ aracı** için hata yakalama ve yeniden deneme mekanizması ekleyin.
 3. Dosya yazma öncesinde **yol ve yazma izinlerini** doğrulayan kontrol ekleyin.
 4. Hata oranını azaltmak için **hamleleri loglayıp** en sık başarısız olan senaryoları analiz edin.
+
+## 2026-06-25 20:06 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %29.1, Bellek %86.7
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracındaki hataları azaltmak için yazma işlemleri öncesinde dosya yolunu ve izinleri kontrol eden bir doğrulama katmanı ekleyin.
+3. Bellek kullanımını %86.7'den aşağı çekmek için kullanılmayan değişkenleri temizleyen periyodik bir çöp toplama rutini uygulayın.
+4. Genel hata oranını %66'dan düşürmek için en sık hata alan işlemleri loglayarak öncelikli iyileştirme alanlarını belirleyin.
+
+## 2026-06-25 22:11 — Oz-Yansima Raporu
+- Hata orani: 66% (33/50 adim)
+- Sistem: CPU %20.8, Bellek %83.7
+
+### Oneriler
+1. 'DOSYA_YAZ' araci en cok hataya sebep oluyor (oran: 66%). Parametre dogrulamasi veya fallback eklenmesi onerilir.
+2. DOSYA_YAZ aracındaki hataları azaltmak için yazma işlemi öncesinde dosya yolunu ve izinleri doğrulayan bir kontrol mekanizması ekleyin.
+3. Bellek kullanımını %70'in altına düşürmek için gereksiz veri tutma sürelerini kısaltın ve sık kullanılmayan önbellekleri temizleyin.
+4. Hata oranını düşürmek için DOSYA_YAZ aracına yönelik hata günlüğü ve yeniden deneme mantığı entegre edin.

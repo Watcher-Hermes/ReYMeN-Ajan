@@ -268,9 +268,26 @@ _MODELLER = [
 ]
 
 def _model_sec(api_d=None):
+    """
+    Model seçim ekranı.
+    - DeepSeek kredisi bitmiş olsa bile seçime izin ver (fallback devreye girer)
+    - Mevcut model çalışıyorsa (status=True) seçimi atla
+    """
     if api_d is None:
         api_d = {}
+
     cur_m, cur_p = _mevcut_model()
+
+    # Mevcut model çalışıyorsa (True) ve listedeyse — seçimi tamamen atla
+    # Kullanıcı /model ile sonradan değiştirebilir
+    if api_d.get(cur_p) is True:
+        for p, m, ad, _env, _url in _MODELLER:
+            if p == cur_p and m == cur_m:
+                print(f"  {_g('✓')} {_b(ad)} {_d('— aktif, /model ile değiştir')}")
+                print()
+                return  # seçim ekranını atla
+
+    # Mevcut model yok veya False — seçim ekranını göster
     liste = [(p,m,a,url) for p,m,a,env,url in _MODELLER
              if not env or os.environ.get(env,"").strip()]
     if not liste:
@@ -282,7 +299,11 @@ def _model_sec(api_d=None):
         aktif = (mod == cur_m and prov == cur_p)
         isk   = _gb("→") if aktif else _d(" ")
         ikon  = _api_ikon(prov, api_d)
-        print(f"  {isk} [{_cb(str(i))}] {ikon} {_g(ad):<26} {_d(mod)}")
+        durum = api_d.get(prov)
+        uyari = ""
+        if durum is False:
+            uyari = f" {_y('[kredi bitmis, fallback devrede]')}"
+        print(f"  {isk} [{_cb(str(i))}] {ikon} {_g(ad):<26} {_d(mod)}{uyari}")
     print()
     try:
         y = input(f"  {_d('[ENTER: mevcut koru]')}: ").strip()
@@ -293,12 +314,8 @@ def _model_sec(api_d=None):
         idx = int(y) - 1
         if 0 <= idx < len(liste):
             prov, mod, ad, url = liste[idx]
-            durum = api_d.get(prov)
-            if durum is False:
-                print(f"\n  {_r('✗')} {_b(ad)} — API kredisi yetersiz veya key geçersiz.")
-                print(f"  {_d('Hesabına bakiye yükle, sonra yeniden başlat.')}")
-                print()
-                return
+            # DeepSeek kredisi bitmiş bile olsa seçime izin ver
+            # Hermes fallback_providers otomatik openrouter/lmstudio'ya geçer
             print(f"  {_y('◌')} {_d('gateway yeniden baslatiliyor...')}", end="", flush=True)
             _model_guncelle(prov, mod, url)
             print(f"\r  {_g('✓')} {_b(ad)} aktif.                        ")
@@ -482,7 +499,15 @@ def main():
     print(f"\r{' '*50}\r", end="", flush=True)
 
     _ekran(_api_sonuc)
-    _model_sec(_api_sonuc)
+
+    # Mevcut model True ise seçim ekranını atla — her açılışta sorma
+    # False ise kullanıcı seçim yapabilsin (seçim engeli kalktı)
+    cur_m, cur_p = _mevcut_model()
+    if _api_sonuc.get(cur_p) is not True:
+        _model_sec(_api_sonuc)
+    else:
+        print(f"  {_g('✓')} {_b('Model aktif, REPL başlatılıyor...')}\n")
+
     _repl()
 
 if __name__ == "__main__":

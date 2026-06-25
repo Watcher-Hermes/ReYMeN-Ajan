@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin 1. adımı (Grup A, B, C - İzleme ve Bakım Planı) tamamlandı. Kullanıcı \"onay\" dedi ancak kalan 3 parçanın içeriği henüz iletilmedi. Ayrıca sistem CRON_EKLE aracının 4 kez bloke olduğunu bildiriyor. Kullanıcıdan kalan 3 adımın içeriğini bekliyorum.
 created: 2026-06-24
-usage_count: 39
+usage_count: 41
 last_used: 2026-06-25
 ---
 
@@ -607,3 +607,23 @@ DOSYA_OKU: \"referanslar\")
    - EYLEM: DOSYA\\_OKU(\"sonuç\")
    - GÖZLEM: Sorunların çözüldüğünü belirtir veya yeni rapor dosyasını oluşturur.
    - GOREV\\_BITTI(\"Sonuç dosyasını yeniden yazdı\") "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T17:58:16Z)
+
+DOSYA_OKU: \"dosya\")\" - dosyadan oku.
+3. Araç sonucunu değerlendir, bir sonraki adıma geç. Örneğin, \"GÖREV_BITTI(\"kullanıcıya verilecek yanıt\")\" - tamamlandığında.
+
+Bu şekilde, tüm görevleri gerçekleştirebilirsiniz veya sorunları çözdüğünüzde, kullanıcıya bildiri verebilirsiniz. Bu yazılım ajanının daha fazla detayları için lütfen \"Dokümanı Gör\" sekmesini kullanabilirsiniz.
+
+Tekrar sorunlarla veya bize yardımcı olabileceğinizden emin olduğumuzdan emin olmak için teşekkürler! "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-25T18:01:37Z)
+
+DOSYA_OKU: \"dosya\")\" - dosyadan oku.
+3. Araç sonucunu değerlendir, bir sonraki adıma geç. Örneğin, \"GÖREV_BITTI(\"kullanıcıya verilecek yanıt\")\" - tamamlandığında.
+
+Bu şekilde, tüm görevleri gerçekleştirebilirsiniz veya sorunları çözdüğünüzde, kullanıcıya bildiri verebilirsiniz. Bu yazılım ajanının daha fazla detayları için lütfen \"Dokümanı Gör\" sekmesini kullanabilirsiniz.
+
+Tekrar sorunlarla veya bize yardımcı olabileceğinizden emin olduğumuzdan emin olmak için teşekkürler! "

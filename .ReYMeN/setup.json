@@ -1,5 +1,5 @@
 {
-  "tercih_provider": "xiaomi",
-  "tercih_model": "mimo-v2.5",
+  "tercih_provider": "deepseek",
+  "tercih_model": "deepseek-v4-flash",
   "SETUP_COMPLETED": true
 }

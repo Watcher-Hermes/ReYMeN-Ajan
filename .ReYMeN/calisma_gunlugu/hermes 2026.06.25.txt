@@ -1,0 +1,7 @@
+
+[20:40] Gateway Fix + DeepSeek Key Yenileme
+- @ReYMeN_ReYMeNbot yeni token: 877415... aktif ✅
+- @Kiral38bot yeni token: 885848... aktif ✅
+- DeepSeek API key yenilendi: 9.32 USD bakiyeli
+- reymen_launcher.py provider seçim fixi uygulandı
+- 3 gateway de çalışıyor: default(PID78996) reymen(PID199340) kiral38(PID180728)

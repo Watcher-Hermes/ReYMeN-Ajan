@@ -1,0 +1,64 @@
+{
+  "name": "reymen-desktop",
+  "version": "1.0.0",
+  "description": "ReYMeN AI Agent Desktop Uygulamasi",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "set ELECTRON_DEV=1 && electron .",
+    "build": "electron-builder --win",
+    "build:portable": "electron-builder --win portable",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.reymen.desktop",
+    "productName": "ReYMeN",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "python_bridge.py",
+      "*.py"
+    ],
+    "extraResources": [
+      {
+        "from": "python_bridge.py",
+        "to": "python_bridge.py"
+      },
+      {
+        "from": "../web_ui.py",
+        "to": "web_ui.py"
+      },
+      {
+        "from": "../.env",
+        "to": ".env"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.3.0"
+  },
+  "devDependencies": {
+    "electron": "^30.5.1",
+    "electron-builder": "^25.0.0"
+  }
+}
