@@ -62,7 +62,8 @@ def run_shell_job(job_id: str, command: str):
 
     log_file = LOGS_DIR / f"{job_id}.log"
     try:
-        result = subprocess.run(
+        # B602: shell=True gerekli (command string, pipes/redirects)
+        result = subprocess.run(  # nosec
             command,
             shell=True,
             capture_output=True,

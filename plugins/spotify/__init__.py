@@ -36,8 +36,9 @@ def _spotipy_al():
 def _sistem_oynat(sarki: str) -> str:
     """Sistem media player ile basit oynatma."""
     try:
-        import subprocess
-        subprocess.Popen(["start", "spotify:", f"search:{sarki}"], shell=True)
+        import os
+        spotify_uri = f"spotify:search:{sarki}"
+        os.startfile(spotify_uri)
         return f"[Spotify] Spotify acildi: {sarki}"
     except Exception as e:
         return f"[Spotify] Hata: {e}"
