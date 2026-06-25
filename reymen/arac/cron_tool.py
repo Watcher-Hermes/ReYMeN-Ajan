@@ -19,6 +19,7 @@ Kullanım:
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import threading
@@ -177,10 +178,11 @@ class CronManager:
 
         job = self._jobs[job_id]
         try:
+            komut_list = shlex.split(job.komut)
             result = subprocess.run(
-                job.komut, shell=True, capture_output=True, text=True,
+                komut_list, shell=False, capture_output=True, text=True,
                 timeout=300, creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
-            )
+            )  # nosec B603 — shell=False, shlex.split ile güvenli
             job.calistirildi()
             self._kaydet()
 
@@ -204,10 +206,11 @@ class CronManager:
             for job in list(self._jobs.values()):
                 if job.calis_zamani_mi():
                     try:
+                        komut_list = shlex.split(job.komut)
                         subprocess.run(
-                            job.komut, shell=True, capture_output=True, timeout=300,
+                            komut_list, shell=False, capture_output=True, timeout=300,
                             creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
-                        )
+                        )  # nosec B603
                         job.calistirildi()
                         self._kaydet()
                     except Exception:
