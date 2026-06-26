@@ -59,7 +59,7 @@ print(f"Kalan: {len(os.listdir(KAYNAK))} kategori")
 for item in KAYNAK.iterdir():
     if item.name == "INDEX.md":
         continue
-    if item.is_dir():
+    if item.is_dir() and item.exists():
         shutil.rmtree(item)
         print(f"  Silindi: {item.name}/")
     elif item.is_file():

@@ -9,6 +9,7 @@ ve izin kontrolu yapar.
 import re
 import json
 import logging
+import time as _time
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 logger = logging.getLogger(__name__)
@@ -67,6 +68,65 @@ class ToolGuardrails:
         self._engellenen_islemler: List[Dict[str, Any]] = []
         self._guvenlik_seviyesi: int = 3  # 1: dusuk, 5: yuksek
 
+    def __repr__(self) -> str:
+        """ToolGuardrails debug representation."""
+        istatistik = self.istatistik()
+        return (
+            f"<ToolGuardrails seviye={istatistik['guvenlik_seviyesi']} "
+            f"izinli={istatistik['izinli_arac_sayisi']} "
+            f"engellenen={istatistik['engellenen_islem']} "
+            f"riskli={istatistik['riskli_arac_sayisi']}>"
+        )
+
+    def __str__(self) -> str:
+        """ToolGuardrails kisa string."""
+        sinif = self.__class__.__name__
+        seviye = self._guvenlik_seviyesi
+        izinli = len(self._izinli_araclar)
+        engel = len(self._engellenen_islemler)
+        return f"{sinif}[seviye={seviye}, izinli={izinli}, engel={engel}]"
+
+    def reset(self) -> None:
+        """Tum durumu sifirlar — izinler, engel listesi, seviye."""
+        self._izinli_araclar = set()
+        self._engellenen_islemler = []
+        self._guvenlik_seviyesi = 3
+        logger.info("ToolGuardrails sifirlandi")
+
+    def riskli_arac_ekle(self, arac_adi: str) -> bool:
+        """Riskli araclar kumesine yeni bir arac ekler.
+
+        Args:
+            arac_adi: Eklenecek arac adi
+
+        Returns:
+            bool: Basarili ise True
+        """
+        try:
+            self._riskli_araclar.add(arac_adi.upper())
+            logger.info(f"Riskli arac eklendi: {arac_adi}")
+            return True
+        except Exception as e:
+            logger.error(f"Riskli arac ekleme hatasi: {e}")
+            return False
+
+    def riskli_arac_cikar(self, arac_adi: str) -> bool:
+        """Riskli araclar kumesinden bir arac cikarir.
+
+        Args:
+            arac_adi: Cikarilacak arac adi
+
+        Returns:
+            bool: Basarili ise True
+        """
+        try:
+            self._riskli_araclar.discard(arac_adi.upper())
+            logger.info(f"Riskli arac cikarildi: {arac_adi}")
+            return True
+        except Exception as e:
+            logger.error(f"Riskli arac cikarma hatasi: {e}")
+            return False
+
     def kontrolet(
         self,
         arac: Any,
@@ -92,7 +152,7 @@ class ToolGuardrails:
                     "arac": arac_adi,
                     "parametreler": params,
                     "sebep": arac_kontrol["sebep"],
-                    "zaman": __import__("time").time(),
+                    "zaman": _time.time(),
                 })
                 return arac_kontrol
 
@@ -103,7 +163,7 @@ class ToolGuardrails:
                     "arac": arac_adi,
                     "parametreler": params,
                     "sebep": parametre_kontrol["sebep"],
-                    "zaman": __import__("time").time(),
+                    "zaman": _time.time(),
                 })
                 return parametre_kontrol
 
@@ -117,7 +177,7 @@ class ToolGuardrails:
                                 "arac": arac_adi,
                                 "parametreler": params,
                                 "sebep": f"Yuksek guvenlik: {yasak} tespit edildi",
-                                "zaman": __import__("time").time(),
+                                "zaman": _time.time(),
                             })
                             return {"guvenli": False, "sebep": f"Yasakli icerik: {yasak}"}
 
@@ -172,8 +232,8 @@ class ToolGuardrails:
                     "sebep": f"Shell injection tespit edildi: {param_ad}",
                 }
 
-            # Path traversal kontrolu
-            if ".." in param_str and "/" in param_str:
+            # Path traversal kontrolu (Windows ve Unix)
+            if ".." in param_str and ("/" in param_str or "\\" in param_str):
                 return {
                     "guvenli": False,
                     "sebep": f"Path traversal tespit edildi: {param_ad}",
@@ -184,13 +244,9 @@ class ToolGuardrails:
     def _shell_injection_kontrol(self, metin: str) -> bool:
         """Shell injection pattern'lerini kontrol eder."""
         injection_patterns = [
-            r'[|;&`$\n]',
+            r'[|;&$`\n]',
             r'\$\{',
-            r'`.*`',
             r'\$\(.*\)',
-            r'&&',
-            r'\|\|',
-            r';\s*',
         ]
         try:
             for pattern in injection_patterns:

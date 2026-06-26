@@ -186,3 +186,23 @@ Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bi
 ### Öneri
 - Ortak modülleri tek bir kaynakta (`reymen/`) toplayıp diğer konumlara symlink/proxy koy
 - Periyodik drift kontrolü (cron) devam etsin
+
+---
+
+## 73. Skills → OnceHafiza Sync (26 June 12:00)
+**Ne:** `reymen/cereyan/skills/` altındaki .md dosyalarını OnceHafiza DB'sine senkronize et.
+
+**Sonuç:**
+- 0 yeni dosya (tüm 5654 dosya zaten DB'de kayıtlı)
+- 594 dosya içeriği güncellendi (değişmiş içerik DB'ye yansıtıldı)
+- 5060 dosya aynı kaldı (değişiklik yok)
+
+**Neden:**
+- Cron görevi olarak her 6 saatte bir çalışacak
+- İlk çalıştırmada mevcut DB'deki kayıtlar ile diskteki dosyalar karşılaştırıldı
+- DB formatı: `file://skills/Klasor\AltKlasor\dosya.md` (mevcut legacy format korundu)
+
+**Alternatif düşünülen:**
+- Tüm kayıtları silip yeniden eklemek → reddedildi (mevcut güven skorları kaybolur)
+- Her dosyayı chunk'lara bölüp kaydetmek → mevcut sistem zaten chunk'lı, bu yüzden sadece ilk kaydın içeriği güncellendi (diğer chunk'lar korundu)
+- `skills_sync_v3.py` → nihai cron scripti olarak bırakıldı
