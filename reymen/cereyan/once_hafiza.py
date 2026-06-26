@@ -682,7 +682,7 @@ class OnceHafiza:
     def __init__(
         self,
         skills_db: str | Path = ROOT / ".ReYMeN" / "skills_index.db",
-        skills_dir: str | Path = ROOT / "skills",
+        skills_dir: str | Path = ROOT / "skills" / "Skiller",
         ogrenme_db: str | Path = ROOT.parent / "hafiza" / "ogrenme.db",
         hata_db: str | Path = ROOT.parent / "hafiza" / "hatalar.db",
     ):

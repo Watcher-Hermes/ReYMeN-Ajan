@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 ROOT = Path(__file__).parent.resolve()
 
 SKILLS_DIZINLERI: list[Path] = [
-    ROOT / "skills",
+    ROOT / "skills" / "Skiller",
     ROOT / ".ReYMeN" / "skills",
 ]
 

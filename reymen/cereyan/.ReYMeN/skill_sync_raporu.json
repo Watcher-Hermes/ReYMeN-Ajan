@@ -1,0 +1,2742 @@
+{
+  "kopyalanan": 546,
+  "guncellenen": 0,
+  "atlanan": 4,
+  "hata": 0,
+  "eklenen": 0,
+  "detay": [
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/android/android-apk-modding/SKILL.md",
+      "hedef": "Skiller/android/android-apk-modding.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/apple/apple-notes/SKILL.md",
+      "hedef": "Skiller/apple/apple-notes.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/apple/apple-reminders/SKILL.md",
+      "hedef": "Skiller/apple/apple-reminders.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/apple/findmy/SKILL.md",
+      "hedef": "Skiller/apple/findmy.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/apple/imessage/SKILL.md",
+      "hedef": "Skiller/apple/imessage.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/apple/macos-computer-use/SKILL.md",
+      "hedef": "Skiller/apple/macos-computer-use.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/automation/n8n-claude-telegram-automation/SKILL.md",
+      "hedef": "Skiller/Kod/n8n-claude-telegram-automation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/ReYMeN-ogrenme-sistemi/SKILL.md",
+      "hedef": "Skiller/AI_ML/ReYMeN-ogrenme-sistemi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/auto-cozulemedi-tor-socks5-port-9150-baglan/SKILL.md",
+      "hedef": "Skiller/AI_ML/auto-cozulemedi-tor-socks5-port-9150-baglan.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/auto-model-switch/SKILL.md",
+      "hedef": "Skiller/AI_ML/auto-model-switch.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/auto-python-ile-port-9150-socks5-baglantisi-k/SKILL.md",
+      "hedef": "Skiller/AI_ML/auto-python-ile-port-9150-socks5-baglantisi-k.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/browser-based-agent-setup/SKILL.md",
+      "hedef": "Skiller/AI_ML/browser-based-agent-setup.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/claude-agent/SKILL.md",
+      "hedef": "Skiller/AI_ML/claude-agent.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/claude-code/SKILL.md",
+      "hedef": "Skiller/AI_ML/claude-code.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/claude-code-cli-autonomous/SKILL.md",
+      "hedef": "Skiller/AI_ML/claude-code-cli-autonomous.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/codex/SKILL.md",
+      "hedef": "Skiller/AI_ML/codex.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/dolphin-llama3/SKILL.md",
+      "hedef": "Skiller/AI_ML/dolphin-llama3.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "hedef": "Skiller/AI_ML/hermes-agent.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/hermes-telegram-sync/SKILL.md",
+      "hedef": "Skiller/AI_ML/hermes-telegram-sync.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/kanban-codex-lane/SKILL.md",
+      "hedef": "Skiller/AI_ML/kanban-codex-lane.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/nightly-self-improvement/SKILL.md",
+      "hedef": "Skiller/AI_ML/nightly-self-improvement.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/nous-portal-api-key-rotation/SKILL.md",
+      "hedef": "Skiller/AI_ML/nous-portal-api-key-rotation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/obsidian-gelistirme-otomasyonu/SKILL.md",
+      "hedef": "Skiller/AI_ML/obsidian-gelistirme-otomasyonu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/opencode/SKILL.md",
+      "hedef": "Skiller/AI_ML/opencode.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/otonom-cozum-dongusu/SKILL.md",
+      "hedef": "Skiller/AI_ML/otonom-cozum-dongusu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/otonom-gece-gelistirme/SKILL.md",
+      "hedef": "Skiller/AI_ML/otonom-gece-gelistirme.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/self-improvement/SKILL.md",
+      "hedef": "Skiller/AI_ML/self-improvement.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/takili-kalma/SKILL.md",
+      "hedef": "Skiller/AI_ML/takili-kalma.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/telegram-approval-bridge/SKILL.md",
+      "hedef": "Skiller/AI_ML/telegram-approval-bridge.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/telegram-gateway-monitor/SKILL.md",
+      "hedef": "Skiller/AI_ML/telegram-gateway-monitor.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/autonomous-ai-agents/telegram-onayli-kopru/SKILL.md",
+      "hedef": "Skiller/AI_ML/telegram-onayli-kopru.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/content-creation/ai-video-content-pipeline/SKILL.md",
+      "hedef": "Skiller/Medya/ai-video-content-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/architecture-diagram/SKILL.md",
+      "hedef": "Skiller/Yaratici/architecture-diagram.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/ascii-art/SKILL.md",
+      "hedef": "Skiller/Yaratici/ascii-art.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/ascii-video/SKILL.md",
+      "hedef": "Skiller/Yaratici/ascii-video.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/baoyu-article-illustrator/SKILL.md",
+      "hedef": "Skiller/Yaratici/baoyu-article-illustrator.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/baoyu-comic/SKILL.md",
+      "hedef": "Skiller/Yaratici/baoyu-comic.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/baoyu-infographic/SKILL.md",
+      "hedef": "Skiller/Yaratici/baoyu-infographic.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/claude-design/SKILL.md",
+      "hedef": "Skiller/Yaratici/claude-design.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/comfyui/SKILL.md",
+      "hedef": "Skiller/Yaratici/comfyui.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/creative-ideation/SKILL.md",
+      "hedef": "Skiller/Yaratici/creative-ideation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/design-md/SKILL.md",
+      "hedef": "Skiller/Yaratici/design-md.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/excalidraw/SKILL.md",
+      "hedef": "Skiller/Yaratici/excalidraw.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/harmonic-mixing/SKILL.md",
+      "hedef": "Skiller/Yaratici/harmonic-mixing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/humanizer/SKILL.md",
+      "hedef": "Skiller/Yaratici/humanizer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/ideation/SKILL.md",
+      "hedef": "Skiller/Yaratici/ideation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/manim-video/SKILL.md",
+      "hedef": "Skiller/Yaratici/manim-video.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/p5js/SKILL.md",
+      "hedef": "Skiller/Yaratici/p5js.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/pixel-art/SKILL.md",
+      "hedef": "Skiller/Yaratici/pixel-art.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/popular-web-designs/SKILL.md",
+      "hedef": "Skiller/Yaratici/popular-web-designs.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/pretext/SKILL.md",
+      "hedef": "Skiller/Yaratici/pretext.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/sketch/SKILL.md",
+      "hedef": "Skiller/Yaratici/sketch.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/songwriting-and-ai-music/SKILL.md",
+      "hedef": "Skiller/Yaratici/songwriting-and-ai-music.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/creative/touchdesigner-mcp/SKILL.md",
+      "hedef": "Skiller/Yaratici/touchdesigner-mcp.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/data-science/huggingface-hub/SKILL.md",
+      "hedef": "Skiller/AI_ML/huggingface-hub.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/data-science/jupyter-live-kernel/SKILL.md",
+      "hedef": "Skiller/AI_ML/jupyter-live-kernel.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/data-science/jupyter-notebook/SKILL.md",
+      "hedef": "Skiller/AI_ML/jupyter-notebook.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/android-adb-python-workflow/SKILL.md",
+      "hedef": "Skiller/DevOps/android-adb-python-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/android-api-apk-manager/SKILL.md",
+      "hedef": "Skiller/DevOps/android-api-apk-manager.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/gece-3-github-yedek/SKILL.md",
+      "hedef": "Skiller/DevOps/gece-3-github-yedek.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-backup-otomasyonu/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-backup-otomasyonu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-kurallar/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-kurallar.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-kurulacak-repolar/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-kurulacak-repolar.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-migration-restore/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-migration-restore.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-muhendislik-analizi/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-muhendislik-analizi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/hermes-venv-fix-windows/SKILL.md",
+      "hedef": "Skiller/DevOps/hermes-venv-fix-windows.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/kanban-orchestrator/SKILL.md",
+      "hedef": "Skiller/DevOps/kanban-orchestrator.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/kanban-worker/SKILL.md",
+      "hedef": "Skiller/DevOps/kanban-worker.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/localhost-servis-yonetimi/SKILL.md",
+      "hedef": "Skiller/DevOps/localhost-servis-yonetimi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/n8n-claude-telegram-workflow/SKILL.md",
+      "hedef": "Skiller/DevOps/n8n-claude-telegram-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/odysseus-sifre-sifirlama/SKILL.md",
+      "hedef": "Skiller/DevOps/odysseus-sifre-sifirlama.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/repos-ve-mcp-koprusu/SKILL.md",
+      "hedef": "Skiller/DevOps/repos-ve-mcp-koprusu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/virtualbox/SKILL.md",
+      "hedef": "Skiller/DevOps/virtualbox.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/webhook-subscriptions/SKILL.md",
+      "hedef": "Skiller/DevOps/webhook-subscriptions.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/windows-ai-ajan-kurulumu/SKILL.md",
+      "hedef": "Skiller/DevOps/windows-ai-ajan-kurulumu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/devops/windows-dev-check/SKILL.md",
+      "hedef": "Skiller/DevOps/windows-dev-check.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/accessibility/SKILL.md",
+      "hedef": "Skiller/AI_ML/accessibility.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-architecture-audit/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-architecture-audit.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-eval/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-eval.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-harness-construction/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-harness-construction.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-introspection-debugging/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-introspection-debugging.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-payment-x402/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-payment-x402.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agent-sort/SKILL.md",
+      "hedef": "Skiller/AI_ML/agent-sort.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agentic-engineering/SKILL.md",
+      "hedef": "Skiller/AI_ML/agentic-engineering.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/agentic-os/SKILL.md",
+      "hedef": "Skiller/AI_ML/agentic-os.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ai-first-engineering/SKILL.md",
+      "hedef": "Skiller/AI_ML/ai-first-engineering.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ai-regression-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/ai-regression-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/android-clean-architecture/SKILL.md",
+      "hedef": "Skiller/AI_ML/android-clean-architecture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/angular-developer/SKILL.md",
+      "hedef": "Skiller/AI_ML/angular-developer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/api-connector-builder/SKILL.md",
+      "hedef": "Skiller/AI_ML/api-connector-builder.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/api-design/SKILL.md",
+      "hedef": "Skiller/AI_ML/api-design.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/architecture-decision-records/SKILL.md",
+      "hedef": "Skiller/AI_ML/architecture-decision-records.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/article-writing/SKILL.md",
+      "hedef": "Skiller/AI_ML/article-writing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/automation-audit-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/automation-audit-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/autonomous-agent-harness/SKILL.md",
+      "hedef": "Skiller/AI_ML/autonomous-agent-harness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/autonomous-loops/SKILL.md",
+      "hedef": "Skiller/AI_ML/autonomous-loops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/backend-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/backend-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/benchmark/SKILL.md",
+      "hedef": "Skiller/AI_ML/benchmark.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/benchmark-optimization-loop/SKILL.md",
+      "hedef": "Skiller/AI_ML/benchmark-optimization-loop.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/blender-motion-state-inspection/SKILL.md",
+      "hedef": "Skiller/AI_ML/blender-motion-state-inspection.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/blueprint/SKILL.md",
+      "hedef": "Skiller/AI_ML/blueprint.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/brand-voice/SKILL.md",
+      "hedef": "Skiller/AI_ML/brand-voice.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/browser-qa/SKILL.md",
+      "hedef": "Skiller/AI_ML/browser-qa.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/bun-runtime/SKILL.md",
+      "hedef": "Skiller/AI_ML/bun-runtime.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/canary-watch/SKILL.md",
+      "hedef": "Skiller/AI_ML/canary-watch.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/carrier-relationship-management/SKILL.md",
+      "hedef": "Skiller/AI_ML/carrier-relationship-management.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/cisco-ios-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/cisco-ios-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ck/SKILL.md",
+      "hedef": "Skiller/AI_ML/ck.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/claude-devfleet/SKILL.md",
+      "hedef": "Skiller/AI_ML/claude-devfleet.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/click-path-audit/SKILL.md",
+      "hedef": "Skiller/AI_ML/click-path-audit.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/clickhouse-io/SKILL.md",
+      "hedef": "Skiller/AI_ML/clickhouse-io.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/code-tour/SKILL.md",
+      "hedef": "Skiller/AI_ML/code-tour.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/codebase-onboarding/SKILL.md",
+      "hedef": "Skiller/AI_ML/codebase-onboarding.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/codehealth-mcp/SKILL.md",
+      "hedef": "Skiller/AI_ML/codehealth-mcp.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/coding-standards/SKILL.md",
+      "hedef": "Skiller/AI_ML/coding-standards.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/compose-multiplatform-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/compose-multiplatform-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/config-gc/SKILL.md",
+      "hedef": "Skiller/AI_ML/config-gc.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/configure-ecc/SKILL.md",
+      "hedef": "Skiller/AI_ML/configure-ecc.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/connections-optimizer/SKILL.md",
+      "hedef": "Skiller/AI_ML/connections-optimizer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/content-engine/SKILL.md",
+      "hedef": "Skiller/AI_ML/content-engine.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/content-hash-cache-pattern/SKILL.md",
+      "hedef": "Skiller/AI_ML/content-hash-cache-pattern.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/context-budget/SKILL.md",
+      "hedef": "Skiller/AI_ML/context-budget.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/continuous-agent-loop/SKILL.md",
+      "hedef": "Skiller/AI_ML/continuous-agent-loop.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/continuous-learning/SKILL.md",
+      "hedef": "Skiller/AI_ML/continuous-learning.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/continuous-learning-v2/SKILL.md",
+      "hedef": "Skiller/AI_ML/continuous-learning-v2.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/cost-aware-llm-pipeline/SKILL.md",
+      "hedef": "Skiller/AI_ML/cost-aware-llm-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/cost-tracking/SKILL.md",
+      "hedef": "Skiller/AI_ML/cost-tracking.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/council/SKILL.md",
+      "hedef": "Skiller/AI_ML/council.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/cpp-coding-standards/SKILL.md",
+      "hedef": "Skiller/AI_ML/cpp-coding-standards.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/cpp-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/cpp-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/crosspost/SKILL.md",
+      "hedef": "Skiller/AI_ML/crosspost.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/csharp-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/csharp-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/customer-billing-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/customer-billing-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/customs-trade-compliance/SKILL.md",
+      "hedef": "Skiller/AI_ML/customs-trade-compliance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/dart-flutter-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/dart-flutter-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/dashboard-builder/SKILL.md",
+      "hedef": "Skiller/AI_ML/dashboard-builder.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/data-scraper-agent/SKILL.md",
+      "hedef": "Skiller/AI_ML/data-scraper-agent.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/data-throughput-accelerator/SKILL.md",
+      "hedef": "Skiller/AI_ML/data-throughput-accelerator.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/database-migrations/SKILL.md",
+      "hedef": "Skiller/AI_ML/database-migrations.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/deep-research/SKILL.md",
+      "hedef": "Skiller/AI_ML/deep-research.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/defi-amm-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/defi-amm-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/deployment-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/deployment-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/design-system/SKILL.md",
+      "hedef": "Skiller/AI_ML/design-system.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/django-celery/SKILL.md",
+      "hedef": "Skiller/AI_ML/django-celery.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/django-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/django-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/django-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/django-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/django-tdd/SKILL.md",
+      "hedef": "Skiller/AI_ML/django-tdd.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/django-verification/SKILL.md",
+      "hedef": "Skiller/AI_ML/django-verification.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/dmux-workflows/SKILL.md",
+      "hedef": "Skiller/AI_ML/dmux-workflows.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/docker-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/docker-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/documentation-lookup/SKILL.md",
+      "hedef": "Skiller/AI_ML/documentation-lookup.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/dotnet-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/dotnet-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/dynamic-workflow-mode/SKILL.md",
+      "hedef": "Skiller/AI_ML/dynamic-workflow-mode.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/e2e-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/e2e-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ecc-guide/SKILL.md",
+      "hedef": "Skiller/AI_ML/ecc-guide.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ecc-tools-cost-audit/SKILL.md",
+      "hedef": "Skiller/AI_ML/ecc-tools-cost-audit.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/email-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/email-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/energy-procurement/SKILL.md",
+      "hedef": "Skiller/AI_ML/energy-procurement.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/enterprise-agent-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/enterprise-agent-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/error-handling/SKILL.md",
+      "hedef": "Skiller/AI_ML/error-handling.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/eval-harness/SKILL.md",
+      "hedef": "Skiller/AI_ML/eval-harness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/evm-token-decimals/SKILL.md",
+      "hedef": "Skiller/AI_ML/evm-token-decimals.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/exa-search/SKILL.md",
+      "hedef": "Skiller/AI_ML/exa-search.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/fal-ai-media/SKILL.md",
+      "hedef": "Skiller/AI_ML/fal-ai-media.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/fastapi-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/fastapi-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/finance-billing-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/finance-billing-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/flox-environments/SKILL.md",
+      "hedef": "Skiller/AI_ML/flox-environments.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/flutter-dart-code-review/SKILL.md",
+      "hedef": "Skiller/AI_ML/flutter-dart-code-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/foundation-models-on-device/SKILL.md",
+      "hedef": "Skiller/AI_ML/foundation-models-on-device.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/frontend-a11y/SKILL.md",
+      "hedef": "Skiller/AI_ML/frontend-a11y.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/frontend-design-direction/SKILL.md",
+      "hedef": "Skiller/AI_ML/frontend-design-direction.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/frontend-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/frontend-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/frontend-slides/SKILL.md",
+      "hedef": "Skiller/AI_ML/frontend-slides.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/fsharp-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/fsharp-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/gan-style-harness/SKILL.md",
+      "hedef": "Skiller/AI_ML/gan-style-harness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/gateguard/SKILL.md",
+      "hedef": "Skiller/AI_ML/gateguard.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/git-workflow/SKILL.md",
+      "hedef": "Skiller/AI_ML/git-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/github-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/github-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/golang-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/golang-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/golang-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/golang-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/google-workspace-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/google-workspace-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/healthcare-cdss-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/healthcare-cdss-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/healthcare-emr-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/healthcare-emr-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/healthcare-eval-harness/SKILL.md",
+      "hedef": "Skiller/AI_ML/healthcare-eval-harness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/healthcare-phi-compliance/SKILL.md",
+      "hedef": "Skiller/AI_ML/healthcare-phi-compliance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/hermes-imports/SKILL.md",
+      "hedef": "Skiller/AI_ML/hermes-imports.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/hexagonal-architecture/SKILL.md",
+      "hedef": "Skiller/AI_ML/hexagonal-architecture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/hipaa-compliance/SKILL.md",
+      "hedef": "Skiller/AI_ML/hipaa-compliance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/homelab-network-readiness/SKILL.md",
+      "hedef": "Skiller/AI_ML/homelab-network-readiness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/homelab-network-setup/SKILL.md",
+      "hedef": "Skiller/AI_ML/homelab-network-setup.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/homelab-pihole-dns/SKILL.md",
+      "hedef": "Skiller/AI_ML/homelab-pihole-dns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/homelab-vlan-segmentation/SKILL.md",
+      "hedef": "Skiller/AI_ML/homelab-vlan-segmentation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/homelab-wireguard-vpn/SKILL.md",
+      "hedef": "Skiller/AI_ML/homelab-wireguard-vpn.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/hookify-rules/SKILL.md",
+      "hedef": "Skiller/AI_ML/hookify-rules.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/inherit-legacy-style/SKILL.md",
+      "hedef": "Skiller/AI_ML/inherit-legacy-style.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/intent-driven-development/SKILL.md",
+      "hedef": "Skiller/AI_ML/intent-driven-development.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/inventory-demand-planning/SKILL.md",
+      "hedef": "Skiller/AI_ML/inventory-demand-planning.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/investor-materials/SKILL.md",
+      "hedef": "Skiller/AI_ML/investor-materials.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/investor-outreach/SKILL.md",
+      "hedef": "Skiller/AI_ML/investor-outreach.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ios-icon-gen/SKILL.md",
+      "hedef": "Skiller/AI_ML/ios-icon-gen.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/iterative-retrieval/SKILL.md",
+      "hedef": "Skiller/AI_ML/iterative-retrieval.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ito-basket-compare/SKILL.md",
+      "hedef": "Skiller/AI_ML/ito-basket-compare.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ito-data-atlas-agent/SKILL.md",
+      "hedef": "Skiller/AI_ML/ito-data-atlas-agent.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ito-market-intelligence/SKILL.md",
+      "hedef": "Skiller/AI_ML/ito-market-intelligence.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ito-trade-planner/SKILL.md",
+      "hedef": "Skiller/AI_ML/ito-trade-planner.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/java-coding-standards/SKILL.md",
+      "hedef": "Skiller/AI_ML/java-coding-standards.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/jira-integration/SKILL.md",
+      "hedef": "Skiller/AI_ML/jira-integration.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/jpa-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/jpa-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/knowledge-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/knowledge-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kotlin-coroutines-flows/SKILL.md",
+      "hedef": "Skiller/AI_ML/kotlin-coroutines-flows.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kotlin-exposed-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/kotlin-exposed-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kotlin-ktor-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/kotlin-ktor-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kotlin-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/kotlin-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kotlin-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/kotlin-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/kubernetes-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/kubernetes-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/laravel-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/laravel-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/laravel-plugin-discovery/SKILL.md",
+      "hedef": "Skiller/AI_ML/laravel-plugin-discovery.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/laravel-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/laravel-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/laravel-tdd/SKILL.md",
+      "hedef": "Skiller/AI_ML/laravel-tdd.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/laravel-verification/SKILL.md",
+      "hedef": "Skiller/AI_ML/laravel-verification.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/latency-critical-systems/SKILL.md",
+      "hedef": "Skiller/AI_ML/latency-critical-systems.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/lead-intelligence/SKILL.md",
+      "hedef": "Skiller/AI_ML/lead-intelligence.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/liquid-glass-design/SKILL.md",
+      "hedef": "Skiller/AI_ML/liquid-glass-design.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/llm-trading-agent-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/llm-trading-agent-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/logistics-exception-management/SKILL.md",
+      "hedef": "Skiller/AI_ML/logistics-exception-management.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/make-interfaces-feel-better/SKILL.md",
+      "hedef": "Skiller/AI_ML/make-interfaces-feel-better.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/manim-video/SKILL.md",
+      "hedef": "Skiller/AI_ML/manim-video.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/market-research/SKILL.md",
+      "hedef": "Skiller/AI_ML/market-research.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/marketing-campaign/SKILL.md",
+      "hedef": "Skiller/AI_ML/marketing-campaign.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/mcp-server-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/mcp-server-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/messages-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/messages-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/mle-workflow/SKILL.md",
+      "hedef": "Skiller/AI_ML/mle-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/motion-advanced/SKILL.md",
+      "hedef": "Skiller/AI_ML/motion-advanced.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/motion-foundations/SKILL.md",
+      "hedef": "Skiller/AI_ML/motion-foundations.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/motion-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/motion-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/motion-ui/SKILL.md",
+      "hedef": "Skiller/AI_ML/motion-ui.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/mysql-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/mysql-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nanoclaw-repl/SKILL.md",
+      "hedef": "Skiller/AI_ML/nanoclaw-repl.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nestjs-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/nestjs-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/netmiko-ssh-automation/SKILL.md",
+      "hedef": "Skiller/AI_ML/netmiko-ssh-automation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/network-bgp-diagnostics/SKILL.md",
+      "hedef": "Skiller/AI_ML/network-bgp-diagnostics.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/network-config-validation/SKILL.md",
+      "hedef": "Skiller/AI_ML/network-config-validation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/network-interface-health/SKILL.md",
+      "hedef": "Skiller/AI_ML/network-interface-health.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nextjs-turbopack/SKILL.md",
+      "hedef": "Skiller/AI_ML/nextjs-turbopack.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nodejs-keccak256/SKILL.md",
+      "hedef": "Skiller/AI_ML/nodejs-keccak256.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nutrient-document-processing/SKILL.md",
+      "hedef": "Skiller/AI_ML/nutrient-document-processing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/nuxt4-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/nuxt4-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/openclaw-persona-forge/SKILL.md",
+      "hedef": "Skiller/AI_ML/openclaw-persona-forge.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/opensource-pipeline/SKILL.md",
+      "hedef": "Skiller/AI_ML/opensource-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-add-feature/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-add-feature.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-build-mvp/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-build-mvp.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-change-feature/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-change-feature.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-fix-defect/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-fix-defect.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-pipeline/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/orch-refine-code/SKILL.md",
+      "hedef": "Skiller/AI_ML/orch-refine-code.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/parallel-execution-optimizer/SKILL.md",
+      "hedef": "Skiller/AI_ML/parallel-execution-optimizer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/perl-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/perl-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/perl-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/perl-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/perl-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/perl-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/plan-orchestrate/SKILL.md",
+      "hedef": "Skiller/AI_ML/plan-orchestrate.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/plankton-code-quality/SKILL.md",
+      "hedef": "Skiller/AI_ML/plankton-code-quality.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/postgres-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/postgres-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/prediction-market-oracle-research/SKILL.md",
+      "hedef": "Skiller/AI_ML/prediction-market-oracle-research.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/prediction-market-risk-review/SKILL.md",
+      "hedef": "Skiller/AI_ML/prediction-market-risk-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/prisma-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/prisma-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/product-capability/SKILL.md",
+      "hedef": "Skiller/AI_ML/product-capability.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/product-lens/SKILL.md",
+      "hedef": "Skiller/AI_ML/product-lens.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/production-audit/SKILL.md",
+      "hedef": "Skiller/AI_ML/production-audit.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/production-scheduling/SKILL.md",
+      "hedef": "Skiller/AI_ML/production-scheduling.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/project-flow-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/project-flow-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/prompt-optimizer/SKILL.md",
+      "hedef": "Skiller/AI_ML/prompt-optimizer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/python-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/python-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/python-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/python-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/pytorch-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/pytorch-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/quality-nonconformance/SKILL.md",
+      "hedef": "Skiller/AI_ML/quality-nonconformance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/quarkus-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/quarkus-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/quarkus-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/quarkus-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/quarkus-tdd/SKILL.md",
+      "hedef": "Skiller/AI_ML/quarkus-tdd.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/quarkus-verification/SKILL.md",
+      "hedef": "Skiller/AI_ML/quarkus-verification.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ralphinho-rfc-pipeline/SKILL.md",
+      "hedef": "Skiller/AI_ML/ralphinho-rfc-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/react-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/react-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/react-performance/SKILL.md",
+      "hedef": "Skiller/AI_ML/react-performance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/react-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/react-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/recsys-pipeline-architect/SKILL.md",
+      "hedef": "Skiller/AI_ML/recsys-pipeline-architect.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/recursive-decision-ledger/SKILL.md",
+      "hedef": "Skiller/AI_ML/recursive-decision-ledger.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/redis-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/redis-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/regex-vs-llm-structured-text/SKILL.md",
+      "hedef": "Skiller/AI_ML/regex-vs-llm-structured-text.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/remotion-video-creation/SKILL.md",
+      "hedef": "Skiller/AI_ML/remotion-video-creation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/repo-scan/SKILL.md",
+      "hedef": "Skiller/AI_ML/repo-scan.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/research-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/research-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/returns-reverse-logistics/SKILL.md",
+      "hedef": "Skiller/AI_ML/returns-reverse-logistics.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/rules-distill/SKILL.md",
+      "hedef": "Skiller/AI_ML/rules-distill.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/rust-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/rust-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/rust-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/rust-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/safety-guard/SKILL.md",
+      "hedef": "Skiller/AI_ML/safety-guard.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/santa-method/SKILL.md",
+      "hedef": "Skiller/AI_ML/santa-method.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/scientific-db-pubmed-database/SKILL.md",
+      "hedef": "Skiller/AI_ML/scientific-db-pubmed-database.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/scientific-db-uspto-database/SKILL.md",
+      "hedef": "Skiller/AI_ML/scientific-db-uspto-database.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/scientific-pkg-gget/SKILL.md",
+      "hedef": "Skiller/AI_ML/scientific-pkg-gget.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/scientific-thinking-literature-review/SKILL.md",
+      "hedef": "Skiller/AI_ML/scientific-thinking-literature-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/scientific-thinking-scholar-evaluation/SKILL.md",
+      "hedef": "Skiller/AI_ML/scientific-thinking-scholar-evaluation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/search-first/SKILL.md",
+      "hedef": "Skiller/AI_ML/search-first.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/security-bounty-hunter/SKILL.md",
+      "hedef": "Skiller/AI_ML/security-bounty-hunter.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/security-review/SKILL.md",
+      "hedef": "Skiller/AI_ML/security-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/security-scan/SKILL.md",
+      "hedef": "Skiller/AI_ML/security-scan.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/seo/SKILL.md",
+      "hedef": "Skiller/AI_ML/seo.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/skill-comply/SKILL.md",
+      "hedef": "Skiller/AI_ML/skill-comply.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/skill-scout/SKILL.md",
+      "hedef": "Skiller/AI_ML/skill-scout.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/skill-stocktake/SKILL.md",
+      "hedef": "Skiller/AI_ML/skill-stocktake.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/social-graph-ranker/SKILL.md",
+      "hedef": "Skiller/AI_ML/social-graph-ranker.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/social-publisher/SKILL.md",
+      "hedef": "Skiller/AI_ML/social-publisher.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/springboot-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/springboot-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/springboot-security/SKILL.md",
+      "hedef": "Skiller/AI_ML/springboot-security.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/springboot-tdd/SKILL.md",
+      "hedef": "Skiller/AI_ML/springboot-tdd.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/springboot-verification/SKILL.md",
+      "hedef": "Skiller/AI_ML/springboot-verification.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/strategic-compact/SKILL.md",
+      "hedef": "Skiller/AI_ML/strategic-compact.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/swift-actor-persistence/SKILL.md",
+      "hedef": "Skiller/AI_ML/swift-actor-persistence.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/swift-concurrency-6-2/SKILL.md",
+      "hedef": "Skiller/AI_ML/swift-concurrency-6-2.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/swift-protocol-di-testing/SKILL.md",
+      "hedef": "Skiller/AI_ML/swift-protocol-di-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/swiftui-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/swiftui-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/tdd-workflow/SKILL.md",
+      "hedef": "Skiller/AI_ML/tdd-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/team-agent-orchestration/SKILL.md",
+      "hedef": "Skiller/AI_ML/team-agent-orchestration.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/team-builder/SKILL.md",
+      "hedef": "Skiller/AI_ML/team-builder.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/terminal-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/terminal-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/tinystruct-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/tinystruct-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/token-budget-advisor/SKILL.md",
+      "hedef": "Skiller/AI_ML/token-budget-advisor.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ui-demo/SKILL.md",
+      "hedef": "Skiller/AI_ML/ui-demo.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/ui-to-vue/SKILL.md",
+      "hedef": "Skiller/AI_ML/ui-to-vue.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/uncloud/SKILL.md",
+      "hedef": "Skiller/AI_ML/uncloud.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/unified-notifications-ops/SKILL.md",
+      "hedef": "Skiller/AI_ML/unified-notifications-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/verification-loop/SKILL.md",
+      "hedef": "Skiller/AI_ML/verification-loop.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/video-editing/SKILL.md",
+      "hedef": "Skiller/AI_ML/video-editing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/videodb/SKILL.md",
+      "hedef": "Skiller/AI_ML/videodb.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/visa-doc-translate/SKILL.md",
+      "hedef": "Skiller/AI_ML/visa-doc-translate.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/vite-patterns/SKILL.md",
+      "hedef": "Skiller/AI_ML/vite-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/windows-desktop-e2e/SKILL.md",
+      "hedef": "Skiller/AI_ML/windows-desktop-e2e.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/workspace-surface-audit/SKILL.md",
+      "hedef": "Skiller/AI_ML/workspace-surface-audit.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/ecc/x-api/SKILL.md",
+      "hedef": "Skiller/AI_ML/x-api.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/email/himalaya/SKILL.md",
+      "hedef": "Skiller/Kullanici/himalaya.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/game-trainer-repo-workflow/SKILL.md",
+      "hedef": "Skiller/Gaming/game-trainer-repo-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/local-game-trainer-automation/SKILL.md",
+      "hedef": "Skiller/Gaming/local-game-trainer-automation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/minecraft-modpack-server/SKILL.md",
+      "hedef": "Skiller/Gaming/minecraft-modpack-server.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/pokemon-player/SKILL.md",
+      "hedef": "Skiller/Gaming/pokemon-player.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/pygame-event-driven-cheat/SKILL.md",
+      "hedef": "Skiller/Gaming/pygame-event-driven-cheat.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/gaming/ursina-game-effects/SKILL.md",
+      "hedef": "Skiller/Gaming/ursina-game-effects.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/codebase-inspection/SKILL.md",
+      "hedef": "Skiller/Github/codebase-inspection.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/github-auth/SKILL.md",
+      "hedef": "Skiller/Github/github-auth.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/github-code-review/SKILL.md",
+      "hedef": "Skiller/Github/github-code-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/github-issues/SKILL.md",
+      "hedef": "Skiller/Github/github-issues.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/github-pr-workflow/SKILL.md",
+      "hedef": "Skiller/Github/github-pr-workflow.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/github/github-repo-management/SKILL.md",
+      "hedef": "Skiller/Github/github-repo-management.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/hermes-agent/hermes-approval-policy/SKILL.md",
+      "hedef": "Skiller/Kod/hermes-approval-policy.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mcp/native-mcp/SKILL.md",
+      "hedef": "Skiller/Kod/native-mcp.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/gif-search/SKILL.md",
+      "hedef": "Skiller/Medya/gif-search.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/heartmula/SKILL.md",
+      "hedef": "Skiller/Medya/heartmula.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/money-printer-turbo-video/SKILL.md",
+      "hedef": "Skiller/Medya/money-printer-turbo-video.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/songsee/SKILL.md",
+      "hedef": "Skiller/Medya/songsee.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/spotify/SKILL.md",
+      "hedef": "Skiller/Medya/spotify.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/xurl/SKILL.md",
+      "hedef": "Skiller/Medya/xurl.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/youtube-content/SKILL.md",
+      "hedef": "Skiller/Medya/youtube-content.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/media/youtube-video-isleme/SKILL.md",
+      "hedef": "Skiller/Medya/youtube-video-isleme.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/audiocraft/SKILL.md",
+      "hedef": "Skiller/AI_ML/audiocraft.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/deepseek-1m-context/SKILL.md",
+      "hedef": "Skiller/AI_ML/deepseek-1m-context.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/global-model-selection/SKILL.md",
+      "hedef": "Skiller/AI_ML/global-model-selection.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/hibrit-ai-mimarisi/SKILL.md",
+      "hedef": "Skiller/AI_ML/hibrit-ai-mimarisi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/hibrit-ai-yonlendirme-kurali/SKILL.md",
+      "hedef": "Skiller/AI_ML/hibrit-ai-yonlendirme-kurali.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/llm-benchmark/SKILL.md",
+      "hedef": "Skiller/AI_ML/llm-benchmark.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/lm-evaluation-harness/SKILL.md",
+      "hedef": "Skiller/AI_ML/lm-evaluation-harness.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/lm-studio/SKILL.md",
+      "hedef": "Skiller/AI_ML/lm-studio.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/lm-studio-local-llm/SKILL.md",
+      "hedef": "Skiller/AI_ML/lm-studio-local-llm.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/model-benchmark/SKILL.md",
+      "hedef": "Skiller/AI_ML/model-benchmark.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/obliteratus/SKILL.md",
+      "hedef": "Skiller/AI_ML/obliteratus.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/ollama-local-llm/SKILL.md",
+      "hedef": "Skiller/AI_ML/ollama-local-llm.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/python-chromadb-kullanimi/SKILL.md",
+      "hedef": "Skiller/AI_ML/python-chromadb-kullanimi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/rl-agent-optimization/SKILL.md",
+      "hedef": "Skiller/AI_ML/rl-agent-optimization.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/segment-anything-model/SKILL.md",
+      "hedef": "Skiller/AI_ML/segment-anything-model.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/streamlit-app-server/SKILL.md",
+      "hedef": "Skiller/AI_ML/streamlit-app-server.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/mlops/vllm/SKILL.md",
+      "hedef": "Skiller/AI_ML/vllm.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/apple-notes/SKILL.md",
+      "hedef": "Skiller/Kullanici/apple-notes.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/apple-reminders/SKILL.md",
+      "hedef": "Skiller/Kullanici/apple-reminders.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/findmy/SKILL.md",
+      "hedef": "Skiller/Kullanici/findmy.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/imessage/SKILL.md",
+      "hedef": "Skiller/Kullanici/imessage.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/lunizz-sss-repo/SKILL.md",
+      "hedef": "Skiller/Kullanici/lunizz-sss-repo.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/macos-computer-use/SKILL.md",
+      "hedef": "Skiller/Kullanici/macos-computer-use.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/notion-research/SKILL.md",
+      "hedef": "Skiller/Kullanici/notion-research.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/notion-research-documentation/SKILL.md",
+      "hedef": "Skiller/Kullanici/notion-research-documentation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/obsidian/SKILL.md",
+      "hedef": "Skiller/Kullanici/obsidian.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/obsidian-vault-analysis/SKILL.md",
+      "hedef": "Skiller/Kullanici/obsidian-vault-analysis.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/obsidian-vault-maintenance/SKILL.md",
+      "hedef": "Skiller/Kullanici/obsidian-vault-maintenance.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/note-taking/obsidian-vault-path-fix/SKILL.md",
+      "hedef": "Skiller/Kullanici/obsidian-vault-path-fix.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/airtable/SKILL.md",
+      "hedef": "Skiller/Verimlilik/airtable.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/camera-capture/SKILL.md",
+      "hedef": "Skiller/Verimlilik/camera-capture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/claude-agent-terminal-send-text/SKILL.md",
+      "hedef": "Skiller/Verimlilik/claude-agent-terminal-send-text.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/daily-briefing/SKILL.md",
+      "hedef": "Skiller/Verimlilik/daily-briefing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/google-workspace/SKILL.md",
+      "hedef": "Skiller/Verimlilik/google-workspace.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/kamera-video-cek-telegram-gonder/SKILL.md",
+      "hedef": "Skiller/Verimlilik/kamera-video-cek-telegram-gonder.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/linear/SKILL.md",
+      "hedef": "Skiller/Verimlilik/linear.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/maps/SKILL.md",
+      "hedef": "Skiller/Verimlilik/maps.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/memory-compaction/SKILL.md",
+      "hedef": "Skiller/Verimlilik/memory-compaction.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/nano-pdf/SKILL.md",
+      "hedef": "Skiller/Verimlilik/nano-pdf.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/notion/SKILL.md",
+      "hedef": "Skiller/Verimlilik/notion.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/obsidian-daily-setup/SKILL.md",
+      "hedef": "Skiller/Verimlilik/obsidian-daily-setup.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/ocr-and-documents/SKILL.md",
+      "hedef": "Skiller/Verimlilik/ocr-and-documents.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/ollama-terminal-send-text/SKILL.md",
+      "hedef": "Skiller/Verimlilik/ollama-terminal-send-text.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/openai-pdf/SKILL.md",
+      "hedef": "Skiller/Verimlilik/openai-pdf.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/openai-screenshot/SKILL.md",
+      "hedef": "Skiller/Verimlilik/openai-screenshot.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/pdf/SKILL.md",
+      "hedef": "Skiller/Verimlilik/pdf.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/powerpoint/SKILL.md",
+      "hedef": "Skiller/Verimlilik/powerpoint.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/powershell-claude-agent/SKILL.md",
+      "hedef": "Skiller/Verimlilik/powershell-claude-agent.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/real-estate-investment-analysis/SKILL.md",
+      "hedef": "Skiller/Verimlilik/real-estate-investment-analysis.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/skill-cataloging/SKILL.md",
+      "hedef": "Skiller/Verimlilik/skill-cataloging.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/teams-meeting-pipeline/SKILL.md",
+      "hedef": "Skiller/Verimlilik/teams-meeting-pipeline.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/vault-fix-and-tag/SKILL.md",
+      "hedef": "Skiller/Verimlilik/vault-fix-and-tag.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/windows-keyboard-shortcuts/SKILL.md",
+      "hedef": "Skiller/Verimlilik/windows-keyboard-shortcuts.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/windows-mouse-automation/SKILL.md",
+      "hedef": "Skiller/Verimlilik/windows-mouse-automation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/windows-shortcut-testing/SKILL.md",
+      "hedef": "Skiller/Verimlilik/windows-shortcut-testing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/productivity/yuanbao/SKILL.md",
+      "hedef": "Skiller/Verimlilik/yuanbao.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/red-teaming/godmode/SKILL.md",
+      "hedef": "Skiller/Kod/godmode.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/arxiv/SKILL.md",
+      "hedef": "Skiller/Research/arxiv.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/blogwatcher/SKILL.md",
+      "hedef": "Skiller/Research/blogwatcher.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/knowledge-repo-import/SKILL.md",
+      "hedef": "Skiller/Research/knowledge-repo-import.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/llm-wiki/SKILL.md",
+      "hedef": "Skiller/Research/llm-wiki.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/paper-deep-reader/SKILL.md",
+      "hedef": "Skiller/Research/paper-deep-reader.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/polymarket/SKILL.md",
+      "hedef": "Skiller/Research/polymarket.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/research-paper-writing/SKILL.md",
+      "hedef": "Skiller/Research/research-paper-writing.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/research/video-content-report/SKILL.md",
+      "hedef": "Skiller/Research/video-content-report.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/android-apk-hardening/SKILL.md",
+      "hedef": "Skiller/Guvenlik/android-apk-hardening.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/android-cve-exploitation/SKILL.md",
+      "hedef": "Skiller/Guvenlik/android-cve-exploitation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/awesome-cyber-handbooks/SKILL.md",
+      "hedef": "Skiller/Guvenlik/awesome-cyber-handbooks.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/bluetooth-arastirma/SKILL.md",
+      "hedef": "Skiller/Guvenlik/bluetooth-arastirma.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/bluetooth-security-research/SKILL.md",
+      "hedef": "Skiller/Guvenlik/bluetooth-security-research.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/guvenlik-izleme-sistemi/SKILL.md",
+      "hedef": "Skiller/Guvenlik/guvenlik-izleme-sistemi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/instagram-hesap-guvenlik-acigi/SKILL.md",
+      "hedef": "Skiller/Guvenlik/instagram-hesap-guvenlik-acigi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/network-camera-discovery/SKILL.md",
+      "hedef": "Skiller/Guvenlik/network-camera-discovery.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/port-firewall-taramasi/SKILL.md",
+      "hedef": "Skiller/Guvenlik/port-firewall-taramasi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/tersine-muhendislik/SKILL.md",
+      "hedef": "Skiller/Guvenlik/tersine-muhendislik.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/tor-kali-wsl-koprusu/SKILL.md",
+      "hedef": "Skiller/Guvenlik/tor-kali-wsl-koprusu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/veracrypt-windows/SKILL.md",
+      "hedef": "Skiller/Guvenlik/veracrypt-windows.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/security/windows-forensic-assessment/SKILL.md",
+      "hedef": "Skiller/Guvenlik/windows-forensic-assessment.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/smart-home/openhue/SKILL.md",
+      "hedef": "Skiller/smart-home/openhue.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/social-media/xurl/SKILL.md",
+      "hedef": "Skiller/sosyal-medya/xurl.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-memory-tool/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-memory-tool.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-proje-benchmark/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-proje-benchmark.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-proje-mimarisi/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-proje-mimarisi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-skill-tool/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-skill-tool.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-tool-patterns/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-tool-patterns.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-tts-tool/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-tts-tool.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ReYMeN-web-search-tool/SKILL.md",
+      "hedef": "Skiller/Kod/ReYMeN-web-search-tool.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/agent-web-ui/SKILL.md",
+      "hedef": "Skiller/Kod/agent-web-ui.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/ai-fullstack-kodlamiyoruz/SKILL.md",
+      "hedef": "Skiller/Kod/ai-fullstack-kodlamiyoruz.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/android-apk-repackaging/SKILL.md",
+      "hedef": "Skiller/Kod/android-apk-repackaging.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/android-native-app-builder/SKILL.md",
+      "hedef": "Skiller/Kod/android-native-app-builder.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/debugging-hermes-tui-commands/SKILL.md",
+      "hedef": "Skiller/Kod/debugging-hermes-tui-commands.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/github-code-review/SKILL.md",
+      "hedef": "Skiller/Kod/github-code-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/hermes-agent-skill-authoring/SKILL.md",
+      "hedef": "Skiller/Kod/hermes-agent-skill-authoring.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/hermes-s6-container-supervision/SKILL.md",
+      "hedef": "Skiller/Kod/hermes-s6-container-supervision.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/hermes-vs-claude-kod-kalitesi/SKILL.md",
+      "hedef": "Skiller/Kod/hermes-vs-claude-kod-kalitesi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/html-report-dashboard/SKILL.md",
+      "hedef": "Skiller/Kod/html-report-dashboard.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/mobile-expo-dev/SKILL.md",
+      "hedef": "Skiller/Kod/mobile-expo-dev.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/money-printer-turbo/SKILL.md",
+      "hedef": "Skiller/Kod/money-printer-turbo.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/money-printer-turbo-kurulum/SKILL.md",
+      "hedef": "Skiller/Kod/money-printer-turbo-kurulum.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/node-inspect-debugger/SKILL.md",
+      "hedef": "Skiller/Kod/node-inspect-debugger.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/odysseus/SKILL.md",
+      "hedef": "Skiller/Kod/odysseus.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/plan/SKILL.md",
+      "hedef": "Skiller/Kod/plan.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/playwright/SKILL.md",
+      "hedef": "Skiller/Kod/playwright.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/playwright-browser/SKILL.md",
+      "hedef": "Skiller/Kod/playwright-browser.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/project-first-run/SKILL.md",
+      "hedef": "Skiller/Kod/project-first-run.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/project-gap-analysis/SKILL.md",
+      "hedef": "Skiller/Kod/project-gap-analysis.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/project-startup-check/SKILL.md",
+      "hedef": "Skiller/Kod/project-startup-check.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/python-debugpy/SKILL.md",
+      "hedef": "Skiller/Kod/python-debugpy.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/re-hermes-triage/SKILL.md",
+      "hedef": "Skiller/Kod/re-hermes-triage.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/re-hermes-v3/SKILL.md",
+      "hedef": "Skiller/Kod/re-hermes-v3.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/requesting-code-review/SKILL.md",
+      "hedef": "Skiller/Kod/requesting-code-review.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/security-best-practices/SKILL.md",
+      "hedef": "Skiller/Kod/security-best-practices.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/self-contained-report-dashboard/SKILL.md",
+      "hedef": "Skiller/Kod/self-contained-report-dashboard.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/simplify-code/SKILL.md",
+      "hedef": "Skiller/Kod/simplify-code.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/skill-creation-standards/SKILL.md",
+      "hedef": "Skiller/Kod/skill-creation-standards.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/spike/SKILL.md",
+      "hedef": "Skiller/Kod/spike.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/spring-boot-microservice-scaffold/SKILL.md",
+      "hedef": "Skiller/Kod/spring-boot-microservice-scaffold.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/spring-boot-scaffold/SKILL.md",
+      "hedef": "Skiller/Kod/spring-boot-scaffold.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/streamlit-setup/SKILL.md",
+      "hedef": "Skiller/Kod/streamlit-setup.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/subagent-driven-development/SKILL.md",
+      "hedef": "Skiller/Kod/subagent-driven-development.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/systematic-debugging/SKILL.md",
+      "hedef": "Skiller/Kod/systematic-debugging.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/test-driven-development/SKILL.md",
+      "hedef": "Skiller/Kod/test-driven-development.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/test-suite-ve-api-setup-deseni/SKILL.md",
+      "hedef": "Skiller/Kod/test-suite-ve-api-setup-deseni.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/trajectory-compressor-deseni/SKILL.md",
+      "hedef": "Skiller/Kod/trajectory-compressor-deseni.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/vscode-otomasyon/SKILL.md",
+      "hedef": "Skiller/Kod/vscode-otomasyon.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/vscode-python-dongusu/SKILL.md",
+      "hedef": "Skiller/Kod/vscode-python-dongusu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/windows-system-automation/SKILL.md",
+      "hedef": "Skiller/Kod/windows-system-automation.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/software-development/writing-plans/SKILL.md",
+      "hedef": "Skiller/Kod/writing-plans.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/test-category/deneme-skill/SKILL.md",
+      "hedef": "Skiller/Test/deneme-skill.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/test-eval/eval-test-skill/SKILL.md",
+      "hedef": "Skiller/Test/eval-test-skill.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/3lu-kontrol-sistemi/SKILL.md",
+      "hedef": "Skiller/Kullanici/3lu-kontrol-sistemi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/claude-hersona/SKILL.md",
+      "hedef": "Skiller/Kullanici/claude-hersona.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/deepseek-v4-flash-default/SKILL.md",
+      "hedef": "Skiller/Kullanici/deepseek-v4-flash-default.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/gpt-hersona/SKILL.md",
+      "hedef": "Skiller/Kullanici/gpt-hersona.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/grok-hersona/SKILL.md",
+      "hedef": "Skiller/Kullanici/grok-hersona.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/hersona/SKILL.md",
+      "hedef": "Skiller/Kullanici/hersona.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/hersona-initializer/SKILL.md",
+      "hedef": "Skiller/Kullanici/hersona-initializer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/hersona-recommend-quiz/SKILL.md",
+      "hedef": "Skiller/Kullanici/hersona-recommend-quiz.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/model-startup-choice/SKILL.md",
+      "hedef": "Skiller/Kullanici/model-startup-choice.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/nexus-core-omega-v5/SKILL.md",
+      "hedef": "Skiller/Kullanici/nexus-core-omega-v5.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/user-preferences/terminal-communication/SKILL.md",
+      "hedef": "Skiller/Kullanici/terminal-communication.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/adb-sdk-path-fix/SKILL.md",
+      "hedef": "Skiller/Windows/adb-sdk-path-fix.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/ag-taramasi-arp-vs-nmap/SKILL.md",
+      "hedef": "Skiller/Windows/ag-taramasi-arp-vs-nmap.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/aktif-pencere/SKILL.md",
+      "hedef": "Skiller/Windows/aktif-pencere.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/bilgisayari-kapat/SKILL.md",
+      "hedef": "Skiller/Windows/bilgisayari-kapat.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/camera-capture/SKILL.md",
+      "hedef": "Skiller/Windows/camera-capture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/ekran-al/SKILL.md",
+      "hedef": "Skiller/Windows/ekran-al.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/emulator-klavye-navigasyonu/SKILL.md",
+      "hedef": "Skiller/Windows/emulator-klavye-navigasyonu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/env-kayit-kurallari/SKILL.md",
+      "hedef": "Skiller/Windows/env-kayit-kurallari.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/gorev-yoneticisi/SKILL.md",
+      "hedef": "Skiller/Windows/gorev-yoneticisi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/gorsel-onaylama/SKILL.md",
+      "hedef": "Skiller/Windows/gorsel-onaylama.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/guvenlik-ekrani/SKILL.md",
+      "hedef": "Skiller/Windows/guvenlik-ekrani.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/hafiza-temizligi-hard-reset/SKILL.md",
+      "hedef": "Skiller/Windows/hafiza-temizligi-hard-reset.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/kali-help-explorer/SKILL.md",
+      "hedef": "Skiller/Windows/kali-help-explorer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/kali-linux-remote/SKILL.md",
+      "hedef": "Skiller/Windows/kali-linux-remote.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/kali-usb-wifi-scan/SKILL.md",
+      "hedef": "Skiller/Windows/kali-usb-wifi-scan.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/kali-vbox-klavye-iletimi/SKILL.md",
+      "hedef": "Skiller/Windows/kali-vbox-klavye-iletimi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/mouse-klavye-ctypes/SKILL.md",
+      "hedef": "Skiller/Windows/mouse-klavye-ctypes.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/obsidian-vault-kurallari/SKILL.md",
+      "hedef": "Skiller/Windows/obsidian-vault-kurallari.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/ollama-baslat-ekran-goster/SKILL.md",
+      "hedef": "Skiller/Windows/ollama-baslat-ekran-goster.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/open-url-as-html/SKILL.md",
+      "hedef": "Skiller/Windows/open-url-as-html.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/open_vscode_claude_terminal/SKILL.md",
+      "hedef": "Skiller/Windows/open_vscode_claude_terminal.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/open_vscode_focus/SKILL.md",
+      "hedef": "Skiller/Windows/open_vscode_focus.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/screen-vision-analiz/SKILL.md",
+      "hedef": "Skiller/Windows/screen-vision-analiz.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/site-engelle/SKILL.md",
+      "hedef": "Skiller/Windows/site-engelle.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/skill-obsidian-first-check/SKILL.md",
+      "hedef": "Skiller/Windows/skill-obsidian-first-check.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/tam-sistem-yetkisi/SKILL.md",
+      "hedef": "Skiller/Windows/tam-sistem-yetkisi.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/tor-arama-bypass-cozumu/SKILL.md",
+      "hedef": "Skiller/Windows/tor-arama-bypass-cozumu.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/tor-browser-arama/SKILL.md",
+      "hedef": "Skiller/Windows/tor-browser-arama.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/tor-hindistan-siteleri-bypass/SKILL.md",
+      "hedef": "Skiller/Windows/tor-hindistan-siteleri-bypass.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/tor-kore-siteleri-bypass/SKILL.md",
+      "hedef": "Skiller/Windows/tor-kore-siteleri-bypass.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/usb-driver-kontrol/SKILL.md",
+      "hedef": "Skiller/Windows/usb-driver-kontrol.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/vm-web-terminal-ui/SKILL.md",
+      "hedef": "Skiller/Windows/vm-web-terminal-ui.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/vscode-ac/SKILL.md",
+      "hedef": "Skiller/Windows/vscode-ac.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/wifi-network-tools/SKILL.md",
+      "hedef": "Skiller/Windows/wifi-network-tools.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/win-subprocess-shell-fix/SKILL.md",
+      "hedef": "Skiller/Windows/win-subprocess-shell-fix.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/windows-automation-shortcuts/SKILL.md",
+      "hedef": "Skiller/Windows/windows-automation-shortcuts.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/windows-file-ops/SKILL.md",
+      "hedef": "Skiller/Windows/windows-file-ops.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/windows-python-cli-installer/SKILL.md",
+      "hedef": "Skiller/Windows/windows-python-cli-installer.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/windows-screen-capture/SKILL.md",
+      "hedef": "Skiller/Windows/windows-screen-capture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-automation/yeniden-baslat/SKILL.md",
+      "hedef": "Skiller/Windows/yeniden-baslat.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-system-automation/windows-camera-capture/SKILL.md",
+      "hedef": "Skiller/Windows/windows-camera-capture.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/windows-system-automation/windows-guvenlik-izleme/SKILL.md",
+      "hedef": "Skiller/Windows/windows-guvenlik-izleme.md"
+    },
+    {
+      "islem": "kopyala",
+      "kaynak": "skills/workflow/eksik-listesi-tamamlama/SKILL.md",
+      "hedef": "Skiller/Kod/eksik-listesi-tamamlama.md"
+    }
+  ],
+  "toplam_kopyalanan": 546,
+  "toplam_atlanan": 4,
+  "toplam_hata": 0
+}

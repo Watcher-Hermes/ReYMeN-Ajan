@@ -558,7 +558,7 @@ class ACPServer:
         skills = []
         try:
             ROOT = Path(__file__).parent
-            for dizin in [ROOT / "skills", ROOT / ".ReYMeN" / "skills"]:
+            for dizin in [ROOT / "../cereyan/skills", ROOT / ".ReYMeN" / "skills"]:
                 if not dizin.exists():
                     continue
                 for dosya in sorted(dizin.rglob("*.md")):
@@ -616,7 +616,7 @@ class ACPServer:
         # Fallback: skills/ dizininde dosya ara
         try:
             ROOT = Path(__file__).parent
-            for dizin in [ROOT / "skills", ROOT / ".ReYMeN" / "skills"]:
+            for dizin in [ROOT / "../cereyan/skills", ROOT / ".ReYMeN" / "skills"]:
                 if not dizin.exists():
                     continue
                 for dosya in sorted(dizin.rglob("*.md")):

@@ -106,6 +106,80 @@ try:
 except ImportError:
     izole_python_calistir = None
 
+# ── ReYMeN Araç modülleri ──────────────────────────────────────────────
+try:
+    from reymen.arac.process_tool import ProcessManager, run as process_run
+    _PROCESS_MEVCUT = True
+except ImportError:
+    ProcessManager = None
+    process_run = None
+    _PROCESS_MEVCUT = False
+
+try:
+    from reymen.arac.todo_tool import TodoManager, run as todo_run
+    _TODO_MEVCUT = True
+except ImportError:
+    TodoManager = None
+    todo_run = None
+    _TODO_MEVCUT = False
+
+try:
+    from reymen.arac.clarify_tool import run as clarify_run, check_fn as clarify_check
+    _CLARIFY_MEVCUT = True
+except ImportError:
+    clarify_run = None
+    clarify_check = None
+    _CLARIFY_MEVCUT = False
+
+try:
+    from reymen.arac.cron_tool import CronManager, run as cron_run
+    _CRON_MEVCUT = True
+except ImportError:
+    CronManager = None
+    cron_run = None
+    _CRON_MEVCUT = False
+
+try:
+    from reymen.arac.file_ops_tool import FileOps, run as fileops_run
+    _FILEOPS_MEVCUT = True
+except ImportError:
+    FileOps = None
+    fileops_run = None
+    _FILEOPS_MEVCUT = False
+
+try:
+    from reymen.arac.x_search_tool import tweet_ara, kullanici_profili, son_tweetler
+    _X_SEARCH_MEVCUT = True
+except ImportError:
+    tweet_ara = None
+    kullanici_profili = None
+    son_tweetler = None
+    _X_SEARCH_MEVCUT = False
+
+try:
+    from reymen.arac.browser_mcp_tool import BrowserMCP, run as browser_run
+    _BROWSER_MEVCUT = True
+except ImportError:
+    BrowserMCP = None
+    browser_run = None
+    _BROWSER_MEVCUT = False
+
+try:
+    from reymen.arac.homeassistant_tool import durum_oku, tum_durumlar, servis_cagir
+    _HA_MEVCUT = True
+except ImportError:
+    durum_oku = None
+    tum_durumlar = None
+    servis_cagir = None
+    _HA_MEVCUT = False
+
+try:
+    from reymen.arac.kanban_orchestrator import AdvancedKanbanOrchestrator
+    _KANBAN_MEVCUT = True
+except ImportError:
+    AdvancedKanbanOrchestrator = None
+    _KANBAN_MEVCUT = False
+
 
 # ── Gateway State JSON yazma (bot.py bagimli degil) ──
 import json as _json
@@ -158,13 +232,50 @@ class Motor:
             self._hooks = None
         # Skill tarama cache (tekrari onle)
         self._skill_araclari_cache = None
-        self._plugin_moduller_yukle()
+
+        # ── LAZY: 100+ modülü startup'ta import etme, lazy batch'e ekle ──
+        self._lazy_batch = None
+        self._lazy_yuklendi = False
+        self._lazy_plugin_kaydet()  # Sadece kaydet, import etme
+
         # FAZ 6: Onceki oturumdan kalan dinamik araclari yukle
         try:
             from dinamik_arac_uretici import mevcut_dinamik_araclari_yukle
             mevcut_dinamik_araclari_yukle(self)
         except ImportError:
             pass
+
+    def _lazy_araclari_yukle(self) -> None:
+        """Lazy batch'teki modülleri ilk kullanımda yükle."""
+        if self._lazy_yuklendi or self._lazy_batch is None:
+            return
+        self._lazy_yuklendi = True
+        import logging as _log
+        _log.getLogger("motor").debug("Lazy modüller yükleniyor...")
+        hatalar = self._lazy_batch.hepsini_yukle(self)
+        # Skill araçları (cache'li)
+        if self._skill_araclari_cache is None:
+            self._skill_araclari_kaydet()
+            self._skill_v2_araclari_kaydet()
+            self._skill_araclari_cache = True
+        # Hafıza araçları
+        self._hafiza_araclari_kaydet()
+        # PluginYukleyici
+        try:
+            from plugin_loader import PluginYukleyici
+            _py = PluginYukleyici(dizin=ROOT / "plugins")
+            _py.hepsini_yukle()
+            _py.motora_kaydet(self)
+        except ImportError:
+            pass
+        # MCP araçları (varsa)
+        try:
+            from reymen.sistem.lazy_loader import MCPToolBridge
+            _mcp = MCPToolBridge()
+            _mcp.motora_kaydet(self)
+        except ImportError:
+            pass
+        _log.getLogger("motor").debug(f"Lazy yükleme tamam ({len(self._lazy_batch._entries)} modül)")
 
     def hook_kaydet(self, olay: str, fn: Any) -> None:
         """Olay bazlı async hook kaydet (örn. 'TOOL_CALLED', 'TOOL_ERROR')."""
@@ -176,14 +287,20 @@ class Motor:
         # Basit modda sadece temel ve web gruplarını yükle
         self.aktif_toolsetler = {"temel", "web"}
 
-    def _plugin_moduller_yukle(self) -> None:
-        """Bilinen tüm plugin modüllerinin araçlarını otomatik kaydet."""
-        # ── BASIT MOD: Sadece temel tool'ları yükle ──────────────────────
+    def _lazy_plugin_kaydet(self) -> None:
+        """Tüm plugin modüllerini lazy batch'e kaydet.
+
+        100+ modülü startup'ta import etmek yerine, sadece kaydeder.
+        İlk tool çağrısında _lazy_araclari_yukle() ile topluca yüklenir.
+        """
+        # ── BASIT MOD: hiçbir şey kaydetme ──────────────────────────────
         if self.basit_mod:
             self._temel_araclari_yukle()
             return
 
-        import importlib
+        from reymen.sistem.lazy_loader import LazyModuleBatch
+        batch = LazyModuleBatch()
+
         moduller = [
             "persistence", "message_sanitization",
             "x_search_tool", "homeassistant_tool", "feishu_doc_tool",
@@ -191,7 +308,6 @@ class Motor:
             "rate_limiter", "araclar_web", "araclar_gelismis",
             "tools.discord_tool", "tools.browser_camofox",
             "tools.threat_patterns",
-            # Batch 8 - Yeni araclar
             "tools.delegate_tool", "tools.kanban_tools", "tools.voice_mode",
             "tools.clarify_tool", "tools.blueprints",
             "tools.mixture_of_agents_tool", "tools.vision_tools",
@@ -200,9 +316,7 @@ class Motor:
             "tools.feishu_doc_tool", "tools.feishu_drive_tool",
             "tools.homeassistant_tool", "tools.session_search_tool",
             "tools.approval", "tools.write_approval",
-            # Memory plugin
             "plugins.memory",
-            # Batch 9 - Yeni 25 araç
             "tools.env_passthrough", "tools.env_probe",
             "tools.file_operations", "tools.file_state", "tools.file_tools",
             "tools.fuzzy_match", "tools.interrupt",
@@ -215,27 +329,12 @@ class Motor:
             "tools.debug_helpers", "tools.mcp_oauth",
             "tools.microsoft_graph_auth", "tools.microsoft_graph_client",
             "tools.tool_output_limits", "tools.tool_result_storage",
-            # tools.memory_tool
-            "tools.memory_tool",
-            # tools.skill_tool
-            "tools.skill_tool",
-            # tools.tts_tool
-            "tools.tts_tool",
-            # tools.web_search_tool
-            "tools.web_search_tool",
-            # tools.session_search_tool
-            "tools.session_search_tool",
-            # tools.execute_code_tool
-            "tools.execute_code_tool",
-            # tools.delegate_task_tool
-            "tools.delegate_task_tool",
-            # tools.context_tool
-            "tools.context_tool",
-            # tools.memory_providers
+            "tools.memory_tool", "tools.skill_tool",
+            "tools.tts_tool", "tools.web_search_tool",
+            "tools.session_search_tool", "tools.execute_code_tool",
+            "tools.delegate_task_tool", "tools.context_tool",
             "tools.memory_providers",
-            # tools.clarify_tool ve tools.todo_tool
             "tools.clarify_tool", "tools.todo_tool",
-            # Batch 10 - Son 15 eksik arac
             "tools.ansi_strip", "tools.binary_extensions",
             "tools.browser_camofox_state", "tools.browser_tool",
             "tools.clarify_gateway", "tools.fal_common",
@@ -244,19 +343,14 @@ class Motor:
             "tools.read_terminal_tool", "tools.skills_tool",
             "tools.tool_search", "tools.website_policy",
             "tools.xai_http",
-            # Entegrasyon 4 — kök modüller
             "kanban_orchestrator", "context_references",
             "araclar_makro", "araclar_ses", "araclar_telegram",
             "mcp_oauth", "batch_engine", "security_engine",
             "yetenek_fabrikasi", "sistem_sinyalleri",
-            # Entegrasyon 5 — ek modüller
             "mcp_oauth_manager", "reymen_batch_runner", "models_dev",
-            # Entegrasyon 6 — reyment CLI araçları
             "reyment",
-            # Entegrasyon 7 — ekran/tarayıcı/skill/telegram
             "araclar_ekran", "araclar_tarayici",
             "skill_bundles", "skill_commands", "telegram_bot",
-            # Entegrasyon 8 — Hermes eksiklik kapatma (18 modül)
             "reymen.arac.web_extract_tool",
             "reymen.arac.vision_analyze_tool",
             "reymen.arac.image_generate_tool",
@@ -273,60 +367,30 @@ class Motor:
             "reymen.sistem.model_switcher",
             "reymen.arac.web_search_tool",
             "reymen.cereyan.auto_web_search",
-            # Entegrasyon 8 — Claude Code işbirliği
             "tools.claude_code_tool",
-            # Kopru (Bot1/Bot2 Bridge)
             "kopru",
-            # LSP (Language Server Protocol)
             "tools.lsp_tool",
-            # CUA (Computer Use Agent)
             "cua_motor_araci",
-            # MCP (Model Context Protocol)
             "tools.mcp_tool",
-            # Personality (kisilik sistemi)
             "agent.personalities",
-            # Kapali Ogrenme Dongusu
             "closed_learning_loop",
-            # SQLite FTS5 hafiza + session_search
             "hafiza_genislet",
-            # ACP (Agent Communication Protocol)
             "acp_server",
-            # Checkpoint yönetimi (görev geri alma / rollback)
             "tools.checkpoint_manager",
+            # ReYMeN Memory Provider (yüksek limitli)
+            "reymen.hafiza.reymen_memory_provider",
         ]
-        _yukleme_hatalari = []
+
         for mod_adi in moduller:
-            try:
-                mod = importlib.import_module(mod_adi)
-                if hasattr(mod, "motor_kaydet"):
-                    mod.motor_kaydet(self)
-            except ImportError:
-                pass  # Modul yok — normal, sessiz gec
-            except Exception as _e:
-                _yukleme_hatalari.append(f"{mod_adi}: {type(_e).__name__}: {_e}")
-        if _yukleme_hatalari:
-            log.warning(f"{len(_yukleme_hatalari)} modul yukleme hatasi:")
-            for h in _yukleme_hatalari[:5]:
-                log.warning(f"  {h}")
-            if len(_yukleme_hatalari) > 5:
-                log.warning(f"  ... ve {len(_yukleme_hatalari) - 5} hata daha")
-        # Skill araçları (cache'li)
-        if self._skill_araclari_cache is None:
-            self._skill_araclari_kaydet()
-            self._skill_v2_araclari_kaydet()
-            self._skill_araclari_cache = True
-        # Hafıza araçları
-        self._hafiza_araclari_kaydet()
-        # PluginYukleyici (ReYMeN seviyesi — plugin.yaml destegi)
-        try:
-            from plugin_loader import PluginYukleyici
-            _py = PluginYukleyici(dizin=ROOT / "plugins")
-            _py.hepsini_yukle()
-            _py.motora_kaydet(self)
-        except ImportError:
-            pass  # plugin_loader yok
-        except Exception as _e:
-            log.error(f"PluginYukleyici baslatma hatasi: {_e}")
+            batch.ekle(mod_adi)
+
+        self._lazy_batch = batch
+        log.debug(f"{len(moduller)} modül lazy batch'e kaydedildi (startup'ta import edilmedi)")
+
+    # Eski _plugin_moduller_yukle — geriye uyumluluk için
+    def _plugin_moduller_yukle(self) -> None:
+        """Geriye uyumluluk: lazy batch'i tetikler."""
+        self._lazy_araclari_yukle()
 
     def _skill_araclari_kaydet(self) -> None:
         """skill_utils modülünden SKILL_ araçlarını kaydet (v1 — geriye uyumluluk)."""
@@ -751,6 +815,10 @@ class Motor:
     })
 
     def calistir(self, arac: str, ham_param: str) -> str:
+        # ── Lazy yükleme: ilk tool çağrısında 100+ modülü yükle ──────
+        if self._lazy_batch is not None and not self._lazy_yuklendi:
+            self._lazy_araclari_yukle()
+
         params = self._parametreleri_coz(ham_param)
         log.info(f"calistir: {arac} | param_sayisi={len(params)}")
 
@@ -1831,7 +1899,15 @@ CORE_TOOLS = [
     "memory",
     "session_search",
     "skill_view",
-    "skills_list"
+    "skills_list",
+    "process",
+    "todo",
+    "clarify",
+    "cronjob",
+    "patch",
+    "search_files",
+    "skill_manage",
+    "x_search"
 ]
 
 OPTIONAL_TOOLS = {
@@ -1839,7 +1915,15 @@ OPTIONAL_TOOLS = {
         "web_extract",
         "browser_navigate",
         "browser_click",
-        "browser_type"
+        "browser_type",
+        "browser_scroll",
+        "browser_press",
+        "browser_snapshot",
+        "browser_get_images",
+        "browser_vision",
+        "browser_console",
+        "browser_cdp",
+        "browser_dialog"
     ],
     "vision": [
         "vision_analyze",
@@ -1873,6 +1957,16 @@ OPTIONAL_TOOLS = {
         "swarm_run",
         "swarm_pipeline",
         "swarm_demo"
+    ],
+    "kanban": [
+        "kanban_show",
+        "kanban_list",
+        "kanban_complete",
+        "kanban_block"
+    ],
+    "homeassistant": [
+        "ha_list_entities",
+        "ha_get_state"
     ]
 }
 
@@ -1895,6 +1989,10 @@ def get_active_tools(context=None):
             tools.extend(OPTIONAL_TOOLS.get("automation", []))
         if context.get("swarm_needed"):
             tools.extend(OPTIONAL_TOOLS.get("swarm", []))
-    
+        if context.get("kanban_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("kanban", []))
+        if context.get("ha_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("homeassistant", []))
+
     return tools
 

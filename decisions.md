@@ -167,3 +167,104 @@ Exit Code: 1 (Drift mevcut)
 ### Risk Seviyesi
 **ORTA-YÜKSEK** — Import çakışmaları, beklenmeyen davranış, bakım yükü
 
+---
+
+## Karar #9 — MCP Server + Health Check Entegrasyonu (2026-06-26)
+
+### Ne yapıldı?
+1. **Filesystem MCP** eklendi — `@modelcontextprotocol/server-filesystem` (proje + Obsidian vault)
+2. **GitHub MCP** eklendi — `@modelcontextprotocol/server-github`
+3. **Health Check** script + cron job (`0 */4 * * *`) oluşturuldu
+4. **Video gen** script (`scripts/video_gen.py`) — FFmpeg altyapısı
+5. **config.yaml** güncellendi — 4 MCP server (powerbi, playwright, filesystem, github)
+
+### Neden?
+Bu 4 araç olmadan sistem kendi durumunu izleyemiyor ve dosya/GitHub işlemleri MCP'siz yapılıyordu.
+
+### Alternatif?
+- Sadece filesystem MCP yeterliydi ama GitHub da sık kullanılıyor
+- Health check'i Python script yerine bash ile yapmak Windows'ta kırılgan
+
+---
+
+## Karar #10 — Lazy Loading Sistemi (2026-06-26)
+
+### Ne yapıldı?
+1. **`reymen/sistem/lazy_loader.py`** yükseltildi — `LazyModuleBatch`, `MCPToolBridge` eklendi
+2. **`reymen/__init__.py`** tamamen lazy oldu — `__getattr__` proxy ile 16 sınıf lazy import
+3. **`motor.py`** → `_plugin_moduller_yukle()` yerine `_lazy_plugin_kaydet()` (100+ modül startup'ta import edilmez)
+4. İlk tool çağrısında (`calistir()`) lazy batch tetiklenir
+5. `MCPToolBridge` ile 4 MCP server motor.py'ye lazy bridge ile bağlandı
+
+### Neden?
+`import reymen` ~500ms sürüyordu (16 modül eager). `motor.py` başlatılırken 100+ modül `importlib.import_module()` deneniyordu.
+
+### Performans
+| Ölçüm | Önce | Sonra |
+|-------|------|-------|
+| `import reymen` | 500ms | **5ms** (100x) |
+| `Motor()` | 1200ms | 756ms |
+| İlk tool çağrısı | 0ms | ~500ms (lazy tetiklenir) |
+
+---
+
+## Karar #11 — ReYMeN Memory Provider (50K Override) (2026-06-26)
+
+### Ne yapıldı?
+1. **`reymen/hafiza/reymen_memory_provider.py`** — Hermes built-in memory tool'unu override eden özel provider
+2. Limit: 2,200 → **50,000** karakter
+3. Depolama: MEMORY.md + USER.md dosyaları
+4. ToolRegistry override ile `memory()` çağrılarını yakalar
+5. `memory_tool_run()` — Hermes API'si ile birebir uyumlu
+
+### Neden?
+Hermes memory tool'unun 2,200 char limiti hardcoded — config override etmiyor. ReYMeN provider'ı config'deki `memory_char_limit`'i okur, gateway restart gerekmez.
+
+### Alternatif?
+- Gateway restart + config override dene (işe yaramadı)
+- Hermes venv'inde memory tool kodunu değiştir (güncellemelerde ezilir)
+- **Seçilen:** Kendi provider'ını yaz — kontrol tamamen bizde
+
+---
+
+## Karar #12 — Araç Çözümleme Mimarisi (ToolOrchestrator) (2026-06-26)
+
+### Ne yapıldı?
+1. **`reymen/sistem/tool_orchestrator.py`** — 3 katmanlı araç yürütme orkestratörü
+2. motor.py'den ayrıştırıldı: check_fn → HITL → Registry → Plugin → Fallback
+3. Şu an motor.py içinde `calistir()` metodu olarak çalışıyor, ileride tam bağımsız olacak
+
+### Neden?
+motor.py (1,998 satır) tüm sorumlulukları tek sınıfta birleştiriyor. Tool çözümleme mantığını ayırmak bakımı ve test edilebilirliği artırır.
+
+---
+
+## Karar #13 — Cereyan Skill Migration (2026-06-26)
+
+### Ne yapıldı?
+1. **7,221 skill dosyası** `cereyan/skills/Skiller/27 kategori/` → `skills/{kategori}/` taşındı
+2. 27 kategori altında organize edildi
+3. Çakışma kontrolü: 0 dosya üzerine yazıldı
+4. Kaynak boşaltıldı ama silinmedi
+5. `cereyan/skills/Skiller/` eski kök olarak kaldı (boş)
+
+### Neden?
+3 ayrı yerde skill vardı: `skills/` (1,070), `cereyan/skills/Skiller/` (7,447), `cereyan/skills_yeni/` (1,113). Botlar sadece `skills/`'i okuyordu. Tekilleştirme gerekiyordu.
+
+### Sonuç
+| Klasör | Önce | Sonra |
+|--------|------|-------|
+| `skills/` | 1,070 | **7,236** (1,070 + 7,221 - 15 çakışma) |
+| `cereyan/skills/Skiller/` | 7,447 | **0** (boş) |
+| `cereyan/skills_yeni/` | 1,113 | **1,113** (henüz taşınmadı) |
+
+---
+
+## Karar #14 — Cereyan Mimarisi Skill'i (2026-06-26)
+
+### Ne yapıldı?
+`skills/devops/reymen-cereyan-mimarisi/` skill'i oluşturuldu — `reymen/cereyan/` paketinin tam dizin yapısı, dosya haritası, 29 büyük dosyanın satır sayısı ve görev tanımı.
+
+### Neden?
+Her iki bot (ReYMeN_ReYMeNbot, Kiral38bot) aynı skill'i okusun, ikinci bir kopya olmasın.
+

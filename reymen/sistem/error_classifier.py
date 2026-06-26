@@ -29,6 +29,8 @@ class HataKategori(str, Enum):
     AG = "ag"
     DISK = "disk"
     MODUL_EKSIK = "modul_eksik"
+    JSON = "json"
+    YETKILENDIRME = "yetkilendirme"
 
 
 @dataclass
@@ -42,70 +44,102 @@ class HataBilgisi:
     etiketler: list[str] = field(default_factory=list)
 
 
+def _k(l): return re.compile(l, re.I)
+
+
 # -- Regex kaliplari --
 _KATEGORI_KALIPLARI: dict[HataKategori, list[re.Pattern]] = {
     HataKategori.SYNTAX: [
-        re.compile(r"SyntaxError", re.I),
-        re.compile(r"IndentationError", re.I),
-        re.compile(r"invalid syntax", re.I),
+        _k(r"SyntaxError"),
+        _k(r"IndentationError"),
+        _k(r"invalid syntax"),
+        _k(r"TabError"),
     ],
     HataKategori.IMPORT: [
-        re.compile(r"ModuleNotFoundError", re.I),
-        re.compile(r"ImportError", re.I),
-        re.compile(r"No module named", re.I),
+        _k(r"ModuleNotFoundError"),
+        _k(r"ImportError"),
+        _k(r"No module named"),
+    ],
+    HataKategori.YETKILENDIRME: [
+        _k(r"Unauthorized"),
+        _k(r"AuthenticationError"),
+        _k(r"invalid.*token"),
+        _k(r"invalid.*api[_\s]?key"),
+        _k(r"auth.*failed"),
     ],
     HataKategori.API: [
-        re.compile(r"HTTPError", re.I),
-        re.compile(r"ConnectionError", re.I),
-        re.compile(r"requests\.exceptions", re.I),
-        re.compile(r"httpx", re.I),
-        re.compile(r"api.*key", re.I),
-        re.compile(r"429|401|403|500", re.I),
+        _k(r"HTTPError"),
+        _k(r"ConnectionError"),
+        _k(r"requests\.exceptions"),
+        _k(r"httpx"),
+        _k(r"\bapi[_\s]?key\b"),
+        _k(r"429|401|403|500"),
     ],
     HataKategori.SUBPROCESS: [
-        re.compile(r"subprocess\.(CalledProcessError|TimeoutExpired)", re.I),
-        re.compile(r"FileNotFoundError.*No such file or directory", re.I),
+        _k(r"subprocess\.(CalledProcessError|TimeoutExpired)"),
+        _k(r"FileNotFoundError.*No such file or directory"),
+        _k(r"returned non-zero exit status"),
+        _k(r"Command '.*' returned non-zero"),
     ],
     HataKategori.MEMORY: [
-        re.compile(r"MemoryError", re.I),
-        re.compile(r"OutOfMemory", re.I),
-        re.compile(r"cannot allocate", re.I),
-        re.compile(r"CUDA.*out of memory", re.I),
+        _k(r"MemoryError"),
+        _k(r"OutOfMemory"),
+        _k(r"cannot allocate"),
+        _k(r"CUDA.*out of memory"),
     ],
     HataKategori.TOR: [
-        re.compile(r"tor", re.I),
-        re.compile(r"socks5", re.I),
-        re.compile(r"Tor.*connection", re.I),
+        _k(r"\bTor\b"),
+        _k(r"socks5"),
+        _k(r"Tor.*connection"),
+        _k(r"socks.*proxy"),
     ],
     HataKategori.ZAMAN_ASIMI: [
-        re.compile(r"Timeout", re.I),
-        re.compile(r"timed out", re.I),
+        _k(r"Timeout"),
+        _k(r"timed out"),
+        _k(r"deadline exceeded"),
     ],
     HataKategori.IZIN: [
-        re.compile(r"PermissionError", re.I),
-        re.compile(r"AccessDenied", re.I),
-        re.compile(r"permission denied", re.I),
+        _k(r"PermissionError"),
+        _k(r"AccessDenied"),
+        _k(r"permission denied"),
+    ],
+    HataKategori.YETKILENDIRME: [
+        _k(r"Unauthorized"),
+        _k(r"AuthenticationError"),
+        _k(r"invalid.*token"),
+        _k(r"invalid.*api.*key"),
+        _k(r"auth.*failed"),
     ],
     HataKategori.AG: [
-        re.compile(r"ConnectionRefused", re.I),
-        re.compile(r"Connection refused", re.I),
-        re.compile(r"Network unreachable", re.I),
-        re.compile(r"ENETUNREACH", re.I),
-        re.compile(r"Name or service not known", re.I),
-        re.compile(r"getaddrinfo", re.I),
+        _k(r"ConnectionRefused"),
+        _k(r"Connection refused"),
+        _k(r"Network unreachable"),
+        _k(r"ENETUNREACH"),
+        _k(r"Name or service not known"),
+        _k(r"getaddrinfo"),
+        _k(r"no route to host"),
+        _k(r"connection reset"),
+        _k(r"broken pipe"),
     ],
     HataKategori.DISK: [
-        re.compile(r"No space left on device", re.I),
-        re.compile(r"ENOSPC", re.I),
-        re.compile(r"Disk full", re.I),
-        re.compile(r"Quota exceeded", re.I),
+        _k(r"No space left on device"),
+        _k(r"ENOSPC"),
+        _k(r"Disk full"),
+        _k(r"Quota exceeded"),
+        _k(r"disk.*full"),
     ],
     HataKategori.MODUL_EKSIK: [
-        re.compile(r"No module named", re.I),
-        re.compile(r"cannot import name", re.I),
+        _k(r"No module named"),
+        _k(r"cannot import name"),
+    ],
+    HataKategori.JSON: [
+        _k(r"JSONDecodeError"),
+        _k(r"json\.decoder"),
+        _k(r"Expecting value.*line"),
+        _k(r"Extra data.*line"),
+        _k(r"Unterminated string"),
     ],
 }
-
 
 _COZUM_Onerisi: dict[HataKategori, str] = {
     HataKategori.SYNTAX: "Kodda yazim hatasi. `compile()` ile dogrulayin.",
@@ -116,9 +150,11 @@ _COZUM_Onerisi: dict[HataKategori, str] = {
     HataKategori.TOR: "Tor baglantisi basarisiz. Tor servisini baslatmayi deneyin.",
     HataKategori.ZAMAN_ASIMI: "Islem cok uzun surdu. Zaman asimi degerini artirin.",
     HataKategori.IZIN: "Dosya/klasor izni yok. chmod / yonetici hakki kontrol edin.",
+    HataKategori.YETKILENDIRME: "Kimlik dogrulama sorunu. API anahtari / token gecerliligini kontrol edin.",
     HataKategori.MODUL_EKSIK: "Modul yuklenemiyor. Bagimliligi kurun veya __init__'e ekleyin.",
     HataKategori.AG: "Baglanti sorunu. VPN/firewall/internet baglantisini kontrol edin.",
     HataKategori.DISK: "Disk dolu veya yazma izni yok. Alan kontrol edin.",
+    HataKategori.JSON: "JSON ayristirma hatasi. Ciktiyi gecerli JSON ile karsilastirin.",
 }
 
 
@@ -177,12 +213,53 @@ def syntax_kontrol(dosya_yolu: str) -> Optional[HataBilgisi]:
             cozum=_COZUM_Onerisi[HataKategori.SYNTAX],
             etiketler=[f"satir_{e.lineno}"],
         )
+    except MemoryError:
+        return HataBilgisi(
+            kategori=HataKategori.MEMORY,
+            kaynak=dosya_yolu,
+            mesaj="Dosya cok buyuk, okunamadi",
+            cozum=_COZUM_Onerisi[HataKategori.MEMORY],
+        )
     except Exception as e:
         return HataBilgisi(
             kategori=HataKategori.BILINMEYEN,
             kaynak=dosya_yolu,
             mesaj=str(e),
         )
+
+
+def trace_parser(traceback_text: str) -> list[dict]:
+    """Traceback metninden dosya, satir ve hata mesaji cikarir.
+
+    Ornek::
+
+        trace_parser(traceback.format_exc())
+        # -> [{"dosya": "main.py", "satir": 42, "fonksiyon": "run", "mesaj": "..."}]
+    """
+    sonuclar: list[dict] = []
+    # Kaliplar: File "x/y.py", line 42, in fonksiyon
+    for match in re.finditer(
+        r'File\s+"([^"]+)",\s+line\s+(\d+)(?:,\s+in\s+(\w+))?',
+        traceback_text,
+    ):
+        sonuclar.append({
+            "dosya": match.group(1),
+            "satir": int(match.group(2)),
+            "fonksiyon": match.group(3) or "?",
+        })
+
+    # Son hatayi bul (en sondaki: ErrorType: message)
+    hata_match = re.search(
+        r"(\w+(?:\.\w+)*Error|Exception|Warning|SystemExit):\s*(.+?)$",
+        traceback_text,
+        re.MULTILINE,
+    )
+    if hata_match:
+        if sonuclar:
+            sonuclar[-1]["hata_turu"] = hata_match.group(1)
+            sonuclar[-1]["mesaj"] = hata_match.group(2).strip()
+
+    return sonuclar
 
 
 def topla_syntax(dizin: str, desen: str = "*.py") -> list[HataBilgisi]:

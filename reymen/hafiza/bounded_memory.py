@@ -78,11 +78,10 @@ class BoundedMemory:
             if anahtar not in self._veri and len(self._veri) >= self._max_boyut:
                 self._en_eskiyi_at()
 
-            # Varsa once guncelle, yoksa ekle
+            # Varsa guncelle, yoksa ekle — her durumda degeri yaz
             if anahtar in self._veri:
                 self._veri.move_to_end(anahtar)
-            else:
-                self._veri[anahtar] = deger
+            self._veri[anahtar] = deger
 
             self._zaman_damgalari[anahtar] = time.time()
             self._istatistik["ekleme"] += 1

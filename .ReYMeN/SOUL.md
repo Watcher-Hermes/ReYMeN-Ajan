@@ -64,7 +64,7 @@ Thread-safe consume/refund. max_total=90.
 Eski API: tur_basla(), tur_bitir(), devam_etmeli_mi()
 
 ### Test Coverage
-86 pytest + 35 test_suite = 121 test.
+| 133 pytest + 35 integration = 168 test
 test_suite.py: 35/35 geçiyor.
 
 ## Öğrenilenler

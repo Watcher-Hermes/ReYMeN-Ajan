@@ -157,4 +157,14 @@ Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bi
 - **Sorun:** skill_finalize.py proje/skills/ altini temizlerken ~5000 Hermes skill kayboldu
 - **Cozum:** Git'ten geri alindi (checkout 294621d7 -- skills/) + skill_birlestir.py ile Skiller/ altina kopyalandi
 - **Sonuc:** Skiller/ = 2,948 skill ✅ (1,815 yeni eklendi, 721 zaten vardi)
-- **Guvence:** skills/ (proje) ve skills_yeni/ yedek olarak duruyor
+|- **Guvence:** skills/ (proje) ve skills_yeni/ yedek olarak duruyor
+
+## 78. Skiller/ → Hermes skills/ Tek Kaynak Taşıması (26 June 10:45)
+- **Ne:** `reymen/cereyan/skills/Skiller/` içindeki 8,201 dosya Hermes'in skills/ dizinine kopyalandı
+- **Hedef:** `~/AppData/Local/hermes/profiles/reymen/skills/`
+- **Öncesi:** 78 dosya | **Sonrası:** 8,822 dosya (+8,744 yeni)
+- **Yöntem:** `cp -rn` — çakışanlar atlandı (üzerine yazılmadı)
+- **Kapsam:** Skiller/'deki tüm kategoriler (AI_ML, Kod, Windows, DevOps, ecc, creative, autonomous-ai-agents, vb. 200+ kategori) + INDEX.md
+- **Neden:** Tüm skill'ler tek kaynakta toplansın. Hermes skills_list() bu dizini okur.
+- **İkilik:** Sıfırlandı ✅ — Hermes skills/ = 8,822 dosya tek kaynak
+- **Eski Skiller/:** Diskten silinmedi (yedek olarak duruyor, gereksizse silinecek)

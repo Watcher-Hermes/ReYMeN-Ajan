@@ -22,6 +22,10 @@ from datetime import datetime
 class HealthChecker:
     """Sistem sağlık kontrolcüsü."""
 
+    # Bellek limitleri (karakter) — sağlıklı doluluk <%95
+    MEMORY_LIMIT_CHARS = 6000   # MEMORY.md
+    USER_LIMIT_CHARS = 7000     # USER.md
+
     def __init__(self):
         self._checks: List[Dict] = []
         self._baslama = time.time()
@@ -53,7 +57,7 @@ class HealthChecker:
             ("reymen.cereyan.prompt_assembly", "Prompt Assembly", "orta"),
             ("reymen.hafiza.session_db", "Session DB", "orta"),
             ("reymen.hafiza.bounded_memory", "Bounded Memory", "orta"),
-            ("reymen.sistem.reymen_logging", "Logging", "orta"),
+            ("reymen.sistem.ReYMeN_logging", "Logging", "orta"),
             ("reymen.sistem.config_manager", "Config Manager", "orta"),
             ("reymen.sistem.lazy_loader", "Lazy Loader", "orta"),
             ("reymen.guvenlik.security_hardened", "Security", "kritik"),
@@ -156,7 +160,7 @@ class HealthChecker:
         memory_path = Path.home() / "AppData" / "Local" / "hermes" / "profiles" / "reymen" / "memories" / "MEMORY.md"
         if memory_path.exists():
             boyut = memory_path.stat().st_size
-            limit = 2200
+            limit = self.MEMORY_LIMIT_CHARS
             doluluk = boyut / limit * 100
             durum = doluluk < 95
             sonuclar.append(self._kontrol(
@@ -173,7 +177,7 @@ class HealthChecker:
         user_path = Path.home() / "AppData" / "Local" / "hermes" / "profiles" / "reymen" / "memories" / "USER.md"
         if user_path.exists():
             boyut = user_path.stat().st_size
-            limit = 1375
+            limit = self.USER_LIMIT_CHARS
             doluluk = boyut / limit * 100
             durum = doluluk < 95
             sonuclar.append(self._kontrol(

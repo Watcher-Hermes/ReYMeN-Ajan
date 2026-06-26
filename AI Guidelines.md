@@ -7,9 +7,9 @@ Bu dosya, ReYMeN projesine katkıda bulunan yapay zeka asistanlarının uyması 
 - **Kök:** `C:\Users\marko\Desktop\Reymen Proje\hermes_projesi`
 - **Çekirdek:** `reymen/cereyan/` (beyin.py, motor.py, conversation_loop.py, once_hafiza.py, ajan_suru.py)
 - **Araçlar:** `reymen/arac/web_search_tool.py`
-- **Provider:** xiaomi/mimo-v2.5-pro (birincil), deepseek (fallback)
+| **Provider:** deepseek/v4-flash (birincil), xiaomi/mimo-v2.5 (fallback)
 - **Botlar:** @Pasa_38_bot, @Kiral38bot, @ReYMeN_ReYMeNbot
-- **Logging:** `reymen/sistem/reymen_logging.py` (get_logger() ile)
+| **Logging:** `reymen/sistem/ReYMeN_logging.py` (get_logger() ile)
 - **Hafıza:** `cereyan/.ReYMeN/ogrenmeler.db` (SQLite, OnceHafiza)
 
 ## ZORUNLU KURALLAR

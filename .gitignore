@@ -212,3 +212,4 @@ reymen/cereyan/skills/*.md
 # Tauri desktop (deneysel)
 desktop-tauri/
 desktop-tauri/src-tauri/target/
+bandit_report*.json

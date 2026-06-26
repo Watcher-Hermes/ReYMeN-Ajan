@@ -32,9 +32,10 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 # Tum skill kaynak klasorleri (oncelik sirasinda)
 # NOT: .agents/skills/ resmi agentskills.io standart dizini (VS Code, Copilot, vb. burada arar)
 SKILLS_KLASORLERI = [
-    ROOT / "skills",              # Ana ReYMeN skill deposu (1041+)
-    ROOT / ".ReYMeN" / "skills", # Kullanici kristallestirilen skilllar
-    ROOT / ".agents" / "skills", # Resmi agentskills.io standart dizini
+    ROOT / "reymen" / "cereyan" / "skills",  # ReYMeN'e ozel skill'ler (cereyan motoru)
+    ROOT / "skills",                          # Ana ReYMeN skill deposu (1041+)
+    ROOT / ".ReYMeN" / "skills",             # Kullanici kristallestirilen skilllar
+    ROOT / ".agents" / "skills",             # Resmi agentskills.io standart dizini
 ]
 
 # Geriye donuk uyumluluk

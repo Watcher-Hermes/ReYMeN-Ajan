@@ -1,0 +1,8 @@
+{
+  "cycle_count": 3,
+  "last_cycle_type": "A",
+  "last_module": "guvenlik/output_validator.py",
+  "last_change": "ENHANCEMENT: Added configurable min_kod/maks_uzunluk/min_uzunluk params to OutputValidator.__init__(), configurable _kontrol_uzunluk() method with min/max length checks, engine() now truncates at maks_uzunluk, _kontrol_kod_bloku uses self._min_kod instead of module-level const, added __repr__ to ValidationResult/ValidationReport, ascii-safe error messages for Python 3.14 compatibility",
+  "next_cycle_type": "B",
+  "next_target": "guvenlik/output_validator.py testini yaz — dogrula(), engine(), _kontrol_* methods, edge cases (empty, leak, trim, code blocks)"
+}
