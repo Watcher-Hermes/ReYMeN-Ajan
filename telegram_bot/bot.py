@@ -62,14 +62,24 @@ def run_shell_job(job_id: str, command: str):
 
     log_file = LOGS_DIR / f"{job_id}.log"
     try:
-        # B602: shell=True gerekli (command string, pipes/redirects)
-        result = subprocess.run(  # nosec
-            command,
-            shell=True,
-            capture_output=True,
-            text=True,
-            timeout=3600,
-        )
+        import shlex
+        # shell=False öncelikli, pipe/redirect varsa shell=True fallback
+        _has_shell_ops = any(op in command for op in ["|", ">", "<", "&&", "||", ";", "`", "$("])
+        if _has_shell_ops:
+            result = subprocess.run(  # nosec
+                command,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=3600,
+            )
+        else:
+            result = subprocess.run(
+                shlex.split(command), shell=False,
+                capture_output=True,
+                text=True,
+                timeout=3600,
+            )
         output = result.stdout + result.stderr
         log_file.write_text(output)
 

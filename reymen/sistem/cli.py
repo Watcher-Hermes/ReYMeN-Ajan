@@ -8896,12 +8896,19 @@ class ReYMeNCLI:
                     exec_cmd = qcmd.get("command", "")
                     if exec_cmd:
                         try:
-                            # shell=True is intentional: quick_commands are user-defined
-                            # shell snippets from config.yaml — not agent/LLM controlled.
-                            result = subprocess.run(
-                                exec_cmd, shell=True, capture_output=True,
-                                text=True, timeout=30
-                            )
+                            import shlex
+                            # shell=False öncelikli, shell operator varsa shell=True fallback
+                            _has_shell_ops = any(op in exec_cmd for op in ["|", ">", "<", "&&", "||", ";", "`", "$("])
+                            if _has_shell_ops:
+                                result = subprocess.run(
+                                    exec_cmd, shell=True, capture_output=True,
+                                    text=True, timeout=30
+                                )
+                            else:
+                                result = subprocess.run(
+                                    shlex.split(exec_cmd), shell=False, capture_output=True,
+                                    text=True, timeout=30
+                                )
                             output = result.stdout.strip() or result.stderr.strip()
                             if output:
                                 self._console_print(_rich_text_from_ansi(output))
