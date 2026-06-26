@@ -28,12 +28,33 @@ KAYNAK_HARITASI = {
             "yarım", "yarim", "cumhuriyet", "ziynet", "has altın",
             "döviz", "doviz", "dolar", "euro", "kur", "kuru",
             "borsa", "bist",
-            "bitcoin", "kripto", "coin",
             "gümüş", "gumus", "platinum", "paladyum",
         ],
         "birincil": "https://www.haremaltin.com",
         "yedek": "https://tr.investing.com",
         "aciklama": "Canlı altın/döviz fiyatları",
+    },
+    "kripto": {
+        "tetikleyiciler": [
+            "bitcoin", "kripto", "kripto para", "kriptopara",
+            "coin", "ethereum", "eth", "bnb", "solana",
+            "blockchain", "blokzincir", "defi", "nft",
+            "coindesk", "cointelegraph",
+            "kripto borsa", "kripto para haber",
+            "btc", "altcoin", "madenci", "mining",
+        ],
+        "birincil": "https://www.coindesk.com",
+        "yedekler": [
+            "https://cointelegraph.com",
+            "https://decrypt.co",
+            "https://bitcoinmagazine.com",
+        ],
+        "finans_icinde": [
+            "https://www.bloomberg.com/crypto",
+            "https://www.investing.com/crypto",
+            "https://tr.investing.com/crypto",
+        ],
+        "aciklama": "Kripto para haberleri (CoinDesk + CoinTelegraph + Decrypt)",
     },
     "spor": {
         "tetikleyiciler": [
@@ -110,11 +131,20 @@ KAYNAK_HARITASI = {
             "merkez bankası", "mb", "ticaret", "faiz",
             "ithalat", "ihracat", "vergi", "bütçe", "butce",
             "asgari ücret", "asgari ucret", "maaş", "maas",
-            "emtia", "petrol", "altın fiyat",
+            "emtia", "petrol",
         ],
-        "birincil": "https://www.bloomberght.com",
-        "yedek": "https://www.ekonomim.com",
-        "aciklama": "Ekonomi ve finans haberleri",
+        "birincil": "https://www.bloomberg.com/markets",
+        "yedekler": [
+            "https://www.ft.com",
+            "https://www.investing.com",
+            "https://tradingeconomics.com",
+        ],
+        "turkce_kaynaklar": [
+            "https://tr.investing.com",
+            "https://www.bloomberght.com",
+            "https://www.ekonomim.com",
+        ],
+        "aciklama": "Ekonomi ve finans haberleri (Bloomberg + FT + Investing + TradingEcon)",
     },
     "dunya": {
         "tetikleyiciler": [
@@ -276,7 +306,7 @@ KAYNAK_HARITASI = {
 # ── Öncelik sırası ───────────────────────────────────────────────────────────
 KATEGORI_SIRASI = [
     "analiz_siyaset", "bolgesel_haber",
-    "ekonomi", "altin_finans", "spor", "dunya", "siyaset",
+    "kripto", "ekonomi", "altin_finans", "spor", "dunya", "siyaset",
     "saglik", "siber_guvenlik",
     "yapay_zeka", "teknoloji_genel", "teknoloji_haber",
     "bilim_teknoloji", "kultur_sanat", "genel_haber",
@@ -285,6 +315,7 @@ KATEGORI_SIRASI = [
 # ── Sistem prompt özeti (LLM'e verilecek) ────────────────────────────────────
 KAYNAK_OZETI = """GÜNCEL BİLGİ KAYNAKLARI:
 - Altın/Döviz → haremaltin.com
+- Kripto → coindesk.com / cointelegraph.com / decrypt.co
 - Spor → ntvspor.net
 - Dünya Haberleri → reuters.com / apnews.com / bbc.com/news / aljazeera.com
 - Siyaset (Türkçe) → bbc.com/turkce / dw.com/tr / tr.euronews.com
@@ -342,6 +373,9 @@ def kaynak_sec(sorgu: str) -> dict:
                 turkce = kategori.get("turkce_kaynaklar")
                 if turkce:
                     sonuc["turkce_kaynaklar"] = turkce
+                finans = kategori.get("finans_icinde")
+                if finans:
+                    sonuc["finans_icinde"] = finans
                 return sonuc
 
     return {}
@@ -389,6 +423,15 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
                 icerik = web_icerik_al(tr_url, max_karakter=4000)
                 if icerik and "Icerik alinamadi" not in icerik:
                     return f"[{kaynak['aciklama']} → Türkçe ({tr_url})]\n\n{icerik}"
+            except Exception:
+                continue
+
+        # Finans içi kripto sayfalarını dene
+        for fi_url in kaynak.get("finans_icinde", []):
+            try:
+                icerik = web_icerik_al(fi_url, max_karakter=4000)
+                if icerik and "Icerik alinamadi" not in icerik:
+                    return f"[{kaynak['aciklama']} → finans ({fi_url})]\n\n{icerik}"
             except Exception:
                 continue
 
