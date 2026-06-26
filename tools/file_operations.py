@@ -74,7 +74,8 @@ def _sil(dosya_yolu):
 
     try:
         if os.path.isdir(dosya_yolu):
-            shutil.rmtree(dosya_yolu)
+            if os.path.exists(dosya_yolu):
+                shutil.rmtree(dosya_yolu)
         else:
             os.remove(dosya_yolu)
         return {"durum": "basarili", "mesaj": f"'{dosya_yolu}' silindi"}

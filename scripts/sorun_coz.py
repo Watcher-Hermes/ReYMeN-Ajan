@@ -109,7 +109,6 @@ def vscode_gonder(metin: str) -> bool:
         )
         subprocess.run(
             [str(VSCODE_BAT), tetikleyici],
-            shell=True,
             check=False,
         )
         print("[OK] Tetikleyici mesaj VS Code'a gonderildi.")
@@ -121,7 +120,6 @@ def vscode_gonder(metin: str) -> bool:
             kisalt += "\n\n[RAPOR KISALTI — tam rapor output/sorun_raporu.txt dosyasinda]"
         subprocess.run(
             [str(VSCODE_BAT)] + kisalt.split(),
-            shell=True,
             check=False,
         )
         print("[OK] Kisaltilmis rapor VS Code'a gonderildi.")

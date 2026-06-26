@@ -158,10 +158,12 @@ print(f"[DelegateWorker] Toolsets: {{toolsets}}")
 # Basit görev yürütme
 try:
     # Terminal komutu mu?
-    if any(k in goal.lower() for k in ["çalıştır", "run", "test", "kur", "install"]):
-        import subprocess
+    if any(k in goal.lower() for k in ["calistir", "run", "test", "kur", "install"]):
+        import subprocess, shlex
+        # shell=False ile guvenli calistir
+        komut_parts = shlex.split(goal)
         sonuc = subprocess.run(
-            goal, shell=True, capture_output=True, text=True, timeout=120
+            komut_parts, shell=False, capture_output=True, text=True, timeout=120
         )
         print(f"ÇIKTI:\\n{{sonuc.stdout}}")
         if sonuc.stderr:

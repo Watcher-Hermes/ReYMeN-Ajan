@@ -363,8 +363,9 @@ def extract_with_pymupdf(pdf_path, output_dir):
                 with open(img_path, "wb") as f:
                     f.write(base["image"])
                 img_count += 1
-            except:
-                pass
+            except Exception as e:
+                import logging
+                logging.warning(f"[extract_paper] Gorsel cikarilamadi sayfa {page_num+1}: {e}")
 
     doc.close()
 

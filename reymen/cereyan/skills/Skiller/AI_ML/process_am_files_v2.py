@@ -32,8 +32,9 @@ def restore_from_git(filename):
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(result.stdout)
             return True
-    except:
-        pass
+    except Exception as e:
+        import logging
+        logging.warning(f"[process_am_files] Dosya islenemedi {filepath}: {e}")
     return False
 
 def find_true_frontmatter(content):
