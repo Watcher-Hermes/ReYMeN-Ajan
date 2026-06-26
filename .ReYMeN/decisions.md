@@ -101,3 +101,54 @@ Proje kökü `./`, `./agent/`, `./reymen/`, `./tools/` altındaki modüller aras
 
 ### ⚠️ UYARI
 Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bir standart altında birleştirilmezse hatalar kaçınılmaz. Özellikle `auxiliary_client.py` (2 varyant, çok sayıda eksik fonksiyon) ve `cli.py` (3 varyant, büyük ayrışma) kritik.
+
+---
+
+## 73. USER.md limit artırımı (26 June)
+- **Ne:** USER_LIMIT_CHARS 6000→7000
+- **Neden:** MEMORY.md'den sonra USER.md limiti de yükseltildi, sağlıklı doluluk <%95 korunuyor
+- **Sonuç:** %21 doluluk ✅
+
+---
+
+## 74. ReYMeN Skill Taşıma — Proje Kökü → reymen/cereyan/skills/ (26 June)
+- **Ne:** Tüm ReYMeN'e özel skill'ler `skills/` (proje kökü) → `reymen/cereyan/skills/` altına taşındı
+- **Taşınan skill'ler (8 adet):**
+  - `ReYMeN-proje-mimarisi` (SKILL.md + 12 references)
+  - `ReYMeN-tool-patterns` (SKILL.md + 2 references)
+  - `ReYMeN-web-search-tool` (SKILL.md)
+  - `hermes-kurallar` (SKILL.md + 1 reference)
+  - `ReYMeN-memory-tool` (SKILL.md)
+  - `ReYMeN-proje-benchmark` (SKILL.md)
+  - `ReYMeN-skill-tool` (SKILL.md)
+  - `ReYMeN-tts-tool` (SKILL.md)
+- **Toplam dosya:** 20 dosya (8 SKILL.md + 12 references)
+- **Güncellenen dosyalar:**
+  - `reymen/arac/skill_utils.py` — `SKILLS_KLASORLERI` listesine `ROOT / "reymen" / "cereyan" / "skills"` eklendi (öncelikli)
+  - `reymen/ag/acp_server.py` — Fallback skill tarama yoluna `../cereyan/skills` eklendi (2 lokasyon)
+- **İkilik durumu:** ❌ → ✅ Sıfır ReYMeN skill'i proje kökü `skills/` altında kalmadı.
+- **Bot kaydetme yönü:** `closed_learning_loop.py`, `once_hafiza.py`, `kendini_anlat.py` zaten `ROOT / "skills"` (ROOT=reymen/cereyan/) → `reymen/cereyan/skills/` olarak çalışıyordu. Güncelleme gerektirmedi.
+- **Neden:** Proje kökü skills/ artık ReYMeN'e özel skill içermemeli; tüm ReYMeN skill'leri cereyan motoruna ait.
+- **Alternatif:** Skill'leri silmek yerine taşıma tercih edildi — referans bütünlüğü korunsun.
+
+---
+
+## 75. Skill'ler Skiller/ altına taşındı (26 June)
+- **Ne:** 9 ReYMeN skill'i `reymen/cereyan/skills/` → `reymen/cereyan/skills/Skiller/` altına
+- **Taşınan:** ReYMeN-proje-mimarisi, ReYMeN-tool-patterns, ReYMeN-web-search-tool, ReYMeN-memory-tool, ReYMeN-proje-benchmark, ReYMeN-skill-tool, ReYMeN-tts-tool, ReYMeN-ogrenme-sistemi, hermes-kurallar
+- **Neden:** Bot'lar tek adrese (`cereyan/skills/Skiller/`) kaydetsin, ikilik olmasın
+|- **Sonuç:** `Skiller/` altında 9 ReYMeN skill'i ✅ | Eski kökte 0 kaldı ✅
+|
+
+## 76. 541 Hermes skill Skiller/ altına kopyalandı + eski kök temiz (26 June)
+- **Ne:** `proje/skills/` altındaki 541 Hermes skill'i `reymen/cereyan/skills/Skiller/` altına kopyalandı
+- **Ne daha:** Eski ReYMeN kategorileri (AI_ML/, Kod/, DevOps/...) proje/skills/ altından silindi
+- **INDEX.md:** 3 yere konuldu (Skiller/, skills_yeni/, skills/) — ana deponun `Skiller/` olduğu belirtildi
+- **Neden:** Tüm botlar tek adrese kaydetsin (reymen/cereyan/skills/Skiller/)
+- **Kalan:** `cereyan/skills_yeni/` altında 1,114 sync dosyası henüz Skiller/'a taşınmadı
+- **Sonuç:** Skiller/ = 641 .md (27 kategori) | skills/ (proje) = INDEX.md ✅
+## 76. Skiller/ INDEX.md agac yapisina donusturuldu (26 June)
+- **Ne:** INDEX.md — 27 kategori agac yapisi + detay tablosu
+- **Nasil:** Her kategori aciklamasiyla birlikte `tree` formatinda listelendi
+- **Neden:** Kullanici "anlasilir olsun" dedi — Paşa_38 bot ekrani referans alindi
+- **Kalan:** skill_finalize.py calisti ama 541 kopyalanan .md dosyasi gorunmuyor (arastirilacak)
