@@ -199,6 +199,9 @@ reymen/cereyan/.ReYMeN/ogrenmeler.db
 **/*.sqlite3
 **/*.zip
 
+# Profile backup (otomatik Hermes runtime dosyalari — git'e girmez)
+.profile_backup/
+
 # ReYMeN runtime artifacts — trajectory logs, reports, skill index
 **/trajectories/*.json
 **/trajectories/*.jsonl
