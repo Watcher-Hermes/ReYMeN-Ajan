@@ -38,21 +38,57 @@ class AutoWebSearch:
 
     # Güncel bilgi tetikleyici kelimeler
     GUNCEL_KELIMELER = [
+        # Zaman belirteçleri
         "bugün", "bugun", "şu an", "su an", "şimdi", "simdi",
         "güncel", "guncel", "son", "latest", "today", "now",
+        # Finans
         "fiyat", "fiyatı", "fiyati", "kur", "dolar", "euro",
-        "hava", "durumu", "haber", "haberler", "news",
+        "hava", "durumu",
         "ne kadar", "kaç tl", "kac tl", "kaç dolar",
-        "tarihte bugün", "tarihte bu gün",
-        "maç", "mac", "skor", "sonuç", "sonuc",
         "döviz", "doviz", "borsa", "bist", "bitcoin",
         "altın", "altin", "gümüş", "gumus",
-        "deprem", "earthquake", "weather",
         "ons", "değer", "değeri", "degeri", "gram",
         "çeyrek", "ceyrek", "yarım", "yarim",
         "cumhuriyet", "ziynet", "canlı", "canli",
         "endeks", "faiz", "enflasyon", "hisse", "para",
         "kripto", "coin", "eth", "bnb",
+        # Spor
+        "spor", "maç", "mac", "skor", "futbol", "basketbol",
+        "galatasaray", "fenerbahçe", "beşiktaş", "trabzon",
+        "lig", "transfer", "şampiyon", "sampiyon", "nba",
+        # Siyaset
+        "siyaset", "seçim", "secim", "cumhurbaşkanı", "cumhurbaskani",
+        "parti", "meclis", "bakan", "muhalefet",
+        # Ekonomi
+        "ekonomi", "işsizlik", "issizlik", "büyüme", "buyume",
+        "merkez bankası", "asgari ücret", "asgari ucret",
+        "maaş", "maas", "vergi", "bütçe", "butce",
+        "emtia", "petrol",
+        # Dünya
+        "dünya", "dunya", "uluslararası", "uluslararasi",
+        "küresel", "kuresel", "savaş", "savas",
+        "abd", "rusya", "çin", "cin", "avrupa",
+        "ukrayna", "filistin", "israil",
+        # Teknoloji / Yapay Zeka
+        "yapay zeka", "teknoloji", "yazılım", "yazilim",
+        "siber", "güvenlik", "guvenlik",
+        "chatgpt", "openai", "ai", "robot",
+        # Haber / Genel
+        "haber", "haberler", "news",
+        "gündem", "gundem", "son dakika", "flaş", "flash",
+        # Sağlık
+        "sağlık", "saglik", "hastalık", "hastalik",
+        "ilaç", "ilac", "aşı", "asi", "virüs", "virus",
+        # Bilim
+        "bilim", "uzay", "nasa", "araştırma", "arastirma",
+        "iklim", "çevre", "cevre",
+        # Kültür / Sanat
+        "kültür", "kultur", "sanat", "sinema", "film",
+        "kitap", "müzik", "muzik", "tarih",
+        # Tarih / Bugün
+        "tarihte bugün", "tarihte bu gün",
+        # Hava / Doğa
+        "deprem", "earthquake", "weather",
     ]
 
     # Soru kelimeleri (bilgi gerektiren)

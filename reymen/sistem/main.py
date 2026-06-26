@@ -692,13 +692,45 @@ class AIAgentOrchestrator:
         _SELAM = {"slm", "selam", "merhaba", "hey", "hi", "hello", "sa"}
         _SOHBET = {"nasılsın", "naber", "nbr", "iyi", "kötü", "teşekkür", "tesekkur", "bye"}
         _GUNCEL_KELIMELER = [
+            # Altın / Finans (orijinal)
             "fiyat", "fiyatı", "fiyati", "kur", "dolar", "euro", "altın", "altin",
-            "bitcoin", "borsa", "hava", "haber", "deprem", "maç", "skor",
+            "bitcoin", "borsa", "hava", "deprem",
             "kaç tl", "kac tl", "ne kadar", "güncel", "bugün", "şimdi",
             "ons", "değer", "değeri", "degeri", "gram", "çeyrek", "ceyrek",
             "yarım", "yarim", "cumhuriyet", "ziynet", "has altın", "has altin",
             "anket", "sonuç", "sonuc", "canlı", "canli", "döviz", "doviz",
             "endeks", "faiz", "enflasyon", "hisse", "para",
+            # Spor
+            "maç", "mac", "skor", "spor", "futbol", "basketbol", "voleybol",
+            "galatasaray", "fenerbahçe", "beşiktaş", "trabzon", "lig",
+            "transfer", "şampiyon", "sampiyon", "puan durumu", "nba",
+            # Siyaset
+            "siyaset", "seçim", "secim", "cumhurbaşkanı", "cumhurbaskani",
+            "parti", "meclis", "bakan", "oy", "muhalefet",
+            # Ekonomi
+            "ekonomi", "işsizlik", "issizlik", "büyüme", "buyume",
+            "merkez bankası", "asgari ücret", "asgari ucret",
+            "maaş", "maas", "vergi", "bütçe", "butce", "emtia", "petrol",
+            # Dünya
+            "dünya", "dunya", "uluslararası", "uluslararasi", "küresel", "kuresel",
+            "savaş", "savas", "abd", "rusya", "çin", "cin", "avrupa",
+            "ukrayna", "filistin", "israil", "nato",
+            # Teknoloji / Yapay Zeka
+            "yapay zeka", "yapay-zeka", "yapay_zeka",
+            "teknoloji", "yazılım", "yazilim", "siber", "güvenlik", "guvenlik",
+            "chatgpt", "openai", "ai", "robot", "otomasyon",
+            # Haber / Genel
+            "haber", "haberler", "gündem", "gundem",
+            "son dakika", "flaş", "flash",
+            # Sağlık
+            "sağlık", "saglik", "hastalık", "hastalik", "ilaç", "ilac",
+            "aşı", "asi", "virüs", "virus", "korona", "covid",
+            # Bilim
+            "bilim", "uzay", "nasa", "spacex", "araştırma", "arastirma",
+            "iklim", "çevre", "cevre", "enerji",
+            # Kültür / Sanat
+            "kültür", "kultur", "sanat", "sinema", "film", "dizi",
+            "kitap", "müzik", "muzik", "tarih",
         ]
         _guncel_sorgu = any(k in _h for k in _GUNCEL_KELIMELER)
 
@@ -892,6 +924,14 @@ class AIAgentOrchestrator:
         except Exception:
             pass
 
+        _sabit_kaynak_blok = ""
+        try:
+            from reymen.arac.haber_kaynaklari import KAYNAK_OZETI as _kaynak_ozeti
+            if _guncel_sorgu:
+                _sabit_kaynak_blok = f"\n\n{_kaynak_ozeti}\n"
+        except Exception:
+            pass
+
         _sabit_tercih_blok = ""
         if self.adaptif_ogrenme:
             try:
@@ -964,6 +1004,7 @@ class AIAgentOrchestrator:
 
             if tur == 1:
                 sistem_prompt += _sabit_hafiza_plugin_blok
+                sistem_prompt += _sabit_kaynak_blok  # Güncel bilgi kaynakları
                 if kb_rehber:
                     sistem_prompt += kb_rehber
                 if _meta_ek:
