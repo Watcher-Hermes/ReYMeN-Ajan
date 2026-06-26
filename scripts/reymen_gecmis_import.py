@@ -17,8 +17,10 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from _project_root import PROJECT_ROOT
+
 # ReYMeN proje kok
-PROJE_KOK = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi")
+PROJE_KOK = Path(PROJECT_ROOT)
 REYMEN_MEMORIES = PROJE_KOK / ".ReYMeN" / "memories"
 REYMEN_HAFIZA_DB = PROJE_KOK / ".reymen_hafiza" / "hafiza.db"
 

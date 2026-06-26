@@ -975,7 +975,7 @@ class TestExternalRotationRecovery:
         logging.getLogger("gateway.run").info("line BEFORE rotation")
         for h in logging.getLogger().handlers:
             try: h.flush()
-            except Exception: pass
+            except Exception: pass  # nosec — flush cleanup, silent ok
         assert "BEFORE rotation" in gw_path.read_text()
 
         # External actor renames the file out from under us.
@@ -990,7 +990,7 @@ class TestExternalRotationRecovery:
         logging.getLogger("gateway.run").info("line AFTER rotation")
         for h in logging.getLogger().handlers:
             try: h.flush()
-            except Exception: pass
+            except Exception: pass  # nosec — flush cleanup, silent ok
 
         # The new record must reach the live gateway.log, not the rotated
         # backup.  Allen's logs had everything past the rotation point

@@ -2,8 +2,8 @@
 """nmap_ogrenme.py — Kali nmap taramasi OnceHafiza testi"""
 
 import json
-import sys
-sys.path.insert(0, r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi")
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from reymen.hafiza.gorev_once_kontrol import hafizada_ara, kaydet_isle, isle
 

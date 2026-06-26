@@ -35,10 +35,12 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
+from _project_root import PROJECT_ROOT
+
 # ─────────────────────────────────────────────
 # AYARLAR
 # ─────────────────────────────────────────────
-PROJE_KOK = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi")
+PROJE_KOK = Path(PROJECT_ROOT)
 
 # Canlı veri sayılan anahtar kelimeler — bunları içeren sorgular
 # kalıcı skill yapılmamalı (her seferinde değişir).

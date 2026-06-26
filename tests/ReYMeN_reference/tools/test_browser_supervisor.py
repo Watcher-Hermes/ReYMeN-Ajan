@@ -585,7 +585,7 @@ def test_bridge_captures_prompt_and_returns_reply_text(chrome_cdp, supervisor_re
             finally:
                 rd.cancel()
                 try: await rd
-                except BaseException: pass
+                except BaseException: pass  # nosec — task cancel, intentional
 
     value = asyncio.run(nav_and_read())
     assert value == "AGENT-SUPPLIED-REPLY", f"expected AGENT-SUPPLIED-REPLY, got {value!r}"

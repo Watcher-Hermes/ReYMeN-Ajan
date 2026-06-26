@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """3 Senaryo için hata tespit sürecini OnceHafiza'ya kaydet"""
-import sys
-sys.path.insert(0, r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi")
+import os, sys
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, _ROOT)
 from reymen.cereyan.once_hafiza import kaydet, ara
 
 # SENARYO 1 — Kod Hatası Düzeltme Süreci

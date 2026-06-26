@@ -14,12 +14,14 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+from _project_root import PROJECT_ROOT
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
 # ── Yollar ──────────────────────────────────────────────────────────────
 HERMES_DB = Path.home() / "AppData/Local/hermes/state.db"
-PROJE = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi")
+PROJE = Path(PROJECT_ROOT)
 REYMEN_DB = PROJE / ".reymen_hafiza" / "hafiza.db"
 NOTES_DIR = PROJE / ".ReYMeN" / "notes" / "sessions"
 MEMORIES_DIR = PROJE / ".ReYMeN" / "memories"

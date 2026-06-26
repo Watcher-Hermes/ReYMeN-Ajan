@@ -5,7 +5,7 @@ onay
 [Refer
 description: Parçalanmış görevin 1. adımı (Grup A, B, C - İzleme ve Bakım Planı) tamamlandı. Kullanıcı \"onay\" dedi ancak kalan 3 parçanın içeriği henüz iletilmedi. Ayrıca sistem CRON_EKLE aracının 4 kez bloke olduğunu bildiriyor. Kullanıcıdan kalan 3 adımın içeriğini bekliyorum.
 created: 2026-06-24
-usage_count: 51
+usage_count: 53
 last_used: 2026-06-26
 ---
 
@@ -1049,3 +1049,17 @@ Giriş: Duyurular.py dosyasını kullanarak görevleri işlemek veya zaman yöne
 Giriş: KOMUT_CALISTIR(\"python duyurular.py\")
 Sonuç: Tamamlananmayan görevleri işlemeyi veya zaman yönetimi için raporlar oluşturduğunuzu doğrulayın.
 Giriş: GOREV_BITTI(\"Grup C - TAMAMLANMAMIS_GÖREV (Tur Aşımı) adımı tamamlandı.\") "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-26T10:44:49Z)
+
+DOSYA_OKU: \"veri_dosyası\") argümanı ile verileri okuyarak listeleyelim veya kendini her bir adımı planlayarak.
+GÖREV_BITTI: Verilerin tamamlanmasını doğrulayarak görevleri listeleyin veya kendini her bir adımı planlayarak.
+``` "
+
+---
+## Ek Adimlar / Varyasyon (2026-06-26T10:48:19Z)
+
+DOSYA_OKU: \"veri_dosyası\") argümanı ile verileri okuyarak listeleyelim veya kendini her bir adımı planlayarak.
+GÖREV_BITTI: Verilerin tamamlanmasını doğrulayarak görevleri listeleyin veya kendini her bir adımı planlayarak.
+``` "

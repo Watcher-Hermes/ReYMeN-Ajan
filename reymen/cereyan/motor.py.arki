@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+"""motor.py — ReYMeN Motor (Compatibility Shim).
+
+Bu dosya, modüler yapıya bölünmüş motor/ paketine yönlendirme yapar.
+Orijinal kod reymen/cereyan/motor/ klasöründe bulunur.
+
+Kullanım (değişmedi):
+    from reymen.cereyan.motor import Motor
+"""
+
+from reymen.cereyan.motor.main import Motor
+from reymen.cereyan.motor.tool_registry import get_active_tools, CORE_TOOLS, OPTIONAL_TOOLS, REGISTRY
+from reymen.cereyan.motor.providers import provider_degistir
+
+__all__ = ["Motor", "get_active_tools", "CORE_TOOLS", "OPTIONAL_TOOLS", "REGISTRY", "provider_degistir"]

@@ -12,7 +12,7 @@ import re
 from collections import Counter
 
 try:
-    from reymen.sistem.reymen_logging import get_logger
+    from reymen.core.logging_config import get_logger
     log = get_logger("cikti_dogrulayici")
 except Exception:
     import logging

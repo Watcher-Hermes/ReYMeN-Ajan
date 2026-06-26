@@ -2,7 +2,8 @@
 """Kategorisiz kalan dosyalara 5N1K tablo ekle + frontmatter testi"""
 import os, glob, re
 
-skills_dir = r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills"
+_BASE = os.path.dirname(os.path.abspath(__file__))
+skills_dir = os.path.join(_BASE, "skills")
 
 # Klasor -> 5N1K haritasi
 KLASOR_SNK = {

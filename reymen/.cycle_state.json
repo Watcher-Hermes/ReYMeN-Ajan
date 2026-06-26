@@ -1,8 +1,8 @@
 {
-  "cycle_count": 4,
+  "cycle_count": 7,
   "last_cycle_type": "A",
-  "last_module": "guvenlik/tool_guardrails.py",
-  "last_change": "ENHANCEMENT: Added __repr__/__str__/reset()/riskli_arac_ekle()/riskli_arac_cikar() methods to ToolGuardrails; fixed Windows path traversal detection (added \\\\ check); deduplicated shell injection patterns (removed redundant &&, ||, ;\\s*, `.*`); replaced __import__('time').time() with imported _time",
+  "last_module": "core/cache_manager.py",
+  "last_change": "A: Added reymen.core.cache_manager — Thread-safe in-memory cache with TTL, LRU eviction, @cached decorator, global_cache singleton. Test: 3 assertions passed (basic CRUD, decorator cache_clear/cache_info, global_cache).",
   "next_cycle_type": "B",
-  "next_target": "guvenlik/tool_guardrails.py testini yaz — kontrolet(), _arac_kontrol(), _parametre_kontrol(), _shell_injection_kontrol(), yeni metodlar ve edge cases"
+  "next_target": "core/cache_manager.py"
 }

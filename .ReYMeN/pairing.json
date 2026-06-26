@@ -936,5 +936,26 @@
     "kod": "391574",
     "zaman": 1782377811.9874473,
     "dogrulandi": false
+  },
+  "454d4c35422344c69eafa8821121712c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "936237",
+    "zaman": 1782469439.0381134,
+    "dogrulandi": false
+  },
+  "e636468014c74539a232191f80536f96": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "411713",
+    "zaman": 1782469645.5601587,
+    "dogrulandi": false
+  },
+  "7f6df06128ee4edba6080dbe7ef17b2c": {
+    "cihaz_adi": "test-cihaz",
+    "platform": "telegram",
+    "kod": "913691",
+    "zaman": 1782470076.4625683,
+    "dogrulandi": false
   }
 }

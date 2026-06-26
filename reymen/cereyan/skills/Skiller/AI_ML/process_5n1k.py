@@ -17,7 +17,7 @@ import yaml
 import sys
 import time
 
-ROOT = r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills\Skiller\AI_ML"
+ROOT = os.path.dirname(os.path.abspath(__file__))
 
 FM_KEYS_COPY = frozenset({
     'name', 'description', 'title', 'version', 'phase', 'lesson', 'tags',

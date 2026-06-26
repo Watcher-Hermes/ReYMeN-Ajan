@@ -11,9 +11,11 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
+from _project_root import PROJECT_ROOT
+
 # Yollar
-SKILLS_DIR = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills")
-DB_PATH = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\.ReYMeN\ogrenmeler.db")
+SKILLS_DIR = Path(PROJECT_ROOT) / "reymen" / "cereyan" / "skills"
+DB_PATH = Path(PROJECT_ROOT) / "reymen" / "cereyan" / ".ReYMeN" / "ogrenmeler.db"
 
 def parse_frontmatter(content):
     """Markdown frontmatter'ını parse et"""

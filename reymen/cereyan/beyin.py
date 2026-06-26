@@ -119,7 +119,7 @@ def _guvensiz_import(modul_adi: str) -> Any:
 _credential_pool     = _guvensiz_import("credential_pool")
 _prompt_caching      = _guvensiz_import("prompt_caching")
 _nous_rate_guard     = _guvensiz_import("nous_rate_guard")
-_providers_registry  = _guvensiz_import("providers")
+from reymen.cereyan import providers as _providers_registry
 
 _POOL_AKTIF   = _credential_pool is not None
 _CACHE_AKTIF  = _prompt_caching  is not None
@@ -1385,3 +1385,5 @@ if __name__ == "__main__":
     b = Beyin(cfg)
     print("Fallback zinciri:", b._fallback_zinciri)
     print("LM Studio ping:", b.ping("lmstudio"))
+
+RuntimeProvider = Beyin  # noqa: E305 — alias for lazy import

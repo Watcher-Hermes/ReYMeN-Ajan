@@ -25,7 +25,7 @@ from typing import Optional, Dict, List, Tuple
 from datetime import datetime
 
 try:
-    from reymen.sistem.reymen_logging import get_logger
+    from reymen.core.logging_config import get_logger
     log = get_logger("auto_web_search")
 except Exception:
     import logging

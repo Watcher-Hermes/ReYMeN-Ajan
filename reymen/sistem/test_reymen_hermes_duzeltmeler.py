@@ -45,13 +45,13 @@ def main():
     # 1. Logging
     print("\n[1] Logging Sistemi")
     def t1():
-        from reymen.sistem.reymen_logging import get_logger, setup_logging
+        from reymen.core.logging_config import get_logger, setup_logging
         logger = get_logger("test")
         return logger is not None
     test("logging", "Import + get_logger", t1)
 
     def t1b():
-        from reymen.sistem.reymen_logging import get_logger
+        from reymen.core.logging_config import get_logger
         logger = get_logger("test2")
         logger.info("Test mesaji")
         return True

@@ -46,7 +46,7 @@ ml = [
 
 # CLI entry point
 [project.scripts]
-reymen = "reymen.sistem.cli:main"
+reymen = "reymen.sistem.main:main"
 
 # Hatchling build config
 [tool.hatch.build.targets.wheel]

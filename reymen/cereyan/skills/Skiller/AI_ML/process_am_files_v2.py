@@ -7,7 +7,7 @@ Restore each file from git first, then apply clean transformations.
 import os, re, yaml, subprocess, sys
 from pathlib import Path
 
-BASE = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills\Skiller\AI_ML")
+BASE = Path(os.path.dirname(os.path.abspath(__file__)))
 
 def get_am_files():
     files = []

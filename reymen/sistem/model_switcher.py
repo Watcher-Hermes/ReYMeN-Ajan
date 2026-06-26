@@ -28,7 +28,7 @@ from typing import Optional, Dict, List, Any, Tuple
 from datetime import datetime
 
 try:
-    from reymen.sistem.reymen_logging import get_logger
+    from reymen.core.logging_config import get_logger
     log = get_logger("model_switcher")
 except Exception:
     import logging

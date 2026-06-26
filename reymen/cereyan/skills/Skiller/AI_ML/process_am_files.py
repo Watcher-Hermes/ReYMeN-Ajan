@@ -13,7 +13,7 @@ import re
 import yaml
 from pathlib import Path
 
-BASE = Path(r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills\Skiller\AI_ML")
+BASE = Path(os.path.dirname(os.path.abspath(__file__)))
 
 
 def get_am_files():

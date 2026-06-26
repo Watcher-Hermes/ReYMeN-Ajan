@@ -2,14 +2,16 @@
 """Check remaining unclassified DBs"""
 import sqlite3, os
 
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 DBS = {
-    'kanban.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\.ReYMeN\kanban.db',
-    'memory_fts.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\.ReYMeN\memory_fts.db',
-    'session.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\.ReYMeN\session.db',
-    'skill_index.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\.ReYMeN\skill_index.db',
-    'steering.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\.reymen_hafiza\steering.db',
-    'hatalar.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\hafiza\hatalar.db',
-    'ogrenme.db': r'C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\hafiza\ogrenme.db',
+    'kanban.db': os.path.join(_ROOT, '.ReYMeN', 'kanban.db'),
+    'memory_fts.db': os.path.join(_ROOT, '.ReYMeN', 'memory_fts.db'),
+    'session.db': os.path.join(_ROOT, '.ReYMeN', 'session.db'),
+    'skill_index.db': os.path.join(_ROOT, '.ReYMeN', 'skill_index.db'),
+    'steering.db': os.path.join(_ROOT, 'reymen', 'cereyan', '.reymen_hafiza', 'steering.db'),
+    'hatalar.db': os.path.join(_ROOT, 'reymen', 'hafiza', 'hatalar.db'),
+    'ogrenme.db': os.path.join(_ROOT, 'reymen', 'hafiza', 'ogrenme.db'),
     'state.db': r'C:\Users\marko\AppData\Local\hermes\profiles\reymen\state.db',
 }
 
