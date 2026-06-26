@@ -152,3 +152,9 @@ Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bi
 - **Nasil:** Her kategori aciklamasiyla birlikte `tree` formatinda listelendi
 - **Neden:** Kullanici "anlasilir olsun" dedi — Paşa_38 bot ekrani referans alindi
 - **Kalan:** skill_finalize.py calisti ama 541 kopyalanan .md dosyasi gorunmuyor (arastirilacak)
+
+## 77. Hermes skill'leri Skiller/ altina geri alindi (26 June)
+- **Sorun:** skill_finalize.py proje/skills/ altini temizlerken ~5000 Hermes skill kayboldu
+- **Cozum:** Git'ten geri alindi (checkout 294621d7 -- skills/) + skill_birlestir.py ile Skiller/ altina kopyalandi
+- **Sonuc:** Skiller/ = 2,948 skill ✅ (1,815 yeni eklendi, 721 zaten vardi)
+- **Guvence:** skills/ (proje) ve skills_yeni/ yedek olarak duruyor
