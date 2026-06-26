@@ -695,6 +695,10 @@ class AIAgentOrchestrator:
             "fiyat", "fiyatı", "fiyati", "kur", "dolar", "euro", "altın", "altin",
             "bitcoin", "borsa", "hava", "haber", "deprem", "maç", "skor",
             "kaç tl", "kac tl", "ne kadar", "güncel", "bugün", "şimdi",
+            "ons", "değer", "değeri", "degeri", "gram", "çeyrek", "ceyrek",
+            "yarım", "yarim", "cumhuriyet", "ziynet", "has altın", "has altin",
+            "anket", "sonuç", "sonuc", "canlı", "canli", "döviz", "doviz",
+            "endeks", "faiz", "enflasyon", "hisse", "para",
         ]
         _guncel_sorgu = any(k in _h for k in _GUNCEL_KELIMELER)
 

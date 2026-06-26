@@ -48,6 +48,11 @@ class AutoWebSearch:
         "döviz", "doviz", "borsa", "bist", "bitcoin",
         "altın", "altin", "gümüş", "gumus",
         "deprem", "earthquake", "weather",
+        "ons", "değer", "değeri", "degeri", "gram",
+        "çeyrek", "ceyrek", "yarım", "yarim",
+        "cumhuriyet", "ziynet", "canlı", "canli",
+        "endeks", "faiz", "enflasyon", "hisse", "para",
+        "kripto", "coin", "eth", "bnb",
     ]
 
     # Soru kelimeleri (bilgi gerektiren)
