@@ -5,19 +5,21 @@ haber_kaynaklari.py — Güncel haber/bilgi kaynak yönlendirici.
 ReYMeN'in hangi konuda hangi siteyi kullanacağını belirler.
 Web araması yaparken bu kaynakları öncelikli kullan.
 
+Strateji: Reuters/AP ile başla (ham bilgi), Ground News ile karşılaştır (bias),
+Foreign Affairs ile haftalık perspektif al, bölgesel kaynaklarla derinleş.
+
 KULLANIM:
     from reymen.arac.haber_kaynaklari import kaynak_sec, KAYNAK_OZETI
 
-    # Sorguya uygun kaynağı bul
-    kaynak = kaynak_sec("gram altın ne kadar")
-    # → "https://www.haremaltin.com"
+    kaynak = kaynak_sec("ukrayna savaşı analiz")
+    # → {"birincil": "https://www.reuters.com", ...}
 
-    # Sistem prompt'una eklemek için özet
-    ozet = KAYNAK_OZETI  # tüm kaynakların listesi
+    ozet = KAYNAK_OZETI  # sistem prompt'una eklemek için
 """
 
 # ── Kategori → Kaynak haritası ──────────────────────────────────────────────
-# Her kategori için: (anahtar_kelimeler, öncelikli_siteler, açıklama)
+# Tetikleyici = sorguda bu kelime varsa bu kategori seçilir
+# Birincil = ilk denenir, yedekler = sırayla denenir
 
 KAYNAK_HARITASI = {
     "altin_finans": {
@@ -35,7 +37,7 @@ KAYNAK_HARITASI = {
     },
     "spor": {
         "tetikleyiciler": [
-            "spor", "maç", "mac", "skor", "sonuç", "sonuc",
+            "spor", "maç", "mac", "skor",
             "futbol", "basketbol", "voleybol", "tenis",
             "lig", "şampiyon", "sampiyon", "transfer",
             "galatasaray", "fenerbahçe", "beşiktaş", "trabzon",
@@ -51,15 +53,55 @@ KAYNAK_HARITASI = {
             "siyaset", "politika", "seçim", "secim",
             "cumhurbaşkanı", "cumhurbaskani", "başbakan", "bakan",
             "meclis", "parti", "muhalefet", "iktidar",
-            "oylama", "kanun", "yasa", "karar",
-            "ankara", "genelkurmay",
+            "oylama", "kanun", "yasa", "kararname",
+            "ankara", "genelkurmay", "hükümet", "hukumet",
+            "milletvekili", "belediye", "anayasa",
+            # Siyasi bağlam
+            "siyasi analiz", "seçim anketi", "anket sonucu",
+            "muhalefet lideri", "iktidar partisi",
         ],
-        "birincil": "https://www.bbc.com/turkce",
+        "birincil": "https://www.reuters.com/world",
         "yedekler": [
+            "https://apnews.com/hub/politics",
+            "https://www.bbc.com/news/world",
+            "https://www.bbc.com/turkce",
             "https://www.dw.com/tr",
             "https://tr.euronews.com",
         ],
-        "aciklama": "Siyaset haberleri (BBC Türkçe + DW + Euronews)",
+        "aciklama": "Siyaset haberleri (Reuters + AP + BBC + Ground News)",
+        "bias_karsilastir": "https://ground.news",
+    },
+    "analiz_siyaset": {
+        "tetikleyiciler": [
+            "analiz", "jeopolitik", "jeopolitika",
+            "strateji", "stratejik", "küresel politika",
+            "dış politika analiz", "uluslararası ilişkiler",
+            "foreign affairs", "foreign policy", "economist",
+            "derin analiz", "büyük resim", "haftalık değerlendirme",
+            "savaş analizi", "kriz analizi",
+        ],
+        "birincil": "https://www.foreignaffairs.com",
+        "yedekler": [
+            "https://foreignpolicy.com",
+            "https://www.economist.com",
+        ],
+        "aciklama": "Derin siyasi analiz (Foreign Affairs + FP + Economist)",
+    },
+    "bolgesel_haber": {
+        "tetikleyiciler": [
+            "orta doğu", "ortadogu", "middle east",
+            "balkan", "balkanlar", "doğu avrupa",
+            "afrika", "kuzey afrika",
+            "asya pasifik", "güney asya",
+            "latin amerika", "orta asya",
+            "kafkasya", "körfez",
+        ],
+        "birincil": "https://www.middleeasteye.net",
+        "yedekler": [
+            "https://balkaninsight.com",
+            "https://www.theafricareport.com",
+        ],
+        "aciklama": "Bölgesel haberler (Middle East Eye + Balkan Insight + Africa Report)",
     },
     "ekonomi": {
         "tetikleyiciler": [
@@ -94,22 +136,78 @@ KAYNAK_HARITASI = {
         ],
         "aciklama": "Dünya haberleri (Reuters + BBC + Al Jazeera)",
     },
-    "teknoloji_yapay_zeka": {
+    "teknoloji_genel": {
+        "tetikleyiciler": [
+            "teknoloji", "startup", "girişim", "donanım", "donanim",
+            "yazılım", "yazilim", "uygulama", "mobil", "ios", "android",
+            "bilgisayar", "laptop", "telefon", "ekran", "işlemci",
+            "sosyal medya", "instagram", "twitter", "tiktok",
+            "webtekno", "chip online",
+            "iphone", "ipad", "macbook", "apple", "samsung", "xiaomi",
+        ],
+        "birincil": "https://www.theverge.com",
+        "yedekler": [
+            "https://arstechnica.com",
+            "https://techcrunch.com",
+            "https://www.wired.com",
+        ],
+        "aciklama": "Genel teknoloji haberleri (The Verge + Ars + TechCrunch + Wired)",
+    },
+    "yapay_zeka": {
         "tetikleyiciler": [
             "yapay zeka", "yapay-zeka", "ai", "artificial intelligence",
             "derin öğrenme", "makine öğrenmesi",
             "chatgpt", "gpt", "claude", "gemini", "copilot",
             "llm", "dil modeli", "büyük dil modeli",
-            "teknoloji", "yazılım", "yazilim", "uygulama",
-            "siber", "güvenlik", "guvenlik", "hack",
-            "robot", "otomasyon", "donanım", "donanim",
             "yapay-zeka haber", "yapay zeka gelişme",
             "openai", "anthropic", "deepseek", "meta ai",
             "yapay zeka son", "yapay zeka güncel",
+            "mit technology review",
+            "import ai", "hugging face",
         ],
-        "birincil": "https://techcrunch.com",
-        "yedek": "https://www.theverge.com/ai-artificial-intelligence",
-        "aciklama": "Teknoloji ve yapay zeka haberleri",
+        "birincil": "https://www.technologyreview.com",
+        "yedekler": [
+            "https://huggingface.co/blog",
+            "https://arstechnica.com/ai",
+        ],
+        "aciklama": "Yapay zeka haberleri (MIT Tech Review + Hugging Face)",
+        "ek_kaynaklar": {
+            "bulten": "Import AI (Jack Clark) — haftalık AI sektör bülteni",
+            "turkce": "Şifre Çözücü (Barış Erkol) — AI ve teknoloji bülteni",
+        },
+    },
+    "siber_guvenlik": {
+        "tetikleyiciler": [
+            "siber", "güvenlik", "guvenlik",
+            "saldırı", "saldiri", "virüs", "virus", "zararlı",
+            "güvenlik açığı", "guvenlik acigi", "zero day",
+            "veri sızıntısı", "veri ihlali",
+            "firewall", "antivirüs", "şifreleme", "sifreleme",
+            "exploit", "botnet", "ddos", "malware",
+            "ransomware", "fidye", "phishing", "oltalama",
+        ],
+        "birincil": "https://krebsonsecurity.com",
+        "yedekler": [
+            "https://www.darkreading.com",
+        ],
+        "aciklama": "Siber güvenlik haberleri (Krebs + Dark Reading)",
+    },
+    "teknoloji_haber": {
+        "tetikleyiciler": [
+            "teknoloji haber", "teknoloji gündem",
+            "big tech", "google", "apple", "microsoft", "meta",
+            "amazon", "nvidia", "intel", "samsung",
+            "hacker news", "techmeme",
+            "bloomberg teknoloji",
+            "hacker",
+        ],
+        "birincil": "https://news.ycombinator.com",
+        "yedekler": [
+            "https://techmeme.com",
+            "https://www.bloomberg.com/technology",
+            "https://www.theinformation.com",
+        ],
+        "aciklama": "Teknoloji gündemi (Hacker News + Techmeme + Bloomberg Tech)",
     },
     "saglik": {
         "tetikleyiciler": [
@@ -118,10 +216,22 @@ KAYNAK_HARITASI = {
             "virüs", "virus", "salgın", "salgin",
             "korona", "covid", "obezite", "diyabet",
             "kanser", "kalp", "beyin", "psikoloji",
+            "pandemi", "biyoteknoloji", "gen",
+            "elektronik sigara", "vaping",
+            "biyolojik yaşlanma", "yaşlanma",
         ],
-        "birincil": "https://www.medicalnewstoday.com",
-        "yedek": "https://www.webmd.com",
-        "aciklama": "Sağlık haberleri",
+        "birincil": "https://www.statnews.com",
+        "yedekler": [
+            "https://www.who.int/news-room",
+            "https://www.nejm.org",
+            "https://www.thelancet.com",
+        ],
+        "turkce_kaynaklar": [
+            "https://www.gazeteoksijen.com/saglik",
+            "https://www.medimagazin.com.tr",
+            "https://www.aa.com.tr/tr/saglik",
+        ],
+        "aciklama": "Sağlık haberleri (Stat News + WHO + NEJM + Lancet + Oksijen)",
     },
     "bilim_teknoloji": {
         "tetikleyiciler": [
@@ -163,22 +273,33 @@ KAYNAK_HARITASI = {
     },
 }
 
-# ── Öncelik sırası (en sık kullanılandan en seyrek) ─────────────────────────
+# ── Öncelik sırası ───────────────────────────────────────────────────────────
 KATEGORI_SIRASI = [
+    "analiz_siyaset", "bolgesel_haber",
     "ekonomi", "altin_finans", "spor", "dunya", "siyaset",
-    "teknoloji_yapay_zeka", "bilim_teknoloji", "saglik",
-    "kultur_sanat", "genel_haber",
+    "saglik", "siber_guvenlik",
+    "yapay_zeka", "teknoloji_genel", "teknoloji_haber",
+    "bilim_teknoloji", "kultur_sanat", "genel_haber",
 ]
 
 # ── Sistem prompt özeti (LLM'e verilecek) ────────────────────────────────────
 KAYNAK_OZETI = """GÜNCEL BİLGİ KAYNAKLARI:
 - Altın/Döviz → haremaltin.com
 - Spor → ntvspor.net
-- Dünya Haberleri → reuters.com / bbc.com/news / aljazeera.com
-- Türkçe Dünya/Siyaset → bbc.com/turkce / dw.com/tr / tr.euronews.com
+- Dünya Haberleri → reuters.com / apnews.com / bbc.com/news / aljazeera.com
+- Siyaset (Türkçe) → bbc.com/turkce / dw.com/tr / tr.euronews.com
+- Derin Analiz → foreignaffairs.com / foreignpolicy.com / economist.com
+- Bölgesel → middleeasteye.net / balkaninsight.com / theafricareport.com
 - Ekonomi → bloomberght.com
-- Yapay Zeka/Teknoloji → techcrunch.com / theverge.com
-- Genel Haber → bbc.com/turkce / ntv.com.tr
+- Genel Teknoloji → theverge.com / arstechnica.com / techcrunch.com / wired.com
+- Yapay Zeka → technologyreview.com / huggingface.co/blog
+- Siber Güvenlik → krebsonsecurity.com / darkreading.com
+- Teknoloji Gündemi → news.ycombinator.com / techmeme.com
+- Sağlık → statnews.com / who.int / nejm.org / thelancet.com
+- Sağlık (Türkçe) → gazeteoksijen.com/saglik / medimagazin.com.tr / aa.com.tr
+- Bilim → nature.com / science.org
+- Genel Haber → ntv.com.tr
+Bias karşılaştırma için: ground.news
 Güncel bilgi sorularında WEB_ARA aracını kullan."""
 
 
@@ -190,7 +311,8 @@ def kaynak_sec(sorgu: str) -> dict:
         sorgu: Kullanıcı sorusu
 
     Returns:
-        {"kategori": "...", "birincil": "...", "yedek": "...", "aciklama": "..."}
+        {"kategori": "...", "birincil": "...", "yedekler": [...],
+         "aciklama": "...", "bias_karsilastir": "..."}
         veya boş dict (eşleşme yoksa)
     """
     if not sorgu:
@@ -198,7 +320,6 @@ def kaynak_sec(sorgu: str) -> dict:
 
     sorgu_lower = sorgu.lower()
 
-    # En spesifikten en genele doğru tara
     for kategori_adi in KATEGORI_SIRASI:
         kategori = KAYNAK_HARITASI.get(kategori_adi)
         if not kategori:
@@ -209,12 +330,19 @@ def kaynak_sec(sorgu: str) -> dict:
                 yedekler = kategori.get("yedekler") or (
                     [kategori["yedek"]] if kategori.get("yedek") else []
                 )
-                return {
+                sonuc = {
                     "kategori": kategori_adi,
                     "birincil": kategori["birincil"],
                     "yedekler": yedekler,
                     "aciklama": kategori["aciklama"],
                 }
+                bias = kategori.get("bias_karsilastir")
+                if bias:
+                    sonuc["bias_karsilastir"] = bias
+                turkce = kategori.get("turkce_kaynaklar")
+                if turkce:
+                    sonuc["turkce_kaynaklar"] = turkce
+                return sonuc
 
     return {}
 
@@ -224,9 +352,8 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
     Kaynak öncelikli web araması yapar.
 
     1. Sorguya uygun kaynak bul
-    2. Varsa o kaynağı doğrudan web_icerik_al ile oku
-    3. Birincil başarısızsa sırayla yedekleri dene
-    4. Hiçbiri çalışmazsa genel web_ara kullan
+    2. Birincili dene, başarısızsa sırayla yedekleri dene
+    3. Hiçbiri çalışmazsa genel web_ara kullan
 
     Args:
         sorgu: Arama sorgusu
@@ -240,7 +367,6 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
     kaynak = kaynak_sec(sorgu)
 
     if kaynak and kaynak.get("birincil"):
-        # Önce birincil kaynağı dene
         birincil_url = kaynak["birincil"]
         try:
             icerik = web_icerik_al(birincil_url, max_karakter=4000)
@@ -249,7 +375,6 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
         except Exception:
             pass
 
-        # Birincil başarısız → sırayla yedekleri dene
         for yedek_url in kaynak.get("yedekler", []):
             try:
                 icerik = web_icerik_al(yedek_url, max_karakter=4000)
@@ -258,7 +383,15 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
             except Exception:
                 continue
 
-        # Tüm kaynaklar başarısız → genel arama
+        # Türkçe kaynakları dene
+        for tr_url in kaynak.get("turkce_kaynaklar", []):
+            try:
+                icerik = web_icerik_al(tr_url, max_karakter=4000)
+                if icerik and "Icerik alinamadi" not in icerik:
+                    return f"[{kaynak['aciklama']} → Türkçe ({tr_url})]\n\n{icerik}"
+            except Exception:
+                continue
+
         try:
             genel_sonuc = web_ara(f"{sorgu} {kaynak['aciklama']}", adet=limit)
             if genel_sonuc:
@@ -266,32 +399,72 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
         except Exception:
             pass
 
-    # Hiçbir kaynak eşleşmedi → genel web araması
     return web_ara(sorgu, adet=limit)
+
+
+def bias_karsilastir(sorgu: str) -> dict:
+    """
+    Aynı haberi farklı siyasi perspektiflerden karşılaştırmak için
+    Ground News linki üretir.
+
+    Args:
+        sorgu: Haber sorgusu
+
+    Returns:
+        {"ground_news": "https://ground.news/search/...",
+         "kategori": "...", "birincil": "..."}
+    """
+    from urllib.parse import quote
+
+    kaynak = kaynak_sec(sorgu)
+    ground_url = f"https://ground.news/search/{quote(sorgu)}"
+
+    sonuc = {"ground_news": ground_url}
+    if kaynak:
+        sonuc["kategori"] = kaynak["kategori"]
+        sonuc["birincil"] = kaynak["birincil"]
+        bias = kaynak.get("bias_karsilastir")
+        if bias:
+            sonuc["bias_karsilastir"] = bias
+
+    return sonuc
 
 
 def kaynak_tavsiyesi(sorgu: str) -> str:
     """Sorgu için önerilen kaynağı döndürür (tek satır)."""
     kaynak = kaynak_sec(sorgu)
     if kaynak:
-        return f"🔍 {kaynak['aciklama']}: {kaynak['birincil']}"
+        base = f"🔍 {kaynak['aciklama']}: {kaynak['birincil']}"
+        bias = kaynak.get("bias_karsilastir")
+        if bias:
+            base += f" | Bias karşılaştırma: {bias}"
+        return base
     return "🔍 Genel web araması"
 
 
 if __name__ == "__main__":
-    # Test
     test_sorgular = [
         "gram altın ne kadar",
-        "bugünkü maç sonuçları",
+        "galatasaray maçı",
+        "ukrayna savaşı analiz",
         "son dakika siyaset haberi",
-        "enflasyon oranı ne kadar",
+        "orta doğu haberleri",
+        "enflasyon oranı",
         "dünya gündemi",
         "yapay zeka son gelişmeler",
+        "foreign affairs analiz",
+        "balkan haberleri",
         "bugün haberler",
     ]
+    print(f"{'SORGU':40s} {'KATEGORI':25s} KAYNAK")
+    print("-" * 100)
     for s in test_sorgular:
         k = kaynak_sec(s)
         if k:
-            print(f"{s:40s} → {k['aciklama']}: {k['birincil']}")
+            yedek_sayisi = len(k.get("yedekler", []))
+            bias = " [bias karşılaştırma]" if k.get("bias_karsilastir") else ""
+            print(f"{s:40s} {k['kategori']:25s} {k['birincil']}{bias}")
+            if yedek_sayisi > 0:
+                print(f"{'':40s} {'':25s} 🔄 {yedek_sayisi} yedek")
         else:
-            print(f"{s:40s} → Genel web araması")
+            print(f"{s:40s} {'(eslesme yok)':25s}")
