@@ -27,6 +27,8 @@ def _g(t):  return f"{_G}{t}{_S}"
 def _kg(t): return f"{_KG}{_B}{t}{_S}"
 def _d(t):  return f"{_D}{t}{_S}"
 def _gb(t): return f"{_G}{_B}{t}{_S}"
+_KR = "\033[91m"  # Kirmizi
+def _kr(t): return f"{_KR}{_B}{t}{_S}"
 
 
 # ── Logo ──────────────────────────────────────────────────────────────────────
@@ -378,7 +380,17 @@ def model_sec(agent=None) -> bool:
         print()
         for i, (prov, mod, goster) in enumerate(tum_modeller, 1):
             isaret = _g("->") if (mod == mevcut_model and prov == mevcut_provider) else "  "
-            print(f"  {isaret} [{i}] {_d(goster)}  {mod}")
+            # Durum sembolu: 401 (key yok), 402 (kredi yok), OK
+            if prov in ("lmstudio", "ollama"):
+                durum_sembol = _g("✓")
+            else:
+                prov_conf = cfg.get("providers", {}).get(prov, {}) if agent else {}
+                api_key = prov_conf.get("api_key", "") or _os.environ.get(f"{prov.upper()}_API_KEY", "")
+                if not api_key or api_key.startswith("***"):
+                    durum_sembol = _kr("401")
+                else:
+                    durum_sembol = _d("?")
+            print(f"  {isaret} [{i}] {durum_sembol} {_d(goster)}  {mod}")
 
         print()
         try:
@@ -407,8 +419,21 @@ def model_sec(agent=None) -> bool:
                     cfg = {}
                 basarili, hata = _provider_kontrol_et(yeni_prov, yeni_mod, cfg)
                 if not basarili:
-                    print(f"  {_kg('HATA:')} {hata}")
-                    print(f"  {_d('Lutfen baska bir model secin veya ENTER ile gecin.')}")
+                    # Kisa hata kodu: 401 / 402 / ?
+                    if "401" in hata:
+                        hata_kod = _kr("401")
+                        hata_ozet = "API key gecersiz"
+                    elif "402" in hata or "KREDI" in hata:
+                        hata_kod = _kr("402")
+                        hata_ozet = "Kredi yetersiz"
+                    elif "anahtari bulunamadi" in hata:
+                        hata_kod = _kr("401")
+                        hata_ozet = "API key eksik"
+                    else:
+                        hata_kod = _kr("???")
+                        hata_ozet = hata[:40]
+                    print(f"  {hata_kod} {hata_ozet}")
+                    print(f"  {_d('Tekrar secin veya ENTER ile gecin.')}")
                     print()
                     continue  # Menuyu tekrar goster
 
