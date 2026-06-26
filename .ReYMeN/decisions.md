@@ -168,3 +168,21 @@ Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bi
 - **Neden:** Tüm skill'ler tek kaynakta toplansın. Hermes skills_list() bu dizini okur.
 - **İkilik:** Sıfırlandı ✅ — Hermes skills/ = 8,822 dosya tek kaynak
 - **Eski Skiller/:** Diskten silinmedi (yedek olarak duruyor, gereksizse silinecek)
+
+## ⚠️ Drift Tespiti — duplicate_module_detector.py
+
+**Tarih:** $(date '+%Y-%m-%d %H:%M:%S')
+**Kaynak:** cron — `scripts/duplicate_module_detector.py`
+**Durum:** ❌ 162 drift bulundu (exit code 1)
+
+### Yapılan
+- `scripts/duplicate_module_detector.py` çalıştırıldı
+- 162 modülde drift tespit edildi (kök → reymen/agent/tests/tools altındaki ikiz dosyalar arasında fonksiyon eksiklikleri)
+
+### Neden
+- Projede dağınık dosya yapısı: aynı modül adı birden çok yerde (kök, `agent/`, `reymen/`, `tools/`, `tests/`)
+- Farklı branşlardaki geliştirmeler senkronize edilmemiş
+
+### Öneri
+- Ortak modülleri tek bir kaynakta (`reymen/`) toplayıp diğer konumlara symlink/proxy koy
+- Periyodik drift kontrolü (cron) devam etsin
