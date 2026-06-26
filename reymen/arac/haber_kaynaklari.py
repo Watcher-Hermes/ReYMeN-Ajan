@@ -383,11 +383,15 @@ def kaynak_sec(sorgu: str) -> dict:
 
 def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
     """
-    Kaynak öncelikli web araması yapar.
+    Kaynak öncelikli web araması — 5 aşamalı strateji.
 
-    1. Sorguya uygun kaynak bul
-    2. Birincili dene, başarısızsa sırayla yedekleri dene
-    3. Hiçbiri çalışmazsa genel web_ara kullan
+    SIRA:
+    1. BİRİNCİL — direkt içerik çek (en hızlı, en güncel)
+    2. YEDEKLER — sırayla dene (birincil aynı kategorideki diğer kaynaklar)
+    3. TÜRKÇE — varsa Türkçe kaynakları dene
+    4. FİNANS ALT — kripto gibi alt sayfalar (bloomberg/investing crypto)
+    5. HAYALET — direkt erişilemeyen kaynaklar için site: ile DuckDuckGo
+    6. GENEL — son çare DuckDuckGo
 
     Args:
         sorgu: Arama sorgusu
@@ -400,48 +404,54 @@ def kaynakli_web_ara(sorgu: str, limit: int = 5) -> str:
 
     kaynak = kaynak_sec(sorgu)
 
-    if kaynak and kaynak.get("birincil"):
-        birincil_url = kaynak["birincil"]
+    if not (kaynak and kaynak.get("birincil")):
+        return web_ara(sorgu, adet=limit)
+
+    # ADIM 1-4: Doğrudan içerik çekme (hızlı yol)
+    _tum_urls = []
+
+    # 1. Birincil
+    _tum_urls.append(("birincil", kaynak["birincil"]))
+
+    # 2. Yedekler
+    for yedek in kaynak.get("yedekler", []):
+        _tum_urls.append(("yedek", yedek))
+
+    # 3. Türkçe
+    for tr in kaynak.get("turkce_kaynaklar", []):
+        _tum_urls.append(("türkçe", tr))
+
+    # 4. Finans alt
+    for fi in kaynak.get("finans_icinde", []):
+        _tum_urls.append(("finans", fi))
+
+    for etiket, url in _tum_urls:
         try:
-            icerik = web_icerik_al(birincil_url, max_karakter=4000)
+            icerik = web_icerik_al(url, max_karakter=4000)
             if icerik and "Icerik alinamadi" not in icerik:
-                return f"[{kaynak['aciklama']} ({birincil_url})]\n\n{icerik}"
+                return f"[{kaynak['aciklama']} — {etiket} ({url})]\n\n{icerik}"
         except Exception:
-            pass
+            continue
 
-        for yedek_url in kaynak.get("yedekler", []):
-            try:
-                icerik = web_icerik_al(yedek_url, max_karakter=4000)
-                if icerik and "Icerik alinamadi" not in icerik:
-                    return f"[{kaynak['aciklama']} → yedek ({yedek_url})]\n\n{icerik}"
-            except Exception:
-                continue
+    # ADIM 5: Hayalet arama — site: ile DuckDuckGo
+    # (paywall/bot engeli olan kaynaklar için)
+    _kaynak_siteler = [
+        kaynak["birincil"].replace("https://www.", "").replace("https://", "").rstrip("/").split("/")[0]
+    ]
+    for yedek in kaynak.get("yedekler", []):
+        site = yedek.replace("https://www.", "").replace("https://", "").rstrip("/").split("/")[0]
+        if site not in _kaynak_siteler:
+            _kaynak_siteler.append(site)
 
-        # Türkçe kaynakları dene
-        for tr_url in kaynak.get("turkce_kaynaklar", []):
-            try:
-                icerik = web_icerik_al(tr_url, max_karakter=4000)
-                if icerik and "Icerik alinamadi" not in icerik:
-                    return f"[{kaynak['aciklama']} → Türkçe ({tr_url})]\n\n{icerik}"
-            except Exception:
-                continue
-
-        # Finans içi kripto sayfalarını dene
-        for fi_url in kaynak.get("finans_icinde", []):
-            try:
-                icerik = web_icerik_al(fi_url, max_karakter=4000)
-                if icerik and "Icerik alinamadi" not in icerik:
-                    return f"[{kaynak['aciklama']} → finans ({fi_url})]\n\n{icerik}"
-            except Exception:
-                continue
-
+    for site in _kaynak_siteler[:3]:  # en fazla 3 site
         try:
-            genel_sonuc = web_ara(f"{sorgu} {kaynak['aciklama']}", adet=limit)
-            if genel_sonuc:
-                return genel_sonuc
+            hayalet_sonuc = web_ara(f"site:{site} {sorgu}", adet=3)
+            if hayalet_sonuc and len(hayalet_sonuc) > 50:
+                return f"[{kaynak['aciklama']} — site:{site} araması]\n\n{hayalet_sonuc}"
         except Exception:
-            pass
+            continue
 
+    # ADIM 6: Genel DuckDuckGo (son çare)
     return web_ara(sorgu, adet=limit)
 
 
