@@ -61,10 +61,15 @@ except Exception:
 
 # ── Merkezi logging (tüm main.py blokları tarafından kullanılır) ──────────────
 try:
-    from reymen.sistem.reymen_logging import get_logger
+    from reymen.sistem.ReYMeN_logging import get_logger
     log = get_logger("main")
 except ImportError:
-    log = logging.getLogger("main") if hasattr(logging, 'getLogger') else _startup_log.getLogger("main")
+    try:
+        from reymen.core.logging_config import get_logger
+        log = get_logger("main")
+    except ImportError:
+        import logging as _fallback_log
+        log = _fallback_log.getLogger("main")
 # ─────────────────────────────────────────────────────────────────────────────
 
 # --- CORE (Lazy Import) ---
@@ -1521,7 +1526,8 @@ class AIAgentOrchestrator:
             pass
 
 
-if __name__ == "__main__":
+
+def main() -> None:
     # Windows konsolunda UTF-8 karakterlerin dogru yazilmasi icin.
     # Burada yapilmali: modul import edildiginde (reymen/__init__ uzerinden) degil.
     import io as _io
@@ -1799,3 +1805,6 @@ if __name__ == "__main__":
             continue
 
         agent.run_conversation(hedef)
+
+if __name__ == "__main__":
+    main()
