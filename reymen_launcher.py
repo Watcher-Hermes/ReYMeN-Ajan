@@ -155,7 +155,7 @@ def _tek_kontrol(prov, url, env_var, sonuclar, kilid):
     key = os.environ.get(env_var, "").strip()
     if not key:
         with kilid:
-            sonuclar[prov] = None
+            sonuclar[prov] = "401"  # key yok
         return
     try:
         req = urllib.request.Request(
@@ -169,8 +169,10 @@ def _tek_kontrol(prov, url, env_var, sonuclar, kilid):
             else:
                 ok = True
     except urllib.error.HTTPError as e:
-        if e.code in (401, 402):
-            ok = False
+        if e.code == 401:
+            ok = "401"  # API key gecersiz
+        elif e.code == 402:
+            ok = "402"  # kredi yetersiz
         else:
             ok = None
     except Exception:
@@ -203,8 +205,10 @@ def _api_ikon(prov, api_d):
     if prov == "lmstudio":
         return _d("--")
     d = api_d.get(prov)
-    if d is True:  return _g("✓")
-    if d is False: return _r("✗")
+    if d is True:     return _g("✓")
+    if d == "401":    return _r("401")
+    if d == "402":    return _r("402")
+    if d is False:    return _r("✗")
     return _y("?")
 
 def _model_adi(prov, model):
@@ -301,8 +305,12 @@ def _model_sec(api_d=None, force=False):
         ikon  = _api_ikon(prov, api_d)
         durum = api_d.get(prov)
         uyari = ""
-        if durum is False:
-            uyari = f" {_y('[kredi bitmis, fallback devrede]')}"
+        if durum == "402":
+            uyari = f" {_r('[402]')}"
+        elif durum == "401":
+            uyari = f" {_r('[401]')}"
+        elif durum is False:
+            uyari = f" {_y('[hata]')}"
         print(f"  {isk} [{_cb(str(i))}] {ikon} {_g(ad):<26} {_d(mod)}{uyari}")
     print()
     try:
@@ -500,8 +508,14 @@ def main():
             break  # API key geçerli, devam
 
         # 3. Hata durumunda uyarı göster ve döngüye devam
-        if durum is False:
-            print(f"  {_r('✗')} {_b(cur_p)}: API anahtarı geçersiz veya kredi yetersiz.")
+        if durum == "401":
+            print(f"  {_r('401')} {_b(cur_p)}: API anahtarı geçersiz veya eksik.")
+            print(f"  {_d('Başka bir model seçin.')}\n")
+        elif durum == "402":
+            print(f"  {_r('402')} {_b(cur_p)}: Kredi yetersiz.")
+            print(f"  {_d('Bakiye yükleyin veya başka model seçin.')}\n")
+        elif durum is False:
+            print(f"  {_r('✗')} {_b(cur_p)}: API hatası.")
             print(f"  {_d('Başka bir model seçin.')}\n")
         else:
             print(f"  {_y('?')} {_b(cur_p)}: API kontrol edilemedi (zaman aşımı).")
