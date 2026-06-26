@@ -1,47 +1,94 @@
 [build-system]
-requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "reymen-agent"
 version = "0.1.0"
-description = "ReYMeN Agent — Otonom AI asistan ve ajan sistemi"
+description = "ReYMeN Agent — Otonom AI asistan, hafıza destekli multi-provider ajan sistemi"
 readme = "README.md"
-license = {text = "MIT"}
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
-keywords = ["ai-agent", "telegram-bot", "automation", "hermes"]
+keywords = ["ai-agent", "telegram-bot", "automation", "hermes", "multi-provider"]
 authors = [
-    {name = "Marko/Q!"},
+    { name = "Marko/Q!", email = "reymen@example.com" },
 ]
 
-dynamic = ["dependencies"]
+# Ana bağımlılıklar (requirements.txt'den toplanmış)
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
+    "playwright>=1.40.0",
+]
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+# Geliştirici bağımlılıkları
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+ocr = [
+    "easyocr>=1.7.0",
+]
+web = [
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+]
+image = [
+    "pillow>=10.0.0",
+    "fal-client>=0.4.0",
+]
+ml = [
+    "numpy>=1.24.0",
+]
 
-[tool.setuptools.packages.find]
-include = ["reymen*", "ReYMeN_cli*"]
+# CLI entry point
+[project.scripts]
+reymen = "reymen.sistem.cli:main"
 
+# Hatchling build config
+[tool.hatch.build.targets.wheel]
+packages = ["reymen", "ReYMeN_cli"]
+
+# Ruff (linter + formatter)
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]  # line-too-long (zaten 100 var)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# Pytest
 [tool.pytest.ini_options]
 minversion = "7.0"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
-python_functions = ["test_*", "Test*"]
+python_functions = ["test_*"]
 filterwarnings = ["ignore::DeprecationWarning"]
 addopts = "-v --tb=short"
 markers = [
-    "slow: slow tests",
-    "integration: integration tests",
-    "e2e: end-to-end tests",
+    "slow: yavas testler (atlamak icin: -m 'not slow')",
+    "integration: entegrasyon testleri",
+    "e2e: uctan-uca testler",
 ]
 
+# Coverage
 [tool.coverage.run]
 source = ["reymen", "ReYMeN_cli"]
 omit = [
     "*/test_*",
     "*/__pycache__/*",
     "*/tests/*",
+    "*/venv/*",
+    "*/.ReYMeN/*",
 ]
 
 [tool.coverage.report]
@@ -53,6 +100,7 @@ exclude_lines = [
     "raise NotImplementedError",
 ]
 
+# Mypy
 [tool.mypy]
 python_version = "3.11"
 warn_return_any = true
@@ -61,5 +109,9 @@ ignore_missing_imports = true
 strict_optional = true
 
 [[tool.mypy.overrides]]
-module = ["reymen.sistem.credential_persistence"]
+module = [
+    "reymen.sistem.credential_persistence",
+    "reymen.ag.*",
+    "reymen.arac.*",
+]
 ignore_errors = true

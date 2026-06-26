@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-# ReYMeN — GitHub Actions CI Pipeline
-# • Python 3.11 ve 3.12'de test
-# • pip install -r requirements.txt
-# • ruff check ile lint
-# • pytest ile test çalıştır
-# • Her push ve PR'da çalışır
+# ReYMeN Agent — GitHub Actions CI/CD
+# Lint + Test + Coverage — her push ve PR'da çalışır
 
-name: ReYMeN CI
+name: Tests
 
 on:
   push:
@@ -19,7 +14,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: Lint (ruff + py_compile)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python 3.11 kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: pip güncelle
+        run: python -m pip install --upgrade pip
+
+      - name: Bağımlılıkları kur
+        run: pip install ruff
+
+      - name: Ruff format kontrol
+        run: ruff format --check .
+
+      - name: py_compile (tüm .py dosyaları)
+        run: |
+          echo "Tüm Python dosyaları derleniyor..."
+          find . -name "*.py" \
+            -not -path "./venv/*" \
+            -not -path "./.venv/*" \
+            -not -path "./bot_venv/*" \
+            -not -path "./node_modules/*" \
+            -not -path "./__pycache__/*" \
+            -not -path "./.hermes/*" \
+            -print0 | xargs -0 -P"$(nproc)" python -m py_compile
+          echo "✅ Tüm dosyalar başarıyla derlendi."
+
   test:
+    name: Test (Python ${{ matrix.python-version }})
+    needs: lint
     strategy:
       fail-fast: false
       matrix:
@@ -28,33 +59,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Python ${{ matrix.python-version }} kur
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
             requirements.txt
+            pyproject.toml
 
-      - name: Upgrade pip
-        run: |
-          python -m pip install --upgrade pip
+      - name: pip güncelle
+        run: python -m pip install --upgrade pip
 
-      - name: Install project dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Projeyi kur (dev deps ile)
+        run: pip install -e ".[dev]"
 
-      - name: Install dev/test dependencies
-        run: |
-          pip install ruff pytest pytest-cov pytest-asyncio
+      - name: Ruff lint
+        run: ruff check .
 
-      - name: Lint with ruff
-        run: |
-          ruff check .
+      - name: Test çalıştır
+        run: python -m pytest -v --tb=short --import-mode=importlib
 
-      - name: Run tests with pytest
-        run: |
-          python -m pytest -v --tb=short --import-mode=importlib
+      - name: Coverage raporu
+        run: python -m pytest --cov=reymen --cov-report=term --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
