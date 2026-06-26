@@ -9,6 +9,7 @@ Araçlar:
 
 motor.py'e dogrudan kayit edilebilir veya bagimsiz kullanilabilir.
 """
+import logging
 import os
 import re
 import subprocess
@@ -18,6 +19,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+logger = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -108,7 +110,7 @@ class BrowserTool:
             if self._pw:
                 self._pw.stop()
         except Exception as _araclar__e109:
-            print(f"[UYARI] araclar_gelismis.py:110 - {_araclar__e109}")
+            logger.warning("[UYARI] araclar_gelismis.py:110 - %s", _araclar__e109)
         self._page = self._browser = self._pw = None
 
     def _urllib_fallback(self, url: str) -> str:
@@ -182,11 +184,11 @@ class ApprovalTool:
 
     def _terminal_onay(self, baslik: str, mesaj: str) -> bool:
         """Terminal'de [e/H] onayi — zaman asimi = ret."""
-        print(f"\n{'='*50}")
-        print(f"  ONAY GEREKIYOR: {baslik}")
-        print(f"  {mesaj}")
-        print(f"  [{self.timeout}sn icinde cevap verilmezse ret]")
-        print(f"{'='*50}")
+        logger.info("\n%s", "=" * 50)
+        logger.info("  ONAY GEREKIYOR: %s", baslik)
+        logger.info("  %s", mesaj)
+        logger.info("  [%ssn icinde cevap verilmezse ret]", self.timeout)
+        logger.info("%s", "=" * 50)
 
         cevap = [None]
 
@@ -202,7 +204,7 @@ class ApprovalTool:
         t.join(timeout=self.timeout)
 
         if cevap[0] is None:
-            print(f"  [Zaman asimi] Otomatik red.")
+            logger.warning("  [Zaman asimi] Otomatik red.")
             return False
 
         return bool(cevap[0])
@@ -296,10 +298,10 @@ class SupervisorTool:
                         olmus.append(gid)
                     elif sure > self.zaman_asimi:
                         g["durum"] = "zaman_asimi"
-                        print(f"[Supervisor] Zaman asimi: {gid} ({sure:.0f}s)")
+                        logger.warning("[Supervisor] Zaman asimi: %s (% .0fs)", gid, sure)
                     elif g["hata_sayisi"] >= self.hata_esigi:
                         g["durum"] = "hata_esigi"
-                        print(f"[Supervisor] Hata esigi: {gid} ({g['hata_sayisi']} hata)")
+                        logger.warning("[Supervisor] Hata esigi: %s (%s hata)", gid, g['hata_sayisi'])
 
     def rapor(self) -> str:
         gorevler = self.tum_gorevler()
@@ -359,4 +361,4 @@ def motor_kaydet(motor, onay_tool: ApprovalTool = None):
     _plugin_arac_kaydet(motor, "BROWSER_JS", browser_js)
     _plugin_arac_kaydet(motor, "SUPERVISOR_RAPOR", supervisor_rapor)
     _plugin_arac_kaydet(motor, "ONAY_ISTE", onay_iste_arac)
-    print("[GelismisTools] 5 arac kayit edildi.")
+    logger.info("[GelismisTools] 5 arac kayit edildi.")

@@ -28,10 +28,14 @@ PROJE_KOK = Path(__file__).parent.resolve()
 sys.path.insert(0, str(PROJE_KOK))
 
 # ── Renk kodları ──
-try:
-    os.system("")
-except Exception:
-    pass
+import sys
+if sys.platform == "win32":
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+    except Exception:
+        pass
 
 YESIL = "\033[92m"
 KIRMIZI = "\033[91m"

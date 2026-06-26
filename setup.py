@@ -22,10 +22,14 @@ import shutil
 from pathlib import Path
 
 # ── Renk kodları (Windows Terminal) ──────────────────────────────────────────
-try:
-    os.system("")  # Windows ANSI desteği aktif et
-except Exception:
-    pass
+import sys
+if sys.platform == "win32":
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+    except Exception:
+        pass
 
 YESIL = "\033[92m"
 KIRMIZI = "\033[91m"

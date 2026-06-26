@@ -25,7 +25,10 @@ import threading
 import time
 import urllib.parse
 import urllib.request
+import logging
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).parent.resolve()
 sys.path.insert(0, str(ROOT))
@@ -235,7 +238,7 @@ def _cmd_status(msg: dict):
         toplam = ozet.get("toplam", 0)
         satirlar.append(f"Kanban: {toplam} gorev")
     except Exception as _telegram_e205:
-        print(f"[UYARI] telegram_bot.py:206 - {_telegram_e205}")
+        logger.warning("Kanban ozeti alinamadi: %s", _telegram_e205)
 
     # Gateway PID
     pid_dosyasi = ROOT / ".ReYMeN" / "gateway.pid"
@@ -372,10 +375,10 @@ def _isle(msg: dict):
 def polling():
     """Uzun polling ile Telegram'dan mesaj al."""
     if not TOKEN or TOKEN.startswith("***"):
-        print("[TelegramBot] TELEGRAM_BOT_TOKEN ayarli degil — cikiliyor.")
+        logger.warning("TELEGRAM_BOT_TOKEN ayarli degil — cikiliyor.")
         return
 
-    print(f"[TelegramBot] Basliyor... (chat_id filtresi: {CHAT_ID or 'yok'})")
+    logger.info("Basliyor... (chat_id filtresi: %s)", CHAT_ID or "yok")
     offset = 0
 
     # Bildirim gonder
@@ -396,10 +399,10 @@ def polling():
                     threading.Thread(target=_isle, args=(msg,), daemon=True).start()
 
         except KeyboardInterrupt:
-            print("\n[TelegramBot] Durduruldu.")
+            logger.info("Durduruldu.")
             break
         except Exception as e:
-            print(f"[TelegramBot] Polling hatasi: {e}")
+            logger.error("Polling hatasi: %s", e)
             time.sleep(5)
 
 
@@ -427,7 +430,7 @@ def telegram_araclari_kaydet(motor) -> None:
         return motor_bildirim_gonder(mesaj)
 
     _plugin_arac_kaydet(motor, "TELEGRAM_GONDER", _telegram_gonder)
-    print("[TelegramBot] TELEGRAM_GONDER araci kayit edildi.")
+    logger.info("TELEGRAM_GONDER araci kayit edildi.")
 
 
 def motor_kaydet(motor):
@@ -442,4 +445,8 @@ def motor_kaydet(motor):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    )
     polling()

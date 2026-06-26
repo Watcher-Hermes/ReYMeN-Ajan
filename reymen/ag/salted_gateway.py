@@ -17,6 +17,10 @@ import asyncio
 from collections import deque
 from typing import Optional, List, Dict, Any, Callable
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class TelegramRateLimiter:
     """Token bucket rate limiter — Telegram limiti 30 msg/sn"""
@@ -55,12 +59,12 @@ class TelegramRateLimiter:
                 error_str = str(e)
                 if "429" in error_str or "Too Many Requests" in error_str:
                     wait = min(30, 2 ** attempt * 2)
-                    print(f"[RateLimit] 429 aldi, {wait}s bekliyor (deneme {attempt+1}/{max_retries})")
+                    logger.info(f"[RateLimit] 429 aldi, %ss bekliyor (deneme %s/%s)", wait, attempt + 1, max_retries)
                     await asyncio.sleep(wait)
                     continue
                 elif "Conflict" in error_str or "409" in error_str:
                     wait = 5
-                    print(f"[RateLimit] Conflict, {wait}s bekliyor")
+                    logger.info(f"[RateLimit] Conflict, %ss bekliyor", wait)
                     await asyncio.sleep(wait)
                     continue
                 raise
@@ -88,20 +92,20 @@ class AutoReconnector:
                 while self._running:
                     await asyncio.sleep(self._health_interval)
                     if not await self._health_check():
-                        print("[Reconnect] Health check basarisiz, yeniden baglaniyor...")
+                        logger.warning("[Reconnect] Health check basarisiz, yeniden baglaniyor...")
                         break
             except (ConnectionError, TimeoutError, OSError) as e:
                 retry_count += 1
                 delay = min(30, self.base_delay * (2 ** (retry_count - 1)))
-                print(f"[Reconnect] Baglanti koptu: {e}")
-                print(f"[Reconnect] {delay}s sonra yeniden deneniyor (deneme {retry_count}/{self.max_retries})")
+                logger.error("[Reconnect] Baglanti koptu: %s", e)
+                logger.warning("[Reconnect] %ss sonra yeniden deneniyor (deneme %s/%s)", delay, retry_count, self.max_retries)
                 await asyncio.sleep(delay)
             except Exception as e:
-                print(f"[Reconnect] Beklenmeyen hata: {e}")
+                logger.error("[Reconnect] Beklenmeyen hata: %s", e)
                 break
 
         if retry_count >= self.max_retries:
-            print(f"[Reconnect] {self.max_retries} deneme basarisiz, gateway durduruluyor")
+            logger.error("[Reconnect] %s deneme basarisiz, gateway durduruluyor", self.max_retries)
 
     async def _health_check(self):
         try:
@@ -130,7 +134,7 @@ class SessionManager:
                 session["last_active"] = now
                 return session
             else:
-                print(f"[Session] {chat_id} timeout oldu, yeniden olusturuluyor")
+                logger.info("[Session] %s timeout oldu, yeniden olusturuluyor", chat_id)
 
         session = {
             "chat_id": chat_id,
@@ -141,7 +145,7 @@ class SessionManager:
             "context": []
         }
         self._sessions[chat_id] = session
-        print(f"[Session] Yeni session: {chat_id}")
+        logger.info("[Session] Yeni session: %s", chat_id)
         return session
 
     async def cleanup_stale(self):
@@ -152,7 +156,7 @@ class SessionManager:
         ]
         for cid in stale:
             del self._sessions[cid]
-            print(f"[Session] Temizlendi: {cid}")
+            logger.info("[Session] Temizlendi: %s", cid)
 
     async def periodic_cleanup(self):
         while True:
@@ -188,22 +192,22 @@ class CrashRecovery:
                 self._crash_times.append(now)
 
                 recent = [t for t in self._crash_times if now - t < self.window_seconds]
-                print(f"[CrashRecovery] Gateway coktu: {type(e).__name__}: {e}")
+                logger.error("[CrashRecovery] Gateway coktu: %s: %s", type(e).__name__, e)
 
                 if len(recent) >= self.max_restarts:
-                    print(f"[CrashRecovery] {self.window_seconds}s icinde {self.max_restarts} cokme — durduruluyor")
+                    logger.error("[CrashRecovery] %ss icinde %s cokme - durduruluyor", self.window_seconds, self.max_restarts)
                     await self._notify_admin(f"Gateway {self.max_restarts} kez coktu, durduruldu")
                     break
 
                 delay = min(30, 2 ** (len(recent) - 1))
-                print(f"[CrashRecovery] {delay}s sonra yeniden baslatiliyor...")
+                logger.warning("[CrashRecovery] %ss sonra yeniden baslatiliyor...", delay)
                 await asyncio.sleep(delay)
 
     async def _notify_admin(self, message):
         try:
-            print(f"[ADMIN NOTIFY] {message}")
+            logger.warning("[ADMIN NOTIFY] %s", message)
         except Exception as _salted_g_e204:
-            print(f"[UYARI] salted_gateway.py:205 - {_salted_g_e204}")
+            logger.error("[UYARI] salted_gateway.py:notify_admin - %s", _salted_g_e204)
 
 
 class SaltedGateway:
@@ -431,7 +435,7 @@ class SaltedGateway:
             return len(self._rate_kayitlari[hedef]) <= self._rate_limit
 
         except Exception as e:
-            print(f"[Gateway] Rate limit hatasi: {e}")
+            logger.error("[Gateway] Rate limit hatasi: %s", e)
             return True  # Hata durumunda gecerli say
 
     def istatistik(self) -> Dict[str, Any]:
@@ -539,12 +543,13 @@ class SaltedGateway:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     gw = SaltedGateway(rate_limit=10, rate_penceresi=60)
-    print("SaltedGateway hazir.")
+    logger.info("SaltedGateway hazir.")
 
     # Test gonder
     gonderi = gw.gonder(hedef="test_servis", mesaj="merhaba dunya")
-    print("Gonderi:", json.dumps(gonderi, ensure_ascii=False, indent=2))
+    logger.info("Gonderi:\n%s", json.dumps(gonderi, ensure_ascii=False, indent=2))
 
     # Test dogrula
     if gonderi.get("basarili"):
@@ -553,6 +558,6 @@ if __name__ == "__main__":
             hedef=gonderi["hedef"],
             mesaj=gonderi["mesaj"]
         )
-        print("Dogrulama:", json.dumps(dogrula, ensure_ascii=False, indent=2))
+        logger.info("Dogrulama:\n%s", json.dumps(dogrula, ensure_ascii=False, indent=2))
 
-    print("Istatistik:", json.dumps(gw.istatistik(), ensure_ascii=False, indent=2))
+    logger.info("Istatistik:\n%s", json.dumps(gw.istatistik(), ensure_ascii=False, indent=2))

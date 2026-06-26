@@ -16,11 +16,14 @@ Kullanım:
 """
 
 import json
+import logging
 import re
 import time
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 from datetime import datetime
+
+logger = logging.getLogger(__name__)
 
 
 class ApprovalManager:
@@ -279,4 +282,4 @@ def run(islem: str = "kontrol", tool: str = "", args: str = "",
 
 if __name__ == "__main__":
     import sys
-    print(run(islem=sys.argv[1] if len(sys.argv) > 1 else "listele"))
+    logger.info(run(islem=sys.argv[1] if len(sys.argv) > 1 else "listele"))

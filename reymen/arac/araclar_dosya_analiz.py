@@ -12,6 +12,7 @@ Bagimsiz kullanilabilir; opsiyonel kutuphaneler yoksa graceful degrade yapar:
 
 import csv
 import io
+import logging
 import os
 
 # ── Opsiyonel kutuphaneler ─────────────────────────────────────────────────────
@@ -46,6 +47,8 @@ try:
 except ImportError:
     _ollama_lib = None
     _OLLAMA_LIB_VAR = False
+
+logger = logging.getLogger(__name__)
 
 # ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -323,19 +326,20 @@ def dosya_analiz(dosya_yolu: str, ek_parametre: str = "") -> str:
 
 
 if __name__ == "__main__":
-    print("=== Dosya Analiz Araçları Testi ===")
-    print(f"PDF:   {_PDF_VAR or 'kurulu değil'}")
-    print(f"Excel: {_EXCEL_VAR or 'kurulu değil'}")
-    print(f"CSV:   stdlib (her zaman mevcut)")
-    print(f"LLaVA: {'ollama kütüphanesi' if _OLLAMA_LIB_VAR else 'HTTP API'} üzerinden\n")
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    logger.info("=== Dosya Analiz Araçları Testi ===")
+    logger.info("PDF:   %s", _PDF_VAR or "kurulu değil")
+    logger.info("Excel: %s", _EXCEL_VAR or "kurulu değil")
+    logger.info("CSV:   stdlib (her zaman mevcut)")
+    logger.info("LLaVA: %s üzerinden\n", "ollama kütüphanesi" if _OLLAMA_LIB_VAR else "HTTP API")
 
     # CSV testi (stdlib ile her zaman çalışır)
     import tempfile
     tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False, encoding="utf-8")
     tmp.write("ad,yas,sehir\nAhmet,30,Istanbul\nFatma,25,Ankara\nMehmet,35,Izmir\n")
     tmp.close()
-    print(csv_oku(tmp.name))
+    logger.info(csv_oku(tmp.name))
     os.unlink(tmp.name)
 
     # Görüntü testi — dosya yoksa graceful
-    print(goruntu_analiz("olmayan_resim.jpg", "Ne var?"))
+    logger.info(goruntu_analiz("olmayan_resim.jpg", "Ne var?"))

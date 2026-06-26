@@ -11,8 +11,11 @@ DİKKAT: Bu KÖR tekrardır — aynı koordinatlara aynı sırayla tıklar.
 Pencere yeri/boyutu değişirse kayıt bozulabilir. Ekran-OCR-Tıkla daha dayanıklıdır.
 """
 import json
+import logging
 import os
 import time
+
+logger = logging.getLogger(__name__)
 
 try:
     from pynput import mouse, keyboard
@@ -96,7 +99,7 @@ class MakroKaydedici:
                 try:
                     pyautogui.press(tus)
                 except Exception as _araclar__e97:
-                    print(f"[UYARI] araclar_makro.py:98 - {_araclar__e97}")
+                    logger.warning("araclar_makro.py:98 - %s", _araclar__e97)
         return f"[Makro]: '{makro_adi}' oynatıldı ({len(olaylar)} olay)."
 
     def makro_listesi(self):
@@ -122,6 +125,7 @@ def motor_kaydet(motor):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     m = MakroKaydedici(kayit_dizini="/tmp/ReYMeN_makro")
-    print("MakroKaydedici hazir (pynput:%s, pyautogui:%s)" % (PYNPUT_OK, PYAUTOGUI_OK))
-    print("Kayitli makrolar:", m.makro_listesi())
+    logger.info("MakroKaydedici hazir (pynput:%s, pyautogui:%s)", PYNPUT_OK, PYAUTOGUI_OK)
+    logger.info("Kayitli makrolar: %s", m.makro_listesi())

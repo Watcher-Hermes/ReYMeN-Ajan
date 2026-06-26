@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "reymen-agent"
+version = "0.1.0"
+description = "ReYMeN Agent — Otonom AI asistan ve ajan sistemi"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+keywords = ["ai-agent", "telegram-bot", "automation", "hermes"]
+authors = [
+    {name = "Marko/Q!"},
+]
+
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+include = ["reymen*", "ReYMeN_cli*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*", "Test*"]
+filterwarnings = ["ignore::DeprecationWarning"]
+addopts = "-v --tb=short"
+markers = [
+    "slow: slow tests",
+    "integration: integration tests",
+    "e2e: end-to-end tests",
+]
+
+[tool.coverage.run]
+source = ["reymen", "ReYMeN_cli"]
+omit = [
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/tests/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+strict_optional = true
+
+[[tool.mypy.overrides]]
+module = ["reymen.sistem.credential_persistence"]
+ignore_errors = true

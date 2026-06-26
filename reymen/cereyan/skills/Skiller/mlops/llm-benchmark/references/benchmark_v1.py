@@ -22,7 +22,7 @@ def get_env():
                 if "=" in line and not line.startswith("#"):
                     k, v = line.split("=", 1)
                     env[k.strip()] = v.strip()
-    except: pass
+    except: pass  # nosec — env file opsiyonel
     return env
 
 env = get_env()

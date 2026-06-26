@@ -2,7 +2,8 @@
 """Tüm skilleri 27 kategori altında topla - 5N1K sistemine göre"""
 import os, shutil, sys
 
-SKILLER = r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi\reymen\cereyan\skills\Skiller"
+_BASE = os.path.dirname(os.path.abspath(__file__))
+SKILLER = os.path.join(_BASE, "skills", "Skiller")
 HERMES = r"C:\Users\marko\.hermes\skills"
 PROFIL = r"C:\Users\marko\AppData\Local\hermes\profiles\kiral38\skills"
 

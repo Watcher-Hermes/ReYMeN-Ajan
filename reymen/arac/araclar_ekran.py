@@ -14,7 +14,10 @@ HASSASİYET (v1.0):
 
 GÜVENLİK (v0.9'dan): güven eşiği, çoklu eşleşme, FAILSAFE, tıklama sayacı.
 """
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 try:
     import pyautogui
@@ -177,5 +180,5 @@ def motor_kaydet(motor):
 
 if __name__ == "__main__":
     e = EkranOCRTikla()
-    print("EkranOCRTikla HASSAS surum (pyautogui:%s, easyocr:%s, PIL:%s)"
-          % (PYAUTOGUI_OK, EASYOCR_OK, PIL_OK))
+    logger.info("EkranOCRTikla HASSAS surum (pyautogui:%s, easyocr:%s, PIL:%s)",
+                PYAUTOGUI_OK, EASYOCR_OK, PIL_OK)
