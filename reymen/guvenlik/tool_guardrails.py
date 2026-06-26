@@ -62,8 +62,8 @@ class ToolGuardrails:
             riskli_araclar: Riskli arac adlari
             yasakli_parametreler: Yasakli parametre icerikleri
         """
-        self._riskli_araclar = riskli_araclar or self.VARSAYILAN_RISKLI
-        self._yasakli_parametreler = yasakli_parametreler or self.VARSAYILAN_YASAKLI
+        self._riskli_araclar = set(riskli_araclar) if riskli_araclar else set(self.VARSAYILAN_RISKLI)
+        self._yasakli_parametreler = set(yasakli_parametreler) if yasakli_parametreler else set(self.VARSAYILAN_YASAKLI)
         self._izinli_araclar: Set[str] = set()
         self._engellenen_islemler: List[Dict[str, Any]] = []
         self._guvenlik_seviyesi: int = 3  # 1: dusuk, 5: yuksek

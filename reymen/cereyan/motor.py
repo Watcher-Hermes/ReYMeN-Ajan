@@ -1996,3 +1996,53 @@ def get_active_tools(context=None):
 
     return tools
 
+
+# ── Provider Değiştirici ─────────────────────────────────────────────────────
+# setup.json ve .env arasında provider/model yönetimi
+
+_TERCIH_DOSYASI = ROOT.parent / "setup.json"
+
+
+def provider_degistir(saglayici: str, model: str = "") -> dict:
+    """Aktif provider/model'i degistirir.
+
+    Args:
+        saglayici: Provider adi (xiaomi, deepseek, openai, lmstudio, ollama, ...)
+        model: Model adi (opsiyonel, bos ise varsayilan kullanilir)
+
+    Returns:
+        {"durum": "basarili/hata", "mesaj": "..."}
+    """
+    import json
+
+    saglayici = saglayici.strip().lower()
+    gecerli = ["xiaomi", "deepseek", "openai", "anthropic", "openrouter",
+               "groq", "xai", "lmstudio", "ollama"]
+
+    if saglayici not in gecerli:
+        return {"durum": "hata", "mesaj": f"Gecersiz provider: {saglayici}. "
+                f"Gecerli: {', '.join(gecerli)}"}
+
+    try:
+        # setup.json oku/guncelle
+        if _TERCIH_DOSYASI.exists():
+            with open(_TERCIH_DOSYASI, "r", encoding="utf-8") as f:
+                setup = json.load(f)
+        else:
+            setup = {}
+
+        setup["tercih_provider"] = saglayici
+        if model:
+            setup["tercih_model"] = model
+
+        with open(_TERCIH_DOSYASI, "w", encoding="utf-8") as f:
+            json.dump(setup, f, indent=2, ensure_ascii=False)
+
+        log.info("Provider degisti: %s / %s", saglayici, model or "(varsayilan)")
+        return {"durum": "basarili", "mesaj": f"Provider {saglayici} aktif edildi."
+                + (f" Model: {model}" if model else "")}
+
+    except Exception as e:
+        log.error("Provider degistirme hatasi: %s", e)
+        return {"durum": "hata", "mesaj": str(e)}
+

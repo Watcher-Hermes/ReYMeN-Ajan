@@ -22,12 +22,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-# === YAPILANDIRMA ===
-REYMEN_ROOT = Path(r"C:\Users\marko\OneDrive\Desktop\Reymen Proje\hermes_projesi")
-REYMEN_ENV = Path(r"C:\Users\marko\AppData\Local\ReYMeN\.env")
-REYMEN_ENV = Path(os.environ.get("LOCALAPPDATA", "")) / "hermes" / ".env"
-BOT_SCRIPT = REYMEN_ROOT / "bot.py"
-PYTHON_EXE = Path(r"C:\Users\marko\AppData\Local\Python\PythonCore-3.14-64\python.exe")
+# === YAPILANDIRMA (dinamik) ===
+_HOME = Path.home()
+_APPDATA = Path(os.environ.get("LOCALAPPDATA", str(_HOME / "AppData" / "Local")))
+REYMEN_ROOT = _APPDATA / "hermes" / "hermes-agent"
+REYMEN_ENV = _APPDATA / "hermes" / ".env"
+BOT_SCRIPT = _APPDATA / "hermes" / "bot.py"
+PYTHON_EXE = _APPDATA / "Python" / "PythonCore-3.14-64" / "python.exe"
 CHAT_ID = "6328823909"
 
 

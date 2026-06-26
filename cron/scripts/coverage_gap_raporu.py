@@ -3,7 +3,7 @@
 import os, sys
 from pathlib import Path
 
-PROJE = Path(r"C:\Users\marko\OneDrive\Desktop\Reymen Proje\hermes_projesi")
+PROJE = Path(__file__).parent.parent.parent.resolve()
 
 # Sadece ReYMeN-native modüller (agent/ gateway/ hariç ReYMeN kopyaları)
 ONCELIKLI = [

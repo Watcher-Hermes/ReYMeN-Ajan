@@ -108,13 +108,23 @@ def _cron_calistir(ad):
     
     job = veri[ad]
     try:
-        sonuc = subprocess.run(
-            job["komut"],
-            shell=True,
-            capture_output=True,
-            text=True,
-            timeout=60
-        )
+        import shlex
+        _has_shell_ops = any(op in job.get("komut", "") for op in ["|", ">", "<", "&&", "||", ";", "`", "$("])
+        if _has_shell_ops:
+            sonuc = subprocess.run(
+                job["komut"],
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
+        else:
+            sonuc = subprocess.run(
+                shlex.split(job["komut"]), shell=False,
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
         veri[ad]["son_calisma"] = time.time()
         veri[ad]["son_cikti"] = sonuc.stdout[-500:] if sonuc.stdout else ""
         veri[ad]["son_hata"] = sonuc.stderr[-500:] if sonuc.stderr else ""
@@ -245,7 +255,11 @@ def _zamanla(cron_ifade="", komut="", ad=""):
     if sc is None:
         return json.dumps({"durum": "hata", "mesaj": "cron_scheduler.py bulunamadı"}, ensure_ascii=False)
     job_id = ad or f"job_{int(time.time())}"
-    fonk = lambda: subprocess.run(komut, shell=True, capture_output=True, text=True, timeout=120)
+    import shlex
+    if any(op in komut for op in ["|", ">", "<", "&&", "||", ";", "`", "$("]):
+        fonk = lambda: subprocess.run(komut, shell=True, capture_output=True, text=True, timeout=120)
+    else:
+        fonk = lambda: subprocess.run(shlex.split(komut), shell=False, capture_output=True, text=True, timeout=120)
     basarili = sc.ekle(job_id, cron_ifade, fonk, aciklama=komut[:80])
     if basarili:
         return json.dumps({"durum": "basarili", "mesaj": f"Görev zamanlandı: {job_id} ({cron_ifade})", "job_id": job_id}, ensure_ascii=False)

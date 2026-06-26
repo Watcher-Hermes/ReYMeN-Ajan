@@ -1,9 +1,10 @@
 # Görev 2, 3, 4 - Hafızayı düzelt ve güncelle
 import sys
 import os
+from pathlib import Path
 
 # Proje yolunu ekle
-proje_yolu = r"C:\Users\marko\Desktop\Reymen Proje\hermes_projesi"
+proje_yolu = Path(__file__).parent.resolve()
 sys.path.insert(0, os.path.join(proje_yolu, "reymen", "cereyan"))
 
 from once_hafiza import kaydet

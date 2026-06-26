@@ -216,7 +216,8 @@ def _model_adi(prov, model):
 # ── Açılış ekranı ─────────────────────────────────────────────────────────────
 def _ekran(api_d=None):
     import subprocess as _sp
-    _sp.run("cls" if os.name == "nt" else "clear", shell=True)
+    import shlex
+    _sp.run(shlex.split("cls" if os.name == "nt" else "clear"))
     for s in _LOGO:
         print(f"  {_cb(s)}")
     print()
