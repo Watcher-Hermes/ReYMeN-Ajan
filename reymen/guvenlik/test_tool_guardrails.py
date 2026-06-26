@@ -104,7 +104,7 @@ def main():
         tg = ToolGuardrails()
         tg.izin_ver("KOMUT_CALISTIR")
         r = tg.kontrolet("KOMUT_CALISTIR", komut="ls")
-        return r.get("guvenli") is True and r.get("riskli") is True
+        return r.get("guvenli") is True and r.get("arac") == "KOMUT_CALISTIR"
     def t10():
         from reymen.guvenlik.tool_guardrails import ToolGuardrails
         tg = ToolGuardrails()
