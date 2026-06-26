@@ -1,5 +1,14 @@
 # Decision Log — ReYMeN Geliştirme Döngüsü
 
+## 72. Güvenlik + Test Siklusu (26 June 04:30)
+**Ne:** Adım B (Bandit) + Adım C (test)
+**Sonuç:**
+- **Bandit (B):** 0 yeni HIGH — tüm shell=True kullanımları intentional (tool API, browser launcher, cron)
+- **Syntax (A):** tests/optimized/test_api.py ✅, tests/test_web_ui.py ✅
+- **Test (C):** test_api 1 skipped, test_web_ui 1 skipped — 0 fail
+**Neden:** Son backup'tan beri sadece 2 test dosyası değişmişti, onlar da skip. Proje stabil.
+**Alternatif:** Modül drift'ine müdahale edilebilirdi ama 161 uyumsuzluk var, insan kararı gerek.
+
 ## 1. Syntax Error Fix: target.py (25 June 05:57)
 - **Ne:** Missing colon `:` in `def topla(a, b)`
 - **Neden:** Syntax error prevented import/execution
@@ -57,3 +66,38 @@
   - `tests/optimized/test_api.py` — **1 skipped** (no actual tests to run)
 - **Toplam:** **66/66 PASS, 0 FAIL** ✅
 - **Commit:** `355d6b1f` (no new changes needed — clean state)
+
+---
+
+## 🔄 Cron Check: `duplicate_module_detector.py` — 2026-06-26
+
+### Ne yapıldı?
+`scripts/duplicate_module_detector.py` çalıştırıldı.
+
+### Sonuç
+- **Exit code:** 1 (drift var)
+- **Drift sayısı:** 161
+
+### Neden?
+Proje kökü `./`, `./agent/`, `./reymen/`, `./tools/` altındaki modüller arasında fonksiyon/fikir ayrışması tespit edildi. Her modülün farklı sürümleri farklı yetenekler taşıyor.
+
+### Rapor (ilk 10)
+| Modül | Sürüm Sayısı | Durum |
+|---|---|---|
+| account_usage.py | 3 | Eksik fonksiyonlar |
+| acp_server.py | 2 | Eksik fonksiyonlar |
+| anayasa_denetci.py | 2 | Eksik fonksiyonlar |
+| auxiliary_client.py | 2 | Eksik fonksiyonlar |
+| bedrock_adapter.py | 3 | Eksik fonksiyonlar |
+| browser_camofox.py | 3 | Eksik fonksiyonlar |
+| budget_config.py | 3 | Eksik fonksiyonlar |
+| chat_completion_helpers.py | 2 | Eksik fonksiyonlar |
+| checkpoint_manager.py | 3 | Eksik fonksiyonlar |
+| clarify_tool.py | 2 | Eksik fonksiyonlar |
+
+### Alternatif düşünüldü mü?
+- **Sessiz geç:** Hayır — drift var, bildirilmeli.
+- **Otomatik senkronizasyon:** Şu an için riskli, önce insan gözüyle değerlendirilmeli.
+
+### ⚠️ UYARI
+Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bir standart altında birleştirilmezse hatalar kaçınılmaz. Özellikle `auxiliary_client.py` (2 varyant, çok sayıda eksik fonksiyon) ve `cli.py` (3 varyant, büyük ayrışma) kritik.
