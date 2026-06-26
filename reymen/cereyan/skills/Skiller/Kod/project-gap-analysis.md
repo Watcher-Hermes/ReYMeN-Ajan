@@ -265,7 +265,7 @@ delegate_task(
 
 **Her subagent şunları yapar:**
 1. `write_file` ile her bir tool'u ayrı ayrı yazar
-2. `python -c "import tools.a; print('OK')"` ile doğrular
+2. `python -c "import reymen.hermes.tools.a; print('OK')"` ile doğrular
 3. Sonucu özetler
 
 **Avantajları:**

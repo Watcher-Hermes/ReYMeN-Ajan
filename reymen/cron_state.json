@@ -3,13 +3,23 @@
   "side": "B",
   "date": "2026-06-26",
   "action": {
-    "dosya": "sistem/test_error_classifier.py",
+    "dosya": "sistem/test_health_check.py",
     "tur": "test_yazma",
-    "test_sayisi": 45,
+    "test_sayisi": 36,
     "status": "PASSED"
+  },
+  "sonuc": {
+    "toplam_test": 36,
+    "basarili": 36,
+    "basarisiz": 0,
+    "oran": "100%"
+  },
+  "kapsam": {
+    "HealthChecker": ["init", "_kontrol", "modul_kontrol", "arac_kontrol", "bagimlilik_kontrol", "hafiza_kontrol", "config_kontrol", "guvenlik_kontrol", "tam_kontrol", "formatla"],
+    "run": ["tam", "kategori_gecerli", "kategori_gecersiz", "kategori_bulunamadi", "gecersiz_islem"]
   },
   "next_cycle": {
     "side": "A",
-    "hedef": "sistem/test_error_classifier.py yazildi. Sonraki: guvenlik/output_validator.py veya baska testi olmayan modul icin enhancement"
+    "hedef": "Testi olmayan bir modul sec: sistem/ or arac/ or cereyan/ from \u00d6ncelik: rate_limiter.py, model_switcher.py, thread_kontrol.py"
   }
 }

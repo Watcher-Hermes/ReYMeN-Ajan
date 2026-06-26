@@ -89,13 +89,13 @@ import threading
 import queue
 
 def CanonicalUsage(*args, **kwargs):
-    from agent.usage_pricing import CanonicalUsage as _CanonicalUsage
+    from reymen.hermes.agent.usage_pricing import CanonicalUsage as _CanonicalUsage
 
     return _CanonicalUsage(*args, **kwargs)
 
 
 def estimate_usage_cost(*args, **kwargs):
-    from agent.usage_pricing import estimate_usage_cost as _estimate_usage_cost
+    from reymen.hermes.agent.usage_pricing import estimate_usage_cost as _estimate_usage_cost
 
     return _estimate_usage_cost(*args, **kwargs)
 
@@ -140,19 +140,19 @@ def format_token_count_compact(*args, **kwargs):
 
 
 def is_table_divider(*args, **kwargs):
-    from agent.markdown_tables import is_table_divider as _is_table_divider
+    from reymen.hermes.agent.markdown_tables import is_table_divider as _is_table_divider
 
     return _is_table_divider(*args, **kwargs)
 
 
 def looks_like_table_row(*args, **kwargs):
-    from agent.markdown_tables import looks_like_table_row as _looks_like_table_row
+    from reymen.hermes.agent.markdown_tables import looks_like_table_row as _looks_like_table_row
 
     return _looks_like_table_row(*args, **kwargs)
 
 
 def realign_markdown_tables(*args, **kwargs):
-    from agent.markdown_tables import realign_markdown_tables as _realign_markdown_tables
+    from reymen.hermes.agent.markdown_tables import realign_markdown_tables as _realign_markdown_tables
 
     return _realign_markdown_tables(*args, **kwargs)
 # NOTE: `from agent.account_usage import ...` is deliberately NOT at module
@@ -706,7 +706,7 @@ except Exception:
 
 # Initialize tool preview length from config
 try:
-    from agent.display import set_tool_preview_max_len
+    from reymen.hermes.agent.display import set_tool_preview_max_len
     _tpl = CLI_CONFIG.get("display", {}).get("tool_preview_length", 0)
     set_tool_preview_max_len(int(_tpl) if _tpl else 0)
 except Exception:
@@ -824,7 +824,7 @@ def validate_toolset(*args, **kwargs):
 
 def _sync_process_session_id(session_id: str) -> None:
     """Keep process-local session-id consumers aligned after CLI switches."""
-    from gateway.session_context import set_current_session_id
+    from reymen.hermes.gateway.session_context import set_current_session_id
 
     set_current_session_id(session_id)
 
@@ -839,31 +839,31 @@ from ReYMeN_cli.callbacks import prompt_for_secret
 
 
 def _cleanup_all_terminals(*args, **kwargs):
-    from tools.terminal_tool import cleanup_all_environments
+    from reymen.hermes.tools.terminal_tool import cleanup_all_environments
 
     return cleanup_all_environments(*args, **kwargs)
 
 
 def set_sudo_password_callback(*args, **kwargs):
-    from tools.terminal_tool import set_sudo_password_callback as _set_sudo_password_callback
+    from reymen.hermes.tools.terminal_tool import set_sudo_password_callback as _set_sudo_password_callback
 
     return _set_sudo_password_callback(*args, **kwargs)
 
 
 def set_approval_callback(*args, **kwargs):
-    from tools.terminal_tool import set_approval_callback as _set_approval_callback
+    from reymen.hermes.tools.terminal_tool import set_approval_callback as _set_approval_callback
 
     return _set_approval_callback(*args, **kwargs)
 
 
 def set_secret_capture_callback(*args, **kwargs):
-    from tools.skills_tool import set_secret_capture_callback as _set_secret_capture_callback
+    from reymen.hermes.tools.skills_tool import set_secret_capture_callback as _set_secret_capture_callback
 
     return _set_secret_capture_callback(*args, **kwargs)
 
 
 def _cleanup_all_browsers(*args, **kwargs):
-    from tools.browser_tool import _emergency_cleanup_all_sessions
+    from reymen.hermes.tools.browser_tool import _emergency_cleanup_all_sessions
 
     return _emergency_cleanup_all_sessions(*args, **kwargs)
 
@@ -910,7 +910,7 @@ def _prepare_deferred_agent_startup() -> None:
             exc_info=True,
         )
     try:
-        from agent.shell_hooks import register_from_config
+        from reymen.hermes.agent.shell_hooks import register_from_config
         from ReYMeN_cli.config import load_config
 
         register_from_config(load_config(), accept_hooks=_accept_hooks)
@@ -936,7 +936,7 @@ def _run_cleanup():
     except Exception:
         pass
     try:
-        from tools.mcp_tool import shutdown_mcp_servers
+        from reymen.hermes.tools.mcp_tool import shutdown_mcp_servers
         shutdown_mcp_servers()
     except Exception:
         pass
@@ -944,7 +944,7 @@ def _run_cleanup():
     # AsyncHttpxClientWrapper.__del__ doesn't fire on a closed event loop
     # and trigger prompt_toolkit's "Press ENTER to continue..." handler.
     try:
-        from agent.auxiliary_client import shutdown_cached_clients
+        from reymen.hermes.agent.auxiliary_client import shutdown_cached_clients
         shutdown_cached_clients()
     except Exception:
         pass
@@ -1318,7 +1318,7 @@ def _run_checkpoint_auto_maintenance() -> None:
         cfg = (_load_full_config().get("checkpoints") or {})
         if not cfg.get("auto_prune", False):
             return
-        from tools.checkpoint_manager import maybe_auto_prune_checkpoints
+        from reymen.hermes.tools.checkpoint_manager import maybe_auto_prune_checkpoints
         maybe_auto_prune_checkpoints(
             retention_days=int(cfg.get("retention_days", 7)),
             min_interval_hours=int(cfg.get("min_interval_hours", 24)),
@@ -2795,7 +2795,7 @@ _skill_bundles = None
 def _ensure_skill_commands() -> dict:
     global _skill_commands
     if _skill_commands is None:
-        from agent.skill_commands import scan_skill_commands
+        from reymen.hermes.agent.skill_commands import scan_skill_commands
 
         _skill_commands = scan_skill_commands()
     return _skill_commands
@@ -2806,13 +2806,13 @@ def get_skill_commands() -> dict:
 
 
 def build_skill_invocation_message(*args, **kwargs):
-    from agent.skill_commands import build_skill_invocation_message as _impl
+    from reymen.hermes.agent.skill_commands import build_skill_invocation_message as _impl
 
     return _impl(*args, **kwargs)
 
 
 def build_preloaded_skills_prompt(*args, **kwargs):
-    from agent.skill_commands import build_preloaded_skills_prompt as _impl
+    from reymen.hermes.agent.skill_commands import build_preloaded_skills_prompt as _impl
 
     return _impl(*args, **kwargs)
 
@@ -2820,14 +2820,14 @@ def build_preloaded_skills_prompt(*args, **kwargs):
 def get_skill_bundles() -> dict:
     global _skill_bundles
     if _skill_bundles is None:
-        from agent.skill_bundles import get_skill_bundles as _impl
+        from reymen.hermes.agent.skill_bundles import get_skill_bundles as _impl
 
         _skill_bundles = _impl()
     return _skill_bundles
 
 
 def build_bundle_invocation_message(*args, **kwargs):
-    from agent.skill_bundles import build_bundle_invocation_message as _impl
+    from reymen.hermes.agent.skill_bundles import build_bundle_invocation_message as _impl
 
     return _impl(*args, **kwargs)
 
@@ -3558,7 +3558,7 @@ class ReYMeNCLI:
         # Count live background terminal processes (terminal tool background
         # sessions tracked by tools.process_registry). Cheap O(1) read.
         try:
-            from tools.process_registry import process_registry
+            from reymen.hermes.tools.process_registry import process_registry
             snapshot["active_background_processes"] = process_registry.count_running()
         except Exception:
             pass
@@ -4852,7 +4852,7 @@ class ReYMeNCLI:
         set_approval_callback(self._approval_callback)
         set_secret_capture_callback(self._secret_capture_callback)
         try:
-            from tools.computer_use_tool import set_approval_callback as _set_cu_cb
+            from reymen.hermes.tools.computer_use_tool import set_approval_callback as _set_cu_cb
 
             _set_cu_cb(self._computer_use_approval_callback)
         except ImportError:
@@ -4865,7 +4865,7 @@ class ReYMeNCLI:
             return
         self._tirith_security_checked = True
         try:
-            from tools.tirith_security import ensure_installed, is_platform_supported
+            from reymen.hermes.tools.tirith_security import ensure_installed, is_platform_supported
 
             tirith_path = ensure_installed(log_failures=False)
             if tirith_path is None and is_platform_supported():
@@ -5146,7 +5146,7 @@ class ReYMeNCLI:
 
         # Warn about low context lengths (common with local servers). Keep
         # this tied to the runtime guard so guidance cannot drift again.
-        from agent.model_metadata import MINIMUM_CONTEXT_LENGTH
+        from reymen.hermes.agent.model_metadata import MINIMUM_CONTEXT_LENGTH
         if ctx_len and ctx_len < MINIMUM_CONTEXT_LENGTH:
             self._console_print()
             self._console_print(
@@ -5479,7 +5479,7 @@ class ReYMeNCLI:
             /rollback diff <N>        — preview changes since checkpoint N
             /rollback <N> <file>      — restore a single file from checkpoint N
         """
-        from tools.checkpoint_manager import format_checkpoint_list
+        from reymen.hermes.tools.checkpoint_manager import format_checkpoint_list
 
         if not hasattr(self, 'agent') or not self.agent:
             log.info("  No active agent session.")
@@ -5670,7 +5670,7 @@ class ReYMeNCLI:
         Inspired by OpenAI Codex's separation of interrupt (stop current turn)
         from /stop (clean up background processes). See openai/codex#14602.
         """
-        from tools.process_registry import process_registry
+        from reymen.hermes.tools.process_registry import process_registry
 
         processes = process_registry.list_sessions()
         running = [p for p in processes if p.get("status") == "running"]
@@ -5685,7 +5685,7 @@ class ReYMeNCLI:
 
     def _handle_agents_command(self):
         """Handle /agents — show background processes and agent status."""
-        from tools.process_registry import format_uptime_short, process_registry
+        from reymen.hermes.tools.process_registry import format_uptime_short, process_registry
 
         processes = process_registry.list_sessions()
         running = [p for p in processes if p.get("status") == "running"]
@@ -5851,7 +5851,7 @@ class ReYMeNCLI:
         image later with ``vision_analyze`` if needed.
         """
         import asyncio as _asyncio
-        from tools.vision_tools import vision_analyze_tool
+        from reymen.hermes.tools.vision_tools import vision_analyze_tool
 
         analysis_prompt = (
             "Describe everything visible in this image in thorough detail. "
@@ -6270,7 +6270,7 @@ class ReYMeNCLI:
         
         # ``self.api_key`` may be a callable (Azure Foundry Entra ID bearer
         # provider). Never invoke it; just identify the auth surface.
-        from agent.azure_identity_adapter import is_token_provider
+        from reymen.hermes.agent.azure_identity_adapter import is_token_provider
         if is_token_provider(self.api_key):
             api_key_display = "Microsoft Entra ID"
         elif isinstance(self.api_key, str) and len(self.api_key) > 12:
@@ -6472,7 +6472,7 @@ class ReYMeNCLI:
                 self.agent._last_flushed_db_idx = 0
             if hasattr(self.agent, "_todo_store"):
                 try:
-                    from tools.todo_tool import TodoStore
+                    from reymen.hermes.tools.todo_tool import TodoStore
                     self.agent._todo_store = TodoStore()
                 except Exception:
                     pass
@@ -6570,7 +6570,7 @@ class ReYMeNCLI:
 
         # Validate platform name + home channel via the live gateway config.
         try:
-            from gateway.config import load_gateway_config, Platform
+            from reymen.hermes.gateway.config import load_gateway_config, Platform
         except Exception as exc:  # pragma: no cover — gateway pkg always shipped
             _clog.info(f"  Could not load gateway config: {exc}")
             return True
@@ -6804,7 +6804,7 @@ class ReYMeNCLI:
                 self.agent._last_flushed_db_idx = len(self.conversation_history)
             if hasattr(self.agent, "_todo_store"):
                 try:
-                    from tools.todo_tool import TodoStore
+                    from reymen.hermes.tools.todo_tool import TodoStore
                     self.agent._todo_store = TodoStore()
                 except Exception:
                     pass
@@ -7008,7 +7008,7 @@ class ReYMeNCLI:
                 self.agent._last_flushed_db_idx = len(self.conversation_history)
             if hasattr(self.agent, "_todo_store"):
                 try:
-                    from tools.todo_tool import TodoStore
+                    from reymen.hermes.tools.todo_tool import TodoStore
                     self.agent._todo_store = TodoStore()
                 except Exception:
                     pass
@@ -8061,8 +8061,8 @@ class ReYMeNCLI:
     def _handle_gquota_command(self, cmd_original: str) -> None:
         """Show Google Gemini Code Assist quota usage for the current OAuth account."""
         try:
-            from agent.google_oauth import get_valid_access_token, GoogleOAuthError, load_credentials
-            from agent.google_code_assist import retrieve_user_quota, CodeAssistError
+            from reymen.hermes.agent.google_oauth import get_valid_access_token, GoogleOAuthError, load_credentials
+            from reymen.hermes.agent.google_code_assist import retrieve_user_quota, CodeAssistError
         except ImportError as exc:
             self._console_log.info(f"  [red]Gemini modules unavailable: {exc}[/]")
             return
@@ -8152,7 +8152,7 @@ class ReYMeNCLI:
     def _handle_cron_command(self, cmd: str):
         """Handle the /cron command to manage scheduled tasks."""
         import shlex
-        from tools.cronjob_tools import cronjob as cronjob_tool
+        from reymen.hermes.tools.cronjob_tools import cronjob as cronjob_tool
 
         def _cron_api(**kwargs):
             return json.loads(cronjob_tool(**kwargs))
@@ -8444,7 +8444,7 @@ class ReYMeNCLI:
 
     def _show_gateway_status(self):
         """Show status of the gateway and connected messaging platforms."""
-        from gateway.config import load_gateway_config, Platform
+        from reymen.hermes.gateway.config import load_gateway_config, Platform
         
         print()
         log.info("+" + "-" * 60 + "+")
@@ -9200,7 +9200,7 @@ class ReYMeNCLI:
         of their session. Bundles are loaded via ``/<bundle-name>``.
         """
         try:
-            from agent.skill_bundles import list_bundles, _bundles_dir
+            from reymen.hermes.agent.skill_bundles import list_bundles, _bundles_dir
         except Exception as exc:
             _clog.info(f"\033[1;31mBundle subsystem unavailable: {exc}{_RST}")
             return
@@ -9278,7 +9278,7 @@ class ReYMeNCLI:
 
             # Clear any existing browser sessions so the next tool call uses the new backend
             try:
-                from tools.browser_tool import cleanup_all_browsers
+                from reymen.hermes.tools.browser_tool import cleanup_all_browsers
                 cleanup_all_browsers()
             except Exception:
                 pass
@@ -9328,7 +9328,7 @@ class ReYMeNCLI:
             # Eagerly start the CDP supervisor so pending_dialogs + frame_tree
             # show up in the next browser_snapshot.  No-op if already started.
             try:
-                from tools.browser_tool import _ensure_cdp_supervisor  # type: ignore[import-not-found]
+                from reymen.hermes.tools.browser_tool import _ensure_cdp_supervisor  # type: ignore[import-not-found]
                 _ensure_cdp_supervisor("default")
             except Exception:
                 pass
@@ -9356,7 +9356,7 @@ class ReYMeNCLI:
             if current:
                 os.environ.pop("BROWSER_CDP_URL", None)
                 try:
-                    from tools.browser_tool import cleanup_all_browsers, _stop_cdp_supervisor
+                    from reymen.hermes.tools.browser_tool import cleanup_all_browsers, _stop_cdp_supervisor
                     _stop_cdp_supervisor("default")
                     cleanup_all_browsers()
                 except Exception:
@@ -9398,7 +9398,7 @@ class ReYMeNCLI:
                     log.info("   Status: ⚠ not reachable (browser may not be running)")
             else:
                 try:
-                    from tools.browser_tool import _get_cloud_provider
+                    from reymen.hermes.tools.browser_tool import _get_cloud_provider
                     provider = _get_cloud_provider()
                 except Exception:
                     provider = None
@@ -9408,7 +9408,7 @@ class ReYMeNCLI:
                 else:
                     # Show engine info for local mode
                     try:
-                        from tools.browser_tool import _get_browser_engine
+                        from reymen.hermes.tools.browser_tool import _get_browser_engine
                         engine = _get_browser_engine()
                     except Exception:
                         engine = "auto"
@@ -9871,7 +9871,7 @@ class ReYMeNCLI:
         if not old_session_id or not new_session_id or old_session_id == new_session_id:
             return
         try:
-            from tools.approval import (
+            from reymen.hermes.tools.approval import (
                 disable_session_yolo,
                 enable_session_yolo,
                 is_session_yolo_enabled,
@@ -9893,7 +9893,7 @@ class ReYMeNCLI:
         happen.
         """
         try:
-            from tools.approval import (
+            from reymen.hermes.tools.approval import (
                 _YOLO_MODE_FROZEN,
                 is_session_yolo_enabled,
             )
@@ -9925,7 +9925,7 @@ class ReYMeNCLI:
         next dangerous command in this run.
         """
         from ReYMeN_cli.colors import Colors as _Colors
-        from tools.approval import (
+        from reymen.hermes.tools.approval import (
             disable_session_yolo,
             enable_session_yolo,
             is_session_yolo_enabled,
@@ -10147,8 +10147,8 @@ class ReYMeNCLI:
         original_count = len(self.conversation_history)
         with self._busy_command("Compressing context..."):
             try:
-                from agent.model_metadata import estimate_request_tokens_rough
-                from agent.manual_compression_feedback import summarize_manual_compression
+                from reymen.hermes.agent.model_metadata import estimate_request_tokens_rough
+                from reymen.hermes.agent.manual_compression_feedback import summarize_manual_compression
                 original_history = list(self.conversation_history)
 
                 # Boundary-aware split: only the head is summarized; the
@@ -10322,7 +10322,7 @@ class ReYMeNCLI:
         # ── Rate limits (shown first when available) ────────────────
         rl_state = agent.get_rate_limit_state()
         if rl_state and rl_state.has_data:
-            from agent.rate_limit_tracker import format_rate_limit_display
+            from reymen.hermes.agent.rate_limit_tracker import format_rate_limit_display
             print()
             print(format_rate_limit_display(rl_state))
             print()
@@ -10393,7 +10393,7 @@ class ReYMeNCLI:
         base_url = getattr(agent, "base_url", None) or getattr(self, "base_url", None)
         api_key = getattr(agent, "api_key", None) or getattr(self, "api_key", None)
         # Lazy import — pulls the OpenAI SDK chain, only needed here.
-        from agent.account_usage import fetch_account_usage, render_account_usage_lines
+        from reymen.hermes.agent.account_usage import fetch_account_usage, render_account_usage_lines
         account_snapshot = None
         if provider:
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _pool:
@@ -10450,7 +10450,7 @@ class ReYMeNCLI:
 
         try:
             from ReYMeN_state import SessionDB
-            from agent.insights import InsightsEngine
+            from reymen.hermes.agent.insights import InsightsEngine
 
             db = SessionDB()
             engine = InsightsEngine(db)
@@ -10713,7 +10713,7 @@ class ReYMeNCLI:
         sees the updated tools on the next turn.
         """
         try:
-            from tools.mcp_tool import shutdown_mcp_servers, discover_mcp_tools, _servers, _lock
+            from reymen.hermes.tools.mcp_tool import shutdown_mcp_servers, discover_mcp_tools, _servers, _lock
 
             # Capture old server names
             with _lock:
@@ -10805,7 +10805,7 @@ class ReYMeNCLI:
         prompt caching intact.
         """
         try:
-            from agent.skill_commands import reload_skills, get_skill_commands
+            from reymen.hermes.agent.skill_commands import reload_skills, get_skill_commands
 
             if not self._command_running:
                 log.info("🔄 Reloading skills...")
@@ -10885,7 +10885,7 @@ class ReYMeNCLI:
             self._stream_box_opened = False
         self._close_reasoning_box()
 
-        from agent.display import get_tool_emoji
+        from reymen.hermes.agent.display import get_tool_emoji
         emoji = get_tool_emoji(tool_name, default="⚡")
         _clog.info(f"  ┊ {emoji} preparing {tool_name}…")
 
@@ -10925,7 +10925,7 @@ class ReYMeNCLI:
                     return
                 self._last_scrollback_tool = function_name
                 try:
-                    from agent.display import get_cute_tool_message
+                    from reymen.hermes.agent.display import get_cute_tool_message
                     line = get_cute_tool_message(function_name, stored_args, duration, result=kwargs.get("result"))
                     _clog.info(f"  {line}")
                 except Exception:
@@ -10942,7 +10942,7 @@ class ReYMeNCLI:
                         and self.tool_progress_mode == "all"
                         and duration >= 30.0
                     ):
-                        from agent.onboarding import (
+                        from reymen.hermes.agent.onboarding import (
                             TOOL_PROGRESS_FLAG,
                             is_seen,
                             mark_seen,
@@ -10960,10 +10960,10 @@ class ReYMeNCLI:
         if event_type != "tool.started":
             return
         if function_name and not function_name.startswith("_"):
-            from agent.display import get_tool_emoji
+            from reymen.hermes.agent.display import get_tool_emoji
             emoji = get_tool_emoji(function_name)
             label = preview or function_name
-            from agent.display import get_tool_preview_max_len
+            from reymen.hermes.agent.display import get_tool_preview_max_len
             _pl = get_tool_preview_max_len()
             if _pl > 0 and len(label) > _pl:
                 label = label[:_pl - 3] + "..."
@@ -10978,7 +10978,7 @@ class ReYMeNCLI:
     def _on_tool_start(self, tool_call_id: str, function_name: str, function_args: dict):
         """Capture local before-state for write-capable tools."""
         try:
-            from agent.display import capture_local_edit_snapshot
+            from reymen.hermes.agent.display import capture_local_edit_snapshot
 
             snapshot = capture_local_edit_snapshot(function_name, function_args)
             if snapshot is not None:
@@ -10990,7 +10990,7 @@ class ReYMeNCLI:
         """Render file edits with inline diff after write-capable tools complete."""
         snapshot = self._pending_edit_snapshots.pop(tool_call_id, None)
         try:
-            from agent.display import render_edit_diff_with_delta
+            from reymen.hermes.agent.display import render_edit_diff_with_delta
 
             render_edit_diff_with_delta(
                 function_name,
@@ -11010,7 +11010,7 @@ class ReYMeNCLI:
         """Start capturing audio from the microphone."""
         if getattr(self, '_should_exit', False):
             return
-        from tools.voice_mode import create_audio_recorder, check_voice_requirements
+        from reymen.hermes.tools.voice_mode import create_audio_recorder, check_voice_requirements
 
         reqs = check_voice_requirements()
         if not reqs["audio_available"]:
@@ -11092,7 +11092,7 @@ class ReYMeNCLI:
         # Audio cue: single beep BEFORE starting stream (avoid CoreAudio conflict)
         if self._voice_beeps_enabled():
             try:
-                from tools.voice_mode import play_beep
+                from reymen.hermes.tools.voice_mode import play_beep
                 play_beep(frequency=880, count=1)
             except Exception:
                 pass
@@ -11147,7 +11147,7 @@ class ReYMeNCLI:
             # Audio cue: double beep after stream stopped (no CoreAudio conflict)
             if self._voice_beeps_enabled():
                 try:
-                    from tools.voice_mode import play_beep
+                    from reymen.hermes.tools.voice_mode import play_beep
                     play_beep(frequency=660, count=2)
                 except Exception:
                     pass
@@ -11170,7 +11170,7 @@ class ReYMeNCLI:
             except Exception:
                 pass
 
-            from tools.voice_mode import transcribe_recording
+            from reymen.hermes.tools.voice_mode import transcribe_recording
             result = transcribe_recording(wav_path, model=stt_model)
 
             if result.get("success") and result.get("transcript", "").strip():
@@ -11248,8 +11248,8 @@ class ReYMeNCLI:
             return
         self._voice_tts_done.clear()
         try:
-            from tools.tts_tool import text_to_speech_tool
-            from tools.voice_mode import play_audio_file
+            from reymen.hermes.tools.tts_tool import text_to_speech_tool
+            from reymen.hermes.tools.voice_mode import play_audio_file
 
             # Strip markdown and non-speech content for cleaner TTS
             tts_text = text[:4000] if len(text) > 4000 else text
@@ -11334,7 +11334,7 @@ class ReYMeNCLI:
             _clog.info(f"{_DIM}Voice mode is already enabled.{_RST}")
             return
 
-        from tools.voice_mode import check_voice_requirements, detect_audio_environment
+        from reymen.hermes.tools.voice_mode import check_voice_requirements, detect_audio_environment
 
         # Environment detection -- warn and block in incompatible environments
         env_check = detect_audio_environment()
@@ -11412,7 +11412,7 @@ class ReYMeNCLI:
 
         # Stop any active TTS playback
         try:
-            from tools.voice_mode import stop_playback
+            from reymen.hermes.tools.voice_mode import stop_playback
             stop_playback()
         except Exception:
             pass
@@ -11431,7 +11431,7 @@ class ReYMeNCLI:
         status = "enabled" if self._voice_tts else "disabled"
 
         if self._voice_tts:
-            from tools.tts_tool import check_tts_requirements
+            from reymen.hermes.tools.tts_tool import check_tts_requirements
             if not check_tts_requirements():
                 _clog.info(f"{_DIM}Warning: No TTS provider available. Install edge-tts or set API keys.{_RST}")
 
@@ -11439,7 +11439,7 @@ class ReYMeNCLI:
 
     def _show_voice_status(self):
         """Show current voice mode status."""
-        from tools.voice_mode import check_voice_requirements
+        from reymen.hermes.tools.voice_mode import check_voice_requirements
 
         reqs = check_voice_requirements()
 
@@ -11945,7 +11945,7 @@ class ReYMeNCLI:
         # See agent/image_routing.py for the decision table.
         if images:
             try:
-                from agent.image_routing import (
+                from reymen.hermes.agent.image_routing import (
                     build_native_content_parts,
                     decide_image_input_mode,
                 )
@@ -11997,8 +11997,8 @@ class ReYMeNCLI:
         # Expand @ context references (e.g. @file:main.py, @diff, @folder:src/)
         if isinstance(message, str) and "@" in message:
             try:
-                from agent.context_references import preprocess_context_references
-                from agent.model_metadata import get_model_context_length
+                from reymen.hermes.agent.context_references import preprocess_context_references
+                from reymen.hermes.agent.model_metadata import get_model_context_length
                 _ctx_len = get_model_context_length(
                     self.model, base_url=self.base_url or "", api_key=self.api_key or "",
                     config_context_length=getattr(self.agent, "_config_context_length", None) if self.agent else None)
@@ -12054,7 +12054,7 @@ class ReYMeNCLI:
 
             if self._voice_tts:
                 try:
-                    from tools.tts_tool import (
+                    from reymen.hermes.tools.tts_tool import (
                         _load_tts_config as _load_tts_cfg,
                         _get_provider as _get_prov,
                         _import_elevenlabs,
@@ -12131,7 +12131,7 @@ class ReYMeNCLI:
                 # Mirrors ``tui_gateway/server.py`` and ``gateway/run.py`` which
                 # bind the same contextvar before invoking the agent.
                 try:
-                    from tools.approval import (
+                    from reymen.hermes.tools.approval import (
                         reset_current_session_key,
                         set_current_session_key,
                     )
@@ -12286,7 +12286,7 @@ class ReYMeNCLI:
             # to a per-thread event loop; if that loop is now closed, those
             # clients' __del__ would crash prompt_toolkit's loop on GC.
             try:
-                from agent.auxiliary_client import cleanup_stale_async_clients
+                from reymen.hermes.agent.auxiliary_client import cleanup_stale_async_clients
                 cleanup_stale_async_clients()
             except Exception:
                 pass
@@ -12331,7 +12331,7 @@ class ReYMeNCLI:
             # Auto-generate session title after first exchange (non-blocking)
             if response and result and not result.get("failed") and not result.get("partial"):
                 try:
-                    from agent.title_generator import maybe_auto_title
+                    from reymen.hermes.agent.title_generator import maybe_auto_title
                     # Route title-generation failures through the agent's
                     # user-visible warning channel so a depleted auxiliary
                     # provider doesn't silently leave sessions untitled
@@ -12856,7 +12856,7 @@ class ReYMeNCLI:
         # after an OpenClaw→ReYMeN migration (especially migrations done by
         # OpenClaw's own tool, which doesn't archive the source directory).
         try:
-            from agent.onboarding import (
+            from reymen.hermes.agent.onboarding import (
                 OPENCLAW_RESIDUE_FLAG,
                 detect_openclaw_residue,
                 is_seen,
@@ -12893,7 +12893,7 @@ class ReYMeNCLI:
         # never blocks the interactive loop.  Best-effort; any failure is
         # swallowed to avoid breaking session startup.
         try:
-            from agent.curator import maybe_run_curator
+            from reymen.hermes.agent.curator import maybe_run_curator
             maybe_run_curator(
                 idle_for_seconds=float("inf"),  # CLI startup = fully idle
                 on_summary=lambda msg: self._console_print(
@@ -13176,7 +13176,7 @@ class ReYMeNCLI:
                     # again.  Guarded for exceptions so onboarding can't break
                     # the input loop.
                     try:
-                        from agent.onboarding import (
+                        from reymen.hermes.agent.onboarding import (
                             BUSY_INPUT_FLAG,
                             busy_input_hint_cli,
                             is_seen,
@@ -13742,7 +13742,7 @@ class ReYMeNCLI:
                 # stop_playback() is fast (just terminates a subprocess).
                 if not cli_ref._voice_tts_done.is_set():
                     try:
-                        from tools.voice_mode import stop_playback
+                        from reymen.hermes.tools.voice_mode import stop_playback
                         stop_playback()
                         cli_ref._voice_tts_done.set()
                     except Exception:
@@ -14779,7 +14779,7 @@ class ReYMeNCLI:
                             # Check for background process notifications (completions
                             # and watch pattern matches) while agent is idle.
                             try:
-                                from tools.process_registry import process_registry
+                                from reymen.hermes.tools.process_registry import process_registry
                                 for _evt, _synth in process_registry.drain_notifications():
                                     self._pending_input.put(_synth)
                             except Exception:
@@ -14907,7 +14907,7 @@ class ReYMeNCLI:
                         # Drain process notifications (completions + watch matches)
                         # that arrived while the agent was running.
                         try:
-                            from tools.process_registry import process_registry
+                            from reymen.hermes.tools.process_registry import process_registry
                             for _evt, _synth in process_registry.drain_notifications():
                                 self._pending_input.put(_synth)
                         except Exception:
@@ -15147,7 +15147,7 @@ class ReYMeNCLI:
                 self._voice_recorder = None
             # Clean up old temp voice recordings
             try:
-                from tools.voice_mode import cleanup_temp_recordings
+                from reymen.hermes.tools.voice_mode import cleanup_temp_recordings
                 cleanup_temp_recordings()
             except Exception:
                 pass
@@ -15392,7 +15392,7 @@ def main(
     # Handle gateway mode (messaging + cron)
     if gateway:
         import asyncio
-        from gateway.run import start_gateway
+        from reymen.hermes.gateway.run import start_gateway
         log.info("Starting ReYMeN Gateway (messaging platforms)...")
         asyncio.run(start_gateway())
         return
@@ -15586,7 +15586,7 @@ def main(
         if _kanban_task_id:
             try:
                 from ReYMeN_cli import kanban_db as _kb
-                from agent.image_routing import extract_image_refs as _extract_refs
+                from reymen.hermes.agent.image_routing import extract_image_refs as _extract_refs
 
                 _conn = _kb.connect()
                 try:
@@ -15627,10 +15627,10 @@ def main(
                     _img_mode = "text"
                     _build_parts = None
                     try:
-                        from agent.image_routing import (
+                        from reymen.hermes.agent.image_routing import (
                             build_native_content_parts as _build_parts,  # noqa: F811
                         )
-                        from agent.image_routing import decide_image_input_mode
+                        from reymen.hermes.agent.image_routing import decide_image_input_mode
                         from ReYMeN_cli.config import load_config
 
                         _img_mode = decide_image_input_mode(

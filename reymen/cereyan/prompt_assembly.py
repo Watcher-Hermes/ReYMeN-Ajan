@@ -35,7 +35,7 @@ class PromptAssembly:
         # Context files yoneticisi
         self._context_loader = None
         try:
-            from agent.context_files import ContextFileLoader
+            from reymen.hermes.agent.context_files import ContextFileLoader
             self._context_loader = ContextFileLoader()
         except ImportError as _prompt_a_e36:
             log.info(f"[UYARI] prompt_assembly.py:37 - {_prompt_a_e36}")

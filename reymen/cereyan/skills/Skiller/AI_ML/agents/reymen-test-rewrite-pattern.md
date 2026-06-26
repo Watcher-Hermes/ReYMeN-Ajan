@@ -39,7 +39,7 @@ Hermes reference test'leri (`tests/ReYMeN_reference/`) import hatasi veriyor vey
 
 Eski test (Hermes ACP protocol, olmayan API):
 ```python
-from acp.schema import UsageUpdate, UserMessageChunk
+from reymen.hermes.acp.schema import UsageUpdate, UserMessageChunk
 from acp_adapter.server import ReYMeNACPAgent
 router = build_agent_router(agent, use_unstable_protocol=True)
 ```

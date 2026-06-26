@@ -328,7 +328,7 @@ _supervisor.izlemeyi_baslat()
 
 def motor_kaydet(motor, onay_tool: ApprovalTool = None):
     """motor.py'ye gelismis araclari kaydet."""
-    from plugins.kanban import _plugin_arac_kaydet
+    from reymen.hermes.plugins.kanban import _plugin_arac_kaydet
 
     def browser_ac(ham: str) -> str:
         params = re.findall(r'"((?:[^"\\]|\\.)*)"', ham)

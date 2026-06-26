@@ -269,7 +269,7 @@ Bu oturumda 7 tool + 1 gateway platform + 1 plugin manager + 1 Docker fix + 1 si
 | `mesaj_akisi(kanal_id)` | kanal_id:str | Iterator ile lazy mesaj akisi |
 
 ```python
-from gateway.platforms.discord import DiscordPlatform
+from reymen.hermes.gateway.platforms.discord import DiscordPlatform
 bot = DiscordPlatform(bot_token="...", varsayilan_kanal="123456")
 bot.send_message("Merhaba!")
 ```

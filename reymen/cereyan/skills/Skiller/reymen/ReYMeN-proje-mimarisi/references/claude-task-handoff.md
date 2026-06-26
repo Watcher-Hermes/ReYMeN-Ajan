@@ -120,7 +120,7 @@ ls tools/tool_executor.py 2>&1
 ls tests/test_providers.py 2>&1
 
 # 3. Import testi (derleme hatası var mı?)
-python -c "from tools.tool_executor import execute_tool; print('OK')"
+python -c "from reymen.hermes.tools.tool_executor import execute_tool; print('OK')"
 
 # 4. Fonksiyon varlığı kontrolü
 grep "^def \|^class " tools/tool_executor.py

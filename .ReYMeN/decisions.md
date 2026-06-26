@@ -226,6 +226,15 @@ Projede **161 modül/fonksiyon uyumsuzluğu** var. Dağınık kod tabanı tek bi
 - **Test:** 4/4 geçti (beyin, motor, main, providers)
 - **Kalan:** — (tüm kritik hatalar çözüldü)
 
+## 82. Hermes Modülleri → reymen/hermes/ Taşıma (26 June 15:30)
+- **Ne:** Hermes upstream modülleri (tools, agent, gateway, plugins, cron, acp, apps, tui_gateway, scripts, telegram_bot) → `reymen/hermes/` altına kopyalandı
+- **Kapsam:** 10 dizin, 1,314 .py dosya
+- **Import güncellemesi:** 401 dosyada 20 pattern ile değişiklik (from tools. → from reymen.hermes.tools., vb.)
+- **Eski import kaldı mı?** 0 — tümü temizlendi
+- **Test:** Motor ✅, main.py ✅, providers ✅, beyin ✅
+- **Neden:** ReYMeN artık Hermes upstream'e bağımlı değil — tüm bağımlılıklar kendi bünyesinde
+- **Kalan:** `reymen/` içindeki eski Hermes kök dizin import'ları temiz (test edildi)
+
 ### Öneri
 - Ortak modülleri tek bir kaynakta (`reymen/`) toplayıp diğer konumlara symlink/proxy koy
 - Periyodik drift kontrolü (cron) devam etsin

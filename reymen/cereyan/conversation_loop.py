@@ -71,7 +71,7 @@ except ImportError:
 # destekliyorsa True doner. Ayrica ``agent._use_prompt_caching`` da dikkate
 # alinir (Anthropic / OpenRouter / DeepSeek / OpenAI).
 try:
-    from agent.prompt_caching import _prompt_caching_ekle, caching_aktif_mi
+    from reymen.hermes.agent.prompt_caching import _prompt_caching_ekle, caching_aktif_mi
     # _CACHING_AKTIF artik dinamik: provider'a gore hesaplanir.
     # Dogrudan kullanim yerine caching_aktif_mi() fonksiyonu tercih edilir.
     _CACHING_AKTIF = None  # None = "provider'a bak" anlaminda
@@ -82,7 +82,7 @@ except ImportError:
 
 # Geriye uyumluluk: eski import hala calissin
 try:
-    from agent.prompt_caching import apply_anthropic_cache_control as _apply_anthropic_cache_control
+    from reymen.hermes.agent.prompt_caching import apply_anthropic_cache_control as _apply_anthropic_cache_control
 except ImportError:
     _apply_anthropic_cache_control = None
 

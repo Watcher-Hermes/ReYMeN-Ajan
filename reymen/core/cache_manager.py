@@ -116,7 +116,16 @@ class CacheManager:
                 "ttl": self._ttl,
             }
 
-    # ── Yardimci ───────────────────────────────────────────────────────────
+    # ── String Representation ────────────────────────────────────────────────
+
+    def __str__(self) -> str:
+        """User-friendly string: CacheManager(size=3/1000 ttl=60s)"""
+        return f"CacheManager(size={self.size}/{self._maxsize} ttl={self._ttl}s)"
+
+    def __repr__(self) -> str:
+        return f"CacheManager(ttl={self._ttl}, maxsize={self._maxsize})"
+
+    # ── Yardimci ────────────────────────────────────────────────────────────
 
     def _evict_if_needed(self) -> None:
         """Evict oldest entries when over maxsize."""

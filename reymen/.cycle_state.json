@@ -1,8 +1,8 @@
 {
-  "cycle_count": 7,
+  "cycle_count": 9,
   "last_cycle_type": "A",
-  "last_module": "core/cache_manager.py",
-  "last_change": "A: Added reymen.core.cache_manager — Thread-safe in-memory cache with TTL, LRU eviction, @cached decorator, global_cache singleton. Test: 3 assertions passed (basic CRUD, decorator cache_clear/cache_info, global_cache).",
+  "last_module": "core/retry.py",
+  "last_change": "A: core/retry.py eklendi (299 satir, 12 grup entegrasyon testi gecti). RetryConfig, retry decorator, geri_cek helper, \n   str/repr, jitter, backoff, timeout, ignore_exceptions, validasyon.",
   "next_cycle_type": "B",
-  "next_target": "core/cache_manager.py"
+  "next_target": "core/test_retry.py"
 }

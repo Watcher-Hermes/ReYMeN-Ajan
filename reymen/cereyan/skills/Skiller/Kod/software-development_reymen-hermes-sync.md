@@ -123,7 +123,7 @@ for f in sorted(os.listdir('.')):
 ```
 
 ### 3. Fix imports, then delete
-1. For each import found, change `from X` → `from agent.X`
+1. For each import found, change `from X` → `from reymen.hermes.agent.X`
 2. Verify compilation: `python -m py_compile dispatcher.py`
 3. Delete root duplicates: `rm file1.py file2.py ...`
 4. Recompile test: `python -m py_compile main.py motor.py run_agent.py`
@@ -205,7 +205,7 @@ trajectory       → agent.trajectory
 **4b. Fix API signatures — discover with inspect:**
 ```python
 import inspect
-from agent.iteration_budget import IterationBudget
+from reymen.hermes.agent.iteration_budget import IterationBudget
 print(inspect.signature(IterationBudget.__init__))
 ```
 

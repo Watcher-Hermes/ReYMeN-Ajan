@@ -212,7 +212,7 @@ if mod == "provider_transport":
 
 # Tool registry test
 if mod == "tools.registry":
-    from tools.registry import registry
+    from reymen.hermes.tools.registry import registry
     tools = registry.get_definitions()  # Kaç tool kayıtlı?
 ```
 
@@ -222,10 +222,10 @@ Tool sisteminin sadece import edilmesi yetmez, **çalıştığını da doğrula*
 
 ```bash
 # Registry'de tool var mı?
-python -c "from tools.registry import registry; print(len(registry.get_definitions()))"
+python -c "from reymen.hermes.tools.registry import registry; print(len(registry.get_definitions()))"
 
 # Belirli bir tool çalışıyor mu?
-python -c "from tools.skill_manager_tool import skill_manage; print(skill_manage('list'))"
+python -c "from reymen.hermes.tools.skill_manager_tool import skill_manage; print(skill_manage('list'))"
 ```
 
 ### 9. Özellik Karşılaştırma Tablosu

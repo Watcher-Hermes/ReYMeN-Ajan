@@ -19,7 +19,7 @@ except ImportError:
     _CACHE = None
 
 try:
-    from agent.redact import redact_sensitive_text as _agent_temizle
+    from reymen.hermes.agent.redact import redact_sensitive_text as _agent_temizle
 except ImportError:
     _agent_temizle = None
 try:

@@ -255,7 +255,7 @@ class TelegramTools:
 
             # Gateway import'u dene (basarili olursa gateway send_stream kullanilir)
             try:
-                from gateway.platforms.telegram import send_stream
+                from reymen.hermes.gateway.platforms.telegram import send_stream
                 stream_sonuc = send_stream(self._token, chat_id, mesaj)
                 if isinstance(stream_sonuc, dict):
                     return f"Stream mesaj gonderildi ({stream_sonuc.get('chunk_sayisi', '?')} chunk)"
@@ -298,7 +298,7 @@ class TelegramTools:
         try:
             # Gateway import'u dene
             try:
-                from gateway.platforms.telegram import set_reaction
+                from reymen.hermes.gateway.platforms.telegram import set_reaction
                 reac_sonuc = set_reaction(self._token, chat_id, mesaj_id, emoji)
                 if isinstance(reac_sonuc, dict):
                     return f"Reaction eklendi: {emoji}"

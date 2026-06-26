@@ -34,7 +34,7 @@ from typing import List, Dict, Any, Optional
 
 import fire
 from dotenv import load_dotenv
-from agent.tool_dispatch_helpers import make_tool_result_message
+from reymen.hermes.agent.tool_dispatch_helpers import make_tool_result_message
 
 # Load environment variables
 load_dotenv()
@@ -50,7 +50,7 @@ def _effective_temperature_for_model(
     callers must omit the ``temperature`` kwarg entirely in that case.
     """
     try:
-        from agent.auxiliary_client import _fixed_temperature_for_model, OMIT_TEMPERATURE
+        from reymen.hermes.agent.auxiliary_client import _fixed_temperature_for_model, OMIT_TEMPERATURE
     except Exception:
         return None
     result = _fixed_temperature_for_model(model, base_url)
@@ -135,15 +135,15 @@ def create_environment(
         Environment instance with execute() and cleanup() methods
     """
     if env_type == "local":
-        from tools.environments.local import LocalEnvironment
+        from reymen.hermes.tools.environments.local import LocalEnvironment
         return LocalEnvironment(cwd=cwd, timeout=timeout)
     
     elif env_type == "docker":
-        from tools.environments.docker import DockerEnvironment
+        from reymen.hermes.tools.environments.docker import DockerEnvironment
         return DockerEnvironment(image=image, cwd=cwd, timeout=timeout, **kwargs)
     
     elif env_type == "modal":
-        from tools.environments.modal import ModalEnvironment
+        from reymen.hermes.tools.environments.modal import ModalEnvironment
         return ModalEnvironment(image=image, cwd=cwd, timeout=timeout, **kwargs)
     
     else:
@@ -216,7 +216,7 @@ class MiniSWERunner:
             }
             self.client = OpenAI(**client_kwargs)
         else:
-            from agent.auxiliary_client import resolve_provider_client
+            from reymen.hermes.agent.auxiliary_client import resolve_provider_client
             self.client, _ = resolve_provider_client("openrouter", model=model)
             if self.client is None:
                 # Fallback: try auto-detection

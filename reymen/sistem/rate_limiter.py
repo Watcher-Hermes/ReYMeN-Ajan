@@ -248,7 +248,7 @@ class RateLimitedProvider:
 def motor_kaydet(motor, rate_limited_provider=None) -> None:
     """Motor'a TOKEN_RAPOR araci ekle."""
     try:
-        from plugins.kanban import _plugin_arac_kaydet
+        from reymen.hermes.plugins.kanban import _plugin_arac_kaydet
 
         def _token_rapor(ham: str) -> str:
             if rate_limited_provider:

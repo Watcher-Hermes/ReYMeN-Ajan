@@ -241,6 +241,104 @@ class HealthChecker:
 
         return sonuclar
 
+    # ── Güvenlik Kontrolleri ─────────────────────────────────────────────────
+
+    def guvenlik_kontrol(self) -> List[Dict]:
+        """SecurityGuard modülünü yükler ve temel yeteneklerini test eder."""
+        sonuclar = []
+
+        try:
+            try:
+                from reymen.guvenlik.security_hardened import SecurityGuard
+            except ImportError:
+                import sys, os
+                sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+                from reymen.guvenlik.security_hardened import SecurityGuard  # type: ignore
+            guard = SecurityGuard()
+
+            # Komut güvenliği testi
+            zararsiz = guard.komut_kontrol("echo merhaba")
+            tehlikeli = guard.komut_kontrol("rm -rf /tmp")
+            sonuclar.append(self._kontrol(
+                "SecurityGuard.loaded", True,
+                "SecurityGuard yüklendi", "guvenlik", "kritik"
+            ))
+            if zararsiz is True and tehlikeli is False:
+                sonuclar.append(self._kontrol(
+                    "SecurityGuard.command_filtering", True,
+                    "Tehlikeli komut engelleniyor, güvenli komut geçiyor",
+                    "guvenlik", "kritik"
+                ))
+            else:
+                # Tuple format kontrolü (bool, str)
+                z_ok = isinstance(zararsiz, tuple) and zararsiz[0] is True
+                t_ok = isinstance(tehlikeli, tuple) and tehlikeli[0] is False
+                if z_ok and t_ok:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.command_filtering", True,
+                        "Tehlikeli komut engelleniyor, güvenli komut geçiyor (tuple)",
+                        "guvenlik", "kritik"
+                    ))
+                else:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.command_filtering", False,
+                        f"Filtreleme hatası: zararsiz={zararsiz}, tehlikeli={tehlikeli}",
+                        "guvenlik", "kritik"
+                    ))
+
+            # XSS güvenliği testi
+            guvenli_metin = guard.xss_kontrol("<p>Merhaba</p>")
+            tehlikeli_metin = guard.xss_kontrol("<script>alert(1)</script>")
+            if isinstance(guvenli_metin, tuple) and isinstance(tehlikeli_metin, tuple):
+                g_ok = guvenli_metin[0] is True
+                t_ok = tehlikeli_metin[0] is False
+                if g_ok and t_ok:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.xss_filtering", True,
+                        "XSS: tehlikeli script engelleniyor",
+                        "guvenlik", "kritik"
+                    ))
+                else:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.xss_filtering", False,
+                        f"XSS hatası: guvenli={guvenli_metin}, tehlikeli={tehlikeli_metin}",
+                        "guvenlik", "kritik"
+                    ))
+
+            # SQL injection güvenliği testi
+            guvenli_sql = guard.sql_kontrol("kullanici_adi")
+            tehlikeli_sql = guard.sql_kontrol("kullanici_adi' OR '1'='1")
+            if isinstance(guvenli_sql, tuple) and isinstance(tehlikeli_sql, tuple):
+                g_ok = guvenli_sql[0] is True
+                t_ok = tehlikeli_sql[0] is False
+                if g_ok and t_ok:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.sql_filtering", True,
+                        "SQL injection engelleniyor",
+                        "guvenlik", "kritik"
+                    ))
+                else:
+                    sonuclar.append(self._kontrol(
+                        "SecurityGuard.sql_filtering", False,
+                        f"SQL hatası: guvenli={guvenli_sql}, tehlikeli={tehlikeli_sql}",
+                        "guvenlik", "kritik"
+                    ))
+
+        except ImportError as e:
+            sonuclar.append(self._kontrol(
+                "SecurityGuard", False,
+                f"security_hardened yüklenemedi: {e}",
+                "guvenlik", "kritik"
+            ))
+        except Exception as e:
+            sonuclar.append(self._kontrol(
+                "SecurityGuard.runtime", False,
+                f"Runtime hata: {e}",
+                "guvenlik", "kritik"
+            ))
+
+        return sonuclar
+
     # ── Tam Kontrol ──────────────────────────────────────────────────────────
 
     def tam_kontrol(self) -> Dict[str, Any]:
@@ -250,6 +348,7 @@ class HealthChecker:
 
         # Kontrolleri çalıştır
         self.modul_kontrol()
+        self.guvenlik_kontrol()
         self.arac_kontrol()
         self.bagimlilik_kontrol()
         self.hafiza_kontrol()

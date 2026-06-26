@@ -481,7 +481,7 @@ op("/project1/shader_code").text = shader_string
 
 ### 42. td_execute_python DOES return print() output — use it for debugging
 
-`print()` statements in `td_execute_python` scripts appear in the MCP response text. This is the correct way to read values back from scripts. The response format is: printed output first, then `[fps X.X/X] [N err/N warn]` on a separate line.
+`print()` statements in `td_execute_python` scripts appear in the MCP response text. This is the correct way to read values back from reymen.hermes.scripts. The response format is: printed output first, then `[fps X.X/X] [N err/N warn]` on a separate line.
 
 However, the `result` variable (if you set one) does NOT appear verbatim — use `print()` for anything you need to read back:
 ```python

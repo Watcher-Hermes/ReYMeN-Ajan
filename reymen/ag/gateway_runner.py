@@ -28,19 +28,19 @@ from typing import Any, Callable, Optional
 
 # gateway/platforms entegrasyonu
 try:
-    from gateway.platforms import platform_listele, platform_baslat, mesaj_gonder as platform_mesaj
+    from reymen.hermes.gateway.platforms import platform_listele, platform_baslat, mesaj_gonder as platform_mesaj
     _PLATFORMLAR_AKTIF = True
 except ImportError:
     _PLATFORMLAR_AKTIF = False
 
 try:
-    from gateway.session import yonetici as session_yonetici
+    from reymen.hermes.gateway.session import yonetici as session_yonetici
     _SESSION_AKTIF = True
 except ImportError:
     _SESSION_AKTIF = False
 
 try:
-    from gateway.mirror import aynalayici
+    from reymen.hermes.gateway.mirror import aynalayici
     _MIRROR_AKTIF = True
 except ImportError:
     _MIRROR_AKTIF = False

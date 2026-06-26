@@ -268,20 +268,19 @@ _MODELLER = [
     ("lmstudio",   "local",                     "LM Studio (Yerel)",      "",                   "http://localhost:1234/v1"),
 ]
 
-def _model_sec(api_d=None):
+def _model_sec(api_d=None, force=False):
     """
     Model seçim ekranı.
-    - DeepSeek kredisi bitmiş olsa bile seçime izin ver (fallback devreye girer)
-    - Mevcut model çalışıyorsa (status=True) seçimi atla
+    - force=True: her zaman göster (açılışta)
+    - force=False: mevcut model varsa atla
     """
     if api_d is None:
         api_d = {}
 
     cur_m, cur_p = _mevcut_model()
 
-    # Mevcut model config'de kayıtlıysa (kredi bitmiş olsa bile) seçimi atla
-    # Provider durumu (True/False) yerine config'e bak—kullanıcı seçtiyse devam et
-    if cur_m and cur_p:
+    # force=True ise seçim ekranını her zaman göster
+    if not force and cur_m and cur_p:
         for p, m, ad, _env, _url in _MODELLER:
             if p == cur_p and m == cur_m:
                 print(f"  {_g('✓')} {_b(ad)} {_d('— aktif, /model ile değiştir')}")
@@ -486,29 +485,29 @@ def _repl():
 
 # ── Giriş noktası ────────────────────────────────────────────────────────────
 def main():
-    _api_sonuc = {}
-    def _kontrol_yap():
-        _api_sonuc.update(_api_kontrol())
-
-    kontrol_t = _th.Thread(target=_kontrol_yap, daemon=True)
-    kontrol_t.start()
-
     _ekran()
 
-    print(f"  {_d('API key durumu kontrol ediliyor...')}", end="", flush=True)
-    kontrol_t.join(timeout=8)
-    print(f"\r{' '*50}\r", end="", flush=True)
+    while True:
+        # 1. Model seçimini göster (api_sonuc varsa göster, yoksa ilk açılış)
+        _model_sec(_api_sonuc if '_api_sonuc' in dir() else None, force=True)
+        cur_m, cur_p = _mevcut_model()
 
-    _ekran(_api_sonuc)
+        # 2. Seçilen modelin API key'ini kontrol et
+        _api_sonuc = _api_kontrol(yenile=True)
 
-    # Mevcut model True ise seçim ekranını atla — her açılışta sorma
-    # False ise kullanıcı seçim yapabilsin (seçim engeli kalktı)
-    cur_m, cur_p = _mevcut_model()
-    if _api_sonuc.get(cur_p) is not True:
-        _model_sec(_api_sonuc)
-    else:
-        print(f"  {_g('✓')} {_b('Model aktif, REPL başlatılıyor...')}\n")
+        durum = _api_sonuc.get(cur_p)
+        if durum is True:
+            break  # API key geçerli, devam
 
+        # 3. Hata durumunda uyarı göster ve döngüye devam
+        if durum is False:
+            print(f"  {_r('✗')} {_b(cur_p)}: API anahtarı geçersiz veya kredi yetersiz.")
+            print(f"  {_d('Başka bir model seçin.')}\n")
+        else:
+            print(f"  {_y('?')} {_b(cur_p)}: API kontrol edilemedi (zaman aşımı).")
+            print(f"  {_d('Başka bir model seçin veya tekrar deneyin.')}\n")
+
+    print(f"  {_g('✓')} {_b('Model aktif, REPL başlatılıyor...')}\n")
     _repl()
 
 if __name__ == "__main__":

@@ -284,7 +284,7 @@ def _cmd_clarify(msg: dict, hedef: str):
                "Sadece soru: /clarify Bu işlemi onaylıyor musun?")
         return
     try:
-        from tools.clarify_tool import run as clarify_run
+        from reymen.hermes.tools.clarify_tool import run as clarify_run
         parcalar = hedef.split("|")
         soru = parcalar[0].strip()
         secenekler = [s.strip() for s in parcalar[1].split(",")] if len(parcalar) > 1 and parcalar[1].strip() else None
@@ -305,7 +305,7 @@ def _cmd_exec(msg: dict, kod: str):
                "Çok satırlı: gönderirken alt satıra geçmeden tek satırda yazın, noktalı virgül ile ayırın.")
         return
     try:
-        from tools.execute_code_tool import run as exec_run
+        from reymen.hermes.tools.execute_code_tool import run as exec_run
         sonuc = exec_run(kod=kod)
         cikti = sonuc[:3000]  # Telegram limiti
         gonder(cid, cikti)
@@ -422,7 +422,7 @@ def telegram_araclari_kaydet(motor) -> None:
     """Motor'a TELEGRAM_GONDER aracini ekle."""
     import re as _re
     try:
-        from plugins.kanban import _plugin_arac_kaydet
+        from reymen.hermes.plugins.kanban import _plugin_arac_kaydet
     except ImportError:
         return
 

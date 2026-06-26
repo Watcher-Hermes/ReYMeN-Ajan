@@ -470,7 +470,7 @@ pip install youtube-transcript-api
 
 ### Doğrulama
 ```python
-from tools.youtube_tool import transkript_getir
+from reymen.hermes.tools.youtube_tool import transkript_getir
 print(transkript_getir("https://youtu.be/VIDEO_ID")[:200])
 ```
 

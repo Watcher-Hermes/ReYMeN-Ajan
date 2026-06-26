@@ -40,7 +40,7 @@ Her batch icin delegate_task'e verilecek context:
 
 ### Adim 3: DOGRULAMA
 Her batch sonrasi:
-- Import dogrulama: `python -c "import tools.x, tools.y; print('OK')"`
+- Import dogrulama: `python -c "import reymen.hermes.tools.x, tools.y; print('OK')"`
 - Fonksiyonel test: her tool'un run() fonksiyonunu cagir
 - Motor.py/init.py guncellemesi (yeni modulleri kaydet)
 

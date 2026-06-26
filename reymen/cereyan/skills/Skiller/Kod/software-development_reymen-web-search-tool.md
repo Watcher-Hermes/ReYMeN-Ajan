@@ -39,7 +39,7 @@ R>eYMeN projesine DuckDuckGo web arama tool'u ekler.
 
 ```bash
 python -m py_compile tools/web_search_tool.py
-python -c "from tools.web_search_tool import run; print(run('Python dili', 'duckduckgo'))"
+python -c "from reymen.hermes.tools.web_search_tool import run; print(run('Python dili', 'duckduckgo'))"
 ```
 
 ## API

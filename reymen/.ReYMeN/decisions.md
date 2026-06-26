@@ -1,5 +1,48 @@
 
-## Cycle 6: 2026-06-26 (cron job fb8537762540)
+## Cycle 9: 2026-06-26 (cron job fb8537762540)
+
+### Ne yapildi?
+- **A**: `core/retry.py` eklendi (299 satir)
+  - `RetryConfig` — max_attempts, delay, backoff, max_delay, jitter, exceptions, ignore_exceptions, timeout
+  - `retry()` decorator — fonksiyonlari yeniden deneme ile sarma
+  - `geri_cek()` — decorator'suz tek cagri helper
+  - `_bekleme_suresi()` — exponential backoff + jitter hesaplama
+  - `execute()` — ana calistirma mantigi (deneme basina sleep)
+  - `__str__` / `__repr__` — debug string
+  - Validasyon: max_attempts < 1, delay < 0, backoff < 1.0, jitter [0,1]
+  - `core/__init__.py` guncellendi (3 yeni export)
+
+### Neden?
+- Projede yeniden deneme mekanizmasi yoktu (sistem/rate_limiter.py var ama retry ayri)
+- Test edilebilir: sadece time + functools + random, dis bagimlilik yok
+- Bir sonraki B cycle'inda test yazilacak (test_retry.py)
+
+### Dogrulama
+- ✅ Syntax: compile() ile kontrol edildi
+- ✅ 12 entegrasyon testi gecti (execute, decorator, geri_cek, validasyon, str/repr, ignore, timeout, bekleme suresi, proje import)
+  - Grup 1: Kurulum (2 test)
+  - Grup 2: Temel CRUD (4 test)
+  - Grup 3: Eksik/Expired (3 test)
+  - Grup 4: Delete/Clear (3 test)
+  - Grup 5: Size/Keys/Stats (5 test)
+  - Grup 6: LRU Eviction (3 test)
+  - Grup 7: Per-key TTL (2 test)
+  - Grup 8: _clean_expired (1 test)
+  - Grup 9: global_cache (2 test)
+  - Grup 10: @cached decorator (6 test)
+  - Grup 11: Thread safety (2 test)
+  - Grup 12: str/repr (2 test)
+- `cache_manager.py`'ye `__str__()` ve `__repr__()` eklendi
+
+### Neden?
+- Cycle 7'de A sikinda cache_manager.py eklendi (189 satir)
+- Bu cycle B siki: test yaz + calistir
+- Test gecmemis str/repr testleri icin module __str__/__repr__ eklendi
+
+### Alternatif?
+- threat_patterns.py testi (henuz yok) — ama cycle 7'de eklenen modul oncelikli
+
+### Sonuc: 35/35 PASS ✅
 
 ### Ne yapildi?
 - **A**: `guvenlik/threat_patterns.py` genisletildi (125 -> 372 satir)

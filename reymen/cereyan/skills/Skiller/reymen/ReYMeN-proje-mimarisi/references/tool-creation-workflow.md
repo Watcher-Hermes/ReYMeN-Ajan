@@ -88,7 +88,7 @@ def _satir(kayit, indeks) -> str:
 
 ```bash
 python -m py_compile tools/tool_adi.py
-python -c "from tools.tool_adi import run; print(run())"
+python -c "from reymen.hermes.tools.tool_adi import run; print(run())"
 ```
 
 ## Kullanici Tercihleri (Kritik)

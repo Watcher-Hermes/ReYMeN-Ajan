@@ -29,7 +29,7 @@ import threading
 import time
 from typing import Dict, Any, List, Optional, Tuple
 
-from tools.registry import discover_builtin_tools, registry
+from reymen.hermes.tools.registry import discover_builtin_tools, registry
 from toolsets import resolve_toolset, validate_toolset
 
 logger = logging.getLogger(__name__)
@@ -424,7 +424,7 @@ def _compute_tool_definitions(
     # execute_code" even when the API key isn't configured or the toolset is
     # disabled (#560-discord).
     if "execute_code" in available_tool_names:
-        from tools.code_execution_tool import SANDBOX_ALLOWED_TOOLS, build_execute_code_schema, _get_execution_mode
+        from reymen.hermes.tools.code_execution_tool import SANDBOX_ALLOWED_TOOLS, build_execute_code_schema, _get_execution_mode
         sandbox_enabled = SANDBOX_ALLOWED_TOOLS & available_tool_names
         dynamic_schema = build_execute_code_schema(sandbox_enabled, mode=_get_execution_mode())
         for i, td in enumerate(filtered_tools):
@@ -498,7 +498,7 @@ def _compute_tool_definitions(
     # string-valued schema nodes from malformed MCP servers, etc. This
     # is a no-op for schemas that are already well-formed.
     try:
-        from tools.schema_sanitizer import sanitize_tool_schemas
+        from reymen.hermes.tools.schema_sanitizer import sanitize_tool_schemas
         filtered_tools = sanitize_tool_schemas(filtered_tools)
     except Exception as e:  # pragma: no cover — defensive
         logger.warning("Schema sanitization skipped: %s", e)
@@ -514,7 +514,7 @@ def _compute_tool_definitions(
     # has already normalized schemas, and the assembly is idempotent in
     # case some caller invokes get_tool_definitions twice.
     try:
-        from tools.tool_search import assemble_tool_defs, load_config as _load_ts_config
+        from reymen.hermes.tools.tool_search import assemble_tool_defs, load_config as _load_ts_config
         ts_cfg = _load_ts_config()
         if not skip_tool_search_assembly and ts_cfg.enabled != "off":
             context_length = _resolve_active_context_length()
@@ -551,7 +551,7 @@ def _resolve_active_context_length() -> int:
         model_id = (model_cfg.get("model") or model_cfg.get("default") or "").strip()
         if not model_id:
             return 0
-        from agent.model_metadata import get_model_context_length
+        from reymen.hermes.agent.model_metadata import get_model_context_length
         return int(get_model_context_length(model_id) or 0)
     except Exception as e:
         logger.debug("Could not resolve active context length: %s", e)
@@ -1081,7 +1081,7 @@ def handle_function_call(
         # so the *consecutive* counter resets (reads after other work are fine).
         if function_name not in _READ_SEARCH_TOOLS:
             try:
-                from tools.file_tools import notify_other_tool_call
+                from reymen.hermes.tools.file_tools import notify_other_tool_call
                 notify_other_tool_call(task_id or "default")
             except Exception:
                 pass  # file_tools may not be loaded yet
@@ -1096,7 +1096,7 @@ def handle_function_call(
         _dispatch_start = time.monotonic()
         _approval_tokens = None
         try:
-            from tools.approval import (
+            from reymen.hermes.tools.approval import (
                 reset_current_observability_context,
                 set_current_observability_context,
             )

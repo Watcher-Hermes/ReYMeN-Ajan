@@ -13,6 +13,7 @@ from pathlib import Path
 
 from reymen.cereyan.motor.config import ROOT, DURUM_MESAJLARI, TOOLSET_GRUPLARI
 from reymen.cereyan.motor.context import gateway_durum_yaz as _gateway_durum_yaz
+from reymen.cereyan.motor.plugins import _REGISTRY, _PLUGIN_MGR, _CUA_MEVCUT, CUA_EKRAN_KULLAN, CUA_ARACLARI_TARA
 
 log = logging.getLogger("motor")
 
@@ -25,8 +26,6 @@ try:
     from path_security import yol_dogrula as _yol_dogrula
 except ImportError:
     _yol_dogrula = lambda p: (True, p)
-
-from reymen.cereyan.motor.plugins import _CUA_MEVCUT, CUA_EKRAN_KULLAN, CUA_ARACLARI_TARA
 
 
 # ── HATA_COZUCU ──────────────────────────────────────────────────────────────
@@ -233,7 +232,7 @@ def dosya_yaz(motor, params: list) -> str:
     if not gecerli:
         return f"[Guvenlik]: {yol}"
     try:
-        from agent.lsp.file_operations_lsp import lsp_diagnostics_before_write, lsp_diagnostics_after_write, format_diagnostics
+        from reymen.hermes.agent.lsp.file_operations_lsp import lsp_diagnostics_before_write, lsp_diagnostics_after_write, format_diagnostics
         lsp_diagnostics_before_write(ad)
     except ImportError:
         pass
@@ -271,13 +270,13 @@ def telegram_araclari(motor, arac: str, params: list) -> str:
                 return "[TELEGRAM_GONDER]: Iletisim katmani uzerinden gonderildi."
         except Exception:
             pass
-        from tools.send_message_tool import telegram_gonder
+        from reymen.hermes.tools.send_message_tool import telegram_gonder
         tg = motor.config.get("telegram", {})
         return telegram_gonder(params[0] if params else "", tg.get("token", ""), tg.get("chat_id", "6328823909"))
 
     if arac == "TELEGRAM_STREAM_GONDER":
         try:
-            from gateway.platforms.telegram import send_stream as _send_stream
+            from reymen.hermes.gateway.platforms.telegram import send_stream as _send_stream
             chat_id = params[1] if len(params) > 1 else os.environ.get("TELEGRAM_CHAT_ID", "6328823909")
             sonuc = _send_stream(chat_id, params[0] if params else "", parse_mode="HTML")
             if sonuc.get("durum") == "basarili":
@@ -288,7 +287,7 @@ def telegram_araclari(motor, arac: str, params: list) -> str:
 
     if arac == "TELEGRAM_REACTION_EKLE":
         try:
-            from gateway.platforms.telegram import set_reaction as _set_reaction
+            from reymen.hermes.gateway.platforms.telegram import set_reaction as _set_reaction
             chat_id = params[1] if len(params) > 1 else os.environ.get("TELEGRAM_CHAT_ID", "6328823909")
             mesaj_id = int(params[0]) if params else 0
             emoji = params[2] if len(params) > 2 else "\U0001f44d"
@@ -301,14 +300,14 @@ def telegram_araclari(motor, arac: str, params: list) -> str:
 
     if arac == "TELEGRAM_PING":
         try:
-            from gateway.platforms.telegram import ping as _ping
+            from reymen.hermes.gateway.platforms.telegram import ping as _ping
             canli = _ping()
             return f"[TELEGRAM_PING]: {'Baglanti basarili' if canli else 'Baglanti basarisiz'}"
         except Exception as e:
             return f"[TELEGRAM_PING]: Hata — {e}"
 
     if arac == "TELEGRAM_RESIM_GONDER":
-        from tools.send_message_tool import telegram_resim_gonder
+        from reymen.hermes.tools.send_message_tool import telegram_resim_gonder
         tg = motor.config.get("telegram", {})
         return telegram_resim_gonder(params[0] if params else "", tg.get("token", ""), tg.get("chat_id", "6328823909"))
 
@@ -443,7 +442,7 @@ def tui_baslat(motor, params: list) -> str:
 def gateway_araclari(motor, arac: str, params: list) -> str:
     if arac == "GATEWAY_BASLAT":
         try:
-            from gateway.run import GatewayRunner
+            from reymen.hermes.gateway.run import GatewayRunner
             filtre = params[0].split(",") if params and params[0] else None
             motor._gateway_runner = GatewayRunner(polling_interval=5.0)
             threading.Thread(
@@ -468,8 +467,8 @@ def gateway_araclari(motor, arac: str, params: list) -> str:
 
     if arac == "GATEWAY_RESTART":
         try:
-            from gateway.restart import platform_kaydet, restart_all
-            from gateway.platforms import platform_listele, platform_al
+            from reymen.hermes.gateway.restart import platform_kaydet, restart_all
+            from reymen.hermes.gateway.platforms import platform_listele, platform_al
             for ad in platform_listele():
                 bilgi = platform_al(ad)
                 if bilgi:
@@ -483,7 +482,7 @@ def gateway_araclari(motor, arac: str, params: list) -> str:
 
     if arac == "GATEWAY_DURUM":
         try:
-            from gateway.status import read_runtime_status
+            from reymen.hermes.gateway.status import read_runtime_status
             durum = read_runtime_status()
             if not durum:
                 return "[GATEWAY_DURUM] Gateway calismiyor (durum dosyasi yok)."
@@ -531,3 +530,195 @@ def alt_ajan_araclari(motor, arac: str, params: list, ham_param: str = "") -> st
     except Exception as e:
         return f"[ALT_AJAN] Hata: {e}"
     return "[Hata]: Bilinmeyen alt_ajan araci."
+
+
+# ── Dispatch fonksiyonlari (main.py calistir() tarafindan cagrilir) ─────────
+
+def ozel_arac_calistir(motor, arac: str, ham_param: str, params: list):
+    """Ozel arac kategorilerini fallback oncesi calistirir.
+    None donerse normal akis (registry -> plugin -> fallback) devam eder.
+    """
+    if arac in ("HATA_WATCH_BASLAT", "HATA_WATCH_DURDUR", "HATA_KOD_AL",
+                 "TERMINAL_HATA_PARSE", "COZUM_UYGULA"):
+        return hata_cozucu_calistir(motor, arac, params)
+    if arac in ("TOR_AC", "TOR_KAPAT", "TOR_FORM_DOLDUR",
+                 "TOR_LOGIN", "TOR_KAYIT", "TOR_SIPARIS"):
+        return tor_otomasyonu_calistir(motor, arac, ham_param, params)
+    if arac == "PARALLEL_CALISTIR":
+        return paralel_calistir(motor, params[0] if params else "")
+    return None
+
+
+def paralel_calistir(motor, tanim: str) -> str:
+    """PARALLEL_CALISTIR(...) - araclari paralel calistirir."""
+    import re as _re
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    from typing import Tuple
+    cagrilar = _re.findall(r"([A-Z_]+)\s*\(((?:[^()]*|\([^()]*\))*)\)", tanim)
+    if not cagrilar:
+        parcalar = [p.strip() for p in tanim.split("|") if p.strip()]
+        cagrilar = []
+        for parca in parcalar:
+            m = _re.match(r"([A-Z_]+)\s*\((.*)\)", parca.strip(), _re.DOTALL)
+            if m:
+                cagrilar.append((m.group(1).strip(), m.group(2).strip()))
+    if not cagrilar:
+        return "[PARALLEL_CALISTIR] Hicbir gecerli arac cagrisi bulunamadi."
+    sonuclar = {}
+    hata_sayisi = 0
+    arac_timeout = int(getattr(motor, "config", {}).get("parallel_timeout", 30))
+    max_isci = min(len(cagrilar), 8)
+    def _cagri_yap(idx, arac_adi, ham):
+        try:
+            return idx, arac_adi, motor.calistir(arac_adi, ham)
+        except Exception as e:
+            return idx, arac_adi, f"[Hata]: {e}"
+    try:
+        with ThreadPoolExecutor(max_workers=max_isci) as executor:
+            gelecekler = {executor.submit(_cagri_yap, i, a, h): (i, a) for i, (a, h) in enumerate(cagrilar)}
+            for gelecek in as_completed(gelecekler, timeout=arac_timeout * len(cagrilar)):
+                i_ref, arac_ref = gelecekler[gelecek]
+                try:
+                    idx, arac_adi, sonuc = gelecek.result(timeout=arac_timeout)
+                except TimeoutError:
+                    idx, arac_adi, sonuc = i_ref, arac_ref, f"[Hata]: {arac_ref} zaman asimi ({arac_timeout}s)."
+                except Exception as _e:
+                    idx, arac_adi, sonuc = i_ref, arac_ref, f"[Hata]: {_e}"
+                sonuclar[idx] = (arac_adi, sonuc)
+                if "[Hata]" in sonuc:
+                    hata_sayisi += 1
+    except TimeoutError:
+        eksik = set(range(len(cagrilar))) - set(sonuclar.keys())
+        for i in eksik:
+            a_adi = cagrilar[i][0] if i < len(cagrilar) else "?"
+            sonuclar[i] = (a_adi, "[Hata]: Zaman asimi - tamamlanamadi.")
+            hata_sayisi += 1
+    satirlar = [f"[PARALLEL_CALISTIR] {len(cagrilar)} arac, {hata_sayisi} hata:"]
+    for i in range(len(cagrilar)):
+        arac_adi, sonuc = sonuclar.get(i, ("?", "[Sonuc yok]"))
+        satirlar.append(f"\n--- {arac_adi} ---\n{sonuc[:500]}")
+    return "\n".join(satirlar)
+
+
+def fallback_calistir(motor, arac: str, params: list) -> str:
+    """Ana fallback zinciri - registry/plugin calismazsa kullanilir."""
+    if arac == "KOMUT_CALISTIR":
+        return motor.terminal.calistir(params[0] if params else "") if motor.terminal else "[Hata]: Terminal yok"
+    if arac == "PYTHON_CALISTIR":
+        try:
+            from guvenli_sandbox import guvenli_calistir
+            return guvenli_calistir(params[0] if params else "", timeout=30)
+        except ImportError:
+            pass
+        if izole_python_calistir:
+            return izole_python_calistir(params[0] if params else "")
+        return "[Hata]: Sandbox yok"
+    if arac == "GUVENLI_CALISTIR":
+        try:
+            from guvenli_sandbox import guvenli_calistir
+            mod = params[1] if len(params) >= 2 else "oto"
+            return guvenli_calistir(params[0] if params else "", mod=mod, timeout=30)
+        except ImportError:
+            return "[Hata]: guvenli_sandbox modulu yuklu degil."
+    if arac == "ARAC_URET":
+        try:
+            from dinamik_arac_uretici import arac_uret_ve_calistir
+            problem = params[0] if params else ""
+            test_girdisi = params[1] if len(params) >= 2 else ""
+            provider = getattr(motor, "_provider_ref", None)
+            return arac_uret_ve_calistir(problem, motor=motor, provider=provider, test_girdisi=test_girdisi, max_deneme=2)
+        except ImportError:
+            return "[Hata]: dinamik_arac_uretici modulu yuklu degil."
+    if arac == "GOREV_BITTI":
+        try:
+            from reymen.hermes.tools.achievements import check_achievements
+            yeni = check_achievements(gorev_tamamlandi=True)
+            if yeni:
+                return "__GOREV_BITTI__\n" + "\n".join(f"{r['emoji']} {r['name']} kazanildi!" for r in yeni)
+        except Exception:
+            pass
+        return "__GOREV_BITTI__"
+    if arac in ("DURUM_BILDIR", "DURUM_RAPOR"):
+        return durum_fallback(motor, arac, params)
+    if arac == "WATCHDOG_KONTROL":
+        return watchdog_calistir(motor, params)
+    if arac == "GATEWAY_DURUM_YAZ":
+        durum = params[0] if params else "running"
+        hata = params[1] if len(params) >= 2 else ""
+        _gateway_durum_yaz(durum, hata)
+        return f"__GATEWAY_DURUM_YAZ: {durum}__"
+    if arac == "TELEGRAM_TOKEN_TEST":
+        return telegram_token_test(motor)
+    if arac == "PROXY_AYARLA":
+        return proxy_ayarla(motor, params)
+    if arac == "ACHIEVEMENTS_LISTE":
+        from reymen.hermes.tools.achievements import rozet_listele
+        return rozet_listele()
+    if arac == "DOSYA_YAZ":
+        return dosya_yaz(motor, params)
+    if arac == "DOSYA_OKU":
+        return dosya_oku(motor, params)
+    if arac == "HAFIZA_ARA":
+        if motor.hafiza is None:
+            return "[Hafiza]: Bagli degil."
+        from vektorel_hafiza import anlamsal_hafiza_ara
+        return anlamsal_hafiza_ara(motor.hafiza, params[0] if params else "")
+    if arac == "WEB_ARA":
+        from araclar_web import web_ara
+        return web_ara(params[0] if params else "")
+    if arac in ("TELEGRAM_GONDER", "TELEGRAM_STREAM_GONDER", "TELEGRAM_REACTION_EKLE", "TELEGRAM_PING", "TELEGRAM_RESIM_GONDER"):
+        return telegram_araclari(motor, arac, params)
+    if arac in ("ILETISIM_BASLAT", "ILETISIM_DURDUR", "ILETISIM_DURUM"):
+        return iletisim_araclari(motor, arac, params)
+    if arac in ("KANBAN_EKLE", "KANBAN_LISTE", "KANBAN_CLAIM", "KANBAN_COMPLETE",
+                 "KANBAN_HEARTBEAT", "KANBAN_FAIL", "KANBAN_GUNCELLE", "KANBAN_OZET"):
+        return kanban_araclari(motor, arac, params)
+    if arac == "TARAYICI_AC":
+        from araclar_tarayici import TarayiciKontrol
+        return TarayiciKontrol().sayfa_ac_ve_oku(params[0] if params else "")
+    if arac in ("EKRAN_TIKLA", "EKRAN_OKU", "EKRAN_FOTOGRAF_CEK"):
+        return ekran_araclari(motor, arac, params)
+    if arac == "MAKRO_OYNAT":
+        from reymen.hermes.tools.macro import oynat
+        return oynat(params[0] if params else "")
+    if arac == "UYG_ISLEM_CAGIR":
+        from uygulama_hafizasi import UygulamaHafizasi
+        uh = UygulamaHafizasi()
+        if len(params) < 2:
+            return "[Hata]: UYG_ISLEM_CAGIR iki parametre ister."
+        adimlar = uh.islem_cagir(params[0], params[1])
+        if adimlar:
+            return f"[UygHafiza]: {params[0]} - {params[1]}\n" + "\n".join(adimlar)
+        return f"[UygHafiza]: '{params[1]}' kaydi yok."
+    if arac in ("PDF_OKU", "EXCEL_OKU", "CSV_OKU", "GORUNTU_ANALIZ", "DOSYA_ANALIZ"):
+        return dosya_analiz_araclari(motor, arac, params)
+    if arac == "PROJE_TARA":
+        return proje_tara(motor)
+    if arac in ("CUA_EKRAN_KULLAN", "CUA_ARACLARI_TARA"):
+        return cua_araclari(motor, arac, params)
+    if arac == "TUI_BASLAT":
+        return tui_baslat(motor, params)
+    if arac in ("GATEWAY_BASLAT", "GATEWAY_DURDUR", "GATEWAY_RESTART", "GATEWAY_DURUM"):
+        return gateway_araclari(motor, arac, params)
+    if arac in ("ALT_AJAN_GOREVLENDIR", "ALT_AJAN_DURUM", "ALT_AJAN_IPTAL"):
+        return alt_ajan_araclari(motor, arac, params, ham_param="")
+    if arac == "CLARIFY":
+        try:
+            from reymen.hermes.tools.clarify_tool import run as clarify_run
+            soru = params[0] if len(params) > 0 else ""
+            sec_str = params[1] if len(params) > 1 and params[1] else ""
+            varsayilan = params[2] if len(params) > 2 else ""
+            secenekler = [s.strip() for s in sec_str.split("|") if s.strip()] if sec_str else None
+            return clarify_run(soru=soru, secenekler=secenekler, varsayilan=varsayilan)
+        except Exception as e:
+            return f"[CLARIFY HATASI] {e}"
+    if arac == "EXECUTE_CODE":
+        try:
+            from reymen.hermes.tools.execute_code_tool import run as exec_run
+            kod = params[0] if len(params) > 0 else ""
+            timeout = int(params[1]) if len(params) > 1 and params[1].strip().isdigit() else 30
+            calisma_dizini = params[2] if len(params) > 2 else ""
+            return exec_run(kod=kod, timeout=timeout, calisma_dizini=calisma_dizini)
+        except Exception as e:
+            return f"[EXECUTE_CODE HATASI] {e}"
+    return f"[Hata]: Bilinmeyen arac '{arac}'."

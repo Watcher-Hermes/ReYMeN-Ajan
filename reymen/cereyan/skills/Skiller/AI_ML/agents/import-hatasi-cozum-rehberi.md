@@ -62,7 +62,7 @@ class UsageUpdate:
 Test dizini (`tests/xxx/acp/`) proje paketi (`acp/`) ile aynı ada sahipse:
 
 **Semptom:** `ModuleNotFoundError: No module named 'acp.agent'` 
-ama `python3 -c "from acp.agent.router import ..."` çalışıyor.
+ama `python3 -c "from reymen.hermes.acp.agent.router import ..."` çalışıyor.
 
 **Çözüm:** Test dizinindeki `__init__.py`'yi SİL:
 ```bash

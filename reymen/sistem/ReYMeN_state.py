@@ -23,7 +23,7 @@ import threading
 import time
 from pathlib import Path
 
-from agent.memory_manager import sanitize_context
+from reymen.hermes.agent.memory_manager import sanitize_context
 from ReYMeN_constants import get_ReYMeN_home
 from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
 

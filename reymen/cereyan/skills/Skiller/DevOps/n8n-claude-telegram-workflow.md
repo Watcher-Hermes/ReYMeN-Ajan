@@ -83,7 +83,7 @@ Kullanıcı "n8n", "workflow", "telegram bot", "otomasyon" veya "tek mesajla iş
 
 **Kullanım:**
 ```python
-from tools.n8n_tool import N8NTool
+from reymen.hermes.tools.n8n_tool import N8NTool
 n8n = N8NTool()
 n8n.trigger_workflow("workflow_id", {"mesaj": "merhaba"})
 print(n8n.health_check())

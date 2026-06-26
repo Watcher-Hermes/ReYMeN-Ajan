@@ -10,7 +10,7 @@ import subprocess
 import time
 import shlex
 from datetime import datetime
-from tools.environments.wsl import WSLEnvironment
+from reymen.hermes.tools.environments.wsl import WSLEnvironment
 
 
 class TerminalBackend:
