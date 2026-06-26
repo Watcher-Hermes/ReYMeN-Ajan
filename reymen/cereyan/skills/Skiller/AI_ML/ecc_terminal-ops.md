@@ -1,21 +1,30 @@
----
-name: terminal-ops
-description: 'Use this when the user wants real repo execution: run commands, inspect
-  git state, debug CI or builds, make a narrow fix, and report exactly what changed
-  and what was verified.'
-title: Terminal Ops
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Terminal Ops |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: terminal-ops
+description: Evidence-first repo execution workflow for ECC. Use when the user wants a command run, a repo checked, a CI failure debugged, or a narrow fix pushed with exact proof of what was executed and verified.
+title: "Terminal Ops"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Terminal Ops
 

@@ -1,20 +1,30 @@
----
-name: investor-materials
-description: Build investor-facing materials that are consistent, credible, and easy
-  to defend.
-title: Investor Materials
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Investor Materials |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: investor-materials
+description: Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.
+title: "Investor Materials"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development, tor]
+category: ecc---
 
 # Investor Materials
 

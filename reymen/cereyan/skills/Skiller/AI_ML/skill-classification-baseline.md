@@ -1,23 +1,48 @@
 ---
 name: skill-classification-baseline
-description: Before trying complex models, establish a baseline with logistic regression.
-  It trains in seconds, produces probabilities, and is fully interpretable. A surprising
-  number of real-world problems never need anything fancier.
-title: Skill Classification Baseline
+description: Establish a strong classification baseline before reaching for complex models
+title: "Skill Classification Baseline"
 version: 1.0.0
+phase: 2
+lesson: 3
+tags: [classification, logistic-regression, baseline, preprocessing]
+category: skill-classification-baseline
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Establish a strong classification baseline before reaching for complex models |
+| **Nerede** | `mlops\skills\skill-classification-baseline.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Classification Baseline islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Establish a strong classification baseline before reaching for complex models |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-models
+---
+
+Kim: ML/Veri bilimci
+Ne: Establish a strong classification baseline before reaching for complex models
+Nerede: `mlops\skills\skill-classification-baseline.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Classification Baseline islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Classification Baseline Guide
 
 Before trying complex models, establish a baseline with logistic regression. It trains in seconds, produces probabilities, and is fully interpretable. A surprising number of real-world problems never need anything fancier.

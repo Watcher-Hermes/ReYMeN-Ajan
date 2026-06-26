@@ -1,20 +1,31 @@
----
-name: hipaa-compliance
-description: 'Use this as the HIPAA-specific entrypoint when a task is clearly about
-  US healthcare compliance. This skill intentionally stays thin and canonical:'
-title: Hipaa Compliance
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Hipaa Compliance |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: hipaa-compliance
+description: HIPAA-specific entrypoint for healthcare privacy and security work. Use when a task is explicitly framed around HIPAA, PHI handling, covered entities, BAAs, breach posture, or US healthcare compliance requirements.
+title: "Hipaa Compliance"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # HIPAA Compliance
 

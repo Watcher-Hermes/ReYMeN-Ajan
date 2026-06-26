@@ -1,21 +1,30 @@
----
-name: swift-actor-persistence
-description: Patterns for building thread-safe data persistence layers using Swift
-  actors. Combines in-memory caching with file-backed storage, leveraging the actor
-  model to eliminate data races at compile time.
-title: Swift Actor Persistence
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Swift Actor Persistence |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: swift-actor-persistence
+description: Thread-safe data persistence in Swift using actors — in-memory cache with file-backed storage, eliminating data races by design.
+title: "Swift Actor Persistence"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development, tor]
+category: ecc---
 
 # Swift Actors for Thread-Safe Persistence
 

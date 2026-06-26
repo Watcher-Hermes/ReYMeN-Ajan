@@ -1,21 +1,48 @@
 ---
 name: skill-cmer-monitor
-description: Treat cross-modal alignment as a first-class production KPI.
-title: Skill Cmer Monitor
+description: Instrument a production VLM endpoint with Cross-Modal Error Rate monitoring, dashboards, and alerts
+title: "Skill Cmer Monitor"
 version: 1.0.0
+phase: 4
+lesson: 25
+tags: [vlm, production, monitoring, hallucination]
+category: skill-cmer-monitor
+audience: maintainer
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Instrument a production VLM endpoint with Cross-Modal Error Rate monitoring, dashboards, and alerts |
+| **Nerede** | `mlops\skills\skill-cmer-monitor.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Cmer Monitor islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Instrument a production VLM endpoint with Cross-Modal Error Rate monitoring, dashboards, and alerts |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-dashboards, and alerts
+---
+
+Kim: ML/Veri bilimci
+Ne: Instrument a production VLM endpoint with Cross-Modal Error Rate monitoring, dashboards, and alerts
+Nerede: `mlops\skills\skill-cmer-monitor.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Cmer Monitor islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # CMER Monitor
 
 Treat cross-modal alignment as a first-class production KPI.

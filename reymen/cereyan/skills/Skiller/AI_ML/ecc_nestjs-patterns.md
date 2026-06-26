@@ -1,19 +1,30 @@
----
-name: nestjs-patterns
-description: Production-grade NestJS patterns for modular TypeScript backends.
-title: Nestjs Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Nestjs Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: nestjs-patterns
+description: NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends.
+title: "NestJS Patterns"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # NestJS Development Patterns
 

@@ -1,21 +1,30 @@
----
-name: codebase-onboarding
-description: Systematically analyze an unfamiliar codebase and produce a structured
-  onboarding guide. Designed for developers joining a new project or setting up Claude
-  Code in an existing repo for the first time.
-title: Codebase Onboarding
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Codebase Onboarding |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: codebase-onboarding
+description: Analyze an unfamiliar codebase and generate a structured onboarding guide with architecture map, key entry points, conventions, and a starter CLAUDE.md. Use when joining a new project or setting up Claude Code for the first time in a repo.
+title: "Codebase Onboarding"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Codebase Onboarding
 

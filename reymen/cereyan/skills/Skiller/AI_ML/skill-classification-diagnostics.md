@@ -1,22 +1,48 @@
 ---
 name: skill-classification-diagnostics
-description: A reading lens for confusion matrices. Aggregate accuracy tells you a
-  classifier works. The confusion matrix tells you *what it does not know yet*.
-title: Skill Classification Diagnostics
+description: Given a confusion matrix and class names, surface per-class failures and propose the single most impactful fix
+title: "Skill Classification Diagnostics"
 version: 1.0.0
+phase: 4
+lesson: 4
+tags: [computer-vision, classification, evaluation, debugging]
+category: skill-classification-diagnostics
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Given a confusion matrix and class names, surface per-class failures and propose the single most impactful fix |
+| **Nerede** | `mlops\skills\skill-classification-diagnostics.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Classification Diagnostics islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Given a confusion matrix and class names, surface per-class failures and propose the single most impactful fix |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and propose the single most impactful fix
+---
+
+Kim: ML/Veri bilimci
+Ne: Given a confusion matrix and class names, surface per-class failures and propose the single most impactful fix
+Nerede: `mlops\skills\skill-classification-diagnostics.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Classification Diagnostics islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Classification Diagnostics
 
 A reading lens for confusion matrices. Aggregate accuracy tells you a classifier works. The confusion matrix tells you *what it does not know yet*.

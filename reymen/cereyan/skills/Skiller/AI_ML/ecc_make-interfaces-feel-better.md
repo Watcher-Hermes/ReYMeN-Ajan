@@ -1,20 +1,30 @@
----
-name: make-interfaces-feel-better
-description: Use this skill for the small design-engineering details that compound
-  into a
-title: Make Interfaces Feel Better
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Make Interfaces Feel Better |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: make-interfaces-feel-better
+description: Apply concrete design-engineering details that make interfaces feel polished. Use when reviewing or improving UI spacing, typography, borders, shadows, motion, hit areas, icons, text wrapping, and interaction states.
+title: "Make Interfaces Feel Better"
+origin: community
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Make Interfaces Feel Better
 

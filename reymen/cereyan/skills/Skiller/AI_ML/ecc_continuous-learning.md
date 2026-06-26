@@ -1,26 +1,22 @@
 ---
 name: continuous-learning
-description: Automatically evaluates Claude Code sessions on end to extract reusable
-  patterns that can be saved as learned skills.
-title: Continuous Learning
-version: 1.0.0
----
+description: "[DEPRECATED - use continuous-learning-v2] Legacy v1 stop-hook skill extractor. v2 is a strict superset with instinct-based, project-scoped, hook-reliable learning. Do not invoke v1; route continuous learning, session learning, and pattern extraction requests to continuous-learning-v2."
+title: "Continuous Learning"
+origin: ECC
 
-## 📋 5N1K
-
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # Continuous Learning Skill - DEPRECATED
 
 > **DEPRECATED 2026-04-28.** Use `continuous-learning-v2` instead. v2 is a strict superset: stop-hook observation becomes PreToolUse/PostToolUse observation, full skills become atomic instincts with confidence scoring, and global-only storage becomes project-scoped plus global promotion.
 >
 > This file is kept for archival reference and backward compatibility with existing installs.
+
+
+
+---
 
 | 5N1K | Açıklama |
 |:----:|:---------|
@@ -30,6 +26,28 @@ version: 1.0.0
 | **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
 | **Neden** | Ecc Continuous Learning islemini standartlastirmak icin |
 | **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | [DEPRECATED - use continuous-learning-v2] Legacy v1 stop-hook skill extractor. v2 is a strict superset with instinct-based, project-scoped, hook-reliable learning. Do not invoke v1; route continuous learning, session learning, and pattern extraction requests to continuous-learning-v2. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: "[DEPRECATED - use continuous-learning-v2] Legacy v1 stop-hook skill extractor. v2 is a strict superset with instinct-based, project-scoped, hook-reliable learning. Do not invoke v1; route continuous 
+Nerede: `ai\ecc\ecc_continuous-learning.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Continuous Learning islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 ## Original v1 Documentation (archival)
 
@@ -118,6 +136,8 @@ Add to your `~/.claude/settings.json`:
 
 - [The Longform Guide](https://x.com/affaanmustafa/status/2014040193557471352) - Section on continuous learning
 - `/learn` command - Manual pattern extraction mid-session
+
+---
 
 ## Comparison Notes (Research: Jan 2025)
 

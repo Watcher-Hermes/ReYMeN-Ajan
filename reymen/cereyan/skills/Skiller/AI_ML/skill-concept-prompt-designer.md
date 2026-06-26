@@ -1,23 +1,48 @@
 ---
 name: skill-concept-prompt-designer
-description: SAM 3's accuracy depends heavily on how the concept prompt is phrased.
-  This skill normalises free-form user utterances into prompts that SAM 3 handles
-  well.
-title: Skill Concept Prompt Designer
+description: Turn user utterances into well-formed SAM 3 concept prompts with splitting, disambiguation, and fallbacks
+title: "Skill Concept PRompt Designer"
 version: 1.0.0
+phase: 4
+lesson: 24
+tags: [sam3, open-vocab, prompt-engineering, segmentation]
+category: skill-concept-prompt-designer
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Turn user utterances into well-formed SAM 3 concept prompts with splitting, disambiguation, and fallbacks |
+| **Nerede** | `mlops\skills\skill-concept-prompt-designer.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Concept Prompt Designer islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Turn user utterances into well-formed SAM 3 concept prompts with splitting, disambiguation, and fallbacks |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-disambiguation, and fallbacks
+---
+
+Kim: ML/Veri bilimci
+Ne: Turn user utterances into well-formed SAM 3 concept prompts with splitting, disambiguation, and fallbacks
+Nerede: `mlops\skills\skill-concept-prompt-designer.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Concept Prompt Designer islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Concept Prompt Designer
 
 SAM 3's accuracy depends heavily on how the concept prompt is phrased. This skill normalises free-form user utterances into prompts that SAM 3 handles well.

@@ -1,20 +1,31 @@
----
-name: jira-integration
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Jira Integration
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Jira Integration |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+
+name: jira-integration
+description: Use this skill when retrieving Jira tickets, analyzing requirements, updating ticket status, adding comments, or transitioning issues. Provides Jira API patterns via MCP or direct REST calls.
+title: "Jira Integration"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Jira Integration
 

@@ -1,5 +1,0 @@
-## Coverage
-
-### Coverage Configuration
-
-```bash

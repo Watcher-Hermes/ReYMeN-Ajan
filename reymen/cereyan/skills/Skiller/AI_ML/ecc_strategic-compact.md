@@ -1,20 +1,30 @@
----
-name: strategic-compact
-description: Suggests manual `/compact` at strategic points in your workflow rather
-  than relying on arbitrary auto-compaction.
-title: Strategic Compact
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Strategic Compact |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: strategic-compact
+description: Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.
+title: "Strategic Compact"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Strategic Compact Skill
 

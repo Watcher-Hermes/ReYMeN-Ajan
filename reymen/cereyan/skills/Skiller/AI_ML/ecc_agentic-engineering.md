@@ -1,20 +1,30 @@
----
-name: agentic-engineering
-description: Use this skill for engineering workflows where AI agents perform most
-  implementation work and humans enforce quality and risk controls.
-title: Agentic Engineering
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Agentic Engineering |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: agentic-engineering
+description: Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.
+title: "Agentic Engineering"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Agentic Engineering
 

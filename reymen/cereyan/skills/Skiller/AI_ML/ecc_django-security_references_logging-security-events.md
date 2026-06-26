@@ -1,3 +1,0 @@
-## Logging Security Events
-
-```python

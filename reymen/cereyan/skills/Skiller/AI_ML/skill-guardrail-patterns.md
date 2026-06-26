@@ -1,22 +1,48 @@
 ---
 name: skill-guardrail-patterns
-description: When building an LLM application that needs safety layers, apply this
-  decision framework.
-title: Skill Guardrail Patterns
+description: Decision framework for choosing and implementing guardrails in production -- tool selection, layering strategy, and cost-performance tradeoffs
+title: "Skill Guardrail Patterns"
 version: 1.0.0
+phase: 11
+lesson: 12
+tags: [guardrails, safety, content-filtering, prompt-injection, pii, moderation, llamaguard, nemo]
+category: skill-guardrail-patterns
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for choosing and implementing guardrails in production -- tool selection, layering strategy, and cost-performance tradeoffs |
+| **Nerede** | `mlops\skills\skill-guardrail-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Guardrail Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for choosing and implementing guardrails in production -- tool selection, layering strategy, and cost-performance tradeoffs |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
--- tool selection, layering strategy, and cost-performance tradeoffs
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for choosing and implementing guardrails in production -- tool selection, layering strategy, and cost-performance tradeoffs
+Nerede: `mlops\skills\skill-guardrail-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Guardrail Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Guardrail Patterns
 
 When building an LLM application that needs safety layers, apply this decision framework.

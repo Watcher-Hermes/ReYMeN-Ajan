@@ -1,20 +1,12 @@
 ---
 name: postgres-patterns
-description: Quick reference for PostgreSQL best practices. For detailed guidance,
-  use the `database-reviewer` agent.
-title: Postgres Patterns
-version: 1.0.0
----
+description: PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.
+title: "PostgreSQL Patterns"
+origin: ECC
 
-## 📋 5N1K
-
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # PostgreSQL Patterns
 
@@ -154,6 +146,10 @@ SELECT pg_reload_conf();
 - Skill: `clickhouse-io` - ClickHouse analytics patterns
 - Skill: `backend-patterns` - API and backend patterns
 
+
+
+---
+
 | 5N1K | Açıklama |
 |:----:|:---------|
 | **Kim** | AI muhendisi |
@@ -162,5 +158,27 @@ SELECT pg_reload_conf();
 | **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
 | **Neden** | Ecc Postgres Patterns islemini standartlastirmak icin |
 | **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.
+Nerede: `ai\ecc\ecc_postgres-patterns.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Postgres Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 *Based on Supabase Agent Skills (credit: Supabase team) (MIT License)*

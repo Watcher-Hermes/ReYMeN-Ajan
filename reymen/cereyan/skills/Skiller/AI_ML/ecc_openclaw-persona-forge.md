@@ -1,29 +1,13 @@
 ---
 name: openclaw-persona-forge
-description: '- 当用户需要从零创建 OpenClaw 龙虾灵魂、角色设定、SOUL.md 或 IDENTITY.md'
-title: Openclaw Persona Forge
-version: 1.0.0
----
+description: "为 OpenClaw AI Agent 锻造完整的龙虾灵魂方案。根据用户偏好或随机抽卡， 输出身份定位、灵魂描述(SOUL.md)、角色化底线规则、名字和头像生图提示词。 如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非 OpenClaw 平台的角色设计、纯工具型无性格 Agent。 触发词：龙虾灵魂、虾魂、OpenClaw 灵魂、养虾灵魂、龙虾角色、龙虾定位、 龙虾剧本杀角色、龙虾游戏角色、龙虾 NPC、龙虾性格、龙虾背景故事、 lobster soul、lobster character、抽卡、随机龙虾、龙虾 SOUL、gacha。"
+title: "Openclaw Persona Forge"
+origin: community
 
-## 📋 5N1K
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
-
-如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非
-  OpenClaw 平台的角色设计、纯工具型无性格 Agent。 触发词：龙虾灵魂、虾魂、OpenClaw 灵魂、养虾灵魂、龙虾角色、龙虾定位、 龙虾剧本杀角色、龙虾游戏角色、龙虾
-  NPC、龙虾性格、龙虾背景故事、 lobster soul、lobster character、抽卡、随机龙虾、龙虾 SOUL、gacha。
-  如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非
-  OpenClaw 平台的角色设计、纯工具型无性格 Agent。 触发词：龙虾灵魂、虾魂、OpenClaw 灵魂、养虾灵魂、龙虾角色、龙虾定位、 龙虾剧本杀角色、龙虾游戏角色、龙虾
-  NPC、龙虾性格、龙虾背景故事、 lobster soul、lobster character、抽卡、随机龙虾、龙虾 SOUL、gacha。
-- ai
-- automation
-- development
 # 龙虾灵魂锻造炉
 
 > 不是给你一只工具龙虾，而是帮你锻造一只有灵魂的龙虾。
@@ -82,6 +66,41 @@ version: 1.0.0
 - 失败：返回非 `0` 退出码，或未生成输出文件；此时必须回退到手动提示词流程
 - 如生图 skill 后续接口发生变化，调用前应重新核对其参数和输出契约
 
+
+
+---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | AI muhendisi |
+| **Ne** | "为 OpenClaw AI Agent 锻造完整的龙虾灵魂方案。根据用户偏好或随机抽卡， 输出身份定位、灵魂描述(SOUL.md)、角色化底线规则、名字和头像生图提示词。 如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非 OpenClaw 平台的角色设计、纯工具型无性格 A |
+| **Nerede** | `ai\ecc\ecc_openclaw-persona-forge.md` |
+| **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
+| **Neden** | Ecc Openclaw Persona Forge islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | 为 OpenClaw AI Agent 锻造完整的龙虾灵魂方案。根据用户偏好或随机抽卡， 输出身份定位、灵魂描述(SOUL.md)、角色化底线规则、名字和头像生图提示词。 如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非 OpenClaw 平台的角色设计、纯工具型无性格 Agent。 触发词：龙虾灵魂、虾魂、OpenClaw 灵魂、养虾灵魂、龙虾角色、龙虾定位、 龙虾剧本杀角色、龙虾游戏角色、龙虾 NPC、龙虾性格、龙虾背景故事、 lobster soul、lobster character、抽卡、随机龙虾、龙虾 SOUL、gacha。 |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: "为 OpenClaw AI Agent 锻造完整的龙虾灵魂方案。根据用户偏好或随机抽卡， 输出身份定位、灵魂描述(SOUL.md)、角色化底线规则、名字和头像生图提示词。 如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非 OpenClaw 平台的角色设计、纯工具型无性格 A
+Nerede: `ai\ecc\ecc_openclaw-persona-forge.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Openclaw Persona Forge islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 ## 核心理念
 
 好的龙虾灵魂 = **身份张力** + **底线规则** + **性格缺陷** + **名字** + **视觉锚点**
@@ -97,6 +116,8 @@ version: 1.0.0
 | "帮我设计龙虾灵魂" / "我想给龙虾定个性格" | → **引导模式**（Step 1） |
 | "抽卡" / "随机" / "来一发" / "盲盒" / "gacha" | → **抽卡模式**（Step 1-B） |
 | "帮我优化这个灵魂" / 附带已有 SOUL.md | → **打磨模式**（跳到 Step 4） |
+
+---
 
 ## Step 1：选方向（引导模式）
 
@@ -225,6 +246,8 @@ python3 ${SKILL_DIR}/gacha.py [次数]
 **Step 6 方案完成后**：
 > 好了。从虚无中走出来一只新的龙虾——[名字]。它的灵魂、规矩、名字、长相都有了。要我把它的灵魂刻进 SOUL.md，把它的身份证写成 IDENTITY.md 吗？告诉我放哪个目录，我来落笔。
 
+---
+
 ## Examples
 
 - `帮我设计一只 OpenClaw 龙虾灵魂，气质要冷幽默但可靠`
@@ -236,6 +259,8 @@ python3 ${SKILL_DIR}/gacha.py [次数]
   - `references/naming-system.md`
   - `references/avatar-style.md`
   - `references/output-template.md`
+
+---
 
 ## 错误处理
 
@@ -260,6 +285,8 @@ python3 ${SKILL_DIR}/gacha.py [次数]
 > 修复：[可选，怎么恢复]
 ```
 
+---
+
 ## 注意事项
 
 ### 好灵魂的检验标准
@@ -282,6 +309,8 @@ python3 ${SKILL_DIR}/gacha.py [次数]
 1. 刻意回避某些任务，因为"不适合这个角色" → 灵魂限制了功能
 2. 角色特征变成噪音 → 浓度太高
 3. 你在配合AI说话 → 主客倒置
+
+---
 
 ## 兼容性
 

@@ -1,23 +1,48 @@
 ---
 name: skill-perceptron
-description: A perceptron computes a weighted sum of inputs plus a bias, then applies
-  a step function to produce a binary output. It is the fundamental unit of neural
-  networks.
-title: Skill Perceptron
+description: Understand the perceptron pattern and when to use single-layer vs multi-layer architectures
+title: "Skill Perceptron"
 version: 1.0.0
+phase: 3
+lesson: 1
+tags: [perceptron, neural-networks, classification, deep-learning]
+category: skill-perceptron
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Understand the perceptron pattern and when to use single-layer vs multi-layer architectures |
+| **Nerede** | `mlops\skills\skill-perceptron.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Perceptron islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Understand the perceptron pattern and when to use single-layer vs multi-layer architectures |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-architectures
+---
+
+Kim: ML/Veri bilimci
+Ne: Understand the perceptron pattern and when to use single-layer vs multi-layer architectures
+Nerede: `mlops\skills\skill-perceptron.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Perceptron islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # The Perceptron Pattern
 
 A perceptron computes a weighted sum of inputs plus a bias, then applies a step function to produce a binary output. It is the fundamental unit of neural networks.

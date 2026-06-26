@@ -1,19 +1,47 @@
 ---
 name: skill-advanced-rag
-description: 'Basic RAG: embed query -> vector search -> top-k -> generate.'
-title: Skill Advanced Rag
+description: Build production-grade RAG with hybrid search, reranking, and evaluation
+title: "Skill Advanced RAG"
 version: 1.0.0
+phase: 11
+lesson: 7
+tags: [rag, hybrid-search, bm25, reranking, hyde, evaluation]
+category: skill-advanced-rag
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Build production-grade RAG with hybrid search, reranking, and evaluation |
+| **Nerede** | `mlops\skills\skill-advanced-rag.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Advanced Rag islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Build production-grade RAG with hybrid search, reranking, and evaluation |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Build production-grade RAG with hybrid search, reranking, and evaluation
+Nerede: `mlops\skills\skill-advanced-rag.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Advanced Rag islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Advanced RAG Pattern
 

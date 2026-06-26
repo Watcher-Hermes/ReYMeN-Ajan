@@ -1,23 +1,48 @@
 ---
 name: skill-clustering-guide
-description: Clustering has no single best algorithm. The right choice depends on
-  cluster shape, whether you know the number of clusters, how much noise is in the
-  data, and how large the dataset is.
-title: Skill Clustering Guide
+description: Choose the right clustering algorithm based on data shape, noise, and constraints
+title: "Skill Clustering GUIde"
 version: 1.0.0
+phase: 2
+lesson: 7
+tags: [clustering, k-means, dbscan, hierarchical, gmm, unsupervised]
+category: skill-clustering-guide
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Choose the right clustering algorithm based on data shape, noise, and constraints |
+| **Nerede** | `mlops\skills\skill-clustering-guide.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Clustering Guide islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Choose the right clustering algorithm based on data shape, noise, and constraints |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-constraints
+---
+
+Kim: ML/Veri bilimci
+Ne: Choose the right clustering algorithm based on data shape, noise, and constraints
+Nerede: `mlops\skills\skill-clustering-guide.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Clustering Guide islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Clustering Algorithm Selection Guide
 
 Clustering has no single best algorithm. The right choice depends on cluster shape, whether you know the number of clusters, how much noise is in the data, and how large the dataset is.

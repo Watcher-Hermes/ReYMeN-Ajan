@@ -1,20 +1,39 @@
 ---
-name: research-dspy
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Research Dspy
+
+name: dspy
+description: "DSPy: declarative LM programs, auto-optimize prompts, RAG."
+title: "DSPy"
 version: 1.0.0
+author: Orchestra Research
+license: MIT
+dependencies: [dspy, openai, anthropic]
+platforms: [linux, macos, windows]
+metadata:
+  hermes:
+    tags: [Prompt Engineering, DSPy, Declarative Programming, RAG, Agents, Prompt Optimization, LM Programming, Stanford NLP, Automatic Optimization, Modular AI]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | DSPy: declarative LM programs, auto-optimize prompts, RAG. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Dspy
 

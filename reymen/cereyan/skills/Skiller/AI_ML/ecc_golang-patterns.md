@@ -1,20 +1,31 @@
----
-name: golang-patterns
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Golang Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Golang Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+
+name: golang-patterns
+description: Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.
+title: "Golang Patterns"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Golang Patterns
 

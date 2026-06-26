@@ -1,23 +1,48 @@
 ---
 name: skill-noise-schedule-designer
-description: A beta schedule controls how much signal is retained at each diffusion
-  step. Poor schedules cap training efficiency and sample quality at every downstream
-  decision.
-title: Skill Noise Schedule Designer
+description: Produce a linear, cosine, or sigmoid beta schedule given T and target corruption level, plus SNR plot
+title: "Skill Noise Schedule Designer"
 version: 1.0.0
+phase: 4
+lesson: 10
+tags: [computer-vision, diffusion, noise-schedule, training]
+category: skill-noise-schedule-designer
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Produce a linear, cosine, or sigmoid beta schedule given T and target corruption level, plus SNR plot |
+| **Nerede** | `mlops\skills\skill-noise-schedule-designer.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Noise Schedule Designer islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Produce a linear, cosine, or sigmoid beta schedule given T and target corruption level, plus SNR plot |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-corruption level, plus SNR plot
+---
+
+Kim: ML/Veri bilimci
+Ne: Produce a linear, cosine, or sigmoid beta schedule given T and target corruption level, plus SNR plot
+Nerede: `mlops\skills\skill-noise-schedule-designer.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Noise Schedule Designer islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Noise Schedule Designer
 
 A beta schedule controls how much signal is retained at each diffusion step. Poor schedules cap training efficiency and sample quality at every downstream decision.

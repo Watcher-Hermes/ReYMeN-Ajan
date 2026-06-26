@@ -1,22 +1,32 @@
----
-name: dart-flutter-patterns
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Dart Flutter Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Dart Flutter Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-ilgili reference dosyasını yükleyin.
+---
+
+---
+
+name: dart-flutter-patterns
+description: Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.
+title: "Dart Flutter Patterns"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Dart Flutter Patterns
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

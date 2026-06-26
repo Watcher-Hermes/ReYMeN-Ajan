@@ -1,22 +1,48 @@
 ---
 name: skill-information-theory
-description: When to use entropy, cross-entropy, KL divergence, and mutual information
-  in machine learning systems.
-title: Skill Information Theory
+description: Apply information theory concepts to ML loss functions, model evaluation, and feature selection
+title: "Skill Information Theory"
 version: 1.0.0
+phase: 1
+lesson: 9
+tags: [information-theory, entropy, loss-functions]
+category: skill-information-theory
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Apply information theory concepts to ML loss functions, model evaluation, and feature selection |
+| **Nerede** | `mlops\skills\skill-information-theory.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Information Theory islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Apply information theory concepts to ML loss functions, model evaluation, and feature selection |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and feature selection
+---
+
+Kim: ML/Veri bilimci
+Ne: Apply information theory concepts to ML loss functions, model evaluation, and feature selection
+Nerede: `mlops\skills\skill-information-theory.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Information Theory islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Information Theory for ML
 
 When to use entropy, cross-entropy, KL divergence, and mutual information in machine learning systems.

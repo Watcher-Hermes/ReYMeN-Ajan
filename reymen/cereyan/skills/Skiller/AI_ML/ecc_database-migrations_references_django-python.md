@@ -1,5 +1,0 @@
-## Django (Python)
-
-### Workflow
-
-```bash

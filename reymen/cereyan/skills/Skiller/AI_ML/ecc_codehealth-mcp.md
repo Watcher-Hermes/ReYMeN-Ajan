@@ -1,21 +1,30 @@
----
-name: codehealth-mcp
-description: Structural maintainability feedback for AI-assisted coding. Complements
-  style/lint skills (`coding-standards`, `plankton-code-quality`) with **design-level**
-  health scores and regression gates.
-title: Codehealth Mcp
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Codehealth Mcp |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: codehealth-mcp
+description: Real-time structural Code Health via CodeScene MCP — review before edits, verify score deltas after changes, gate commits and PRs. Use when reviewing code quality, refactoring, checking if AI changes degraded a file, or before commit/PR.
+title: "Codehealth MCP"
+origin: community
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Code Health MCP (CodeScene)
 

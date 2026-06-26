@@ -1,19 +1,31 @@
----
-name: recursive-decision-ledger
-description: Use this skill when the user is trying to force deeper computation through
-title: Recursive Decision Ledger
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Recursive Decision Ledger |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: recursive-decision-ledger
+description: Use when the user asks for repeated rollouts, marked decision processes, high-dimensional search, stochastic optimization, local-optima exploration, ensemble comparison, or recursive reasoning with a visible evidence trail.
+title: "Recursive Decision Ledger"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Recursive Decision Ledger
 

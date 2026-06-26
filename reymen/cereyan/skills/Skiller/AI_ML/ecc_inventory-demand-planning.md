@@ -1,27 +1,45 @@
----
-name: inventory-demand-planning
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Inventory Demand Planning
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Inventory Demand Planning |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-replenishment planning, and promotional lift estimation at multi-location
+---
+
+---
+
+name: inventory-demand-planning
+description: >
+title: "Inventory Demand Planning"
+  replenishment planning, and promotional lift estimation at multi-location
   retailers. Informed by demand planners with 15+ years experience managing
   hundreds of SKUs. Includes forecasting method selection, ABC/XYZ analysis,
   seasonal transition management, and vendor negotiation frameworks.
   Use when forecasting demand, setting safety stock, planning replenishment,
   managing promotions, or optimizing inventory levels.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development, tor]
+category: ecc---
+
 # Inventory Demand Planning
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

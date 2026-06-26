@@ -1,19 +1,31 @@
----
-name: dashboard-builder
-description: Use this when the task is to build a dashboard people can operate from.
-title: Dashboard Builder
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Dashboard Builder |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: dashboard-builder
+description: Build monitoring dashboards that answer real operator questions for Grafana, SigNoz, and similar platforms. Use when turning metrics into a working dashboard instead of a vanity board.
+title: "Dashboard Builder"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Dashboard Builder
 

@@ -1,22 +1,48 @@
 ---
 name: skill-quantization
-description: When deploying a language model, use this framework to select the right
-  number format, quantization method, and quality validation strategy.
-title: Skill Quantization
+description: Choose the right quantization strategy for deploying LLMs based on hardware, quality, and latency constraints
+title: "Skill Quantization"
 version: 1.0.0
+phase: 10
+lesson: 11
+tags: [quantization, inference, deployment, optimization, fp8, int4, int8, gptq, awq, gguf]
+category: skill-quantization
+audience: maintainer
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Choose the right quantization strategy for deploying LLMs based on hardware, quality, and latency constraints |
+| **Nerede** | `mlops\skills\skill-quantization.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Quantization islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Choose the right quantization strategy for deploying LLMs based on hardware, quality, and latency constraints |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-quality, and latency constraints
+---
+
+Kim: ML/Veri bilimci
+Ne: Choose the right quantization strategy for deploying LLMs based on hardware, quality, and latency constraints
+Nerede: `mlops\skills\skill-quantization.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Quantization islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Quantization Decision Framework
 
 When deploying a language model, use this framework to select the right number format, quantization method, and quality validation strategy.

@@ -1,22 +1,31 @@
----
-name: design-system
-description: '- Starting a new project that needs a design system'
-title: Design System
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Design System |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-codebase for visual consistency - Before a redesign — understand what you have -
-  When the UI looks "off" but you can''t pinpoint why - Reviewing PRs that touch styling'
+---
+
+---
+name: design-system
+description: Use this skill to generate or audit design systems, check visual consistency, and review PRs that touch styling.
+title: "Design System"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Design System — Generate & Audit Visual Systems
 
 ## When to Use

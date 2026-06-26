@@ -1,21 +1,31 @@
 ---
 name: hibrit-ai-yonlendirme-kurali
-description: '- `analiz`, `analiz et`'
-title: Hibrit Ai Yonlendirme Kurali
-version: 1.0.0
+title: "Hibrit AI Yönlendirme Kuralı"
+description: "Sorgu uzunluğuna ve içeriğine göre Ollama (yerel) veya DeepSeek (uzak) arasında otomatik yönlendirme kuralları."
+tags: [routing, model-selection, ollama, deepseek, fallback]
+category: mlops
+audience: user
+related_skills: [hibrit-ai-mimarisi, dolphin-llama3]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Sorgu uzunluğuna ve içeriğine göre Ollama (yerel) veya DeepSeek (uzak) arasında otomatik yönlendirme kuralları. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-arasında otomatik yönlendirme kuralları.
+---
+
 # Hibrit AI Yönlendirme Kuralı
 
 ## Ana Kural

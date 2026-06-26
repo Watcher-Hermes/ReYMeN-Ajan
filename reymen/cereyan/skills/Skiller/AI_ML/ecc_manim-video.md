@@ -1,20 +1,30 @@
----
-name: manim-video
-description: Use Manim for technical explainers where motion, structure, and clarity
-  matter more than photorealism.
-title: Manim Video
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Video ajanı |
+| **Ne?** | Ecc_Manim Video |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: manim-video-manim-video
+description: Build reusable Manim explainers for technical concepts, graphs, system diagrams, and product walkthroughs, then hand off to the wider ECC video stack if needed. Use when the user wants a clean animated explainer rather than a generic talking-head script.
+title: "Manim Video"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development, video]
+category: ecc---
 
 # Manim Video
 

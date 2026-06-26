@@ -1,22 +1,48 @@
 ---
 name: skill-prompt-patterns
-description: When building an LLM-powered feature, choose your prompt pattern before
-  writing the prompt. The pattern determines the structure. The content fills it in.
-title: Skill Prompt Patterns
+description: Decision framework for choosing the right prompt pattern based on task type, reliability requirements, and target model
+title: "Skill PRompt Patterns"
 version: 1.0.0
+phase: 11
+lesson: 01
+tags: [prompt-engineering, patterns, llm, temperature, cross-model, few-shot, chain-of-thought]
+category: skill-prompt-patterns
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for choosing the right prompt pattern based on task type, reliability requirements, and target model |
+| **Nerede** | `mlops\skills\skill-prompt-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Prompt Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for choosing the right prompt pattern based on task type, reliability requirements, and target model |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-type, reliability requirements, and target model
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for choosing the right prompt pattern based on task type, reliability requirements, and target model
+Nerede: `mlops\skills\skill-prompt-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Prompt Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Prompt Pattern Selection Guide
 
 When building an LLM-powered feature, choose your prompt pattern before writing the prompt. The pattern determines the structure. The content fills it in.

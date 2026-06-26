@@ -1,20 +1,30 @@
----
-name: ralphinho-rfc-pipeline
-description: Inspired by [humanplane](https://github.com/humanplane) style RFC decomposition
-  patterns and multi-unit orchestration workflows.
-title: Ralphinho Rfc Pipeline
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Ralphinho Rfc Pipeline |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: ralphinho-rfc-pipeline
+description: RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.
+title: "Ralphinho Rfc Pipeline"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Ralphinho RFC Pipeline
 

@@ -1,25 +1,36 @@
 ---
 name: ollama-local-llm
-description: Use this skill for running and checking local Ollama models, generating
-  runnable code with them, validating/nullifying model-generated system commands,
-  and recovering Windows networking facts when the model falls back to unreliable
-  cross-platform snippets.
-title: Ollama Local Llm
+description: Ollama local LLM workflows — model pull/run, command execution, generated-code verification, VS Code handoff, and Windows network/device enumeration fallback when model-generated system calls are unreliable on Windows.
+title: "Ollama Local LLM"
 version: 1.0.0
+license: MIT
+platforms: [windows, linux, macos]
+metadata:
+  hermes:
+    tags: [ollama, local-llm, windows, network-enumeration, mac-address, codegen, alpsee]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ollama local LLM workflows — model pull/run, command execution, generated-code verification, VS Code handoff, and Windows network/device enumeration fallback when model-generated system calls are unreliable on Windows. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-verification, VS Code handoff, and Windows network/device enumeration fallback when
-  model-generated system calls are unreliable on Windows.
+---
+
 # Ollama Local LLM
 
 Use this skill for running and checking local Ollama models, generating runnable code with them, validating/nullifying model-generated system commands, and recovering Windows networking facts when the model falls back to unreliable cross-platform snippets.

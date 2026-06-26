@@ -1,20 +1,47 @@
 ---
 name: skill-ensemble-builder
-description: 'Ensembles combine multiple models to produce better predictions than
-  any single model. The question is always: which kind of ensemble, and when?'
-title: Skill Ensemble Builder
+description: Choose the right ensemble method and configure it for your problem
+title: "Skill Ensemble Builder"
 version: 1.0.0
+phase: 2
+lesson: 11
+tags: [ensemble, bagging, boosting, random-forest, xgboost, stacking]
+category: skill-ensemble-builder
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Choose the right ensemble method and configure it for your problem |
+| **Nerede** | `mlops\skills\skill-ensemble-builder.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Ensemble Builder islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Choose the right ensemble method and configure it for your problem |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Choose the right ensemble method and configure it for your problem
+Nerede: `mlops\skills\skill-ensemble-builder.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Ensemble Builder islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Ensemble Method Selection Guide
 

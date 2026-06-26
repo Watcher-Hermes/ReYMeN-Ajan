@@ -1,22 +1,48 @@
 ---
 name: spec-decode-picker
-description: Help an engineer choose between vanilla speculative, Medusa, EAGLE, or
-  lookahead decoding, and tune `N` (draft length) for a specific workload.
-title: Spec Decode Picker
+description: Pick a speculative decoding strategy (vanilla / Medusa / EAGLE / lookahead) and tuning parameters for a new LLM inference workload.
+title: "Spec Decode Picker"
 version: 1.0.0
+phase: 7
+lesson: 16
+tags: [inference, decoding, latency, speculative, optimization]
+category: spec-decode-picker
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Pick a speculative decoding strategy (vanilla / Medusa / EAGLE / lookahead) and tuning parameters for a new LLM inference workload. |
+| **Nerede** | `mlops\inference\spec-decode-picker.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Spec Decode Picker islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Pick a speculative decoding strategy (vanilla / Medusa / EAGLE / lookahead) and tuning parameters for a new LLM inference workload. |
+| **Nerede?** | inference/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and tuning parameters for a new LLM inference workload.
+---
+
+Kim: ML/Veri bilimci
+Ne: Pick a speculative decoding strategy (vanilla / Medusa / EAGLE / lookahead) and tuning parameters for a new LLM inference workload.
+Nerede: `mlops\inference\spec-decode-picker.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Spec Decode Picker islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Speculative Decoding Picker
 
 Help an engineer choose between vanilla speculative, Medusa, EAGLE, or lookahead decoding, and tune `N` (draft length) for a specific workload.

@@ -1,22 +1,48 @@
 ---
 name: skill-mot-evaluator
-description: Wrap your tracker's output into the standard MOTA/IDF1/HOTA pipeline
-  so you can compare fairly against the literature.
-title: Skill Mot Evaluator
+description: Write a complete evaluation harness for MOTA / IDF1 / HOTA against ground-truth tracks
+title: "Skill Mot Evaluator"
 version: 1.0.0
+phase: 4
+lesson: 27
+tags: [mot, evaluation, tracking, metrics]
+category: skill-mot-evaluator
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write a complete evaluation harness for MOTA / IDF1 / HOTA against ground-truth tracks |
+| **Nerede** | `mlops\skills\skill-mot-evaluator.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Mot Evaluator islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write a complete evaluation harness for MOTA / IDF1 / HOTA against ground-truth tracks |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-tracks
+---
+
+Kim: ML/Veri bilimci
+Ne: Write a complete evaluation harness for MOTA / IDF1 / HOTA against ground-truth tracks
+Nerede: `mlops\skills\skill-mot-evaluator.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Mot Evaluator islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # MOT Evaluator
 
 Wrap your tracker's output into the standard MOTA/IDF1/HOTA pipeline so you can compare fairly against the literature.
@@ -69,6 +95,7 @@ def evaluate_mota_idf1(pred_path, gt_path):
         acc, metrics=["num_frames", "mota", "motp", "idf1", "idp", "idr", "num_switches"]
     )
     return metrics
+
 
 def write_mot_txt(predictions, path):
     with open(path, "w") as f:

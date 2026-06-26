@@ -1,20 +1,30 @@
----
-name: enterprise-agent-ops
-description: Use this skill for cloud-hosted or continuously running agent systems
-  that need operational controls beyond single CLI sessions.
-title: Enterprise Agent Ops
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Enterprise Agent Ops |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: enterprise-agent-ops
+description: Operate long-lived agent workloads with observability, security boundaries, and lifecycle management.
+title: "Enterprise Agent Ops"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Enterprise Agent Ops
 

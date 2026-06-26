@@ -1,22 +1,48 @@
 ---
 name: skill-3dgs-export-router
-description: Map a downstream target to the right 3DGS file format. Saves hours of
-  "it does not load" debugging.
-title: Skill 3Dgs Export Router
+description: Pick the right 3DGS export format (.ply / .splat / glTF KHR_gaussian_splatting / USD) given the downstream viewer or engine
+title: "Skill 3Dgs Export Router"
 version: 1.0.0
+phase: 4
+lesson: 22
+tags: [3d-gaussian-splatting, export, glTF, OpenUSD, pipeline]
+category: skill-3dgs-export-router
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Pick the right 3DGS export format (.ply / .splat / glTF KHR_gaussian_splatting / USD) given the downstream viewer or engine |
+| **Nerede** | `mlops\skills\skill-3dgs-export-router.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill 3Dgs Export Router islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Pick the right 3DGS export format (.ply / .splat / glTF KHR_gaussian_splatting / USD) given the downstream viewer or engine |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-/ USD) given the downstream viewer or engine
+---
+
+Kim: ML/Veri bilimci
+Ne: Pick the right 3DGS export format (.ply / .splat / glTF KHR_gaussian_splatting / USD) given the downstream viewer or engine
+Nerede: `mlops\skills\skill-3dgs-export-router.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill 3Dgs Export Router islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # 3DGS Export Router
 
 Map a downstream target to the right 3DGS file format. Saves hours of "it does not load" debugging.

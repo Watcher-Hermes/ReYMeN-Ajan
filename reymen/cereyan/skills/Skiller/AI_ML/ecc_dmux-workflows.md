@@ -1,22 +1,31 @@
----
-name: dmux-workflows
-description: Orchestrate parallel AI agent sessions using dmux, a tmux pane manager
-  for agent harnesses.
-title: Dmux Workflows
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Dmux Workflows |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-for agent harnesses.
+---
+
+---
+name: dmux-workflows
+description: Multi-agent orchestration using dmux (tmux pane manager for AI agents). Patterns for parallel agent workflows across Claude Code, Codex, OpenCode, and other harnesses. Use when running multiple agent sessions in parallel or coordinating multi-agent development workflows.
+title: "Dmux Workflows"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # dmux Workflows
 
 Orchestrate parallel AI agent sessions using dmux, a tmux pane manager for agent harnesses.

@@ -1,4 +1,0 @@
-# Cache
-.cache/
-*.tsbuildinfo
-```

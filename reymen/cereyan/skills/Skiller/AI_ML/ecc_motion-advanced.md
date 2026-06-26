@@ -1,23 +1,47 @@
 ---
 name: motion-advanced
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Motion Advanced
-version: 1.0.0
+description: Advanced motion patterns for React / Next.js — drag & drop, gestures, text animations, SVG path drawing, custom hooks, imperative sequences (useAnimate), loaders, and the full API decision tree. Requires motion-foundations.
+title: "Motion Advanced"
+version: 1.0
+tags: [motion, animation, advanced, gestures, svg]
+category: frontend
+audience: contributor
+author: jeff
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | AI muhendisi |
+| **Ne** | Advanced motion patterns for React / Next.js — drag & drop, gestures, text animations, SVG path drawing, custom hooks, imperative sequences (useAnimate), loaders, and the full API decision tree. Requi |
+| **Nerede** | `ai\ecc\ecc_motion-advanced.md` |
+| **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
+| **Neden** | Ecc Motion Advanced islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Advanced motion patterns for React / Next.js — drag & drop, gestures, text animations, SVG path drawing, custom hooks, imperative sequences (useAnimate), loaders, and the full API decision tree. Requires motion-foundations. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-text animations, SVG path drawing, custom hooks, imperative sequences (useAnimate),
-  loaders, and the full API decision tree. Requires motion-foundations.
+---
+
+Kim: AI muhendisi
+Ne: Advanced motion patterns for React / Next.js — drag & drop, gestures, text animations, SVG path drawing, custom hooks, imperative sequences (useAnimate), loaders, and the full API decision tree. Requi
+Nerede: `ai\ecc\ecc_motion-advanced.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Motion Advanced islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Motion Advanced
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

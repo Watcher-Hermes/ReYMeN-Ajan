@@ -1,22 +1,48 @@
 ---
 name: skill-segmentation-mask-inspector
-description: A diagnostic for the gap between "the loss went down" and "the masks
-  actually look right".
-title: Skill Segmentation Mask Inspector
+description: Report class distribution, predicted-mask statistics, and the classes most likely to be under-predicted or boundary-blurred
+title: "Skill Segmentation Mask Inspector"
 version: 1.0.0
+phase: 4
+lesson: 7
+tags: [computer-vision, segmentation, debugging, evaluation]
+category: skill-segmentation-mask-inspector
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Report class distribution, predicted-mask statistics, and the classes most likely to be under-predicted or boundary-blurred |
+| **Nerede** | `mlops\skills\skill-segmentation-mask-inspector.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Segmentation Mask Inspector islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Report class distribution, predicted-mask statistics, and the classes most likely to be under-predicted or boundary-blurred |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-most likely to be under-predicted or boundary-blurred
+---
+
+Kim: ML/Veri bilimci
+Ne: Report class distribution, predicted-mask statistics, and the classes most likely to be under-predicted or boundary-blurred
+Nerede: `mlops\skills\skill-segmentation-mask-inspector.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Segmentation Mask Inspector islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Segmentation Mask Inspector
 
 A diagnostic for the gap between "the loss went down" and "the masks actually look right".

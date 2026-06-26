@@ -1,3 +1,0 @@
-## Alternatives Considered
-<Other approaches>
-```

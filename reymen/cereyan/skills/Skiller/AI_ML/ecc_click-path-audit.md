@@ -1,20 +1,12 @@
 ---
 name: click-path-audit
-description: 'Find bugs that static code reading misses: state interaction side effects,
-  race conditions between sequential calls, and handlers that silently undo each other.'
-title: Click Path Audit
-version: 1.0.0
----
+description: "Trace every user-facing button/touchpoint through its full state change sequence to find bugs where functions individually work but cancel each other out, produce wrong final state, or leave the UI in an inconsistent state. Use when: systematic debugging found no bugs but users report broken buttons, or after any major refactor touching shared state stores."
+title: "CLIck Path Audit"
+origin: community
 
-## 📋 5N1K
-
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # /click-path-audit — Behavioural Flow Audit
 
@@ -34,6 +26,10 @@ But it does NOT check:
 
 Real example: A "New Email" button called `setComposeMode(true)` then `selectThread(null)`. Both worked individually. But `selectThread` had a side effect resetting `composeMode: false`. The button did nothing. 54 bugs were found by systematic debugging — this one was missed.
 
+
+
+---
+
 | 5N1K | Açıklama |
 |:----:|:---------|
 | **Kim** | AI muhendisi |
@@ -42,6 +38,28 @@ Real example: A "New Email" button called `setComposeMode(true)` then `selectThr
 | **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
 | **Neden** | Ecc Click Path Audit islemini standartlastirmak icin |
 | **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Trace every user-facing button/touchpoint through its full state change sequence to find bugs where functions individually work but cancel each other out, produce wrong final state, or leave the UI in an inconsistent state. Use when: systematic debugging found no bugs but users report broken buttons, or after any major refactor touching shared state stores. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: "Trace every user-facing button/touchpoint through its full state change sequence to find bugs where functions individually work but cancel each other out, produce wrong final state, or leave the UI i
+Nerede: `ai\ecc\ecc_click-path-audit.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Click Path Audit islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 ## How It Works
 
@@ -59,6 +77,8 @@ For EVERY interactive touchpoint in the target area:
 5. CHECK: Is the FINAL state what the user expects from the button label?
 6. CHECK: Are there race conditions (async calls that resolve in wrong order)?
 ```
+
+---
 
 ## Execution Steps
 
@@ -173,6 +193,8 @@ CLICK-PATH-NNN: [severity: CRITICAL/HIGH/MEDIUM/LOW]
   Fix: [specific fix]
 ```
 
+---
+
 ## Scope Control
 
 This audit is expensive. Scope it appropriately:
@@ -196,6 +218,8 @@ Agent 8: Management Suite (all pages)
 
 Agent 1 MUST complete first. Its output is input for all other agents.
 
+---
+
 ## When to Use
 
 - After systematic debugging finds "no bugs" but users report broken UI
@@ -210,11 +234,15 @@ Agent 1 MUST complete first. Its output is input for all other agents.
 - For styling/layout issues — visual inspection
 - For performance issues — profiling tools
 
+---
+
 ## Integration with Other Skills
 
 - Run AFTER `/superpowers:systematic-debugging` (which finds the other 54 bug types)
 - Run BEFORE `/superpowers:verification-before-completion` (which verifies fixes work)
 - Feeds into `/superpowers:test-driven-development` — every bug found here should get a test
+
+---
 
 ## Example: The Bug That Inspired This Skill
 

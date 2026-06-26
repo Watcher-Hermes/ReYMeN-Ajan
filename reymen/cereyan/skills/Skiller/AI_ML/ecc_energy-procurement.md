@@ -1,27 +1,45 @@
----
-name: energy-procurement
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Energy Procurement
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Energy Procurement |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-demand charge management, renewable PPA evaluation, and multi-facility energy
+---
+
+---
+
+name: energy-procurement
+description: >
+title: "Energy PRocurement"
+  demand charge management, renewable PPA evaluation, and multi-facility energy
   cost management. Informed by energy procurement managers with 15+ years
   experience at large commercial and industrial consumers. Includes market
   structure analysis, hedging strategies, load profiling, and sustainability
   reporting frameworks. Use when procuring energy, optimizing tariffs, managing
   demand charges, evaluating PPAs, or developing energy strategies.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Energy Procurement
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

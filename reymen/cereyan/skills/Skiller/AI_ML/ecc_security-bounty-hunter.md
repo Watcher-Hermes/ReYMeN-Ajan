@@ -1,20 +1,31 @@
----
-name: security-bounty-hunter
-description: Use this when the goal is practical vulnerability discovery for responsible
-  disclosure or bounty submission, not a broad best-practices review.
-title: Security Bounty Hunter
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Security Bounty Hunter |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: security-bounty-hunter
+description: Hunt for exploitable, bounty-worthy security issues in repositories. Focuses on remotely reachable vulnerabilities that qualify for real reports instead of noisy local-only findings.
+title: "Security Bounty Hunter"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development, security]
+category: ecc---
 
 # Security Bounty Hunter
 

@@ -1,5 +1,0 @@
-## Middleware
-
-### Custom Middleware
-
-```python

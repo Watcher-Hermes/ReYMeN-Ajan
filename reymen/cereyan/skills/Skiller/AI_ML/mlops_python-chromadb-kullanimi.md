@@ -1,21 +1,31 @@
 ---
 name: python-chromadb-kullanimi
-description: ChromaDB, yerel vektör veritabanıdır. Anlamsal (semantic) arama yapar.
-title: Python Chromadb Kullanimi
-version: 1.0.0
+title: "Python ChromaDB Kullanımı"
+description: "ChromaDB vektör veritabanı — bellek depolama, anlamsal arama, PersistentClient ile kalıcı veri yönetimi ve Ollama/özel embedding function entegrasyonu."
+tags: [chromadb, vector-database, embeddings, semantic-search, memory, ollama, rag]
+category: mlops
+audience: user
+related_skills: [dspy, ollama-local-llm, hibrit-ai-yonlendirme-kurali]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | ChromaDB vektör veritabanı — bellek depolama, anlamsal arama, PersistentClient ile kalıcı veri yönetimi ve Ollama/özel embedding function entegrasyonu. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-ile kalıcı veri yönetimi ve Ollama/özel embedding function entegrasyonu.
+---
+
 # Python ChromaDB Kullanımı
 
 ChromaDB, yerel vektör veritabanıdır. Anlamsal (semantic) arama yapar.

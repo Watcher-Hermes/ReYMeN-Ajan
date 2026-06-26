@@ -1,5 +1,0 @@
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo

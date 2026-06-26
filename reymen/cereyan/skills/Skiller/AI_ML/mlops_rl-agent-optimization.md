@@ -1,24 +1,33 @@
 ---
+
 name: rl-agent-optimization
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Rl Agent Optimization
-version: 1.0.0
+id: rl-agent-optimization
+title: "Reinforcement Learning / Multi-Armed Bandit Agent Optimization"
+description: "Use Multi-Armed Bandit (MAB) and Reinforcement Learning to optimize an AI agent's decision-making — skill selection, model routing, and workflow choices. Covers Thompson Sampling, Epsilon-Greedy, reward engineering, shadow mode deployment, and cold-start mitigation."
+tags: [mlops, reinforcement-learning, multi-armed-bandit, decision-optimization, agent-self-improvement]
+category: mlops
+audience: user
+trigger: "When the user asks about self-optimizing agent decisions, skill selection automation, model routing optimization, or building a learning feedback loop into their AI agent."
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Use Multi-Armed Bandit (MAB) and Reinforcement Learning to optimize an AI agent's decision-making — skill selection, model routing, and workflow choices. Covers Thompson Sampling, Epsilon-Greedy, reward engineering, shadow mode deployment, and cold-start mitigation. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-AI agent's decision-making — skill selection, model routing, and workflow choices.
-  Covers Thompson Sampling, Epsilon-Greedy, reward engineering, shadow mode deployment,
-  and cold-start mitigation.
+---
+
 # Rl Agent Optimization
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

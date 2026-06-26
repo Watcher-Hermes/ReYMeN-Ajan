@@ -1,20 +1,39 @@
 ---
-name: evaluation-weights-and-biases
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Evaluation Weights And Biases
+
+name: weights-and-biases
+description: "W&B: log ML experiments, sweeps, model registry, dashboards."
+title: "Weights And Biases"
 version: 1.0.0
+author: Orchestra Research
+license: MIT
+dependencies: [wandb]
+platforms: [linux, macos, windows]
+metadata:
+  hermes:
+    tags: [MLOps, Weights And Biases, WandB, Experiment Tracking, Hyperparameter Tuning, Model Registry, Collaboration, Real-Time Visualization, PyTorch, TensorFlow, HuggingFace]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | W&B: log ML experiments, sweeps, model registry, dashboards. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Weights And Biases
 

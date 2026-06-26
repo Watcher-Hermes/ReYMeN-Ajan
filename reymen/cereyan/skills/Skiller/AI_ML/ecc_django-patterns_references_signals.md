@@ -1,5 +1,0 @@
-## Signals
-
-### Signal Patterns
-
-```python

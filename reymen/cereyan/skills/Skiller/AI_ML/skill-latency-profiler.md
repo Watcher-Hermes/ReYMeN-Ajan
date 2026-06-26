@@ -1,22 +1,48 @@
 ---
 name: skill-latency-profiler
-description: Produce a disciplined latency benchmark for any PyTorch model. Reports
-  that anyone downstream can actually trust.
-title: Skill Latency Profiler
+description: Write a complete latency-benchmarking script with warmup, synchronisation, percentiles, and memory tracking
+title: "Skill Latency PRofiler"
 version: 1.0.0
+phase: 4
+lesson: 15
+tags: [edge, deployment, profiling, benchmarking]
+category: skill-latency-profiler
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write a complete latency-benchmarking script with warmup, synchronisation, percentiles, and memory tracking |
+| **Nerede** | `mlops\skills\skill-latency-profiler.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Latency Profiler islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write a complete latency-benchmarking script with warmup, synchronisation, percentiles, and memory tracking |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-percentiles, and memory tracking
+---
+
+Kim: ML/Veri bilimci
+Ne: Write a complete latency-benchmarking script with warmup, synchronisation, percentiles, and memory tracking
+Nerede: `mlops\skills\skill-latency-profiler.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Latency Profiler islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Latency Profiler
 
 Produce a disciplined latency benchmark for any PyTorch model. Reports that anyone downstream can actually trust.

@@ -1,20 +1,31 @@
----
-name: evm-token-decimals
-description: Silent decimal mismatches are one of the easiest ways to ship balances
-  or USD values that are off by orders of magnitude without throwing an error.
-title: Evm Token Decimals
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Evm Token Decimals |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: evm-token-decimals
+description: Prevent silent decimal mismatch bugs across EVM chains. Covers runtime decimal lookup, chain-aware caching, bridged-token precision drift, and safe normalization for bots, dashboards, and DeFi tools.
+title: "Evm Token Decimals"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # EVM Token Decimals
 

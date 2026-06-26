@@ -1,20 +1,38 @@
 ---
-name: inference-obliteratus
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Inference Obliteratus
-version: 1.0.0
+
+name: obliteratus
+title: "Inference"
+tags: [machine-learning, mlops]
+description: "OBLITERATUS: abliterate LLM refusals (diff-in-means)."
+version: 2.0.0
+author: Hermes Agent
+license: MIT
+dependencies: [obliteratus, torch, transformers, bitsandbytes, accelerate, safetensors]
+platforms: [linux, macos]
+metadata:
+  hermes:
+    tags: [Abliteration, Uncensoring, Refusal-Removal, LLM, Weight-Projection, SVD, Mechanistic-Interpretability, HuggingFace, Model-Surgery]
+audience: user
+related_skills: [vllm, gguf, huggingface-tokenizers]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | OBLITERATUS: abliterate LLM refusals (diff-in-means). |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Obliteratus
 

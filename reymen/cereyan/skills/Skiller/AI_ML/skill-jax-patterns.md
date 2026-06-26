@@ -1,23 +1,48 @@
 ---
 name: skill-jax-patterns
-description: 'JAX transforms pure functions. Every pattern below follows one rule:
-  write a function that takes inputs and returns outputs, with no side effects. Then
-  transform it.'
-title: Skill Jax Patterns
+description: Functional programming patterns in JAX -- when and how to use grad, jit, vmap, and pmap
+title: "Skill JAX Patterns"
 version: 1.0.0
+phase: 3
+lesson: 12
+tags: [jax, functional-programming, autodiff, compilation, vectorization]
+category: skill-jax-patterns
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Functional programming patterns in JAX -- when and how to use grad, jit, vmap, and pmap |
+| **Nerede** | `mlops\skills\skill-jax-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Jax Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Functional programming patterns in JAX -- when and how to use grad, jit, vmap, and pmap |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-vmap, and pmap
+---
+
+Kim: ML/Veri bilimci
+Ne: Functional programming patterns in JAX -- when and how to use grad, jit, vmap, and pmap
+Nerede: `mlops\skills\skill-jax-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Jax Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # JAX Functional Patterns
 
 JAX transforms pure functions. Every pattern below follows one rule: write a function that takes inputs and returns outputs, with no side effects. Then transform it.

@@ -1,22 +1,48 @@
 ---
 name: skill-dcgan-scaffold
-description: Given three parameters, emit a runnable DCGAN project skeleton with the
-  architecture sized correctly for the target image resolution.
-title: Skill Dcgan Scaffold
+description: Write a complete DCGAN scaffold from z_dim, image_size, and num_channels, including training loop and sample saver
+title: "Skill Dcgan Scaffold"
 version: 1.0.0
+phase: 4
+lesson: 9
+tags: [computer-vision, gan, dcgan, scaffolding]
+category: skill-dcgan-scaffold
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write a complete DCGAN scaffold from z_dim, image_size, and num_channels, including training loop and sample saver |
+| **Nerede** | `mlops\skills\skill-dcgan-scaffold.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Dcgan Scaffold islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write a complete DCGAN scaffold from z_dim, image_size, and num_channels, including training loop and sample saver |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-including training loop and sample saver
+---
+
+Kim: ML/Veri bilimci
+Ne: Write a complete DCGAN scaffold from z_dim, image_size, and num_channels, including training loop and sample saver
+Nerede: `mlops\skills\skill-dcgan-scaffold.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Dcgan Scaffold islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # DCGAN Scaffold
 
 Given three parameters, emit a runnable DCGAN project skeleton with the architecture sized correctly for the target image resolution.

@@ -1,20 +1,30 @@
----
-name: scientific-thinking-scholar-evaluation
-description: Use this skill to evaluate academic or scientific work with a repeatable
-  rubric.
-title: Scientific Thinking Scholar Evaluation
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Scientific Thinking Scholar Evaluation |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: scholar-evaluation
+description: Structured scholarly-work evaluation for papers, proposals, literature reviews, methods sections, evidence quality, citation support, and research-writing feedback.
+title: "Scholar Evaluation"
+origin: community
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # Scholar Evaluation
 

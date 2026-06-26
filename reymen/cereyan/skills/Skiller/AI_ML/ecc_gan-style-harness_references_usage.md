@@ -1,5 +1,0 @@
-## Usage
-
-### Via Command
-
-```bash

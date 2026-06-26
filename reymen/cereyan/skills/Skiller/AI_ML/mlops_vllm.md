@@ -1,20 +1,39 @@
 ---
-name: vllm
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Vllm
+
+name: serving-llms-vllm-vllm
+description: "vLLM: high-throughput LLM serving, OpenAI API, quantization."
+title: "Serving LLMs Vllm"
 version: 1.0.0
+author: Orchestra Research
+license: MIT
+dependencies: [vllm, torch, transformers]
+platforms: [linux, macos]
+metadata:
+  hermes:
+    tags: [vLLM, Inference Serving, PagedAttention, Continuous Batching, High Throughput, Production, OpenAI API, Quantization, Tensor Parallelism]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | vLLM: high-throughput LLM serving, OpenAI API, quantization. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Vllm
 

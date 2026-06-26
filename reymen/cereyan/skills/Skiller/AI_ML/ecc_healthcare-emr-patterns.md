@@ -1,21 +1,31 @@
----
-name: healthcare-emr-patterns
-description: Patterns for building Electronic Medical Record (EMR) and Electronic
-  Health Record (EHR) systems. Prioritizes patient safety, clinical accuracy, and
-  practitioner efficiency.
-title: Healthcare Emr Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Healthcare Emr Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: healthcare-emr-patterns
+description: EMR/EHR development patterns for healthcare applications. Clinical safety, encounter workflows, prescription generation, clinical decision support integration, and accessibility-first UI for medical data entry.
+title: "Healthcare Emr Patterns"
+origin: Health1 Super Speciality Hospitals — contributed by Dr. Keyur Patel
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Healthcare EMR Development Patterns
 

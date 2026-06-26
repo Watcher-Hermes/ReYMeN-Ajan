@@ -1,23 +1,48 @@
 ---
 name: skill-regression
-description: Regression predicts continuous values. The right approach depends on
-  the relationship between features and target, the number of features, and the risk
-  of overfitting.
-title: Skill Regression
+description: Choose the right regression approach based on data characteristics and problem constraints
+title: "Skill Regression"
 version: 1.0.0
+phase: 2
+lesson: 2
+tags: [regression, linear-regression, polynomial-regression, ridge, regularization]
+category: skill-regression
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Choose the right regression approach based on data characteristics and problem constraints |
+| **Nerede** | `mlops\skills\skill-regression.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Regression islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Choose the right regression approach based on data characteristics and problem constraints |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-problem constraints
+---
+
+Kim: ML/Veri bilimci
+Ne: Choose the right regression approach based on data characteristics and problem constraints
+Nerede: `mlops\skills\skill-regression.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Regression islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Regression Strategy Guide
 
 Regression predicts continuous values. The right approach depends on the relationship between features and target, the number of features, and the risk of overfitting.

@@ -1,19 +1,30 @@
----
-name: safety-guard
-description: '- When working on production systems'
-title: Safety Guard
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Safety Guard |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: safety-guard
+description: Use this skill to prevent destructive operations when working on production systems or running agents autonomously.
+title: "Safety Guard"
+origin: ECC
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # Safety Guard — Prevent Destructive Operations
 

@@ -1,21 +1,31 @@
----
-name: healthcare-phi-compliance
-description: Patterns for protecting patient data, clinician data, and financial data
-  in healthcare applications. Applicable to HIPAA (US), DISHA (India), GDPR (EU),
-  and general healthcare data protection.
-title: Healthcare Phi Compliance
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Healthcare Phi Compliance |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: healthcare-phi-compliance
+description: Protected Health Information (PHI) and Personally Identifiable Information (PII) compliance patterns for healthcare applications. Covers data classification, access control, audit trails, encryption, and common leak vectors.
+title: "Healthcare Phi Compliance"
+origin: Health1 Super Speciality Hospitals — contributed by Dr. Keyur Patel
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Healthcare PHI/PII Compliance Patterns
 

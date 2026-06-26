@@ -1,22 +1,48 @@
 ---
 name: skill-context-engineering
-description: When building an LLM application, apply this framework to design the
-  context assembly pipeline.
-title: Skill Context Engineering
+description: Decision framework for designing context assembly pipelines based on task type, window size, and latency budget
+title: "Skill Context Engineering"
 version: 1.0.0
+phase: 11
+lesson: 05
+tags: [context-engineering, context-window, rag, memory, tool-selection, lost-in-the-middle]
+category: skill-context-engineering
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for designing context assembly pipelines based on task type, window size, and latency budget |
+| **Nerede** | `mlops\skills\skill-context-engineering.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Context Engineering islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for designing context assembly pipelines based on task type, window size, and latency budget |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-task type, window size, and latency budget
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for designing context assembly pipelines based on task type, window size, and latency budget
+Nerede: `mlops\skills\skill-context-engineering.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Context Engineering islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Context Engineering
 
 When building an LLM application, apply this framework to design the context assembly pipeline.

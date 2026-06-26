@@ -1,23 +1,48 @@
 ---
 name: skill-conv-shape-calculator
-description: A deterministic helper for planning or debugging a CNN. Given an input
-  shape and a list of layer specs, trace shapes, receptive fields, and parameter counts
-  without running the model.
-title: Skill Conv Shape Calculator
+description: Walk a CNN spec layer by layer and report output shape, receptive field, and parameter count for every block
+title: "Skill Conv Shape Calculator"
 version: 1.0.0
+phase: 4
+lesson: 2
+tags: [computer-vision, cnn, architecture, debugging]
+category: skill-conv-shape-calculator
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Walk a CNN spec layer by layer and report output shape, receptive field, and parameter count for every block |
+| **Nerede** | `mlops\skills\skill-conv-shape-calculator.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Conv Shape Calculator islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Walk a CNN spec layer by layer and report output shape, receptive field, and parameter count for every block |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and parameter count for every block
+---
+
+Kim: ML/Veri bilimci
+Ne: Walk a CNN spec layer by layer and report output shape, receptive field, and parameter count for every block
+Nerede: `mlops\skills\skill-conv-shape-calculator.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Conv Shape Calculator islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Conv Shape Calculator
 
 A deterministic helper for planning or debugging a CNN. Given an input shape and a list of layer specs, trace shapes, receptive fields, and parameter counts without running the model.

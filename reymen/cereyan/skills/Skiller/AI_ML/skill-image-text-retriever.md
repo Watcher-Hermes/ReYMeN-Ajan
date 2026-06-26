@@ -1,21 +1,48 @@
 ---
 name: skill-image-text-retriever
-description: Turn a folder of images into a searchable index using CLIP embeddings.
-title: Skill Image Text Retriever
+description: Build an image embedding index with any CLIP checkpoint; support query-by-text and query-by-image
+title: "Skill Image Text Retriever"
 version: 1.0.0
+phase: 4
+lesson: 18
+tags: [clip, retrieval, faiss, zero-shot]
+category: skill-image-text-retriever
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Build an image embedding index with any CLIP checkpoint; support query-by-text and query-by-image |
+| **Nerede** | `mlops\skills\skill-image-text-retriever.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Image Text Retriever islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Build an image embedding index with any CLIP checkpoint; support query-by-text and query-by-image |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and query-by-image
+---
+
+Kim: ML/Veri bilimci
+Ne: Build an image embedding index with any CLIP checkpoint; support query-by-text and query-by-image
+Nerede: `mlops\skills\skill-image-text-retriever.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Image Text Retriever islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Image-Text Retriever
 
 Turn a folder of images into a searchable index using CLIP embeddings.
@@ -52,6 +79,7 @@ import torch
 from PIL import Image
 from transformers import CLIPModel, CLIPProcessor
 import faiss
+
 
 class ImageTextRetriever:
     def __init__(self, model_name="openai/clip-vit-base-patch32"):

@@ -1,24 +1,48 @@
 ---
 name: skill-anchor-designer
-description: Anchors are the single most dataset-specific hyperparameter in an anchor-based
-  detector. Default COCO anchors underperform on cell-culture images, satellite tiles,
-  or small-object surveillance. This skill derives anchors that actually match the
-  target data.
-title: Skill Anchor Designer
+description: Given a dataset of ground-truth boxes, run k-means on (w, h) and return anchor sets per FPN level plus coverage statistics
+title: "Skill Anchor Designer"
 version: 1.0.0
+phase: 4
+lesson: 6
+tags: [computer-vision, detection, anchors, kmeans]
+category: skill-anchor-designer
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Given a dataset of ground-truth boxes, run k-means on (w, h) and return anchor sets per FPN level plus coverage statistics |
+| **Nerede** | `mlops\skills\skill-anchor-designer.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Anchor Designer islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Given a dataset of ground-truth boxes, run k-means on (w, h) and return anchor sets per FPN level plus coverage statistics |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-anchor sets per FPN level plus coverage statistics
+---
+
+Kim: ML/Veri bilimci
+Ne: Given a dataset of ground-truth boxes, run k-means on (w, h) and return anchor sets per FPN level plus coverage statistics
+Nerede: `mlops\skills\skill-anchor-designer.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Anchor Designer islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Anchor Designer
 
 Anchors are the single most dataset-specific hyperparameter in an anchor-based detector. Default COCO anchors underperform on cell-culture images, satellite tiles, or small-object surveillance. This skill derives anchors that actually match the target data.

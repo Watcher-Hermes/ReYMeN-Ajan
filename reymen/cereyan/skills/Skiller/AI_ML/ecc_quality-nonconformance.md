@@ -1,27 +1,45 @@
----
-name: quality-nonconformance
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Quality Nonconformance
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Quality Nonconformance |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-cause analysis, corrective action, and supplier quality management in
+---
+
+---
+
+name: quality-nonconformance
+description: >
+title: "Quality Nonconformance"
+  cause analysis, corrective action, and supplier quality management in
   regulated manufacturing. Informed by quality engineers with 15+ years
   experience across FDA, IATF 16949, and AS9100 environments. Includes NCR
   lifecycle management, CAPA systems, SPC interpretation, and audit methodology.
   Use when investigating non-conformances, performing root cause analysis,
   managing CAPAs, interpreting SPC data, or handling supplier quality issues.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Quality Nonconformance
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

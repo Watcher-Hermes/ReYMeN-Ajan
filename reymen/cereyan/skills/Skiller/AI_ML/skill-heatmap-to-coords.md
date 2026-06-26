@@ -1,22 +1,48 @@
 ---
 name: skill-heatmap-to-coords
-description: Turn raw keypoint heatmaps into sub-pixel precise coordinates. The cheapest
-  accuracy upgrade in every pose pipeline.
-title: Skill Heatmap To Coords
+description: Write the sub-pixel heatmap-to-coordinate routine used by every production pose model
+title: "Skill Heatmap To Coords"
 version: 1.0.0
+phase: 4
+lesson: 21
+tags: [keypoint, pose, subpixel, inference]
+category: skill-heatmap-to-coords
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write the sub-pixel heatmap-to-coordinate routine used by every production pose model |
+| **Nerede** | `mlops\skills\skill-heatmap-to-coords.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Heatmap To Coords islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write the sub-pixel heatmap-to-coordinate routine used by every production pose model |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-pose model
+---
+
+Kim: ML/Veri bilimci
+Ne: Write the sub-pixel heatmap-to-coordinate routine used by every production pose model
+Nerede: `mlops\skills\skill-heatmap-to-coords.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Heatmap To Coords islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Heatmap to Coords
 
 Turn raw keypoint heatmaps into sub-pixel precise coordinates. The cheapest accuracy upgrade in every pose pipeline.

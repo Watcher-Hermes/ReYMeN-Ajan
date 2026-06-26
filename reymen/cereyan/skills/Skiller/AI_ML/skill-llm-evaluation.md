@@ -1,22 +1,48 @@
 ---
 name: skill-llm-evaluation
-description: When evaluating an LLM system, apply this decision framework to choose
-  the right approach.
-title: Skill Llm Evaluation
+description: Decision framework for choosing the right LLM evaluation strategy based on task type, budget, and requirements
+title: "Skill LLM Evaluation"
 version: 1.0.0
+phase: 10
+lesson: 10
+tags: [evaluation, evals, benchmarks, llm-as-judge, elo, metrics]
+category: skill-llm-evaluation
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for choosing the right LLM evaluation strategy based on task type, budget, and requirements |
+| **Nerede** | `mlops\skills\skill-llm-evaluation.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Llm Evaluation islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for choosing the right LLM evaluation strategy based on task type, budget, and requirements |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-on task type, budget, and requirements
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for choosing the right LLM evaluation strategy based on task type, budget, and requirements
+Nerede: `mlops\skills\skill-llm-evaluation.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Llm Evaluation islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # LLM Evaluation Strategy
 
 When evaluating an LLM system, apply this decision framework to choose the right approach.

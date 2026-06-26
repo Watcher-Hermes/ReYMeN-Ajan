@@ -1,22 +1,48 @@
 ---
 name: skill-inference-optimization
-description: 'Two phases: prefill (compute-bound, parallel) and decode (memory-bound,
-  sequential).'
-title: Skill Inference Optimization
+description: Diagnose and optimize LLM inference serving throughput, latency, and cost
+title: "Skill Inference Optimization"
 version: 1.0.0
+phase: 10
+lesson: 12
+tags: [inference, kv-cache, batching, speculative-decoding, vllm, optimization]
+category: skill-inference-optimization
+audience: maintainer
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Diagnose and optimize LLM inference serving throughput, latency, and cost |
+| **Nerede** | `mlops\skills\skill-inference-optimization.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Inference Optimization islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Diagnose and optimize LLM inference serving throughput, latency, and cost |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-cost
+---
+
+Kim: ML/Veri bilimci
+Ne: Diagnose and optimize LLM inference serving throughput, latency, and cost
+Nerede: `mlops\skills\skill-inference-optimization.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Inference Optimization islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # LLM Inference Optimization Pattern
 
 Two phases: prefill (compute-bound, parallel) and decode (memory-bound, sequential).

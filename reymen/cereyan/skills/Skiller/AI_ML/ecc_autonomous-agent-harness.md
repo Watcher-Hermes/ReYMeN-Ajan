@@ -1,20 +1,12 @@
 ---
 name: autonomous-agent-harness
-description: Turn Claude Code into a persistent, self-directing agent system using
-  only native features and MCP servers.
-title: Autonomous Agent Harness
-version: 1.0.0
----
+description: Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.
+title: "Autonomous Agent Harness"
+origin: ECC
 
-## 📋 5N1K
-
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Autonomous Agent Harness
 
@@ -169,6 +161,9 @@ Write task queue to ~/.claude/projects/*/memory/task-queue.md
 
 # Task format
 
+
+---
+
 | 5N1K | Açıklama |
 |:----:|:---------|
 | **Kim** | AI muhendisi |
@@ -178,9 +173,31 @@ Write task queue to ~/.claude/projects/*/memory/task-queue.md
 | **Neden** | Ecc Autonomous Agent Harness islemini standartlastirmak icin |
 | **Nasıl** | Skill dosyasindaki adimlari takip ederek |
 
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by lever
+Nerede: `ai\ecc\ecc_autonomous-agent-harness.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Autonomous Agent Harness islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 name: task-queue
 type: project
 description: Persistent task queue for autonomous operation
+---
 
 ## Active Tasks
 - [ ] PR #123: Review and approve if CI green

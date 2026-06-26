@@ -1,23 +1,32 @@
----
-name: data-throughput-accelerator
-description: Use this skill when the bottleneck is moving, transforming, or saving
-  lots of
-title: Data Throughput Accelerator
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Data Throughput Accelerator |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-lots of data. The goal is not just speed. The goal is faster correct data landing
-  in the right place with proof.
+---
+
+---
+name: data-throughput-accelerator
+description: Use when large data ingestion, backfill, export, ETL, warehouse loading, manifest catch-up, or table synchronization needs to become much faster while preserving data correctness.
+title: "Data Throughput Accelerator"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: contributor
+tags: [ai, automation, development, tor]
+category: ecc---
+
 # Data Throughput Accelerator
 
 Use this skill when the bottleneck is moving, transforming, or saving lots of

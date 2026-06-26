@@ -1,24 +1,35 @@
 ---
+
 name: global-model-selection
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Global Model Selection
-version: 1.0.0
+title: "Global Model Selection Rehberi"
+description: >
+  40+ benchmark üzerinden Claude (Fable/Opus/Sonnet), GPT, Gemini, DeepSeek,
+  Kimi, GLM, Qwen, MiniMax, Grok modellerini göreve göre karşılaştırma ve
+  seçme rehberi. Güncel: 9 Haziran 2028.
+tags: [model-selection, benchmark, llm-comparison, claude, gpt, gemini, deepseek, fable, grok]
+category: mlops
+audience: user
+related_skills: [hibrit-ai-yonlendirme-kurali, model-benchmark]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | > |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-Kimi, GLM, Qwen, MiniMax, Grok modellerini göreve göre karşılaştırma ve seçme rehberi.
-  Güncel: 9 Haziran 2028. '
-"
+---
+
 # Global Model Selection
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

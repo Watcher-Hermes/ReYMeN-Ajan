@@ -1,23 +1,30 @@
----
-name: recsys-pipeline-architect
-description: A spec-and-scaffold skill for building composable recommendation, ranking,
-  and feed pipelines. It encodes the **six-stage pattern** — Source → Hydrator → Filter
-  → Scorer → Selector → SideEffect — popularized by xAI's open-sourced [For You algorithm](https://github.com/xai-org/x-algorithm)
-  (Apache 2.0). This skill is an independent reimplementation of the pattern (MIT)
-  — no code copied from the original.
-title: Recsys Pipeline Architect
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Recsys Pipeline Architect |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: recsys-pipeline-architect
+description: Design composable recommendation, ranking, and feed pipelines using the six-stage Source→Hydrator→Filter→Scorer→Selector→SideEffect framework popularized by xAI's open-sourced For You algorithm. Use this skill whenever the user is building any system that picks "the top K items for a (user, context)" — social feeds, content CMSs, RAG rerankers, task prioritizers, notification triage, search reranking, ad ranking.
+title: "Recsys Pipeline Architect"
+origin: community
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # recsys-pipeline-architect
 

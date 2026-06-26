@@ -1,22 +1,48 @@
 ---
 name: skill-gradient-computation
-description: Practical reference for computing gradients of loss functions, activation
-  functions, and layer operations used in neural networks.
-title: Skill Gradient Computation
+description: Compute gradients of common ML loss functions and choose the right derivative approach
+title: "Skill Gradient Computation"
 version: 1.0.0
+phase: 1
+lesson: 4
+tags: [calculus, gradients, backpropagation]
+category: skill-gradient-computation
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Compute gradients of common ML loss functions and choose the right derivative approach |
+| **Nerede** | `mlops\skills\skill-gradient-computation.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Gradient Computation islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Compute gradients of common ML loss functions and choose the right derivative approach |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-approach
+---
+
+Kim: ML/Veri bilimci
+Ne: Compute gradients of common ML loss functions and choose the right derivative approach
+Nerede: `mlops\skills\skill-gradient-computation.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Gradient Computation islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Gradient Computation for ML
 
 Practical reference for computing gradients of loss functions, activation functions, and layer operations used in neural networks.

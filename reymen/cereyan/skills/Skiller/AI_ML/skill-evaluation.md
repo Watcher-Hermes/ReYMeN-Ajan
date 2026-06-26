@@ -1,20 +1,47 @@
 ---
 name: skill-evaluation
-description: A checklist for correctly evaluating any ML model. Follow this sequence
-  to avoid the most common evaluation mistakes.
-title: Skill Evaluation
+description: Evaluation strategy checklist for classification and regression models
+title: "Skill Evaluation"
 version: 1.0.0
+phase: 2
+lesson: 9
+tags: [evaluation, metrics, cross-validation, model-selection]
+category: skill-evaluation
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Evaluation strategy checklist for classification and regression models |
+| **Nerede** | `mlops\skills\skill-evaluation.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Evaluation islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Evaluation strategy checklist for classification and regression models |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Evaluation strategy checklist for classification and regression models
+Nerede: `mlops\skills\skill-evaluation.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Evaluation islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Model Evaluation Strategy
 

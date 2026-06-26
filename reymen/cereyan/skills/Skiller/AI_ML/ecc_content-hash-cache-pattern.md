@@ -1,21 +1,30 @@
----
-name: content-hash-cache-pattern
-description: Cache expensive file processing results (PDF parsing, text extraction,
-  image analysis) using SHA-256 content hashes as cache keys. Unlike path-based caching,
-  this approach survives file moves/renames and auto-invalidates when content changes.
-title: Content Hash Cache Pattern
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Content Hash Cache Pattern |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: content-hash-cache-pattern
+description: Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.
+title: "Content Hash Cache Pattern"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Content-Hash File Cache Pattern
 

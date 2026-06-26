@@ -1,22 +1,30 @@
----
-name: team-agent-orchestration
-description: 'Use this skill when agents are being managed like a team rather than
-  a single assistant. The purpose is to make team-based orchestration reliable: clear
-  work items, explicit ownership, agent Kanban state, branch isolation, control pane
-  visibility, and merge gates.'
-title: Team Agent Orchestration
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Team Agent Orchestration |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: team-agent-orchestration
+description: "Run team-based orchestration for agent squads using work items, ownership, agent Kanban, merge gates, and control pane handoffs."
+title: "Team Agent Orchestration"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Team Agent Orchestration
 

@@ -1,20 +1,31 @@
----
-name: blender-motion-state-inspection
-description: '- A Blender character looks twisted, mirrored, flattened, offset, or
-  foot-sliding in an animation.'
-title: Blender Motion State Inspection
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Blender Motion State Inspection |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: blender-motion-state-inspection
+description: Use this skill when inspecting Blender characters, rigs, poses, animation retargeting, ground contact, facing direction, or model-vs-motion alignment where screenshots alone are not enough.
+title: "Blender Motion State Inspection"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # Blender Motion State Inspection
 

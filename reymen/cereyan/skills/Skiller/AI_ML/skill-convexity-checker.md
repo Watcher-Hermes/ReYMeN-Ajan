@@ -1,20 +1,47 @@
 ---
 name: skill-convexity-checker
-description: How to verify whether an optimization problem is convex, and what to
-  do with the answer.
-title: Skill Convexity Checker
+description: Determine if an optimization problem is convex and choose the right solver
+title: "Skill Convexity Checker"
 version: 1.0.0
+phase: 1
+lesson: 18
+tags: [optimization, convexity, solvers]
+category: skill-convexity-checker
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Determine if an optimization problem is convex and choose the right solver |
+| **Nerede** | `mlops\skills\skill-convexity-checker.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Convexity Checker islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Determine if an optimization problem is convex and choose the right solver |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Determine if an optimization problem is convex and choose the right solver
+Nerede: `mlops\skills\skill-convexity-checker.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Convexity Checker islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Convexity Checker
 

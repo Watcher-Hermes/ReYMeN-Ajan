@@ -1,22 +1,47 @@
 ---
 name: skill-svm-kernel-chooser
-description: 'SVMs are defined by two choices: the kernel (which determines the shape
-  of the decision boundary) and the regularization parameters (which control the tradeoff
-  between margin width and classification errors). Getting these right is the difference
-  between a useless model and a strong one.'
-title: Skill Svm Kernel Chooser
+description: Choose the right SVM kernel and tune C and gamma for your problem
+title: "Skill Svm Kernel Chooser"
 version: 1.0.0
+phase: 2
+lesson: 5
+tags: [svm, kernel, classification, hyperparameter-tuning]
+category: skill-svm-kernel-chooser
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Choose the right SVM kernel and tune C and gamma for your problem |
+| **Nerede** | `mlops\skills\skill-svm-kernel-chooser.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Svm Kernel Chooser islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Choose the right SVM kernel and tune C and gamma for your problem |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Choose the right SVM kernel and tune C and gamma for your problem
+Nerede: `mlops\skills\skill-svm-kernel-chooser.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Svm Kernel Chooser islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # SVM Kernel Selection Guide
 

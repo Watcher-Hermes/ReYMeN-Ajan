@@ -1,25 +1,55 @@
 ---
 name: remotion-video-creation
-description: Remotion Video Creation skill for AI/ML operations.
-title: Remotion Video Creation
-version: 1.0.0
+description: Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more.
+title: "Remotion Video Creation"
+metadata:
+  tags: remotion, video, react, animation, composition, three.js, lottie
+category: ecc
+audience: contributor
+tags: [ai, automation, development, video]
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | AI muhendisi |
+| **Ne** | Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more. |
+| **Nerede** | `ai\ecc\ecc_remotion-video-creation.md` |
+| **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
+| **Neden** | Ecc Remotion Video Creation islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Video ajanı |
+| **Ne?** | Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-rules covering 3D, animations, audio, captions, charts, transitions, and more.
+---
+
+Kim: AI muhendisi
+Ne: Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more.
+Nerede: `ai\ecc\ecc_remotion-video-creation.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Remotion Video Creation islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 ## When to use
+
 Use this skills whenever you are dealing with Remotion code to obtain the domain-specific knowledge.
+
 ## How to use
+
 Read individual rule files for detailed explanations and code examples:
+
 - [rules/3d.md](rules/3d.md) - 3D content in Remotion using Three.js and React Three Fiber
 - [rules/animations.md](rules/animations.md) - Fundamental animation skills for Remotion
 - [rules/assets.md](rules/assets.md) - Importing images, videos, audio, and fonts into Remotion

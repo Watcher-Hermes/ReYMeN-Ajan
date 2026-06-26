@@ -1,20 +1,39 @@
 ---
-name: lm-evaluation-harness
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Lm Evaluation Harness
+
+name: evaluating-llms-harness-lm-evaluation-harness
+description: "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.)."
+title: "Evaluating LLMs Harness"
 version: 1.0.0
+author: Orchestra Research
+license: MIT
+dependencies: [lm-eval, transformers, vllm]
+platforms: [linux, macos]
+metadata:
+  hermes:
+    tags: [Evaluation, LM Evaluation Harness, Benchmarking, MMLU, HumanEval, GSM8K, EleutherAI, Model Quality, Academic Benchmarks, Industry Standard]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.). |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Lm Evaluation Harness
 

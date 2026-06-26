@@ -1,21 +1,30 @@
----
-name: cost-aware-llm-pipeline
-description: Patterns for controlling LLM API costs while maintaining quality. Combines
-  model routing, budget tracking, retry logic, and prompt caching into a composable
-  pipeline.
-title: Cost Aware Llm Pipeline
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Cost Aware Llm Pipeline |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: cost-aware-llm-pipeline
+description: Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.
+title: "Cost Aware LLM Pipeline"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Cost-Aware LLM Pipeline
 

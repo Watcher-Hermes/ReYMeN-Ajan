@@ -1,20 +1,31 @@
----
-name: defi-amm-security
-description: Critical vulnerability patterns and hardened implementations for Solidity
-  AMM contracts, LP vaults, and swap functions.
-title: Defi Amm Security
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Defi Amm Security |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: defi-amm-security
+description: Security checklist for Solidity AMM contracts, liquidity pools, and swap flows. Covers reentrancy, CEI ordering, donation or inflation attacks, oracle manipulation, slippage, admin controls, and integer math.
+title: "DeFi Amm Security"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development, security]
+category: ecc---
 
 # DeFi AMM Security
 

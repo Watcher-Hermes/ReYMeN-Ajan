@@ -1,3 +1,0 @@
-# ... fields ...
-    custom = ProductManager()
-```

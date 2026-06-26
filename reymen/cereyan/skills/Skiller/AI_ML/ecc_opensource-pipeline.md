@@ -1,29 +1,13 @@
 ---
 name: opensource-pipeline
-description: 'Safely open-source any project through a 3-stage pipeline: **Fork**
-  (strip secrets) → **Sanitize** (verify clean) → **Package** (CLAUDE.md + setup.sh
-  + README).'
-title: Opensource Pipeline
-version: 1.0.0
----
+description: "Open-source pipeline: fork, sanitize, and package private projects for safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: '/opensource', 'open source this', 'make this public', 'prepare for open source'."
+title: "Opensource Pipeline"
+origin: ECC
 
-## 📋 5N1K
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
-
-safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: ''/opensource'',
-  ''open source this'', ''make this public'', ''prepare for open source''.'
-  safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: ''/opensource'',
-  ''open source this'', ''make this public'', ''prepare for open source''.'
-- ai
-- automation
-- development
 # Open-Source Pipeline Skill
 
 Safely open-source any project through a 3-stage pipeline: **Fork** (strip secrets) → **Sanitize** (verify clean) → **Package** (CLAUDE.md + setup.sh + README).
@@ -197,6 +181,41 @@ cd "{STAGING_PATH}"
 gh repo create "{github_org}/{github_repo}" --public --source=. --push --description "{description}"
 ```
 
+
+
+---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | AI muhendisi |
+| **Ne** | {description} |
+| **Nerede** | `ai\ecc\ecc_opensource-pipeline.md` |
+| **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
+| **Neden** | Ecc Opensource Pipeline islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Open-source pipeline: fork, sanitize, and package private projects for safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: '/opensource', 'open source this', 'make this public', 'prepare for open source'. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: {description}
+Nerede: `ai\ecc\ecc_opensource-pipeline.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Opensource Pipeline islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 ### /opensource verify PROJECT
 
 Run sanitizer independently. Resolve path: if PROJECT contains `/`, treat as a path. Otherwise check `$HOME/opensource-staging/PROJECT`, then `$HOME/PROJECT`, then current directory.
@@ -207,6 +226,8 @@ Agent(
   prompt="Verify sanitization of: {resolved_path}. Run all 6 scan categories and generate SANITIZATION_REPORT.md."
 )
 ```
+
+---
 
 ### /opensource package PROJECT
 
@@ -219,6 +240,8 @@ Agent(
 )
 ```
 
+---
+
 ### /opensource list
 
 ```bash
@@ -226,6 +249,8 @@ ls -d $HOME/opensource-staging/*/
 ```
 
 Show each project with pipeline progress (FORK_REPORT.md, SANITIZATION_REPORT.md, CLAUDE.md presence).
+
+---
 
 ### /opensource status PROJECT
 

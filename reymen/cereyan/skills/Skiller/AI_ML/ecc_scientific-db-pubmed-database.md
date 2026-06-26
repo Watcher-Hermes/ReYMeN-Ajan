@@ -1,20 +1,30 @@
----
-name: scientific-db-pubmed-database
-description: Use this skill when a task needs biomedical literature from PubMed rather
-  than
-title: Scientific Db Pubmed Database
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Scientific Db Pubmed Database |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: pubmed-database
+description: Direct PubMed and NCBI E-utilities search workflows for biomedical literature, MeSH queries, PMID lookup, citation retrieval, and API-backed literature monitoring.
+title: "Pubmed Database"
+origin: community
+
+audience: user
+tags: [ai, automation, database, development]
+category: ecc---
 
 # PubMed Database
 
@@ -121,6 +131,7 @@ import requests
 
 BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
+
 def esearch(query: str, retmax: int = 20) -> list[str]:
     params = {
         "db": "pubmed",
@@ -138,6 +149,7 @@ def esearch(query: str, retmax: int = 20) -> list[str]:
     response.raise_for_status()
     time.sleep(0.35)
     return response.json()["esearchresult"]["idlist"]
+
 
 pmids = esearch("hypertension[mh] AND randomized controlled trial[pt] AND 2024:2026[dp]")
 print(pmids)

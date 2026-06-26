@@ -1,5 +1,0 @@
-## Setup
-
-### pytest Configuration
-
-```ini

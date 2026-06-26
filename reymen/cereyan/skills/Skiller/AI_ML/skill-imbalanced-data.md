@@ -1,20 +1,47 @@
 ---
 name: skill-imbalanced-data
-description: A decision checklist for handling imbalanced classification. Follow this
-  sequence to pick the right approach for your problem.
-title: Skill Imbalanced Data
+description: Decision checklist for handling imbalanced classification problems
+title: "Skill Imbalanced Data"
 version: 1.0.0
+phase: 2
+lesson: 17
+tags: [imbalanced-data, smote, class-weights, threshold-tuning, evaluation]
+category: skill-imbalanced-data
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision checklist for handling imbalanced classification problems |
+| **Nerede** | `mlops\skills\skill-imbalanced-data.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Imbalanced Data islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision checklist for handling imbalanced classification problems |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision checklist for handling imbalanced classification problems
+Nerede: `mlops\skills\skill-imbalanced-data.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Imbalanced Data islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Imbalanced Data Strategy
 

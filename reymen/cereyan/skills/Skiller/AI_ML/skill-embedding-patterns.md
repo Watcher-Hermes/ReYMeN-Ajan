@@ -1,19 +1,47 @@
 ---
 name: skill-embedding-patterns
-description: 'Every embedding workflow follows this contract:'
-title: Skill Embedding Patterns
+description: Production patterns for embeddings, vector search, and similarity
+title: "Skill Embedding Patterns"
 version: 1.0.0
+phase: 11
+lesson: 4
+tags: [embeddings, vectors, similarity, search, chunking, quantization]
+category: skill-embedding-patterns
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Production patterns for embeddings, vector search, and similarity |
+| **Nerede** | `mlops\skills\skill-embedding-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Embedding Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Production patterns for embeddings, vector search, and similarity |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Production patterns for embeddings, vector search, and similarity
+Nerede: `mlops\skills\skill-embedding-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Embedding Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Embedding Patterns
 

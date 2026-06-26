@@ -1,27 +1,45 @@
----
-name: production-scheduling
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Production Scheduling
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Production Scheduling |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-changeover optimization, and bottleneck resolution in discrete and batch
+---
+
+---
+
+name: production-scheduling
+description: >
+title: "PRoduction Scheduling"
+  changeover optimization, and bottleneck resolution in discrete and batch
   manufacturing. Informed by production schedulers with 15+ years experience.
   Includes TOC/drum-buffer-rope, SMED, OEE analysis, disruption response
   frameworks, and ERP/MES interaction patterns. Use when scheduling production,
   resolving bottlenecks, optimizing changeovers, responding to disruptions,
   or balancing manufacturing lines.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Production Scheduling
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

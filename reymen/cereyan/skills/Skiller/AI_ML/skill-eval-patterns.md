@@ -1,22 +1,48 @@
 ---
 name: skill-eval-patterns
-description: When building evaluation for an LLM application, apply this decision
-  framework.
-title: Skill Eval Patterns
+description: Decision framework for choosing evaluation strategies -- when to use which method, how to size test suites, and how to integrate evals into CI/CD
+title: "Skill Eval Patterns"
 version: 1.0.0
+phase: 11
+lesson: 10
+tags: [evaluation, testing, llm-as-judge, regression, confidence-intervals, ci-cd]
+category: skill-eval-patterns
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for choosing evaluation strategies -- when to use which method, how to size test suites, and how to integrate evals into CI/CD |
+| **Nerede** | `mlops\skills\skill-eval-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Eval Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for choosing evaluation strategies -- when to use which method, how to size test suites, and how to integrate evals into CI/CD |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-which method, how to size test suites, and how to integrate evals into CI/CD
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for choosing evaluation strategies -- when to use which method, how to size test suites, and how to integrate evals into CI/CD
+Nerede: `mlops\skills\skill-eval-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Eval Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Eval Patterns
 
 When building evaluation for an LLM application, apply this decision framework.

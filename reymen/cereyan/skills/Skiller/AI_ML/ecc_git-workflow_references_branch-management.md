@@ -1,5 +1,0 @@
-## Branch Management
-
-### Naming Conventions
-
-```

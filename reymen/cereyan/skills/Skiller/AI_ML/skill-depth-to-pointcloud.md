@@ -1,22 +1,48 @@
 ---
 name: skill-depth-to-pointcloud
-description: Turn a depth map plus a colour image into a textured point cloud, exportable
-  for visualisation or further 3D work.
-title: Skill Depth To Pointcloud
+description: Build point clouds from depth maps with correct intrinsics handling and export to .ply
+title: "Skill Depth To Pointcloud"
 version: 1.0.0
+phase: 4
+lesson: 26
+tags: [depth, point-cloud, 3d, intrinsics]
+category: skill-depth-to-pointcloud
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Build point clouds from depth maps with correct intrinsics handling and export to .ply |
+| **Nerede** | `mlops\skills\skill-depth-to-pointcloud.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Depth To Pointcloud islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Build point clouds from depth maps with correct intrinsics handling and export to .ply |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-export to .ply
+---
+
+Kim: ML/Veri bilimci
+Ne: Build point clouds from depth maps with correct intrinsics handling and export to .ply
+Nerede: `mlops\skills\skill-depth-to-pointcloud.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Depth To Pointcloud islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Depth to Point Cloud
 
 Turn a depth map plus a colour image into a textured point cloud, exportable for visualisation or further 3D work.
@@ -57,6 +83,7 @@ def depth_to_point_cloud(depth, intrinsics, depth_scale=1.0, min_depth=0.1, max_
     y = (v - cy) * z / fy
     points = np.stack([x, y, z], axis=-1)
     return points, valid
+
 
 def write_ply(path, points, colors=None, valid_mask=None):
     p = points.reshape(-1, 3)

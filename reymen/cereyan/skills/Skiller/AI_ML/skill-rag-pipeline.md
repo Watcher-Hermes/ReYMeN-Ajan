@@ -1,19 +1,47 @@
 ---
 name: skill-rag-pipeline
-description: 'Every RAG system follows this pattern:'
-title: Skill Rag Pipeline
+description: Build and debug RAG pipelines from first principles
+title: "Skill RAG Pipeline"
 version: 1.0.0
+phase: 11
+lesson: 6
+tags: [rag, retrieval, embeddings, vector-search, llm-engineering]
+category: skill-rag-pipeline
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Build and debug RAG pipelines from first principles |
+| **Nerede** | `mlops\skills\skill-rag-pipeline.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Rag Pipeline islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Build and debug RAG pipelines from first principles |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Build and debug RAG pipelines from first principles
+Nerede: `mlops\skills\skill-rag-pipeline.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Rag Pipeline islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # RAG Pipeline Pattern
 

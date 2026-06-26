@@ -1,22 +1,31 @@
----
-name: inherit-legacy-style
-description: Prevents AI code style drift in legacy projects by scanning the codebase
-  for implicit conventions across 4 meta-architecture dimensions, resolving conflicts
-  with the user one at a time, and crystallizing the consensus into an enforceable
-  `.ai-style-rules.md`. Fully language- and framework-agnostic.
-title: Inherit Legacy Style
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Inherit Legacy Style |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: inherit-legacy-style
+description: Legacy-project style inheritance skill. Use when the user types /inherit-legacy-style, or when onboarding an AI coding agent onto a hand-written legacy project and you need to prevent "style drift" (the model imposing its pretrained mainstream idioms onto the project). Language- and framework-agnostic — it aligns meta-architecture only, not syntax. Once run, it becomes a behavioral constraint on all subsequent coding tasks. Do NOT use for pure research or one-off questions unrelated to code-style alignment.
+title: "Inherit Legacy Style"
+origin: community
+allowed-tools: Read, Glob, Grep, Bash, Edit, Write, AskUserQuestion
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Inherit Legacy Style
 

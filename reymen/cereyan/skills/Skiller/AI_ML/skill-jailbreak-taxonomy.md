@@ -1,23 +1,48 @@
 ---
 name: skill-jailbreak-taxonomy
-description: A jailbreak is a prompt that causes a deployed assistant to emit output
-  that violates a stated policy. This skill partitions jailbreaks into six categories
-  by trust boundary abused.
-title: Skill Jailbreak Taxonomy
+description: Shared vocabulary for attacks against LLM assistants, six categories with hand-built fixtures
+title: "Skill Jailbreak Taxonomy"
 version: 1.0.0
+phase: 19
+lesson: 82
+tags: [safety, red-team, taxonomy]
+category: skill-jailbreak-taxonomy
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Shared vocabulary for attacks against LLM assistants, six categories with hand-built fixtures |
+| **Nerede** | `mlops\skills\skill-jailbreak-taxonomy.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Jailbreak Taxonomy islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Shared vocabulary for attacks against LLM assistants, six categories with hand-built fixtures |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-with hand-built fixtures
+---
+
+Kim: ML/Veri bilimci
+Ne: Shared vocabulary for attacks against LLM assistants, six categories with hand-built fixtures
+Nerede: `mlops\skills\skill-jailbreak-taxonomy.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Jailbreak Taxonomy islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Jailbreak Taxonomy
 
 A jailbreak is a prompt that causes a deployed assistant to emit output that violates a stated policy. This skill partitions jailbreaks into six categories by trust boundary abused.

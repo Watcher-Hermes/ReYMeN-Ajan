@@ -1,26 +1,44 @@
----
-name: carrier-relationship-management
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Carrier Relationship Management
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Carrier Relationship Management |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-tracking carrier performance, allocating freight, and maintaining strategic
+---
+
+---
+
+name: carrier-relationship-management
+description: >
+title: "Carrier Relationship Management"
+  tracking carrier performance, allocating freight, and maintaining strategic
   carrier relationships. Informed by transportation managers with 15+ years
   experience. Includes scorecarding frameworks, RFP processes, market intelligence,
   and compliance vetting. Use when managing carriers, negotiating rates, evaluating
   carrier performance, or building freight strategies.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Carrier Relationship Management
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

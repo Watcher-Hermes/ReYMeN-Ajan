@@ -1,20 +1,31 @@
----
-name: api-connector-builder
-description: Use this when the job is to add a repo-native integration surface, not
-  just a generic HTTP client.
-title: Api Connector Builder
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Api Connector Builder |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: api-connector-builder
+description: Build a new API connector or provider by matching the target repo's existing integration pattern exactly. Use when adding one more integration without inventing a second architecture.
+title: "API Connector Builder"
+origin: ECC direct-port adaptation
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, api, automation, development, tor]
+category: ecc---
 
 # API Connector Builder
 

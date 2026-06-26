@@ -1,22 +1,48 @@
 ---
 name: skill-image-tensor-inspector
-description: A diagnostic skill for any point in a vision pipeline where you are holding
-  an image-shaped array and need to know exactly what state it is in.
-title: Skill Image Tensor Inspector
+description: Inspect any image-shaped tensor or array and report dtype, layout, range, and whether it looks raw, normalized, or standardized
+title: "Skill Image Tensor Inspector"
 version: 1.0.0
+phase: 4
+lesson: 1
+tags: [computer-vision, debugging, preprocessing, tensors]
+category: skill-image-tensor-inspector
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Inspect any image-shaped tensor or array and report dtype, layout, range, and whether it looks raw, normalized, or standardized |
+| **Nerede** | `mlops\skills\skill-image-tensor-inspector.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Image Tensor Inspector islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Inspect any image-shaped tensor or array and report dtype, layout, range, and whether it looks raw, normalized, or standardized |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and whether it looks raw, normalized, or standardized
+---
+
+Kim: ML/Veri bilimci
+Ne: Inspect any image-shaped tensor or array and report dtype, layout, range, and whether it looks raw, normalized, or standardized
+Nerede: `mlops\skills\skill-image-tensor-inspector.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Image Tensor Inspector islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Image Tensor Inspector
 
 A diagnostic skill for any point in a vision pipeline where you are holding an image-shaped array and need to know exactly what state it is in.

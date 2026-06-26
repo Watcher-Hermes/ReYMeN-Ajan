@@ -1,21 +1,29 @@
----
-name: swift-concurrency-6-2
-description: Patterns for adopting Swift 6.2's concurrency model where code runs single-threaded
-  by default and concurrency is introduced explicitly. Eliminates common data-race
-  errors without sacrificing performance.
-title: Swift Concurrency 6 2
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Swift Concurrency 6 2 |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: swift-concurrency-6-2
+description: Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.
+title: "Swift Concurrency 6 2"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Swift 6.2 Approachable Concurrency
 

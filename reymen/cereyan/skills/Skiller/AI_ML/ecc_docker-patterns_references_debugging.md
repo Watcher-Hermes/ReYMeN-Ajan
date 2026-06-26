@@ -1,5 +1,0 @@
-## Debugging
-
-### Common Commands
-
-```bash

@@ -1,19 +1,47 @@
 ---
 name: skill-fine-tuning-guide
-description: 'Before fine-tuning, try these in order:'
-title: Skill Fine Tuning Guide
+description: Decision tree for when and how to fine-tune LLMs with LoRA and QLoRA
+title: "Skill Fine Tuning GUIde"
 version: 1.0.0
+phase: 11
+lesson: 8
+tags: [fine-tuning, lora, qlora, peft, llm-engineering]
+category: skill-fine-tuning-guide
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision tree for when and how to fine-tune LLMs with LoRA and QLoRA |
+| **Nerede** | `mlops\skills\skill-fine-tuning-guide.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Fine Tuning Guide islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision tree for when and how to fine-tune LLMs with LoRA and QLoRA |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision tree for when and how to fine-tune LLMs with LoRA and QLoRA
+Nerede: `mlops\skills\skill-fine-tuning-guide.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Fine Tuning Guide islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Fine-Tuning Decision Guide
 

@@ -1,22 +1,48 @@
 ---
 name: skill-feature-selector
-description: A quick reference for picking and applying the right feature selection
-  method.
-title: Skill Feature Selector
+description: Quick reference decision tree for choosing the right feature selection method
+title: "Skill Feature Selector"
 version: 1.0.0
+phase: 2
+lesson: 18
+tags: [feature-selection, mutual-information, rfe, lasso, tree-importance]
+category: skill-feature-selector
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Quick reference decision tree for choosing the right feature selection method |
+| **Nerede** | `mlops\skills\skill-feature-selector.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Feature Selector islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Quick reference decision tree for choosing the right feature selection method |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-method
+---
+
+Kim: ML/Veri bilimci
+Ne: Quick reference decision tree for choosing the right feature selection method
+Nerede: `mlops\skills\skill-feature-selector.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Feature Selector islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Feature Selection Strategy
 
 A quick reference for picking and applying the right feature selection method.

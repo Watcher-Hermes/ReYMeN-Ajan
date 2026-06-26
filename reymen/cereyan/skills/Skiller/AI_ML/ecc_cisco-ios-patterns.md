@@ -1,20 +1,30 @@
----
-name: cisco-ios-patterns
-description: Use this skill when reviewing Cisco IOS or IOS-XE snippets, building
-  a
-title: Cisco Ios Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Cisco Ios Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: cisco-ios-patterns
+description: Cisco IOS and IOS-XE review patterns for show commands, config hierarchy, wildcard masks, ACL placement, interface hygiene, and safe change-window verification.
+title: "CIsco iOS Patterns"
+origin: community
+
+audience: contributor
+tags: [ai, automation, development, ios]
+category: ecc---
 
 # Cisco IOS Patterns
 

@@ -1,2 +1,0 @@
-# DELETE / PUT / PATCH
-xurl -X DELETE /2/tweets/1234567890

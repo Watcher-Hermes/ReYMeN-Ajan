@@ -1,20 +1,31 @@
----
-name: parallel-execution-optimizer
-description: 'Use this skill when speed comes from doing independent work at the same
-  time:'
-title: Parallel Execution Optimizer
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Parallel Execution Optimizer |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: parallel-execution-optimizer
+description: Use when the user wants a task done much faster through parallel work, concurrent agents, batched tool calls, isolated worktrees, or many independent verification lanes without losing correctness.
+title: "Parallel Execution Optimizer"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Parallel Execution Optimizer
 

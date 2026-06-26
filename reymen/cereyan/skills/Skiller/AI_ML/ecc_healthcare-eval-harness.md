@@ -1,20 +1,31 @@
----
-name: healthcare-eval-harness
-description: Automated verification system for healthcare application deployments.
-  A single CRITICAL failure blocks deployment. Patient safety is non-negotiable.
-title: Healthcare Eval Harness
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Healthcare Eval Harness |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: healthcare-eval-harness
+description: Patient safety evaluation harness for healthcare application deployments. Automated test suites for CDSS accuracy, PHI exposure, clinical workflow integrity, and integration compliance. Blocks deployments on safety failures.
+title: "Healthcare Eval Harness"
+origin: Health1 Super Speciality Hospitals — contributed by Dr. Keyur Patel
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Healthcare Eval Harness — Patient Safety Verification
 

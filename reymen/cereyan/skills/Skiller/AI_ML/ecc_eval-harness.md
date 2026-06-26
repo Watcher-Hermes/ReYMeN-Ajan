@@ -1,20 +1,31 @@
----
-name: eval-harness
-description: A formal evaluation framework for Claude Code sessions, implementing
-  eval-driven development (EDD) principles.
-title: Eval Harness
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Eval Harness |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: eval-harness
+description: Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles
+title: "Eval Harness"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Eval Harness Skill
 

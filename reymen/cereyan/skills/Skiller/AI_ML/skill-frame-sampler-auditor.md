@@ -1,22 +1,48 @@
 ---
 name: skill-frame-sampler-auditor
-description: Frame sampling is where video pipelines break. Bugs here propagate into
-  every downstream metric.
-title: Skill Frame Sampler Auditor
+description: Audit a video pipeline's frame sampler for off-by-one, short-clip handling, and crop consistency
+title: "Skill Frame SAMpler Auditor"
 version: 1.0.0
+phase: 4
+lesson: 12
+tags: [computer-vision, video, sampling, debugging]
+category: skill-frame-sampler-auditor
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Audit a video pipeline's frame sampler for off-by-one, short-clip handling, and crop consistency |
+| **Nerede** | `mlops\skills\skill-frame-sampler-auditor.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Frame Sampler Auditor islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Audit a video pipeline's frame sampler for off-by-one, short-clip handling, and crop consistency |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-and crop consistency
+---
+
+Kim: ML/Veri bilimci
+Ne: Audit a video pipeline's frame sampler for off-by-one, short-clip handling, and crop consistency
+Nerede: `mlops\skills\skill-frame-sampler-auditor.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Frame Sampler Auditor islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Frame Sampler Auditor
 
 Frame sampling is where video pipelines break. Bugs here propagate into every downstream metric.

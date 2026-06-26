@@ -1,20 +1,39 @@
 ---
-name: models-audiocraft
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Models Audiocraft
+
+name: audiocraft-audio-generation-audiocraft
+description: "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound."
+title: "Audiocraft Audio Generation"
 version: 1.0.0
+author: Orchestra Research
+license: MIT
+dependencies: [audiocraft, torch>=2.0.0, transformers>=4.30.0]
+platforms: [linux, macos]
+metadata:
+  hermes:
+    tags: [Multimodal, Audio Generation, Text-to-Music, Text-to-Audio, MusicGen]
+category: mlops
+audience: user
+tags: [ai, audio, machine-learning, mlops]
+
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | AudioCraft: MusicGen text-to-music, AudioGen text-to-sound. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Audiocraft
 

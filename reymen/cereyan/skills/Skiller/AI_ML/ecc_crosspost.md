@@ -1,22 +1,31 @@
----
-name: crosspost
-description: Distribute content across platforms without turning it into the same
-  fake post in four costumes.
-title: Crosspost
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Crosspost |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-fake post in four costumes.
+---
+
+---
+name: crosspost
+description: Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.
+title: "Crosspost"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Crosspost
 
 Distribute content across platforms without turning it into the same fake post in four costumes.

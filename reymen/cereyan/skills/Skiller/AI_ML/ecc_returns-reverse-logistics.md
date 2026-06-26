@@ -1,27 +1,45 @@
----
-name: returns-reverse-logistics
-description: Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve
-  ilgili reference dosyasını yükleyin.
-title: Returns Reverse Logistics
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Returns Reverse Logistics |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-disposition decisions, refund processing, fraud detection, and warranty
+---
+
+---
+
+name: returns-reverse-logistics
+description: >
+title: "Returns Reverse Logistics"
+  disposition decisions, refund processing, fraud detection, and warranty
   claims management. Informed by returns operations managers with 15+ years
   experience. Includes grading frameworks, disposition economics, fraud
   pattern recognition, and vendor recovery processes. Use when handling
   product returns, reverse logistics, refund decisions, return fraud
   detection, or warranty claims.
+license: Apache-2.0
+version: 1.0.0
+homepage: https://github.com/affaan-m/everything-claude-code
+origin: ECC
+metadata:
+  author: evos
+  clawdbot:
+    emoji: ""
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
+
 # Returns Reverse Logistics
 
 Bu skill modüler bir yönlendiricidir. İhtiyacınız olan bölümü seçin ve ilgili reference dosyasını yükleyin.

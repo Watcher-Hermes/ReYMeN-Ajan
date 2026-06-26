@@ -1,21 +1,30 @@
----
-name: rules-distill
-description: Scan installed skills, extract cross-cutting principles that appear in
-  multiple skills, and distill them into rules — appending to existing rule files,
-  revising outdated content, or creating new rule files.
-title: Rules Distill
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Rules Distill |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: rules-distill
+description: "Scan skills to extract cross-cutting principles and distill them into rules — append, revise, or create new rule files"
+title: "Rules Distill"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Rules Distill
 

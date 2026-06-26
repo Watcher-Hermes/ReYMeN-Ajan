@@ -1,20 +1,30 @@
----
-name: continuous-agent-loop
-description: This is the v1.8+ canonical loop skill name. It supersedes `autonomous-loops`
-  while keeping compatibility for one release.
-title: Continuous Agent Loop
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Continuous Agent Loop |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: continuous-agent-loop
+description: Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.
+title: "Continuous Agent Loop"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Continuous Agent Loop
 

@@ -1,23 +1,30 @@
----
-name: dynamic-workflow-mode
-description: 'Use this skill when a coding agent can generate or adapt a task-local
-  harness instead of only following a static command flow. The goal is to turn dynamic
-  workflow mode into a disciplined system: temporary harnesses for one-off work, shared
-  skill extraction for repeated work, and observable control pane checkpoints for
-  teams.'
-title: Dynamic Workflow Mode
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Dynamic Workflow Mode |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: dynamic-workflow-mode
+description: "Design task-local harnesses, eval gates, and reusable skill extraction for Claude dynamic workflow mode and other adaptive agent harnesses."
+title: "Dynamic Workflow Mode"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Dynamic Workflow Mode
 

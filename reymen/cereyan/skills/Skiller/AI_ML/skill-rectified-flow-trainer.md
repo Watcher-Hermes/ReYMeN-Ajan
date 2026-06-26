@@ -1,22 +1,48 @@
 ---
 name: skill-rectified-flow-trainer
-description: Produce a clean, minimal training loop that would successfully train
-  a small DiT with rectified flow on any image tensor dataset.
-title: Skill Rectified Flow Trainer
+description: Write a complete rectified-flow training loop with AdaLN DiT and Euler sampling
+title: "Skill Rectified Flow Trainer"
 version: 1.0.0
+phase: 4
+lesson: 23
+tags: [diffusion, rectified-flow, DiT, training]
+category: skill-rectified-flow-trainer
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write a complete rectified-flow training loop with AdaLN DiT and Euler sampling |
+| **Nerede** | `mlops\skills\skill-rectified-flow-trainer.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Rectified Flow Trainer islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write a complete rectified-flow training loop with AdaLN DiT and Euler sampling |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-sampling
+---
+
+Kim: ML/Veri bilimci
+Ne: Write a complete rectified-flow training loop with AdaLN DiT and Euler sampling
+Nerede: `mlops\skills\skill-rectified-flow-trainer.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Rectified Flow Trainer islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Rectified Flow Trainer
 
 Produce a clean, minimal training loop that would successfully train a small DiT with rectified flow on any image tensor dataset.

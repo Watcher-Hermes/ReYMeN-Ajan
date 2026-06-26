@@ -1,20 +1,37 @@
 ---
-name: inference-llama-cpp
-description: Use this skill for local GGUF inference, quant selection, or Hugging
-  Face repo discovery for llama.cpp.
-title: Inference Llama Cpp
-version: 1.0.0
+name: llama-cpp
+description: llama.cpp local GGUF inference + HF Hub model discovery.
+title: "LLaMA Cpp"
+version: 2.1.2
+author: Orchestra Research
+license: MIT
+dependencies: [llama-cpp-python>=0.2.0]
+platforms: [linux, macos, windows]
+metadata:
+  hermes:
+    tags: [llama.cpp, GGUF, Quantization, Hugging Face Hub, CPU Inference, Apple Silicon, Edge Deployment, AMD GPUs, Intel GPUs, NVIDIA, URL-first]
+category: mlops
+audience: user
+tags: [ai, machine-learning, mlops]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | llama.cpp local GGUF inference + HF Hub model discovery. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # llama.cpp + GGUF
 

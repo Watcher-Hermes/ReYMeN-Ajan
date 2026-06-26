@@ -1,2 +1,0 @@
-## Entities
-<!-- Alphabetical within section -->

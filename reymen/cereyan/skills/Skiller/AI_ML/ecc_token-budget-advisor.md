@@ -1,22 +1,26 @@
----
-name: token-budget-advisor
-description: Intercept the response flow to offer the user a choice about response
-  depth **before** Claude answers.
-title: Token Budget Advisor
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Token Budget Advisor |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-consume before answering. Use this skill when the user explicitly
+---
+
+---
+name: token-budget-advisor
+description: >-
+title: "Token Budget Advisor"
+  consume before answering. Use this skill when the user explicitly
   wants to control response length, depth, or token budget.
   TRIGGER when: "token budget", "token count", "token usage", "token limit",
   "response length", "answer depth", "short version", "brief answer",
@@ -27,6 +31,14 @@ consume before answering. Use this skill when the user explicitly
   DO NOT TRIGGER when: user has already specified a level in the current
   session (maintain it), the request is clearly a one-word answer, or
   "token" refers to auth/session/payment tokens rather than response size.
+origin: community
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---Offers the user an informed choice about how much response depth to
+
+
+
 # Token Budget Advisor (TBA)
 
 Intercept the response flow to offer the user a choice about response depth **before** Claude answers.

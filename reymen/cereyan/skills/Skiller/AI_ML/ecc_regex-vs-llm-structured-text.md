@@ -1,21 +1,30 @@
----
-name: regex-vs-llm-structured-text
-description: 'A practical decision framework for parsing structured text (quizzes,
-  forms, invoices, documents). The key insight: regex handles 95-98% of cases cheaply
-  and deterministically. Reserve expensive LLM calls for the remaining edge cases.'
-title: Regex Vs Llm Structured Text
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Regex Vs Llm Structured Text |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: regex-vs-llm-structured-text
+description: Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.
+title: "Regex Vs LLM Structured Text"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Regex vs LLM for Structured Text Parsing
 

@@ -1,22 +1,48 @@
 ---
 name: skill-cost-patterns
-description: When building an LLM application that needs to control costs, apply this
-  decision framework.
-title: Skill Cost Patterns
+description: Decision framework for LLM cost optimization -- caching strategies, rate limiting, model routing, and budget controls
+title: "Skill Cost Patterns"
 version: 1.0.0
+phase: 11
+lesson: 11
+tags: [caching, cost-optimization, rate-limiting, model-routing, budget, llm-ops]
+category: skill-cost-patterns
+audience: maintainer
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for LLM cost optimization -- caching strategies, rate limiting, model routing, and budget controls |
+| **Nerede** | `mlops\skills\skill-cost-patterns.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Cost Patterns islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for LLM cost optimization -- caching strategies, rate limiting, model routing, and budget controls |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-limiting, model routing, and budget controls
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for LLM cost optimization -- caching strategies, rate limiting, model routing, and budget controls
+Nerede: `mlops\skills\skill-cost-patterns.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Cost Patterns islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # LLM Cost Optimization Patterns
 
 When building an LLM application that needs to control costs, apply this decision framework.

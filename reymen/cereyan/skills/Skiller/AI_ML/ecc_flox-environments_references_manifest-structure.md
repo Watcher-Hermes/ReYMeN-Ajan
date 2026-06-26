@@ -1,3 +1,0 @@
-## Manifest Structure
-
-```toml

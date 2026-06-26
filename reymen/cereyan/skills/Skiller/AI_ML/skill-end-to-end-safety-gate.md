@@ -1,22 +1,48 @@
 ---
 name: skill-end-to-end-safety-gate
-description: 1. pre-gen - run the lesson 83 detector on the prompt
-title: Skill End To End Safety Gate
+description: Three-checkpoint safety gate composing the input detector, streaming token filter, output classifier, and rules engine with a deterministic aggregation table and per-request trace
+title: "Skill End To End Safety Gate"
 version: 1.0.0
+phase: 19
+lesson: 87
+tags: [safety, harness, composition]
+category: skill-end-to-end-safety-gate
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Three-checkpoint safety gate composing the input detector, streaming token filter, output classifier, and rules engine with a deterministic aggregation table and per-request trace |
+| **Nerede** | `mlops\skills\skill-end-to-end-safety-gate.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill End To End Safety Gate islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Three-checkpoint safety gate composing the input detector, streaming token filter, output classifier, and rules engine with a deterministic aggregation table and per-request trace |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-token filter, output classifier, and rules engine with a deterministic aggregation
-  table and per-request trace
+---
+
+Kim: ML/Veri bilimci
+Ne: Three-checkpoint safety gate composing the input detector, streaming token filter, output classifier, and rules engine with a deterministic aggregation table and per-request trace
+Nerede: `mlops\skills\skill-end-to-end-safety-gate.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill End To End Safety Gate islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # End-to-End Safety Gate
 
 ## Lifecycle

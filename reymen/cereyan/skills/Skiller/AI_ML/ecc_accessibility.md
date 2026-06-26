@@ -1,22 +1,32 @@
----
-name: accessibility
-description: This skill ensures that digital interfaces are Perceivable, Operable,
-  Understandable, and Robust (POUR) for all users, including those using screen readers,
-  switch controls, or keyboard navigation. It focuses on the technical implementation
-  of WCAG 2.2 success criteria.
-title: Accessibility
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Accessibility |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: accessibility
+description: Design, implement, and audit inclusive digital products using WCAG 2.2 Level AA
+title: "Accessibility"
+origin: ECC
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---standards. Use this skill to generate semantic ARIA for Web and accessibility traits for Web and Native platforms (iOS/Android).
+
+
 
 # Accessibility (WCAG 2.2)
 

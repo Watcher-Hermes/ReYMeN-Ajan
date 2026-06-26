@@ -1,21 +1,48 @@
 ---
 name: skill-content-classifier-integration
-description: Three classifiers, one router, four actions.
-title: Skill Content Classifier Integration
+description: Three output-side classifiers (toxicity, PII, instruction-leakage) behind a single severity router with block, redact, warn, log actions
+title: "Skill Content Classifier Integration"
 version: 1.0.0
+phase: 19
+lesson: 85
+tags: [safety, classifier, output-filter]
+category: skill-content-classifier-integration
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Three output-side classifiers (toxicity, PII, instruction-leakage) behind a single severity router with block, redact, warn, log actions |
+| **Nerede** | `mlops\skills\skill-content-classifier-integration.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Content Classifier Integration islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Three output-side classifiers (toxicity, PII, instruction-leakage) behind a single severity router with block, redact, warn, log actions |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-a single severity router with block, redact, warn, log actions
+---
+
+Kim: ML/Veri bilimci
+Ne: Three output-side classifiers (toxicity, PII, instruction-leakage) behind a single severity router with block, redact, warn, log actions
+Nerede: `mlops\skills\skill-content-classifier-integration.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Content Classifier Integration islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Content Classifier Integration
 
 Three classifiers, one router, four actions.

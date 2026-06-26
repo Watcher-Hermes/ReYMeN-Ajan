@@ -1,26 +1,13 @@
 ---
 name: laravel-plugin-discovery
-description: Find, evaluate, and choose healthy Laravel packages using the LaraPlugins.io
-  MCP server.
-title: Laravel Plugin Discovery
-version: 1.0.0
----
+description: Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.
+title: "Laravel Plugin Discovery"
+origin: ECC
 
-## 📋 5N1K
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
-| Soru | Cevap |
-|:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
-
-the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.
-  the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.
-- ai
-- automation
-- development
 # Laravel Plugin Discovery
 
 Find, evaluate, and choose healthy Laravel packages using the LaraPlugins.io MCP server.
@@ -70,6 +57,41 @@ Fetch detailed metrics, readme content, and version history for a specific packa
 - `package` (string, required): Full Composer package name (e.g. "spatie/laravel-permission")
 - `include_versions` (boolean, optional): Include version history in response
 
+
+
+---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | AI muhendisi |
+| **Ne** | Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility. |
+| **Nerede** | `ai\ecc\ecc_laravel-plugin-discovery.md` |
+| **Ne Zaman** | AI modeli secimi veya degerlendirmesi gerektiginde |
+| **Neden** | Ecc Laravel Plugin Discovery islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
+
+## 📋 5N1K
+
+| Soru | Cevap |
+|:-----|:------|
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility. |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: AI muhendisi
+Ne: Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.
+Nerede: `ai\ecc\ecc_laravel-plugin-discovery.md`
+Ne Zaman: AI modeli secimi veya degerlendirmesi gerektiginde
+Neden: Ecc Laravel Plugin Discovery islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 ## How It Works
 
 ### Finding Packages
@@ -94,6 +116,8 @@ When the user needs Laravel or PHP version compatibility:
 
 1. Search with `laravel_compatibility` filter set to their version
 2. Or get details on a specific package to see its supported versions
+
+---
 
 ## Examples
 
@@ -150,6 +174,8 @@ SearchPluginTool({
 
 Returns all healthy packages from vendor "spatie".
 
+---
+
 ## Filtering Best Practices
 
 ### By Health Score
@@ -186,6 +212,8 @@ SearchPluginTool({
 })
 ```
 
+---
+
 ## Response Interpretation
 
 ### Search Results
@@ -206,6 +234,8 @@ The detailed response includes:
 - **Risk Score**: Vendor trust indicators
 - **Version History**: Recent release timeline
 
+---
+
 ## Common Use Cases
 
 | Scenario | Recommended Approach |
@@ -216,6 +246,8 @@ The detailed response includes:
 | "Find admin panel packages" | Search "admin panel", review results |
 | "Check vendor reputation" | Search by vendor, check details |
 
+---
+
 ## Best Practices
 
 1. **Always filter by health** — Use `health_score: "Healthy"` for production projects
@@ -223,6 +255,8 @@ The detailed response includes:
 3. **Check vendor reputation** — Prefer packages from known vendors (spatie, laravel, etc.)
 4. **Review before recommending** — Use GetPluginDetailsTool for a comprehensive assessment
 5. **No API key needed** — The MCP is free, no authentication required
+
+---
 
 ## Related Skills
 

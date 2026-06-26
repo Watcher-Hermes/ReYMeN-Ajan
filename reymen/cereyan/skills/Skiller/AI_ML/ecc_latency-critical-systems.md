@@ -1,20 +1,31 @@
----
-name: latency-critical-systems
-description: Use this skill when the user cares about realtime behavior, hot paths,
-  streaming
-title: Latency Critical Systems
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Latency Critical Systems |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: latency-critical-systems
+description: Use for latency-sensitive systems such as realtime dashboards, market data, streaming agents, execution gateways, queues, caches, or HFT-like infrastructure where freshness and p95 latency matter.
+title: "Latency Critical Systems"
+origin: ECC
+tools: Read, Write, Edit, Bash, Grep, Glob
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Latency Critical Systems
 

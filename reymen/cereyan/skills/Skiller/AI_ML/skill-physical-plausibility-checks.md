@@ -1,22 +1,48 @@
 ---
 name: skill-physical-plausibility-checks
-description: Production deployments of generated video need automated guardrails.
-  Human review does not scale; physics checks catch the classic failure modes.
-title: Skill Physical Plausibility Checks
+description: Automated checks for object permanence, gravity, and continuity on any generated video before shipping
+title: "Skill Physical Plausibility Checks"
 version: 1.0.0
+phase: 4
+lesson: 28
+tags: [video-generation, quality, physics, evaluation]
+category: skill-physical-plausibility-checks
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Automated checks for object permanence, gravity, and continuity on any generated video before shipping |
+| **Nerede** | `mlops\skills\skill-physical-plausibility-checks.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Physical Plausibility Checks islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Automated checks for object permanence, gravity, and continuity on any generated video before shipping |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-generated video before shipping
+---
+
+Kim: ML/Veri bilimci
+Ne: Automated checks for object permanence, gravity, and continuity on any generated video before shipping
+Nerede: `mlops\skills\skill-physical-plausibility-checks.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Physical Plausibility Checks islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Physical Plausibility Checks
 
 Production deployments of generated video need automated guardrails. Human review does not scale; physics checks catch the classic failure modes.

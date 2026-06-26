@@ -1,21 +1,33 @@
 ---
-name: huggingface-hub
-description: The `hf` command is the modern command-line interface for interacting
-  with the Hugging Face Hub, providing tools to manage repositories, models, datasets,
-  and Spaces.
-title: Huggingface Hub
+name: huggingface-hub-huggingface-hub
+description: "HuggingFace hf CLI: search/download/upload models, datasets."
+title: "Huggingface Hub"
 version: 1.0.0
+author: Hugging Face
+license: MIT
+tags: [huggingface, hf, models, datasets, hub, mlops]
+category: mlops
+audience: user
+platforms: [linux, macos, windows]
+---
+
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | HuggingFace hf CLI: search/download/upload models, datasets. |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
 
 # Hugging Face CLI (`hf`) Reference Guide
 
@@ -27,6 +39,8 @@ The `hf` command is the modern command-line interface for interacting with the H
 *   **Installation:** `curl -LsSf https://hf.co/cli/install.sh | bash -s`
 *   **Help:** Use `hf --help` to view all available functions and real-world examples.
 *   **Authentication:** Recommended via `HF_TOKEN` environment variable or the `--token` flag.
+
+---
 
 ## Core Commands
 
@@ -48,6 +62,8 @@ The `hf` command is the modern command-line interface for interacting with the H
 *   `move`: Transfer a repository between namespaces.
 *   `branch` / `tag`: Manage Git-like references.
 *   `delete-files`: Remove specific files using patterns.
+
+---
 
 ## Specialized Hub Interactions
 
@@ -72,6 +88,8 @@ The `hf` command is the modern command-line interface for interacting with the H
 *   **Cache:** Manage local storage with `list`, `prune` (remove detached revisions), and `verify` (checksum checks).
 *   **Webhooks:** Automate workflows by managing Hub webhooks (`create`, `watch`, `enable`/`disable`).
 *   **Collections:** Organize Hub items into collections (`add-item`, `update`, `list`).
+
+---
 
 ## Advanced Usage & Tips
 

@@ -1,20 +1,30 @@
----
-name: agent-harness-construction
-description: Use this skill when you are improving how an agent plans, calls tools,
-  recovers from errors, and converges on completion.
-title: Agent Harness Construction
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Agent Harness Construction |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: agent-harness-construction
+description: Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.
+title: "Agent Harness Construction"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Agent Harness Construction
 

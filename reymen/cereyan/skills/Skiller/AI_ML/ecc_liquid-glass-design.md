@@ -1,21 +1,29 @@
----
-name: liquid-glass-design
-description: Patterns for implementing Apple's Liquid Glass — a dynamic material that
-  blurs content behind it, reflects color and light from surrounding content, and
-  reacts to touch and pointer interactions. Covers SwiftUI, UIKit, and WidgetKit integration.
-title: Liquid Glass Design
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Liquid Glass Design |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: liquid-glass-design
+description: iOS 26 Liquid Glass design system — dynamic glass material with blur, reflection, and interactive morphing for SwiftUI, UIKit, and WidgetKit.
+title: "Liquid Glass Design"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Liquid Glass Design System (iOS 26)
 

@@ -1,3 +1,0 @@
-## Recording / Exporting Video
-
-```python

@@ -1,22 +1,30 @@
----
-name: plankton-code-quality
-description: 'Integration reference for Plankton (credit: @alxfazio), a write-time
-  code quality enforcement system for Claude Code. Plankton runs formatters and linters
-  on every file edit via PostToolUse hooks, then spawns Claude subprocesses to fix
-  violations the agent didn''t catch.'
-title: Plankton Code Quality
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Plankton Code Quality |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: plankton-code-quality
+description: "Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks."
+title: "Plankton Code Quality"
+origin: community
+
+audience: user
+tags: [ai, automation, development]
+category: ecc---
 
 # Plankton Code Quality Skill
 

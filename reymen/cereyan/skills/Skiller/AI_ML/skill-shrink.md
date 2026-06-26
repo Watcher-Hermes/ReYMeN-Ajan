@@ -1,24 +1,48 @@
 ---
 name: skill-shrink
-description: Büyük skill'ler (10KB+ veya 300+ satır) Hermes'in token limitini gereksiz
-  yere şişirir ve yüklenme süresini artırır. Bu skill, şişkin skill'leri tarar, her
-  `##` bölümünü ayrı bir `references/` dosyasına taşır ve ana SKILL.md'yi hafif bir
-  yönlendiriciye dönüştürür.
-title: Skill Shrink
+title: "Skill Shrink — Şişkin Skill'leri Parçalama"
+description: "10KB+ veya 300+ satırlık şişkin skill'leri tespit eder, bölümlerini references/ altına taşır, ana SKILL.md'yi yönlendirici (router) haline getirir."
+tags: [skill-audit, optimizasyon, bakim, token-verimliligi]
+audience: maintainer
+category: devops
+related_skills: [skill-benchmark, self-improvement, obsidian-vault-maintenance]
+triggers: [skill shrink, skill parcala, siskin skill, token azalt, skill optimize]
 version: 1.0.0
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | "10KB+ veya 300+ satırlık şişkin skill'leri tespit eder, bölümlerini references/ altına taşır, ana SKILL.md'yi yönlendirici (router) haline getirir." |
+| **Nerede** | `mlops\skills\skill-shrink.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Shrink islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | 10KB+ veya 300+ satırlık şişkin skill'leri tespit eder, bölümlerini references/ altına taşır, ana SKILL.md'yi yönlendirici (router) haline getirir. |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-altına taşır, ana SKILL.md'yi yönlendirici (router) haline getirir.
+---
+
+Kim: ML/Veri bilimci
+Ne: "10KB+ veya 300+ satırlık şişkin skill'leri tespit eder, bölümlerini references/ altına taşır, ana SKILL.md'yi yönlendirici (router) haline getirir."
+Nerede: `mlops\skills\skill-shrink.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Shrink islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Skill Shrink — Şişkin Skill'leri Parçalama Aracı
 
 ## Ne İşe Yarar

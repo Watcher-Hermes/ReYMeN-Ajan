@@ -1,21 +1,31 @@
----
-name: healthcare-cdss-patterns
-description: Patterns for building Clinical Decision Support Systems that integrate
-  into EMR workflows. CDSS modules are patient safety critical — zero tolerance for
-  false negatives.
-title: Healthcare Cdss Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Healthcare Cdss Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: healthcare-cdss-patterns
+description: Clinical Decision Support System (CDSS) development patterns. Drug interaction checking, dose validation, clinical scoring (NEWS2, qSOFA), alert severity classification, and integration into EMR workflows.
+title: "Healthcare CDss Patterns"
+origin: Health1 Super Speciality Hospitals — contributed by Dr. Keyur Patel
+version: "1.0.0"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Healthcare CDSS Development Patterns
 

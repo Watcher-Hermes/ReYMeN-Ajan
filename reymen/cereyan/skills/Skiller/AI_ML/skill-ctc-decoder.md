@@ -1,22 +1,48 @@
 ---
 name: skill-ctc-decoder
-description: 'Produce two decoding routines for CTC outputs: greedy (fast) and beam
-  (better on noisy inputs).'
-title: Skill Ctc Decoder
+description: Write greedy and beam-search CTC decoders from scratch, including length normalisation
+title: "Skill Ctc Decoder"
 version: 1.0.0
+phase: 4
+lesson: 19
+tags: [ocr, ctc, decoding, sequence-models]
+category: skill-ctc-decoder
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write greedy and beam-search CTC decoders from scratch, including length normalisation |
+| **Nerede** | `mlops\skills\skill-ctc-decoder.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Ctc Decoder islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write greedy and beam-search CTC decoders from scratch, including length normalisation |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-normalisation
+---
+
+Kim: ML/Veri bilimci
+Ne: Write greedy and beam-search CTC decoders from scratch, including length normalisation
+Nerede: `mlops\skills\skill-ctc-decoder.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Ctc Decoder islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # CTC Decoder
 
 Produce two decoding routines for CTC outputs: greedy (fast) and beam (better on noisy inputs).
@@ -100,6 +126,7 @@ def beam_ctc_decode(log_probs, vocab, beam_width=5, blank=0):
         best = max(beams.items(), key=lambda kv: _logsumexp(kv[1][0], kv[1][1]))[0]
         results.append("".join(best))
     return results
+
 
 def _logsumexp(a, b):
     if a == -math.inf: return b

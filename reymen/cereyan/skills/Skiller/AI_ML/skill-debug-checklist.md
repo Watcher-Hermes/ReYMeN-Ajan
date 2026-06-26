@@ -1,20 +1,47 @@
 ---
 name: skill-debug-checklist
-description: Systematic debugging protocol for when training goes wrong. Work through
-  these in order -- most bugs are caught in the first 3 steps.
-title: Skill Debug Checklist
+description: Decision-tree checklist for debugging neural network training failures
+title: "Skill Debug Checklist"
 version: 1.0.0
+phase: 3
+lesson: 13
+tags: [debugging, neural-networks, training, diagnostics, deep-learning]
+category: skill-debug-checklist
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision-tree checklist for debugging neural network training failures |
+| **Nerede** | `mlops\skills\skill-debug-checklist.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Debug Checklist islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision-tree checklist for debugging neural network training failures |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision-tree checklist for debugging neural network training failures
+Nerede: `mlops\skills\skill-debug-checklist.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Debug Checklist islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
 
 # Neural Network Debug Checklist
 

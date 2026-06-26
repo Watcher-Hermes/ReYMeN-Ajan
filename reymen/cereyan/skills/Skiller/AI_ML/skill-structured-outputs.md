@@ -1,22 +1,48 @@
 ---
 name: skill-structured-outputs
-description: When building an LLM application that requires structured data, apply
-  this decision framework.
-title: Skill Structured Outputs
+description: Decision framework for choosing the right structured output strategy based on provider, reliability, and complexity
+title: "Skill Structured Outputs"
 version: 1.0.0
+phase: 11
+lesson: 03
+tags: [structured-output, json, schema, constrained-decoding, pydantic, function-calling]
+category: skill-structured-outputs
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Decision framework for choosing the right structured output strategy based on provider, reliability, and complexity |
+| **Nerede** | `mlops\skills\skill-structured-outputs.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Structured Outputs islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Decision framework for choosing the right structured output strategy based on provider, reliability, and complexity |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-based on provider, reliability, and complexity
+---
+
+Kim: ML/Veri bilimci
+Ne: Decision framework for choosing the right structured output strategy based on provider, reliability, and complexity
+Nerede: `mlops\skills\skill-structured-outputs.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Structured Outputs islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Structured Output Strategy
 
 When building an LLM application that requires structured data, apply this decision framework.

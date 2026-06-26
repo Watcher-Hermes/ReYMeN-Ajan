@@ -1,21 +1,30 @@
----
-name: agent-introspection-debugging
-description: Use this skill when an agent run is failing repeatedly, consuming tokens
-  without progress, looping on the same tools, or drifting away from the intended
-  task.
-title: Agent Introspection Debugging
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Agent Introspection Debugging |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: agent-introspection-debugging
+description: Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and introspection reports.
+title: "Agent Introspection Debugging"
+origin: ECC
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # Agent Introspection Debugging
 

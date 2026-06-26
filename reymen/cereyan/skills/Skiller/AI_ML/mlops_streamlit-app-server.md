@@ -1,21 +1,29 @@
----
-name: streamlit-app-server
-description: 'Run Streamlit apps (`streamlit run`) on this Windows setup. Covers the
-  full pipeline: install → first-run email bypass → serve with correct Python path
-  → manage as background process.'
-title: Streamlit App Server
-version: 1.0.0
+
+> **Kategori:** mlops
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Mlops_Streamlit App Server |
+| **Nerede?** | mlops/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: "streamlit-app-server"
+description: "Run, configure, and serve Streamlit data apps on Windows. Covers installation, first-run bypass, port/IP settings, and background process management."
+title: "Streamlit App Server"
+
+audience: user
+tags: [ai, machine-learning, mlops]
+category: mlops---
 
 # Streamlit App Server
 

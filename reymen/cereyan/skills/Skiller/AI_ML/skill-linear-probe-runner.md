@@ -1,22 +1,48 @@
 ---
 name: skill-linear-probe-runner
-description: Evaluate a frozen encoder's features by training a single linear classifier
-  on top. The standard evaluation for every self-supervised paper.
-title: Skill Linear Probe Runner
+description: Write the complete linear-probe evaluation for any frozen encoder and labelled dataset
+title: "Skill Linear PRobe Runner"
 version: 1.0.0
+phase: 4
+lesson: 17
+tags: [self-supervised, evaluation, linear-probe, pytorch]
+category: skill-linear-probe-runner
+audience: user
+
+
 ---
+
+| 5N1K | Açıklama |
+|:----:|:---------|
+| **Kim** | ML/Veri bilimci |
+| **Ne** | Write the complete linear-probe evaluation for any frozen encoder and labelled dataset |
+| **Nerede** | `mlops\skills\skill-linear-probe-runner.md` |
+| **Ne Zaman** | ML modeli egitimi veya deploy gerektiginde |
+| **Neden** | Skill Linear Probe Runner islemini standartlastirmak icin |
+| **Nasıl** | Skill dosyasindaki adimlari takip ederek |
+
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Write the complete linear-probe evaluation for any frozen encoder and labelled dataset |
+| **Nerede?** | skills/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
 
-labelled dataset
+---
+
+Kim: ML/Veri bilimci
+Ne: Write the complete linear-probe evaluation for any frozen encoder and labelled dataset
+Nerede: `mlops\skills\skill-linear-probe-runner.md`
+Ne Zaman: ML modeli egitimi veya deploy gerektiginde
+Neden: Skill Linear Probe Runner islemini standartlastirmak ve tekrarlanabilir kilmak icin
+Nasil: Skill dosyasindaki adimlari takip ederek
+
+
 # Linear Probe Runner
 
 Evaluate a frozen encoder's features by training a single linear classifier on top. The standard evaluation for every self-supervised paper.
@@ -63,6 +89,7 @@ def extract(encoder, loader, device="cpu"):
             feats.append(f)
             labels.append(y)
     return torch.cat(feats), torch.cat(labels)
+
 
 def linear_probe(encoder, feature_dim, train_loader, val_loader,
                  num_classes, epochs=50, lr=0.1, device="cpu"):

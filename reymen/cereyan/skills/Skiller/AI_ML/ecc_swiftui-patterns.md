@@ -1,21 +1,29 @@
----
-name: swiftui-patterns
-description: Modern SwiftUI patterns for building declarative, performant user interfaces
-  on Apple platforms. Covers the Observation framework, view composition, type-safe
-  navigation, and performance optimization.
-title: Swiftui Patterns
-version: 1.0.0
+
+> **Kategori:** ecc
+
 ---
 
 ## 📋 5N1K
 
 | Soru | Cevap |
 |:-----|:------|
-| **Kim?** | AI/ML mühendisi |
-| **Nerede?** | AI_ML/ |
-| **Ne Zaman?** | AI/ML görevi gerektiğinde |
-| **Neden?** | standardize etmek için |
-| **Nasıl?** | Skill adımlarını takip ederek |
+| **Kim?** | Tüm ajanlar |
+| **Ne?** | Ecc_Swiftui Patterns |
+| **Nerede?** | ecc/ |
+| **Ne Zaman?** | İhtiyaç duyulduğunda |
+| **Neden?** | Otomatik kategorilendirme |
+| **Nasıl?** | Skill referansı ile |
+
+---
+
+---
+name: swiftui-patterns
+description: SwiftUI architecture patterns, state management with @Observable, view composition, navigation, performance optimization, and modern iOS/macOS UI best practices.
+title: "Swiftui Patterns"
+
+audience: contributor
+tags: [ai, automation, development]
+category: ecc---
 
 # SwiftUI Patterns
 
