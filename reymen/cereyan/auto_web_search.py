@@ -188,8 +188,10 @@ class AutoWebSearch:
                 return sonuc
 
         try:
-            from reymen.arac.web_search_tool import web_search
-            sonuc = web_search(sorgu, limit=limit)
+            from reymen.arac.haber_kaynaklari import kaynakli_web_ara
+            sonuc_metin = kaynakli_web_ara(sorgu, limit=limit)
+            sonuc = {"sonuclar": [{"baslik": sonuc_metin[:80], "ozet": sonuc_metin}],
+                     "kaynak": "kaynakli_web_ara", "error": None}
 
             # Cache'e kaydet
             self._sonuc_cache[cache_key] = (sonuc, time.time())
@@ -206,8 +208,27 @@ class AutoWebSearch:
             return sonuc
 
         except Exception as e:
-            log.error(f"Web arama hatası: {e}")
-            return {"sonuclar": [], "kaynak": "", "error": str(e)}
+            log.warning(f"kaynakli_web_ara basarisiz, fallback: {e}")
+            try:
+                from reymen.arac.web_search_tool import web_search
+                sonuc = web_search(sorgu, limit=limit)
+
+                # Cache'e kaydet
+                self._sonuc_cache[cache_key] = (sonuc, time.time())
+
+                # Arama geçmişine ekle
+                self._son_aramalar[sorgu.lower()] = time.time()
+                self._arama_gecmisi.append({
+                    "sorgu": sorgu,
+                    "zaman": datetime.now().isoformat(),
+                    "kaynak": sonuc.get("kaynak", ""),
+                    "sonuc_sayisi": len(sonuc.get("results", [])),
+                })
+
+                return sonuc
+            except Exception as e2:
+                log.error(f"Web arama hatasi (fallback da basarisiz): {e2}")
+                return {"sonuclar": [], "kaynak": "", "error": str(e2)}
 
     def otomatik_cevap_uret(self, mesaj: str, guven_skoru: float = 0.5) -> Optional[str]:
         """
@@ -237,8 +258,8 @@ class AutoWebSearch:
             return None
 
         # Sonuçları formatla
-        from reymen.arac.web_search_tool import web_search_ve_ozetle
-        return web_search_ve_ozetle(mesaj, limit=3)
+        from reymen.arac.haber_kaynaklari import kaynakli_web_ara
+        return kaynakli_web_ara(mesaj, limit=3)
 
     def verifiye_et(self, sorgu: str, web_sonucu: str) -> Tuple[bool, str, str]:
         """
@@ -343,7 +364,7 @@ class AutoWebSearch:
     def _yeniden_ara(self, sorgu: str) -> Optional[str]:
         """Farklı sorguyla tekrar arar."""
         try:
-            from reymen.arac.web_search_tool import web_search_ve_ozetle
+            from reymen.arac.haber_kaynaklari import kaynakli_web_ara
             # Sorguyu zenginleştir
             zengin_sorgular = [
                 f"{sorgu} 2026",
@@ -352,7 +373,7 @@ class AutoWebSearch:
             ]
             for z_sorgu in zengin_sorgular:
                 try:
-                    sonuc = web_search_ve_ozetle(z_sorgu, limit=3)
+                    sonuc = kaynakli_web_ara(z_sorgu, limit=3)
                     if sonuc and len(sonuc) > 50:
                         # Bu sonucu da doğrula
                         guncel, durum, _ = self.verifiye_et(sorgu, sonuc)
@@ -383,9 +404,9 @@ class AutoWebSearch:
                 log.info(f"Cache hit (dogrulanmis_ara): {sorgu[:50]}")
                 return sonuc
 
-        # 1. İlk arama
-        from reymen.arac.web_search_tool import web_search_ve_ozetle
-        sonuc = web_search_ve_ozetle(sorgu, limit=limit)
+        # 1. İlk arama — kaynak öncelikli
+        from reymen.arac.haber_kaynaklari import kaynakli_web_ara
+        sonuc = kaynakli_web_ara(sorgu, limit=limit)
 
         if not sonuc or "Hata" in sonuc:
             return sonuc or "Arama yapılamadı", False, "Arama hatası"
@@ -442,8 +463,8 @@ def run(mesaj: str = "", islem: str = "kontrol") -> str:
     elif islem == "ara":
         if not mesaj:
             return "[Hata]: mesaj gerekli."
-        from reymen.arac.web_search_tool import web_search_ve_ozetle
-        return web_search_ve_ozetle(mesaj)
+        from reymen.arac.haber_kaynaklari import kaynakli_web_ara
+        return kaynakli_web_ara(mesaj)
 
     elif islem == "otomatik":
         if not mesaj:
@@ -470,5 +491,5 @@ if __name__ == "__main__":
     print(f"Web gerekli: {web_gerekli} ({sebep})")
 
     if web_gerekli:
-        from reymen.arac.web_search_tool import web_search_ve_ozetle
-        print(web_search_ve_ozetle(mesaj))
+        from reymen.arac.haber_kaynaklari import kaynakli_web_ara
+        print(kaynakli_web_ara(mesaj))

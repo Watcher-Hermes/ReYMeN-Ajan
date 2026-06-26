@@ -58,6 +58,8 @@ class TirithSecurity:
         try:
             from threat_patterns import ThreatDetector
             sonuc = ThreatDetector().prompt_kontrol(prompt)
+            if hasattr(sonuc, "guvenli"):
+                return sonuc.guvenli, getattr(sonuc, "tespit", "")
             return sonuc["guvenli"], sonuc["tespit"]
         except ImportError:
             return True, ""
