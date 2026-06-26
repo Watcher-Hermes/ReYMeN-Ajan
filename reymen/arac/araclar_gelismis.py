@@ -9,7 +9,6 @@ Araçlar:
 
 motor.py'e dogrudan kayit edilebilir veya bagimsiz kullanilabilir.
 """
-import logging
 import os
 import re
 import subprocess
@@ -17,9 +16,10 @@ import sys
 import threading
 import time
 from pathlib import Path
+from reymen.core.logging_config import get_logger
 
 ROOT = Path(__file__).parent
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════

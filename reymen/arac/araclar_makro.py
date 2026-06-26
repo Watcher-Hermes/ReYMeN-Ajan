@@ -11,11 +11,12 @@ DİKKAT: Bu KÖR tekrardır — aynı koordinatlara aynı sırayla tıklar.
 Pencere yeri/boyutu değişirse kayıt bozulabilir. Ekran-OCR-Tıkla daha dayanıklıdır.
 """
 import json
-import logging
+from reymen.core.logging_config import get_logger
+import logging  # __main__'de basicConfig icin korunuyor
 import os
 import time
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 try:
     from pynput import mouse, keyboard

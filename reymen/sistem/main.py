@@ -33,6 +33,14 @@ else:
     DOT_ENV = Path(__file__).parent / ".env"
     if DOT_ENV.exists():
         load_dotenv(DOT_ENV, override=True)
+
+# ── Merkezi logging yapilandirmasi ──────────────────────────────────────────
+from reymen.core.logging_config import setup_logging
+setup_logging(
+    level=os.getenv("LOG_LEVEL", "INFO"),
+    log_file=os.getenv("LOG_FILE") or None,
+    json_format=os.getenv("LOG_JSON", "false").lower() == "true",
+)
 # AppData .env'i de yukle (ReYMeN_DEFAULT_MODEL, DEEPSEEK_API_KEY vs.)
 _APPDATA_ENV = Path.home() / "AppData" / "Local" / "ReYMeN" / ".env"
 if _APPDATA_ENV.exists():

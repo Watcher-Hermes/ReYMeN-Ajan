@@ -16,14 +16,14 @@ Kullanım:
 """
 
 import json
-import logging
+from reymen.core.logging_config import get_logger
 import re
 import time
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 from datetime import datetime
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class ApprovalManager:

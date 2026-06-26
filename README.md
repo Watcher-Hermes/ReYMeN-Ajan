@@ -86,13 +86,29 @@ pytest
 
 # Coverage ile
 pytest --cov=reymen --cov-report=html
-
-# Tek dosya
-pytest tests/test_beyin.py -v
-
-# Hızlı (yavaş testleri atla)
-pytest -m "not slow"
 ```
+
+## 📝 Loglama
+
+Log seviyesi `.env` ile kontrol edilir:
+
+```bash
+LOG_LEVEL=INFO          # Development: DEBUG, Production: INFO
+LOG_FILE=logs/reymen.log  # Bos = sadece konsol, dolu = dosyaya da yazar
+LOG_JSON=false          # True = JSON format (ELK/Datadog icin)
+```
+
+Kod icinde kullanim:
+
+```python
+from reymen.core.logging_config import get_logger
+logger = get_logger(__name__)
+logger.info("Sistem baslatildi")
+logger.debug("Detayli bilgi: %s", data)
+logger.error("Hata: %s", e, exc_info=True)
+```
+
+Detayli rehber icin: [print-to-logging-rehberi](skills/print-to-logging-rehberi/README.md)
 
 ## 🐳 Docker
 

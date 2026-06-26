@@ -12,8 +12,9 @@ Bagimsiz kullanilabilir; opsiyonel kutuphaneler yoksa graceful degrade yapar:
 
 import csv
 import io
-import logging
 import os
+
+from reymen.core.logging_config import get_logger
 
 # ── Opsiyonel kutuphaneler ─────────────────────────────────────────────────────
 
@@ -48,7 +49,7 @@ except ImportError:
     _ollama_lib = None
     _OLLAMA_LIB_VAR = False
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 # ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -326,6 +327,7 @@ def dosya_analiz(dosya_yolu: str, ek_parametre: str = "") -> str:
 
 
 if __name__ == "__main__":
+    import logging
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     logger.info("=== Dosya Analiz Araçları Testi ===")
     logger.info("PDF:   %s", _PDF_VAR or "kurulu değil")

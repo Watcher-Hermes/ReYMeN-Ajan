@@ -14,10 +14,10 @@ HASSASİYET (v1.0):
 
 GÜVENLİK (v0.9'dan): güven eşiği, çoklu eşleşme, FAILSAFE, tıklama sayacı.
 """
-import logging
 import os
 
-logger = logging.getLogger(__name__)
+from reymen.core.logging_config import get_logger
+logger = get_logger(__name__)
 
 try:
     import pyautogui

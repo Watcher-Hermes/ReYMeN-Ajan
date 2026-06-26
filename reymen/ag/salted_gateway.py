@@ -17,9 +17,9 @@ import asyncio
 from collections import deque
 from typing import Optional, List, Dict, Any, Callable
 
-import logging
+from reymen.core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class TelegramRateLimiter:

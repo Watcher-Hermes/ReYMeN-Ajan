@@ -25,10 +25,12 @@ import threading
 import time
 import urllib.parse
 import urllib.request
-import logging
+
+# ── Merkezi logging yapilandirmasi ──────────────────────────────────────────
+from reymen.core.logging_config import setup_logging, get_logger
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 ROOT = Path(__file__).parent.resolve()
 sys.path.insert(0, str(ROOT))
@@ -445,8 +447,7 @@ def motor_kaydet(motor):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    setup_logging(
+        level="INFO",
     )
     polling()
