@@ -764,6 +764,22 @@ class AIAgentOrchestrator:
             except Exception:
                 pass
 
+        # ── DIREKT LLM YOLU: skill yoksa OnceHafiza/Web/ReAct atla ──────
+        # Güncel sorgular hariç tüm sorgular direkt DeepSeek'e gider.
+        if not _guncel_sorgu and _tip_hizli not in ("selam", "sohbet"):
+            try:
+                _m = getattr(self.provider, "model", None) or self.config.get("default_model", "deepseek-v4-flash")
+                yanit = self.provider.uret(
+                    "Kisa ve oz cevap ver. Turkce konus. Emoji kullanabilirsin.",
+                    [{"role": "user", "content": hedef}]
+                )
+                if yanit and yanit.strip():
+                    log.info(f"\n\033[92m❯ ReYMeN\033[0m  \033[2m({_m})\033[0m")
+                    print(yanit.strip())
+                    return {"output": yanit.strip(), "exit_code": 0, "kaynak": "direkt_llm"}
+            except Exception:
+                pass
+
         hedef = self._giris_temizle(hedef, guncel_sorgu=_guncel_sorgu)
 
         # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
@@ -1646,7 +1662,8 @@ def main() -> None:
         from startup_ekrani import gorkem_ekranu, model_sec
         gorkem_ekranu(agent=agent, config=aktif_config, skill_veri=_skill_veri)
         model_sec(agent=agent)
-    except Exception:
+    except Exception as _ekran_hata:
+        log.warning(f"[Baslangic] Kapak sayfasi hatasi: {_ekran_hata}")
         _hafiza_bilgi = ""
         if agent and agent.aktif_hafiza_plugin:
             _hafiza_bilgi = f"  Hafıza: {agent.aktif_hafiza_plugin.ad}"
