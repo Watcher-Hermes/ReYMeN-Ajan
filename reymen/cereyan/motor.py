@@ -5,10 +5,12 @@ yönlendirir. Dosya işlemlerinde file_safety + path_security kullanır.
 """
 
 from typing import Any, Optional, Dict, List, Tuple, Union
+import json
 import os
 import re
 import sys
 import logging
+import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -83,6 +85,16 @@ try:
     _PLUGIN_YUKLEYICI = _PluginYukleyici(dizin=ROOT / "plugins")
 except ImportError:
     _PLUGIN_YUKLEYICI = None
+
+# Saglik Kontrolu
+try:
+    from reymen.sistem.health_check import HealthChecker as _HealthChecker
+    from reymen.sistem.health_check import run as _health_run
+    _SAGLIK_MEVCUT = True
+except ImportError:
+    _HealthChecker = None
+    _health_run = None
+    _SAGLIK_MEVCUT = False
 
 # Fallback (if/else icin)
 try:
@@ -1580,6 +1592,226 @@ class Motor:
         if _CACHE:
             _CACHE.ekle(sistem, [{"role": "user", "content": prompt}], yanit)
 
+    # ── Provider Yönetimi ───────────────────────────────────────────────────────
+
+    def aktif_provider_listele(self) -> list[dict]:
+        """Mevcut provider'ları ve durumlarını listele.
+
+        setup.json + .env + beyin.py'deki zinciri birleştir.
+
+        Returns:
+            list[dict]: Her provider için {ad, model, aktif, durum, ...}
+        """
+        sonuc = []
+
+        # 1. setup.json'dan oku
+        setup = self._setup_oku()
+        aktif_provider = setup.get("tercih_provider", "deepseek")
+        aktif_model = setup.get("tercih_model", "deepseek-v4-flash")
+
+        # 2. Tüm olası provider'lar
+        tum_providerlar = {
+            "deepseek": {
+                "model": "deepseek-v4-flash",
+                "env_key": "DEEPSEEK_API_KEY",
+                "url": "https://api.deepseek.com",
+            },
+            "xiaomi": {
+                "model": "mimo-v2.5-pro",
+                "env_key": "XIAOMI_API_KEY",
+                "url": "https://api.xiaomimimo.com",
+            },
+            "groq": {
+                "model": "deepseek-v4-flash",
+                "env_key": "GROQ_API_KEY",
+                "url": "https://api.groq.com/openai/v1",
+            },
+            "openai": {
+                "model": "gpt-4o",
+                "env_key": "OPENAI_API_KEY",
+                "url": "https://api.openai.com/v1",
+            },
+            "anthropic": {
+                "model": "claude-sonnet-4",
+                "env_key": "ANTHROPIC_API_KEY",
+                "url": "https://api.anthropic.com",
+            },
+            "openrouter": {
+                "model": "openai/gpt-4o",
+                "env_key": "OPENROUTER_API_KEY",
+                "url": "https://openrouter.ai/api/v1",
+            },
+            "xai": {
+                "model": "grok-3",
+                "env_key": "XAI_API_KEY",
+                "url": "https://api.x.ai/v1",
+            },
+            "lmstudio": {
+                "model": "local-model",
+                "env_key": "",
+                "url": "http://localhost:1234/v1",
+            },
+            "ollama": {
+                "model": "llama3",
+                "env_key": "",
+                "url": "http://localhost:11434/v1",
+            },
+        }
+
+        for ad, bilgi in tum_providerlar.items():
+            key_mevcut = bool(bilgi["env_key"] and os.environ.get(bilgi["env_key"]))
+            aktif = ad == aktif_provider
+
+            # Provider'ı test et (ping)
+            durum = "bilinmiyor"
+            try:
+                if key_mevcut or not bilgi["env_key"]:
+                    # API anahtarı gerektirmeyenleri (LM Studio, Ollama) dene
+                    r = requests.get(f"{bilgi['url']}/models", timeout=5)
+                    durum = "acik" if r.status_code == 200 else f"HTTP {r.status_code}"
+                else:
+                    durum = "anahtar yok"
+            except requests.ConnectionError:
+                durum = "kapali"
+            except Exception:
+                durum = "hata"
+
+            sonuc.append({
+                "ad": ad,
+                "model": bilgi["model"],
+                "aktif": aktif,
+                "durum": durum,
+                "anahtar_var": key_mevcut,
+                "url": bilgi["url"],
+            })
+
+        return sonuc
+
+    def provider_test_et(self, provider_adi: str) -> dict:
+        """Belirtilen provider'ı test et.
+
+        Args:
+            provider_adi: Provider adı (deepseek, xiaomi, groq, openai, ...)
+
+        Returns:
+            dict: {"success": bool, "model": ..., "latency_ms": ..., "error": ...}
+        """
+        provider_map = {
+            "deepseek": ("DEEPSEEK_API_KEY", "https://api.deepseek.com/v1/chat/completions", "deepseek-v4-flash"),
+            "xiaomi": ("XIAOMI_API_KEY", "https://api.xiaomimimo.com/v1/chat/completions", "mimo-v2.5-pro"),
+            "groq": ("GROQ_API_KEY", "https://api.groq.com/openai/v1/chat/completions", "deepseek-v4-flash"),
+            "openai": ("OPENAI_API_KEY", "https://api.openai.com/v1/chat/completions", "gpt-4o"),
+            "anthropic": ("ANTHROPIC_API_KEY", "https://api.anthropic.com/v1/messages", "claude-sonnet-4"),
+            "openrouter": ("OPENROUTER_API_KEY", "https://openrouter.ai/api/v1/chat/completions", "openai/gpt-4o"),
+            "xai": ("XAI_API_KEY", "https://api.x.ai/v1/chat/completions", "grok-3"),
+            "lmstudio": ("", "http://localhost:1234/v1/chat/completions", "local-model"),
+            "ollama": ("", "http://localhost:11434/v1/chat/completions", "llama3"),
+        }
+
+        if provider_adi not in provider_map:
+            return {"success": False, "error": f"Bilinmeyen provider: {provider_adi}. Secenekler: {list(provider_map.keys())}"}
+
+        env_key, url, model = provider_map[provider_adi]
+        api_key = os.environ.get(env_key, "") if env_key else ""
+
+        if env_key and not api_key:
+            return {"success": False, "error": f"{env_key} .env'de tanimli degil."}
+
+        import time
+        basla = time.time()
+        try:
+            headers = {"Content-Type": "application/json"}
+            if api_key:
+                headers["Authorization"] = f"Bearer {api_key}"
+
+            payload = {
+                "model": model,
+                "messages": [{"role": "user", "content": "test"}],
+                "max_tokens": 5,
+            }
+
+            r = requests.post(url, json=payload, headers=headers, timeout=10)
+            sure = round((time.time() - basla) * 1000)
+
+            if r.status_code == 200:
+                return {"success": True, "model": model, "latency_ms": sure, "provider": provider_adi}
+            return {"success": False, "error": f"HTTP {r.status_code}: {r.text[:200]}", "latency_ms": sure}
+
+        except requests.ConnectionError:
+            return {"success": False, "error": f"Baglanti reddedildi: {url}"}
+        except requests.Timeout:
+            return {"success": False, "error": "Zaman asimi (10sn)"}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def provider_degistir(self, provider_adi: str, model: str = "") -> dict:
+        """Aktif provider'ı değiştir.
+
+        setup.json'ı günceller, .env'yi okur, beyin.py'deki zinciri yeniden kurar.
+
+        Args:
+            provider_adi: Yeni provider adı (deepseek, xiaomi, groq, ...)
+            model: Model adı (opsiyonel, bos gelirse varsayılan kullanilir)
+
+        Returns:
+            dict: {"success": bool, "provider": ..., "model": ..., ...}
+        """
+        gecerli = ["deepseek", "xiaomi", "groq", "openai", "anthropic",
+                     "openrouter", "xai", "lmstudio", "ollama"]
+
+        if provider_adi not in gecerli:
+            return {"success": False, "error": f"Gecersiz provider. Secenekler: {gecerli}"}
+
+        # Varsayılan modeller
+        default_models = {
+            "deepseek": "deepseek-v4-flash",
+            "xiaomi": "mimo-v2.5-pro",
+            "groq": "deepseek-v4-flash",
+            "openai": "gpt-4o",
+            "anthropic": "claude-sonnet-4",
+            "openrouter": "openai/gpt-4o",
+            "xai": "grok-3",
+            "lmstudio": "local-model",
+            "ollama": "llama3",
+        }
+
+        yeni_model = model or default_models.get(provider_adi, "")
+        if not yeni_model:
+            return {"success": False, "error": f"Model adi gerekli. Varsayilan bulunamadi."}
+
+        # setup.json'ı güncelle
+        setup_yolu = ROOT / ".ReYMeN" / "setup.json"
+        try:
+            with open(setup_yolu, "w", encoding="utf-8") as f:
+                json.dump({
+                    "tercih_provider": provider_adi,
+                    "tercih_model": yeni_model,
+                    "SETUP_COMPLETED": True,
+                }, f, indent=2)
+        except Exception as e:
+            return {"success": False, "error": f"setup.json yazilamadi: {e}"}
+
+        # Önbelleği temizle (beyin.py provider cache'i)
+        self._provider_cache = None
+
+        return {
+            "success": True,
+            "provider": provider_adi,
+            "model": yeni_model,
+            "mesaj": f"Provider '{provider_adi}' / model '{yeni_model}' olarak degistirildi."
+        }
+
+    def _setup_oku(self) -> dict:
+        """setup.json dosyasını oku."""
+        setup_yolu = ROOT / ".ReYMeN" / "setup.json"
+        try:
+            if setup_yolu.exists():
+                with open(setup_yolu, "r", encoding="utf-8") as f:
+                    return json.load(f)
+        except Exception:
+            pass
+        return {"tercih_provider": "deepseek", "tercih_model": "deepseek-v4-flash"}
+
 
 if __name__ == "__main__":
     m = Motor(backend_mode="local")
@@ -1620,6 +1852,27 @@ OPTIONAL_TOOLS = {
     "media": [
         "text_to_speech",
         "audio_transcribe"
+    ],
+    "powerbi": [
+        "powerbi_connect",
+        "powerbi_query",
+        "powerbi_tables",
+        "powerbi_measures"
+    ],
+    "video": [
+        "video_analyze",
+        "video_transcript",
+        "video_info"
+    ],
+    "automation": [
+        "n8n_trigger",
+        "n8n_status",
+        "n8n_list"
+    ],
+    "swarm": [
+        "swarm_run",
+        "swarm_pipeline",
+        "swarm_demo"
     ]
 }
 
@@ -1634,57 +1887,14 @@ def get_active_tools(context=None):
             tools.extend(OPTIONAL_TOOLS.get("vision", []))
         if context.get("code_needed"):
             tools.extend(OPTIONAL_TOOLS.get("code", []))
+        if context.get("powerbi_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("powerbi", []))
+        if context.get("video_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("video", []))
+        if context.get("automation_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("automation", []))
+        if context.get("swarm_needed"):
+            tools.extend(OPTIONAL_TOOLS.get("swarm", []))
     
-    return tools
-
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# OPTIMIZED TOOL REGISTRY
-# ══════════════════════════════════════════════════════════════════════════════
-
-CORE_TOOLS = [
-    "web_search",
-    "terminal",
-    "file_read",
-    "file_write",
-    "file_edit",
-    "memory",
-    "session_search",
-    "skill_view",
-    "skills_list"
-]
-
-OPTIONAL_TOOLS = {
-    "browser": [
-        "web_extract",
-        "browser_navigate",
-        "browser_click",
-        "browser_type"
-    ],
-    "vision": [
-        "vision_analyze",
-        "image_generate"
-    ],
-    "code": [
-        "execute_code",
-        "delegate_task"
-    ],
-    "media": [
-        "text_to_speech",
-        "audio_transcribe"
-    ]
-}
-
-def get_active_tools(context=None):
-    """Aktif tool'ları döndür."""
-    tools = CORE_TOOLS.copy()
-    if context:
-        if context.get("web"):
-            tools.extend(OPTIONAL_TOOLS.get("browser", []))
-        if context.get("vision"):
-            tools.extend(OPTIONAL_TOOLS.get("vision", []))
-        if context.get("code"):
-            tools.extend(OPTIONAL_TOOLS.get("code", []))
     return tools
 
