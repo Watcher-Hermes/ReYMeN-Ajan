@@ -764,13 +764,40 @@ class AIAgentOrchestrator:
             except Exception:
                 pass
 
-        # ── DIREKT LLM YOLU: skill yoksa OnceHafiza/Web/ReAct atla ──────
-        # Güncel sorgular hariç tüm sorgular direkt DeepSeek'e gider.
-        if not _guncel_sorgu and _tip_hizli not in ("selam", "sohbet"):
+        # ── ADIM 1: SKILL KONTROLÜ ────────────────────────────────────────
+        # Skill başlıklarında sorguyla ilgili skill var mı?
+        _skill_bulundu = None
+        try:
+            from skill_utils import skill_ara as _skill_ara
+            _skill_sonuc = _skill_ara(_h, limit=1)
+            if _skill_sonuc:
+                _skill_bulundu = _skill_sonuc[0]
+                log.info(f"[Skill] ✅ Eslesen skill: {_skill_bulundu['ad']}")
+        except Exception:
+            pass
+
+        if _skill_bulundu:
+            # Skill var → devam et (OnceHafiza + ReAct ile skill kullanilir)
+            pass
+        else:
+            # ── ADIM 2: HAFIZA KONTROLÜ ───────────────────────────────────
+            try:
+                _oh = _get_once_hafiza()
+                _hafiza_kayit = _oh.hafizada_ara(_h)
+                if _hafiza_kayit:
+                    cozum = _hafiza_kayit["cozum"]
+                    kaynak = _hafiza_kayit.get("kaynak", "hafiza")
+                    log.info(f"[OnceHafiza] ✅ Hafizada bulundu: {_h[:50]} (kaynak: {kaynak})")
+                    return {"output": cozum, "exit_code": 0, "once_hafiza": True, "kaynak": kaynak}
+            except Exception:
+                pass
+
+            # ── ADIM 3: DIREKT LLM ────────────────────────────────────────
+            # Skill yok, hafizada yok → direkt DeepSeek'e git.
             try:
                 _m = getattr(self.provider, "model", None) or self.config.get("default_model", "deepseek-v4-flash")
                 yanit = self.provider.uret(
-                    "Kisa ve oz cevap ver. Turkce konus. Emoji kullanabilirsin.",
+                    "Kisa ve oz cevap ver. Turkce konus.",
                     [{"role": "user", "content": hedef}]
                 )
                 if yanit and yanit.strip():
@@ -780,10 +807,10 @@ class AIAgentOrchestrator:
             except Exception:
                 pass
 
+        # ── ADIM 4: SKILL VAR → ReAct (OnceHafiza + Web + Tool Calling) ──
         hedef = self._giris_temizle(hedef, guncel_sorgu=_guncel_sorgu)
 
-        # ── ÖNCE HAFIZAYA BAK ────────────────────────────────────────────
-        # OnceHafiza: daha önce çözülmüş mü?
+        # OnceHafiza (skill için ikincil kontrol)
         _oh = _get_once_hafiza()
         _hafiza_kayit = _oh.hafizada_ara(hedef)
         if _hafiza_kayit:
@@ -797,23 +824,9 @@ class AIAgentOrchestrator:
                 "kaynak": kaynak,
             }
 
-        # Fix D: Güncel veri sorgusu → ReAct döngüsüne girmeden önce web araması dene.
-        # Cache miss + güncel kelime → AutoWebSearch → doğrulanmış taze sonuç varsa direkt dön.
-        if _guncel_sorgu:
-            try:
-                from reymen.cereyan.auto_web_search import AutoWebSearch as _AWS
-                _aws_inst = _AWS()
-                _web_metin, _web_guncel, _web_detay = _aws_inst.dogrulanmis_ara(hedef)
-                if _web_metin and "Hata" not in _web_metin and len(_web_metin.strip()) > 30:
-                    log.info(f"[GuncelWeb] ✅ Web araması başarılı (doğrulandı: {_web_guncel})")
-                    # Not: web sonucu once_hafiza'ya yazılmaz — kaydet() 6 ay TTL kullanır,
-                    # güncel fiyat verisi için yanlış olur. AutoWebSearch 5 dk in-memory cache yeterli.
-                    return {"output": _web_metin, "exit_code": 0, "kaynak": "web_arama"}
-                else:
-                    log.warning(f"[GuncelWeb] Web araması boş/hatalı döndü: {_web_detay}")
-            except Exception as _web_hata:
-                log.warning(f"[GuncelWeb] Web araması başarısız: {_web_hata}")
         # ──────────────────────────────────────────────────────────────────
+
+        # Iteration budget
 
         # Iteration budget — once karmasiklik belirle, sonra goruntu karar ver
         if self.budget:
@@ -940,14 +953,6 @@ class AIAgentOrchestrator:
         except Exception:
             pass
 
-        _sabit_kaynak_blok = ""
-        try:
-            from reymen.arac.haber_kaynaklari import KAYNAK_OZETI as _kaynak_ozeti
-            if _guncel_sorgu:
-                _sabit_kaynak_blok = f"\n\n{_kaynak_ozeti}\n"
-        except Exception:
-            pass
-
         _sabit_tercih_blok = ""
         if self.adaptif_ogrenme:
             try:
@@ -1020,7 +1025,6 @@ class AIAgentOrchestrator:
 
             if tur == 1:
                 sistem_prompt += _sabit_hafiza_plugin_blok
-                sistem_prompt += _sabit_kaynak_blok  # Güncel bilgi kaynakları
                 if kb_rehber:
                     sistem_prompt += kb_rehber
                 if _meta_ek:
