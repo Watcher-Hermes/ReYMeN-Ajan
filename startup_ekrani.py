@@ -424,6 +424,27 @@ def model_sec(agent=None) -> bool:
                 print(f"  {_g('OK')} Model degistirildi: {yeni_mod}  {_d('(' + yeni_prov + ')')}")
                 return True
 
+        # reymen alias: setup.json'daki tercih edilen modeli yukle
+        if yanit.lower() in ("reymen", "r", "default"):
+            import json as _json
+            setup_path = Path(__file__).parent / ".ReYMeN" / "setup.json"
+            if setup_path.exists():
+                try:
+                    setup_data = _json.loads(setup_path.read_text(encoding="utf-8"))
+                    tercih_prov = setup_data.get("tercih_provider", "")
+                    tercih_mod  = setup_data.get("tercih_model", "")
+                    if tercih_prov and tercih_mod:
+                        if agent:
+                            cfg = getattr(agent, "config", {})
+                            cfg["default_model"]    = tercih_mod
+                            cfg["default_provider"] = tercih_prov
+                        print(f"  {_g('OK')} ReYMeN ayarlarina gecildi: {tercih_mod}  {_d('(' + tercih_prov + ')')}")
+                        return True
+                except Exception:
+                    pass
+            print(f"  {_d('ReYMeN ayari bulunamadi. Mevcut model korunuyor.')}")
+            return False
+
         print(f"  {_d('Gecersiz secim — mevcut model korunuyor.')}")
         return False
 
